@@ -1,6 +1,6 @@
 ﻿using Application.Interfaces.Infrastructure.Postgres;
 using Application.Models;
-using Infrastructure.Postgres.Postgresql.Data;
+//using Infrastructure.Postgres.Postgresql.Data;
 using Infrastructure.Postgres.Scaffolding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -19,7 +19,7 @@ public static class Extensions
             options.EnableSensitiveDataLogging();
         });
 
-        services.AddScoped<IQuestionRepository, QuestionRepository>();
+       // services.AddScoped<IQuestionRepository, QuestionRepository>();
         services.AddScoped<Seeder>();
 
         return services;

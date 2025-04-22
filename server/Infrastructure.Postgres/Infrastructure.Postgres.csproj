@@ -23,4 +23,9 @@
         <PackageReference Include="PgCtxSetup" Version="1.5.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Postgresql.Data\DoctorRepo\" />
+      <Folder Include="Postgresql.Data\PatientRepo\" />
+    </ItemGroup>
+
 </Project>

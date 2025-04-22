@@ -14,7 +14,7 @@ using JWT.Builder;
 using JWT.Serializers;
 using Microsoft.Extensions.Options;
 
-namespace Application.Services;
+/*namespace Application.Services;
 
 public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRepository repository) : ISecurityService
 {
@@ -113,4 +113,4 @@ public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRe
             throw new AuthenticationException("Token expired");
         return token;
     }
-}
+}*/

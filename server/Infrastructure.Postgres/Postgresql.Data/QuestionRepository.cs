@@ -1,4 +1,4 @@
-﻿using Application.Interfaces.Infrastructure.Postgres;
+﻿/*using Application.Interfaces.Infrastructure.Postgres;
 using Application.Models.Dtos;
 using Core.Domain.Entities;
 using Infrastructure.Postgres.Scaffolding;
@@ -31,4 +31,4 @@ public class QuestionRepository(MyDbContext ctx) : IQuestionRepository
             .ToList();
         
     }
-}
+}*/
