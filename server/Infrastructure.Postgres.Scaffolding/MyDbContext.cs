@@ -11,6 +11,9 @@ public partial class MyDbContext : DbContext
         : base(options)
     {
     }
+    
+    
+    
 
     public virtual DbSet<Appointment> Appointments { get; set; }
 
