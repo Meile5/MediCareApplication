@@ -5,7 +5,7 @@ namespace Core.Domain.Entities;
 
 public partial class User
 {
-    public string Id { get; set; } = null!;
+    public string Iduser { get; set; } = null!;
 
     public string Email { get; set; } = null!;
 
@@ -15,5 +15,11 @@ public partial class User
 
     public string Role { get; set; } = null!;
 
-    public virtual ICollection<Group> Groups { get; set; } = new List<Group>();
+    public virtual Doctor? Doctor { get; set; }
+
+    public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
+
+    public virtual Patient? Patient { get; set; }
+
+    public virtual Role RoleNavigation { get; set; } = null!;
 }
