@@ -6,7 +6,7 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/auth/Login": {
+    "/Login": {
       "post": {
         "tags": [
           "Auth"
@@ -38,14 +38,86 @@
         }
       }
     },
-    "/api/auth/Register": {
-      "post": {
+    "/AuthWithJwt": {
+      "get": {
         "tags": [
           "Auth"
         ],
-        "operationId": "Auth_Register",
+        "operationId": "Auth_AuthWithJwt",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "clientId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/enter-chat": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_EnterChat",
         "requestBody": {
-          "x-name": "dto",
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnterChatRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "operationId": "Login_LoginM",
+        "requestBody": {
+          "x-name": "request",
           "content": {
             "application/json": {
               "schema": {
@@ -60,9 +132,10 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
+              "application/octet-stream": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDto"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -70,12 +143,24 @@
         }
       }
     },
-    "/api/auth/Secured": {
-      "get": {
+    "/AddQuestion": {
+      "post": {
         "tags": [
-          "Auth"
+          "Question"
         ],
-        "operationId": "Auth_Secured",
+        "operationId": "Question_AddQuestion",
+        "requestBody": {
+          "x-name": "dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": "",
@@ -91,120 +176,53 @@
         }
       }
     },
-    "/JoinLobby": {
+    "/GetPreviousQuestions": {
       "post": {
         "tags": [
-          "VerySimplyKahootWithInMemoryDb"
+          "Question"
         ],
-        "operationId": "VerySimplyKahootWithInMemoryDb_JoinLobby",
+        "operationId": "Question_GetPreviousQuestions",
         "parameters": [
           {
-            "name": "clientId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/StartGame": {
-      "post": {
-        "tags": [
-          "VerySimplyKahootWithInMemoryDb"
-        ],
-        "operationId": "VerySimplyKahootWithInMemoryDb_StartGame",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/PlayThroughRounds": {
-      "post": {
-        "tags": [
-          "VerySimplyKahootWithInMemoryDb"
-        ],
-        "operationId": "VerySimplyKahootWithInMemoryDb_PlayThroughRounds",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/SubmitAnswer": {
-      "post": {
-        "tags": [
-          "VerySimplyKahootWithInMemoryDb"
-        ],
-        "operationId": "VerySimplyKahootWithInMemoryDb_SubmitAnswer",
-        "parameters": [
-          {
-            "name": "player",
-            "in": "query",
+            "name": "authorization",
+            "in": "header",
             "schema": {
               "type": "string"
             },
             "x-position": 1
           },
           {
-            "name": "answer",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 2
-          },
-          {
-            "name": "questionId",
+            "name": "take",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 5
             },
             "x-position": 3
           }
         ],
+        "requestBody": {
+          "x-name": "lastQuestion",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Question"
+              }
+            }
+          },
+          "x-position": 2
+        },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Question"
+                  }
                 }
               }
             }
@@ -243,6 +261,41 @@
           "password": {
             "type": "string",
             "minLength": 4
+          }
+        }
+      },
+      "EnterChatRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateQuestionDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "questionText": {
+            "type": "string"
+          }
+        }
+      },
+      "Question": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "questiontext": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         }
       },
@@ -286,7 +339,7 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "somethingTheClientSends": {
+              "messageTheClientSends": {
                 "type": "string"
               }
             }
@@ -309,6 +362,41 @@
           }
         ]
       },
+      "JoinRoomDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "roomId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ServerMessageDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "roomId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ServerSendsErrorMessage": {
         "allOf": [
           {
@@ -325,6 +413,47 @@
           }
         ]
       },
+      "ChatMessageDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "roomId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ServerMessageDto2": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "roomId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "StringConstants": {
         "type": "string",
         "description": "Available eventType constants",
@@ -332,7 +461,11 @@
           "MemberLeftNotification",
           "ExampleClientDto",
           "ExampleServerResponse",
-          "ServerSendsErrorMessage"
+          "JoinRoomDto",
+          "ServerMessageDto",
+          "ServerSendsErrorMessage",
+          "ChatMessageDto",
+          "ServerMessageDto"
         ]
       }
     }

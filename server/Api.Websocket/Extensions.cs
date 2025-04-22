@@ -15,6 +15,7 @@ public static class Extensions
         services.AddEndpointsApiExplorer();
         var assembly = typeof(Extensions).Assembly;
         services.InjectEventHandlers(assembly);
+        services.AddScoped<JoinRoomEventHandler>(); 
         return services;
     }
 

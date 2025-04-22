@@ -2,7 +2,7 @@
 using Core.Domain.Entities;
 using Infrastructure.Postgres.Scaffolding;
 
-namespace Infrastructure.Postgres.Postgresql.Data;
+/*namespace Infrastructure.Postgres.Postgresql.Data;
 
 public class Repo(MyDbContext ctx) : IDataRepository
 {
@@ -17,4 +17,4 @@ public class Repo(MyDbContext ctx) : IDataRepository
         ctx.SaveChanges();
         return user;
     }
-}
+}*/

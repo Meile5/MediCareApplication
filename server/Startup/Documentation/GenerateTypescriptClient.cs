@@ -29,11 +29,11 @@ public static class GenerateTypescriptClient
         var code = generator.GenerateFile();
 
         var lines = code.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
-        var startIndex = lines.FindIndex(l => l.Contains("export interface BaseDto"));
+       /* var startIndex = lines.FindIndex(l => l.Contains("export interface BaseDto"));
         if (startIndex >= 0)
             lines.RemoveRange(startIndex, 4); // Remove 3 lines (interface declaration and two properties)
 
-        lines.Insert(0, "import { BaseDto } from 'ws-request-hook';");
+        lines.Insert(0, "import { BaseDto } from 'ws-request-hook';");*/
 
         var modifiedCode = string.Join(Environment.NewLine, lines);
 

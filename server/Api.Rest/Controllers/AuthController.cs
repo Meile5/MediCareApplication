@@ -1,24 +1,15 @@
-using Api.Rest.Extensions;
 using Application.Interfaces;
+using Application.Interfaces.Infrastructure.Websocket;
 using Application.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Rest.Controllers;
 
 [ApiController]
-public class AuthController(ISecurityService securityService) : ControllerBase
+public class AuthController(ISecurityService securityService, IConnectionManager connectionManager) : ControllerBase
 {
-    public const string ControllerRoute = "api/auth/";
 
-    public const string LoginRoute = ControllerRoute + nameof(Login);
-
-
-    public const string RegisterRoute = ControllerRoute + nameof(Register);
-
-
-    public const string SecuredRoute = ControllerRoute + nameof(Secured);
-
-
+    public const string LoginRoute =  nameof(Login);
     [HttpPost]
     [Route(LoginRoute)]
     public ActionResult<AuthResponseDto> Login([FromBody] AuthRequestDto dto)
@@ -26,18 +17,14 @@ public class AuthController(ISecurityService securityService) : ControllerBase
         return Ok(securityService.Login(dto));
     }
 
-    [Route(RegisterRoute)]
-    [HttpPost]
-    public ActionResult<AuthResponseDto> Register([FromBody] AuthRequestDto dto)
-    {
-        return Ok(securityService.Register(dto));
-    }
+    public const string AuthWithJwtRoute = nameof(AuthWithJwt);
 
     [HttpGet]
-    [Route(SecuredRoute)]
-    public ActionResult Secured()
+    [Route(AuthWithJwtRoute)]
+    public ActionResult AuthWithJwt([FromHeader]string authorization, string clientId)
     {
-        securityService.VerifyJwtOrThrow(HttpContext.GetJwt());
-        return Ok("You are authorized to see this message");
+        securityService.VerifyJwtOrThrow(authorization);
+        connectionManager.AddToTopic("teacher", clientId);
+        return Ok();
     }
 }

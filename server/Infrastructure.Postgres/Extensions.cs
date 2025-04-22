@@ -19,7 +19,7 @@ public static class Extensions
             options.EnableSensitiveDataLogging();
         });
 
-        services.AddScoped<IDataRepository, Repo>();
+        services.AddScoped<IQuestionRepository, QuestionRepository>();
         services.AddScoped<Seeder>();
 
         return services;

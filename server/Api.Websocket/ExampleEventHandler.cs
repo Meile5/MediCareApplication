@@ -13,7 +13,7 @@ namespace Api.Websocket;
 /// </summary>
 public class ExampleClientDto : BaseDto
 {
-    public string SomethingTheClientSends { get; set; }
+    public string MessageTheClientSends { get; set; }
 }
 
 public class ExampleServerResponse : BaseDto
@@ -21,7 +21,7 @@ public class ExampleServerResponse : BaseDto
     public string SomethingTheServerSends { get; set; }
 }
 
-public class ExampleEventHandler : BaseEventHandler<ExampleClientDto>
+public class ClientWantsToSendTheMessage : BaseEventHandler<ExampleClientDto>
 {
     public override Task Handle(ExampleClientDto dto, IWebSocketConnection socket)
     {
