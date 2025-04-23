@@ -1,30 +1,77 @@
+#include <WiFi.h>
+#include <WiFiClientSecure.h>  // Must be added manually
+#include <PubSubClient.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define SENSOR_PIN  17 
+// Wi-Fi Credentials
+const char* ssid = "";
+const char* password = "";
 
+// HiveMQ  Info
+const char* mqtt_server = "8eb6b37a41cb487dad91a6a4e69e70de.s1.eu.hivemq.cloud"; 
+const int mqtt_port = 8883; 
+const char* mqtt_user = ""; 
+const char* mqtt_password = "";
+
+// Sensor Setup
+#define SENSOR_PIN 17
 OneWire oneWire(SENSOR_PIN);
 DallasTemperature DS18B20(&oneWire);
 
-float tempC; 
-float tempF; 
+WiFiClientSecure espClient;
+PubSubClient client(espClient);
+
+float tempC;
+
+void setup_wifi() {
+  delay(10);
+  Serial.println("Connecting to WiFi...");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected!");
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    if (client.connect("ESP32Client", mqtt_user, mqtt_password)) {
+      Serial.println("connected");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      delay(2000);
+    }
+  }
+}
 
 void setup() {
-  Serial.begin(9600); 
-  DS18B20.begin();    
+  Serial.begin(9600);
+  DS18B20.begin();
+  setup_wifi();
+
+  
+  espClient.setInsecure(); 
+
+  client.setServer(mqtt_server, mqtt_port);
 }
 
 void loop() {
-  DS18B20.requestTemperatures();       
-  tempC = DS18B20.getTempCByIndex(0);  
-  tempF = tempC * 9 / 5 + 32; 
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
 
-  Serial.print("Temperature: ");
-  Serial.print(tempC);    
-  Serial.print("°C");
-  Serial.print("  ~  ");  
-  Serial.print(tempF);    
-  Serial.println("°F");
+  DS18B20.requestTemperatures();
+  tempC = DS18B20.getTempCByIndex(0);
 
-  delay(500);
+  String payload = "{\"temperature\": " + String(tempC, 2) + "}";
+  Serial.println("Publishing: " + payload);
+
+  client.publish("patient/temperature", payload.c_str());
+
+  delay(5000); // Publish every 5 seconds
 }
