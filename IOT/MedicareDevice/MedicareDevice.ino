@@ -5,14 +5,14 @@
 #include <DallasTemperature.h>
 
 // Wi-Fi Credentials
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "Veneco";
+const char* password = "Chamo12345";
 
 // HiveMQ  Info
 const char* mqtt_server = "8eb6b37a41cb487dad91a6a4e69e70de.s1.eu.hivemq.cloud"; 
 const int mqtt_port = 8883; 
-const char* mqtt_user = ""; 
-const char* mqtt_password = "";
+const char* mqtt_user = "MedicareDevice"; 
+const char* mqtt_password = "MedicarePass492154";
 
 // Sensor Setup
 #define SENSOR_PIN 17
@@ -71,7 +71,7 @@ void loop() {
   String payload = "{\"temperature\": " + String(tempC, 2) + "}";
   Serial.println("Publishing: " + payload);
 
-  client.publish("patient/temperature", payload.c_str());
+  client.publish("medicare/patient/temperature", payload.c_str());
 
   delay(5000); // Publish every 5 seconds
 }

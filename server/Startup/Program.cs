@@ -4,6 +4,7 @@ using Application;
 using Application.Models;
 using Infrastructure.Postgres;
 using Infrastructure.Websocket;
+using Infrastructure.Mqtt;
 using Microsoft.Extensions.Options;
 using NSwag.Generation;
 using Startup.Documentation;
@@ -30,6 +31,8 @@ public class Program
 
         services.AddDataSourceAndRepositories();
         services.AddWebsocketInfrastructure();
+        services.RegisterMqttInfrastructure();
+
 
         services.RegisterWebsocketApiServices();
         services.RegisterRestApiServices();
@@ -59,6 +62,7 @@ public class Program
 
         app.ConfigureRestApi();
         await app.ConfigureWebsocketApi(appOptions.WS_PORT);
+        await app.ConfigureMqtt(appOptions.MQTT_PORT);
 
 
         app.MapGet("Acceptance", () => "Accepted");
