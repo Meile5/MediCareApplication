@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using NSwag.Generation;
 using Startup.Documentation;
 using Startup.Proxy;
+using Microsoft.AspNetCore.Builder;
 
 namespace Startup;
 
@@ -68,12 +69,15 @@ public class Program
 
         app.MapGet("Acceptance", () => "Accepted");
 
-        app.UseOpenApi(conf => { conf.Path = "openapi/v1.json"; });
-
         var document = await app.Services.GetRequiredService<IOpenApiDocumentGenerator>().GenerateAsync("v1");
         var json = document.ToJson();
         await File.WriteAllTextAsync("openapi.json", json);
 
+        app.UseOpenApi(conf => { conf.Path = "openapi/v1.json"; });
+        app.UseSwaggerUi(conf => {
+            conf.Path = "/swagger";
+            conf.DocumentPath = "/openapi/v1.json";
+        });
         //app.GenerateTypeScriptClient("/../../client/src/generated-client.ts").GetAwaiter().GetResult();
     }
 }

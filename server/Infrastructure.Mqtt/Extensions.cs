@@ -3,6 +3,8 @@ using Application.Models;
 using Application.Models.Dtos;
 using Core.Domain;
 using Core.Domain.Entities;
+using Infrastructure.Mqtt.PublishingHandlers;
+
 //using Infrastructure.Mqtt.PublishingHandlers;
 using Infrastructure.Mqtt.SubscriptionHandlers;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +27,9 @@ public static class Extensions
         services.AddScoped<IMqttEventHandler, DeviceTemperatureHandler>();
         services.AddScoped<DevicePairingCodeHandler>();
         services.AddScoped<IMqttEventHandler, DevicePairingCodeHandler>();
+        services.AddSingleton<IMqttPublisher<ClientWantsToPairDeviceDto>, PairDeviceHandler>();
+        
+
 
        
         
@@ -55,7 +60,7 @@ public static class Extensions
         .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V311)
         .Build();
 
-    // ✅ Connect before registering handlers
+ 
     var result = await mqttClient.ConnectAsync(options, CancellationToken.None);
     if (result.ResultCode != MqttClientConnectResultCode.Success)
     {

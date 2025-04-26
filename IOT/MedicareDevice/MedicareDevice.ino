@@ -7,6 +7,10 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <ArduinoJson.h>
+#include <Preferences.h>
+
+Preferences preferences;
+
 
 LiquidCrystal_I2C lcd(0x27, 16, 2); 
 // Wi-Fi Credentials
@@ -32,6 +36,9 @@ float tempC;
 
 String deviceId = "DEVICE123";
 String pairingCode = "";
+bool isPaired = false;
+
+
 
 void setup_wifi() {
   delay(10);
@@ -44,11 +51,46 @@ void setup_wifi() {
   Serial.println("WiFi connected!");
 }
 
+void mqttCallback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.println("] ");
+
+  StaticJsonDocument<200> doc;
+  DeserializationError error = deserializeJson(doc, payload, length);
+  if (error) {
+    Serial.println("Failed to parse MQTT message");
+    return;
+  }
+
+  if (doc.containsKey("deviceId")) {
+    deviceId = doc["deviceId"].as<String>();
+    Serial.println("Received new deviceId: " + deviceId);
+    isPaired = true;
+
+    
+    preferences.putString("deviceId", deviceId);
+    Serial.println("deviceId saved to flash memory!");
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Paired!");
+    delay(5000);
+    lcd.clear();
+  }
+}
+
+
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     if (client.connect("ESP32Client", mqtt_user, mqtt_password)) {
       Serial.println("connected");
+
+      String topic = "medicare/pairing/" + pairingCode + "/assign";
+      client.subscribe(topic.c_str());
+      Serial.println("Subscribed to: " + topic);
+
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -83,6 +125,21 @@ String generatePairingCode() {
   return String(code);
 }
 
+void resetPairing() {
+  preferences.remove("deviceId");
+  deviceId = "";
+  isPaired = false;
+  pairingCode = generatePairingCode();
+  publishPairingCode();
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Reset Done!");
+  lcd.setCursor(0, 1);
+  lcd.print("Please restart");
+  delay(3000);
+}
+
+
 void setup() {
   Serial.begin(9600);
   
@@ -98,14 +155,30 @@ void setup() {
 
   espClient.setInsecure(); 
   client.setServer(mqtt_server, mqtt_port);
+  client.setCallback(mqttCallback);
 
+  preferences.begin("medicare", false);
+  deviceId = preferences.getString("deviceId", "");
    
   randomSeed(analogRead(0)); 
   pairingCode = generatePairingCode();
 
 
-  reconnect();
-  publishPairingCode();
+  if (deviceId != "") {
+    Serial.println("Found saved deviceId: " + deviceId);
+    isPaired = true;
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Device Paired!");
+    delay(2000);
+  } else {
+    Serial.println("No deviceId found, needs pairing");
+    randomSeed(analogRead(0)); 
+    pairingCode = generatePairingCode();
+    reconnect();
+    publishPairingCode();
+  }
+
 }
 
 void loop() {
@@ -114,16 +187,38 @@ void loop() {
   }
   client.loop();
 
-  DS18B20.requestTemperatures();
-  tempC = DS18B20.getTempCByIndex(0);
-  String tempPayload = "{\"temperature\": " + String(tempC, 2) + "}";
-  Serial.println("Publishing Temp: " + tempPayload);
-  client.publish("medicare/patient/temperature", tempPayload.c_str());
+  if (Serial.available()) {
+    char c = Serial.read();
+    if (c == 'r') {
+      resetPairing();
+    }
+  }
 
-  int ecgValue = analogRead(ECG_PIN);
-  String ecgPayload = "{\"ecg\": " + String(ecgValue) + "}";
-  Serial.println("Publishing ECG: " + ecgPayload);
-  client.publish("medicare/patient/ecg", ecgPayload.c_str());
+  if (isPaired) {
+    DS18B20.requestTemperatures();
+    tempC = DS18B20.getTempCByIndex(0);
 
-  delay(5000); // Publish every 5 seconds
+    String tempPayload = "{\"temperature\": " + String(tempC, 2) + "}";
+    Serial.println("Publishing Temp: " + tempPayload);
+    
+    String tempTopic = "medicare/patient/temperature/" + deviceId;
+    client.publish(tempTopic.c_str(), tempPayload.c_str());
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Temp:");
+    lcd.setCursor(0, 1);
+    lcd.print(tempC, 1);
+    lcd.print((char)223); 
+    lcd.print("C");
+
+    int ecgValue = analogRead(ECG_PIN);
+    String ecgPayload = "{\"ecg\": " + String(ecgValue) + "}";
+    Serial.println("Publishing ECG: " + ecgPayload);
+    
+    String ecgTopic = "medicare/patient/ecg/" + deviceId;
+    client.publish(ecgTopic.c_str(), ecgPayload.c_str());
+  }
+
+  delay(5000); 
 }

@@ -110,6 +110,39 @@
         }
       }
     },
+    "/device/pair": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "Device_PairDevice",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/login": {
       "post": {
         "tags": [
@@ -270,6 +303,24 @@
         "properties": {
           "userId": {
             "type": "string"
+          }
+        }
+      },
+      "ClientWantsToPairDeviceDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deviceId",
+          "pairingCode"
+        ],
+        "properties": {
+          "deviceId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pairingCode": {
+            "type": "string",
+            "minLength": 1
           }
         }
       },

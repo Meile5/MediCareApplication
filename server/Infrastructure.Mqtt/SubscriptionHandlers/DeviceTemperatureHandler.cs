@@ -12,11 +12,15 @@ public class DeviceTemperatureHandler : IMqttEventHandler
         _logger = logger;
     }
 
-    public string TopicPattern => "medicare/patient/temperature"; 
+    public string TopicPattern => "medicare/patient/temperature/+";
+
 
     public Task HandleAsync(MqttEvent evt)
     {
-        _logger.LogInformation("Received temperature data: {Payload}", evt.Payload);
+        var topicParts = evt.Topic.Split('/');
+        var deviceId = topicParts.Last(); 
+
+        _logger.LogInformation("Received temperature data from Device {DeviceId}: {Payload}", deviceId, evt.Payload);
         return Task.CompletedTask;
     }
 }

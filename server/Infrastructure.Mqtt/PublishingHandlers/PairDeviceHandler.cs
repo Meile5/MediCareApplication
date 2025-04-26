@@ -21,7 +21,7 @@ public class PairDeviceHandler : IMqttPublisher<ClientWantsToPairDeviceDto>
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
 
-        var topic = $"medicare/device/{dto.DeviceId}/{nameof(ClientWantsToPairDeviceDto)}";
+        var topic = $"medicare/pairing/{dto.PairingCode}/assign";
 
         var message = new MqttApplicationMessageBuilder()
             .WithTopic(topic)
@@ -31,3 +31,5 @@ public class PairDeviceHandler : IMqttPublisher<ClientWantsToPairDeviceDto>
         await _mqttClient.PublishAsync(message);
     }
 }
+
+
