@@ -33,6 +33,7 @@ public class Program
         services.AddWebsocketInfrastructure();
         services.RegisterMqttInfrastructure();
 
+        
 
         services.RegisterWebsocketApiServices();
         services.RegisterRestApiServices();

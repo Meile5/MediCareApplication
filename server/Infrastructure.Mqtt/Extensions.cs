@@ -23,6 +23,8 @@ public static class Extensions
       
         services.AddScoped<DeviceTemperatureHandler>();
         services.AddScoped<IMqttEventHandler, DeviceTemperatureHandler>();
+        services.AddScoped<DevicePairingCodeHandler>();
+        services.AddScoped<IMqttEventHandler, DevicePairingCodeHandler>();
 
        
         
