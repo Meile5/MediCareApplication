@@ -659,6 +659,65 @@
           }
         ]
       },
+      "DeviceVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "userId": {
+                "type": "string",
+                "nullable": true
+              },
+              "deviceId": {
+                "type": "string"
+              },
+              "temperature": {
+                "type": "number",
+                "format": "double"
+              }
+            }
+          }
+        ]
+      },
+      "SendTestToSubscribedClientDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "deviceId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "SubscribeToVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "userId": {
+                "type": "string"
+              },
+              "deviceId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ServerMessageDto2": {
         "allOf": [
           {
@@ -690,6 +749,9 @@
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
           "ChatMessageDto",
+          "DeviceVitalsDto",
+          "SendTestToSubscribedClientDto",
+          "SubscribeToVitalsDto",
           "ServerMessageDto"
         ]
       }

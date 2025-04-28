@@ -1,26 +1,55 @@
+using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+using Application.Interfaces.Infrastructure.Websocket;
+using Application.Models.Dtos;
 
 namespace Infrastructure.Mqtt.SubscriptionHandlers;
 
 public class DeviceTemperatureHandler : IMqttEventHandler
 {
-    private readonly ILogger<DeviceTemperatureHandler> _logger;
+    private readonly IConnectionManager _connectionManager;
 
-    public DeviceTemperatureHandler(ILogger<DeviceTemperatureHandler> logger)
+    public DeviceTemperatureHandler(IConnectionManager connectionManager)
     {
-        _logger = logger;
+        _connectionManager = connectionManager;
     }
 
     public string TopicPattern => "medicare/patient/temperature/+";
 
-
-    public Task HandleAsync(MqttEvent evt)
+    public async Task HandleAsync(MqttEvent evt)
     {
         var topicParts = evt.Topic.Split('/');
-        var deviceId = topicParts.Last(); 
+        var deviceId = topicParts.Last();
 
-        _logger.LogInformation("Received temperature data from Device {DeviceId}: {Payload}", deviceId, evt.Payload);
-        return Task.CompletedTask;
+        try
+        {
+            var payloadObj = JsonSerializer.Deserialize<TemperaturePayload>(evt.Payload, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (payloadObj == null)
+            {
+                return;
+            }
+
+            var deviceVitals = new DeviceVitalsDto
+            {
+                UserId = deviceId,
+                DeviceId = deviceId,
+                Temperature = payloadObj.Temperature
+            };
+
+            await _connectionManager.BroadcastToTopic(deviceId, deviceVitals);
+        }
+        catch
+        {
+            
+        }
+    }
+
+    public class TemperaturePayload
+    {
+        public double Temperature { get; set; }
     }
 }
