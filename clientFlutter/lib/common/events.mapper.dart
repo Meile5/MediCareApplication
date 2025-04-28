@@ -16,6 +16,9 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
       JoinRoomMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
+      DeviceVitalsMapper.ensureInitialized();
+      SubscribeToVitalsMapper.ensureInitialized();
+      SubscribeSuccessMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -405,4 +408,378 @@ class _ChatMessageCopyWithImpl<$R, $Out>
   ChatMessageCopyWith<$R2, ChatMessage, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _ChatMessageCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
+  DeviceVitalsMapper._();
+
+  static DeviceVitalsMapper? _instance;
+  static DeviceVitalsMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = DeviceVitalsMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'DeviceVitals';
+
+  static String _$userId(DeviceVitals v) => v.userId;
+  static const Field<DeviceVitals, String> _f$userId =
+      Field('userId', _$userId);
+  static String _$deviceId(DeviceVitals v) => v.deviceId;
+  static const Field<DeviceVitals, String> _f$deviceId =
+      Field('deviceId', _$deviceId);
+  static double _$temperature(DeviceVitals v) => v.temperature;
+  static const Field<DeviceVitals, double> _f$temperature =
+      Field('temperature', _$temperature);
+
+  @override
+  final MappableFields<DeviceVitals> fields = const {
+    #userId: _f$userId,
+    #deviceId: _f$deviceId,
+    #temperature: _f$temperature,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "DeviceVitals";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static DeviceVitals _instantiate(DecodingData data) {
+    return DeviceVitals(
+        userId: data.dec(_f$userId),
+        deviceId: data.dec(_f$deviceId),
+        temperature: data.dec(_f$temperature));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static DeviceVitals fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<DeviceVitals>(map);
+  }
+
+  static DeviceVitals fromJson(String json) {
+    return ensureInitialized().decodeJson<DeviceVitals>(json);
+  }
+}
+
+mixin DeviceVitalsMappable {
+  String toJson() {
+    return DeviceVitalsMapper.ensureInitialized()
+        .encodeJson<DeviceVitals>(this as DeviceVitals);
+  }
+
+  Map<String, dynamic> toMap() {
+    return DeviceVitalsMapper.ensureInitialized()
+        .encodeMap<DeviceVitals>(this as DeviceVitals);
+  }
+
+  DeviceVitalsCopyWith<DeviceVitals, DeviceVitals, DeviceVitals> get copyWith =>
+      _DeviceVitalsCopyWithImpl<DeviceVitals, DeviceVitals>(
+          this as DeviceVitals, $identity, $identity);
+  @override
+  String toString() {
+    return DeviceVitalsMapper.ensureInitialized()
+        .stringifyValue(this as DeviceVitals);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return DeviceVitalsMapper.ensureInitialized()
+        .equalsValue(this as DeviceVitals, other);
+  }
+
+  @override
+  int get hashCode {
+    return DeviceVitalsMapper.ensureInitialized()
+        .hashValue(this as DeviceVitals);
+  }
+}
+
+extension DeviceVitalsValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, DeviceVitals, $Out> {
+  DeviceVitalsCopyWith<$R, DeviceVitals, $Out> get $asDeviceVitals =>
+      $base.as((v, t, t2) => _DeviceVitalsCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class DeviceVitalsCopyWith<$R, $In extends DeviceVitals, $Out>
+    implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? userId, String? deviceId, double? temperature});
+  DeviceVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+}
+
+class _DeviceVitalsCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, DeviceVitals, $Out>
+    implements DeviceVitalsCopyWith<$R, DeviceVitals, $Out> {
+  _DeviceVitalsCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<DeviceVitals> $mapper =
+      DeviceVitalsMapper.ensureInitialized();
+  @override
+  $R call({String? userId, String? deviceId, double? temperature}) =>
+      $apply(FieldCopyWithData({
+        if (userId != null) #userId: userId,
+        if (deviceId != null) #deviceId: deviceId,
+        if (temperature != null) #temperature: temperature
+      }));
+  @override
+  DeviceVitals $make(CopyWithData data) => DeviceVitals(
+      userId: data.get(#userId, or: $value.userId),
+      deviceId: data.get(#deviceId, or: $value.deviceId),
+      temperature: data.get(#temperature, or: $value.temperature));
+
+  @override
+  DeviceVitalsCopyWith<$R2, DeviceVitals, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _DeviceVitalsCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class SubscribeToVitalsMapper extends SubClassMapperBase<SubscribeToVitals> {
+  SubscribeToVitalsMapper._();
+
+  static SubscribeToVitalsMapper? _instance;
+  static SubscribeToVitalsMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = SubscribeToVitalsMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'SubscribeToVitals';
+
+  static String _$deviceId(SubscribeToVitals v) => v.deviceId;
+  static const Field<SubscribeToVitals, String> _f$deviceId =
+      Field('deviceId', _$deviceId);
+  static String _$userId(SubscribeToVitals v) => v.userId;
+  static const Field<SubscribeToVitals, String> _f$userId =
+      Field('userId', _$userId);
+
+  @override
+  final MappableFields<SubscribeToVitals> fields = const {
+    #deviceId: _f$deviceId,
+    #userId: _f$userId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "SubscribeToVitals";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static SubscribeToVitals _instantiate(DecodingData data) {
+    return SubscribeToVitals(
+        deviceId: data.dec(_f$deviceId), userId: data.dec(_f$userId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static SubscribeToVitals fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<SubscribeToVitals>(map);
+  }
+
+  static SubscribeToVitals fromJson(String json) {
+    return ensureInitialized().decodeJson<SubscribeToVitals>(json);
+  }
+}
+
+mixin SubscribeToVitalsMappable {
+  String toJson() {
+    return SubscribeToVitalsMapper.ensureInitialized()
+        .encodeJson<SubscribeToVitals>(this as SubscribeToVitals);
+  }
+
+  Map<String, dynamic> toMap() {
+    return SubscribeToVitalsMapper.ensureInitialized()
+        .encodeMap<SubscribeToVitals>(this as SubscribeToVitals);
+  }
+
+  SubscribeToVitalsCopyWith<SubscribeToVitals, SubscribeToVitals,
+          SubscribeToVitals>
+      get copyWith =>
+          _SubscribeToVitalsCopyWithImpl<SubscribeToVitals, SubscribeToVitals>(
+              this as SubscribeToVitals, $identity, $identity);
+  @override
+  String toString() {
+    return SubscribeToVitalsMapper.ensureInitialized()
+        .stringifyValue(this as SubscribeToVitals);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return SubscribeToVitalsMapper.ensureInitialized()
+        .equalsValue(this as SubscribeToVitals, other);
+  }
+
+  @override
+  int get hashCode {
+    return SubscribeToVitalsMapper.ensureInitialized()
+        .hashValue(this as SubscribeToVitals);
+  }
+}
+
+extension SubscribeToVitalsValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, SubscribeToVitals, $Out> {
+  SubscribeToVitalsCopyWith<$R, SubscribeToVitals, $Out>
+      get $asSubscribeToVitals => $base
+          .as((v, t, t2) => _SubscribeToVitalsCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class SubscribeToVitalsCopyWith<$R, $In extends SubscribeToVitals,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? deviceId, String? userId});
+  SubscribeToVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _SubscribeToVitalsCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, SubscribeToVitals, $Out>
+    implements SubscribeToVitalsCopyWith<$R, SubscribeToVitals, $Out> {
+  _SubscribeToVitalsCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<SubscribeToVitals> $mapper =
+      SubscribeToVitalsMapper.ensureInitialized();
+  @override
+  $R call({String? deviceId, String? userId}) => $apply(FieldCopyWithData({
+        if (deviceId != null) #deviceId: deviceId,
+        if (userId != null) #userId: userId
+      }));
+  @override
+  SubscribeToVitals $make(CopyWithData data) => SubscribeToVitals(
+      deviceId: data.get(#deviceId, or: $value.deviceId),
+      userId: data.get(#userId, or: $value.userId));
+
+  @override
+  SubscribeToVitalsCopyWith<$R2, SubscribeToVitals, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _SubscribeToVitalsCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class SubscribeSuccessMapper extends SubClassMapperBase<SubscribeSuccess> {
+  SubscribeSuccessMapper._();
+
+  static SubscribeSuccessMapper? _instance;
+  static SubscribeSuccessMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = SubscribeSuccessMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'SubscribeSuccess';
+
+  static String _$message(SubscribeSuccess v) => v.message;
+  static const Field<SubscribeSuccess, String> _f$message =
+      Field('message', _$message);
+
+  @override
+  final MappableFields<SubscribeSuccess> fields = const {
+    #message: _f$message,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "SubscribeSuccess";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static SubscribeSuccess _instantiate(DecodingData data) {
+    return SubscribeSuccess(message: data.dec(_f$message));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static SubscribeSuccess fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<SubscribeSuccess>(map);
+  }
+
+  static SubscribeSuccess fromJson(String json) {
+    return ensureInitialized().decodeJson<SubscribeSuccess>(json);
+  }
+}
+
+mixin SubscribeSuccessMappable {
+  String toJson() {
+    return SubscribeSuccessMapper.ensureInitialized()
+        .encodeJson<SubscribeSuccess>(this as SubscribeSuccess);
+  }
+
+  Map<String, dynamic> toMap() {
+    return SubscribeSuccessMapper.ensureInitialized()
+        .encodeMap<SubscribeSuccess>(this as SubscribeSuccess);
+  }
+
+  SubscribeSuccessCopyWith<SubscribeSuccess, SubscribeSuccess, SubscribeSuccess>
+      get copyWith =>
+          _SubscribeSuccessCopyWithImpl<SubscribeSuccess, SubscribeSuccess>(
+              this as SubscribeSuccess, $identity, $identity);
+  @override
+  String toString() {
+    return SubscribeSuccessMapper.ensureInitialized()
+        .stringifyValue(this as SubscribeSuccess);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return SubscribeSuccessMapper.ensureInitialized()
+        .equalsValue(this as SubscribeSuccess, other);
+  }
+
+  @override
+  int get hashCode {
+    return SubscribeSuccessMapper.ensureInitialized()
+        .hashValue(this as SubscribeSuccess);
+  }
+}
+
+extension SubscribeSuccessValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, SubscribeSuccess, $Out> {
+  SubscribeSuccessCopyWith<$R, SubscribeSuccess, $Out>
+      get $asSubscribeSuccess => $base
+          .as((v, t, t2) => _SubscribeSuccessCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class SubscribeSuccessCopyWith<$R, $In extends SubscribeSuccess, $Out>
+    implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? message});
+  SubscribeSuccessCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _SubscribeSuccessCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, SubscribeSuccess, $Out>
+    implements SubscribeSuccessCopyWith<$R, SubscribeSuccess, $Out> {
+  _SubscribeSuccessCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<SubscribeSuccess> $mapper =
+      SubscribeSuccessMapper.ensureInitialized();
+  @override
+  $R call({String? message}) =>
+      $apply(FieldCopyWithData({if (message != null) #message: message}));
+  @override
+  SubscribeSuccess $make(CopyWithData data) =>
+      SubscribeSuccess(message: data.get(#message, or: $value.message));
+
+  @override
+  SubscribeSuccessCopyWith<$R2, SubscribeSuccess, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _SubscribeSuccessCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

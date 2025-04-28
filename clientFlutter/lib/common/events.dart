@@ -27,3 +27,31 @@ class ChatMessage extends BaseEvent with ServerMessageMappable {
 
   ChatMessage({required this.roomId, required this.message});
 }
+
+@MappableClass(discriminatorValue: "DeviceVitals")
+class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
+  final String userId;
+  final String deviceId;
+  final double temperature;
+
+  DeviceVitals({
+    required this.userId,
+    required this.deviceId,
+    required this.temperature,
+  });
+}
+
+@MappableClass(discriminatorValue: "SubscribeToVitals")
+class SubscribeToVitals extends BaseEvent with SubscribeToVitalsMappable {
+  final String userId;
+  final String deviceId;
+
+  SubscribeToVitals({required this.deviceId, required this.userId});
+}
+
+@MappableClass(discriminatorValue: "SubscribeSuccess")
+class SubscribeSuccess extends BaseEvent with SubscribeSuccessMappable {
+  final String message;
+
+  SubscribeSuccess({required this.message});
+}

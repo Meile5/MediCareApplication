@@ -1,34 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/account/login/login_page.dart';
+import 'package:medicare/common/websocket_service.dart';
 import 'package:medicare/patient/appointment/appointment_cubit.dart';
 import 'package:medicare/patient/appointment/data_source.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-
+import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
 void main() {
-  //final wsUri = Uri.parse('ws://localhost:8181');
-  // final channel = WebSocketChannel.connect(wsUri);
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  late final WebSocketService webSocketService;
+
+  @override
+  void initState() {
+    super.initState();
+    webSocketService = WebSocketService("ws://localhost:8181?id=user18");
+  }
+
+  @override
+  void dispose() {
+    webSocketService.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppointmentCubit(dataSource: DataSource(), channel: WebSocketChannel.connect(Uri.parse("ws://localhost:8181?id=user18"))),
-      // Pass your data source here
-      child: MaterialApp(
-        title: 'Your App Name',
-
-        home: LoginPage(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create:
+              (context) => AppointmentCubit(
+                dataSource: DataSource(),
+                webSocketService: webSocketService,
+              ),
+        ),
+        BlocProvider(
+          create: (context) => VitalsCubit(webSocketService: webSocketService),
+        ),
+      ],
+      child: MaterialApp(title: 'Medicare', home: const LoginPage()),
     );
   }
 }
-
