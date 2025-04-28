@@ -262,6 +262,71 @@
           }
         }
       }
+    },
+    "/RetrieveBookingInfo": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "operationId": "Booking_RetrieveBookingInfo",
+        "requestBody": {
+          "x-name": "doctorId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoctorAvailabilityResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/BookAppointment": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "operationId": "Booking_BookAppointment",
+        "requestBody": {
+          "x-name": "dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookAppointmentDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -347,6 +412,98 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          }
+        }
+      },
+      "DoctorAvailabilityResponseDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doctorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "doctorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "availableDates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AvailabilityDto"
+            }
+          },
+          "appointments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppointmentDto"
+            }
+          }
+        }
+      },
+      "AvailabilityDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AppointmentDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "BookAppointmentDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "doctorId": {
+            "type": "string"
           }
         }
       },
@@ -464,6 +621,22 @@
           }
         ]
       },
+      "JoinDoctorRoomDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "doctorId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ChatMessageDto": {
         "allOf": [
           {
@@ -515,6 +688,7 @@
           "JoinRoomDto",
           "ServerMessageDto",
           "ServerSendsErrorMessage",
+          "JoinDoctorRoomDto",
           "ChatMessageDto",
           "ServerMessageDto"
         ]

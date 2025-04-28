@@ -15,7 +15,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
-      body: LoginForm(),
+      body: LoginForm(
+
+      ),
     );
    /* return BlocProvider(
       create: (context) => LoginCubit(context.read<ChatService>()),

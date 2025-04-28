@@ -25,7 +25,6 @@
 
     <ItemGroup>
       <Folder Include="Postgresql.Data\DoctorRepo\" />
-      <Folder Include="Postgresql.Data\PatientRepo\" />
     </ItemGroup>
 
 </Project>

@@ -8,6 +8,11 @@ CREATE TABLE clinic (
 );
 
 
+CREATE TABLE rndom (
+    column_name integer
+);
+
+
 CREATE TABLE roles (
     idroles text NOT NULL,
     namerole text NOT NULL,
@@ -67,11 +72,13 @@ CREATE TABLE clinic_doctor (
 CREATE TABLE doctor_availability (
     id text NOT NULL,
     doctor_id text NOT NULL,
-    day_of_week date NOT NULL,
-    start_time time without time zone NOT NULL,
-    end_time time without time zone NOT NULL,
+    day_of_week text NOT NULL,
+    start_time time NOT NULL,
+    end_time time NOT NULL,
     created_at timestamp without time zone DEFAULT (now()),
     updated_at timestamp without time zone DEFAULT (now()),
+    date_override date,
+    type character varying(20) DEFAULT ('default'::character varying),
     CONSTRAINT doctor_availability_pkey PRIMARY KEY (id),
     CONSTRAINT fk_doctor FOREIGN KEY (doctor_id) REFERENCES doctors (doctorid) ON DELETE CASCADE
 );
@@ -81,11 +88,12 @@ CREATE TABLE appointments (
     id text NOT NULL,
     doctor_id text NOT NULL,
     patient_id text NOT NULL,
-    scheduled_time text NOT NULL,
     status character varying(20) NOT NULL,
     notes text,
     created_at timestamp without time zone DEFAULT (now()),
     updated_at timestamp without time zone DEFAULT (now()),
+    start_time timestamp without time zone,
+    end_time timestamp without time zone,
     CONSTRAINT appointments_pkey PRIMARY KEY (id),
     CONSTRAINT fk_doctor FOREIGN KEY (doctor_id) REFERENCES doctors (doctorid) ON DELETE CASCADE,
     CONSTRAINT fk_patient FOREIGN KEY (patient_id) REFERENCES patients (userid) ON DELETE CASCADE

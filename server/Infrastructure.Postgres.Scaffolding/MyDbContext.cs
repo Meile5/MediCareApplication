@@ -34,6 +34,8 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<PatientVital> PatientVitals { get; set; }
 
+    public virtual DbSet<Rndom> Rndoms { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -56,9 +58,14 @@ public partial class MyDbContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
+            entity.Property(e => e.EndTime)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("end_time");
             entity.Property(e => e.Notes).HasColumnName("notes");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
-            entity.Property(e => e.ScheduledTime).HasColumnName("scheduled_time");
+            entity.Property(e => e.StartTime)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("start_time");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasColumnName("status");
@@ -252,10 +259,19 @@ public partial class MyDbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
+            entity.Property(e => e.DateOverride).HasColumnName("date_override");
             entity.Property(e => e.DayOfWeek).HasColumnName("day_of_week");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
-            entity.Property(e => e.EndTime).HasColumnName("end_time");
-            entity.Property(e => e.StartTime).HasColumnName("start_time");
+            entity.Property(e => e.EndTime)
+                .HasColumnType("time")
+                .HasColumnName("end_time");
+            entity.Property(e => e.StartTime)
+                .HasColumnType("time")
+                .HasColumnName("start_time");
+            entity.Property(e => e.Type)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'default'::character varying")
+                .HasColumnName("type");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
@@ -350,6 +366,15 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.Patient).WithMany(p => p.PatientVitals)
                 .HasForeignKey(d => d.PatientId)
                 .HasConstraintName("fk_patient");
+        });
+
+        modelBuilder.Entity<Rndom>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("rndom");
+
+            entity.Property(e => e.ColumnName).HasColumnName("column_name");
         });
 
         modelBuilder.Entity<Role>(entity =>

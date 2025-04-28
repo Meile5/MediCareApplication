@@ -21,12 +21,8 @@
     <ItemGroup>
       <Folder Include="Interfaces\IDoctorService\" />
       <Folder Include="Interfaces\Infrastructure.Postgres\DoctorRep\" />
-      <Folder Include="Interfaces\Infrastructure.Postgres\PatientRep\" />
-      <Folder Include="Interfaces\IPatientService\" />
       <Folder Include="Models\Dtos\DoctorDto\" />
-      <Folder Include="Models\Dtos\PatientDto\" />
       <Folder Include="Services\DoctorService\" />
-      <Folder Include="Services\PatientService\" />
     </ItemGroup>
 
 </Project>
