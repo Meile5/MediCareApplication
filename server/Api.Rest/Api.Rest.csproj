@@ -20,7 +20,6 @@
 
     <ItemGroup>
       <Folder Include="Controllers\Doctor\" />
-      <Folder Include="Controllers\Patient\" />
     </ItemGroup>
 
 </Project>
