@@ -11,9 +11,6 @@ public partial class MyDbContext : DbContext
         : base(options)
     {
     }
-    
-    
-    
 
     public virtual DbSet<Appointment> Appointments { get; set; }
 
@@ -37,6 +34,8 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<PatientVital> PatientVitals { get; set; }
 
+    public virtual DbSet<Rndom> Rndoms { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -49,15 +48,24 @@ public partial class MyDbContext : DbContext
 
             entity.ToTable("appointments");
 
+            entity.HasIndex(e => e.DoctorId, "IX_appointments_doctor_id");
+
+            entity.HasIndex(e => e.PatientId, "IX_appointments_patient_id");
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
+            entity.Property(e => e.EndTime)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("end_time");
             entity.Property(e => e.Notes).HasColumnName("notes");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
-            entity.Property(e => e.ScheduledTime).HasColumnName("scheduled_time");
+            entity.Property(e => e.StartTime)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("start_time");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasColumnName("status");
@@ -80,6 +88,10 @@ public partial class MyDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("chat_rooms_pkey");
 
             entity.ToTable("chat_rooms");
+
+            entity.HasIndex(e => e.DoctorId, "IX_chat_rooms_doctor_id");
+
+            entity.HasIndex(e => e.PatientId, "IX_chat_rooms_patient_id");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -119,6 +131,10 @@ public partial class MyDbContext : DbContext
 
             entity.ToTable("clinic_doctor");
 
+            entity.HasIndex(e => e.Idclinic, "IX_clinic_doctor_idclinic");
+
+            entity.HasIndex(e => e.Iddoctor, "IX_clinic_doctor_iddoctor");
+
             entity.Property(e => e.Idclinicdoctor).HasColumnName("idclinicdoctor");
             entity.Property(e => e.Idclinic).HasColumnName("idclinic");
             entity.Property(e => e.Iddoctor).HasColumnName("iddoctor");
@@ -140,6 +156,10 @@ public partial class MyDbContext : DbContext
 
             entity.ToTable("clinic_patient");
 
+            entity.HasIndex(e => e.Idclinic, "IX_clinic_patient_idclinic");
+
+            entity.HasIndex(e => e.Idpatient, "IX_clinic_patient_idpatient");
+
             entity.Property(e => e.Idclinicpatient).HasColumnName("idclinicpatient");
             entity.Property(e => e.Idclinic).HasColumnName("idclinic");
             entity.Property(e => e.Idpatient).HasColumnName("idpatient");
@@ -160,6 +180,10 @@ public partial class MyDbContext : DbContext
             entity.HasKey(e => e.Iddiagnoses).HasName("diagnoses_pk");
 
             entity.ToTable("diagnoses");
+
+            entity.HasIndex(e => e.Iddoctor, "IX_diagnoses_iddoctor");
+
+            entity.HasIndex(e => e.Idpatient, "IX_diagnoses_idpatient");
 
             entity.Property(e => e.Iddiagnoses)
                 .HasColumnType("character varying")
@@ -216,6 +240,7 @@ public partial class MyDbContext : DbContext
                     {
                         j.HasKey("DoctorId", "PatientId").HasName("doctor_patient_pkey");
                         j.ToTable("doctor_patient");
+                        j.HasIndex(new[] { "PatientId" }, "IX_doctor_patient_patient_id");
                         j.IndexerProperty<string>("DoctorId").HasColumnName("doctor_id");
                         j.IndexerProperty<string>("PatientId").HasColumnName("patient_id");
                     });
@@ -227,15 +252,26 @@ public partial class MyDbContext : DbContext
 
             entity.ToTable("doctor_availability");
 
+            entity.HasIndex(e => e.DoctorId, "IX_doctor_availability_doctor_id");
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
+            entity.Property(e => e.DateOverride).HasColumnName("date_override");
             entity.Property(e => e.DayOfWeek).HasColumnName("day_of_week");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
-            entity.Property(e => e.EndTime).HasColumnName("end_time");
-            entity.Property(e => e.StartTime).HasColumnName("start_time");
+            entity.Property(e => e.EndTime)
+                .HasColumnType("time")
+                .HasColumnName("end_time");
+            entity.Property(e => e.StartTime)
+                .HasColumnType("time")
+                .HasColumnName("start_time");
+            entity.Property(e => e.Type)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'default'::character varying")
+                .HasColumnName("type");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
@@ -251,6 +287,10 @@ public partial class MyDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("messages_pkey");
 
             entity.ToTable("messages");
+
+            entity.HasIndex(e => e.RoomId, "IX_messages_room_id");
+
+            entity.HasIndex(e => e.SenderId, "IX_messages_sender_id");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Content).HasColumnName("content");
@@ -302,6 +342,8 @@ public partial class MyDbContext : DbContext
 
             entity.ToTable("patient_vitals");
 
+            entity.HasIndex(e => e.PatientId, "IX_patient_vitals_patient_id");
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BodyTemperature)
                 .HasPrecision(5, 2)
@@ -325,6 +367,15 @@ public partial class MyDbContext : DbContext
                 .HasConstraintName("fk_patient");
         });
 
+        modelBuilder.Entity<Rndom>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("rndom");
+
+            entity.Property(e => e.ColumnName).HasColumnName("column_name");
+        });
+
         modelBuilder.Entity<Role>(entity =>
         {
             entity.HasKey(e => e.Idroles).HasName("roles_pk");
@@ -340,6 +391,8 @@ public partial class MyDbContext : DbContext
             entity.HasKey(e => e.Iduser).HasName("user_pk");
 
             entity.ToTable("User");
+
+            entity.HasIndex(e => e.Role, "IX_User_role");
 
             entity.Property(e => e.Iduser).HasColumnName("iduser");
             entity.Property(e => e.Email).HasColumnName("email");
