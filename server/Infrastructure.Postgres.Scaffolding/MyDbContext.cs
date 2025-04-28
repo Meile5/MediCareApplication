@@ -325,6 +325,7 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.Allergies).HasColumnName("allergies");
             entity.Property(e => e.Bloodtype).HasColumnName("bloodtype");
+            entity.Property(e => e.Deviceid).HasColumnName("deviceid");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Phonenumber).HasColumnName("phonenumber");

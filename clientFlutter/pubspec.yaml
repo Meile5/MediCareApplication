@@ -34,6 +34,9 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   font_awesome_flutter: ^10.8.0
+
+  mqtt_client: ^10.8.0
+
   booking_calendar: ^1.1.9
   web_socket_channel: ^2.4.0
   table_calendar: ^3.0.8
