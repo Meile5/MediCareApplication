@@ -4,6 +4,6 @@ namespace Application.Interfaces.Infrastructure.Postgres;
 
 public interface IVitalsRepository
 {
-    public PatientVital AddVitals(Question q);
+    //public PatientVital AddVitals(Question q);
     
 }

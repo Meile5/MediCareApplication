@@ -1,5 +1,5 @@
-#include <Wire.h>        // I2C library (needed for LCD)
-#include <LiquidCrystal_I2C.h>  // LCD library
+#include <Wire.h>        
+#include <LiquidCrystal_I2C.h>  
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>  
@@ -14,8 +14,8 @@ Preferences preferences;
 
 LiquidCrystal_I2C lcd(0x27, 16, 2); 
 // Wi-Fi Credentials
-const char* ssid = "GNX-A8D0";
-const char* password = "AJRLR3LA3HTXAJ";
+const char* ssid = "Veneco";
+const char* password = "Chamo12345";
 
 // HiveMQ Info
 const char* mqtt_server = "8eb6b37a41cb487dad91a6a4e69e70de.s1.eu.hivemq.cloud"; 

@@ -47,6 +47,7 @@ CREATE TABLE patients (
     bloodtype text NOT NULL,
     allergies text,
     phonenumber text NOT NULL,
+    deviceid text,
     address text NOT NULL,
     CONSTRAINT patients_pk PRIMARY KEY (userid),
     CONSTRAINT patients_user_iduser_fk FOREIGN KEY (userid) REFERENCES "User" (iduser)
