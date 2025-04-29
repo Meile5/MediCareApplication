@@ -6,7 +6,7 @@ class WebSocketService {
 
   WebSocketService(String url) {
     _channel = WebSocketChannel.connect(Uri.parse(url));
-    _stream = _channel.stream.asBroadcastStream(); // <-- Important part!
+    _stream = _channel.stream.asBroadcastStream();
   }
 
   Stream get stream => _stream;
