@@ -5,16 +5,16 @@ using Application.Models.Dtos;
 
 namespace Infrastructure.Mqtt.SubscriptionHandlers;
 
-public class DeviceTemperatureHandler : IMqttEventHandler
+public class DeviceVitalsHandler : IMqttEventHandler
 {
     private readonly IConnectionManager _connectionManager;
 
-    public DeviceTemperatureHandler(IConnectionManager connectionManager)
+    public DeviceVitalsHandler(IConnectionManager connectionManager)
     {
         _connectionManager = connectionManager;
     }
 
-    public string TopicPattern => "medicare/patient/temperature/+";
+    public string TopicPattern => "medicare/patient/vitals/+";
 
     public async Task HandleAsync(MqttEvent evt)
     {
@@ -23,7 +23,7 @@ public class DeviceTemperatureHandler : IMqttEventHandler
 
         try
         {
-            var payloadObj = JsonSerializer.Deserialize<TemperaturePayload>(evt.Payload, new JsonSerializerOptions
+            var payloadObj = JsonSerializer.Deserialize<VitalsPayload>(evt.Payload, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
@@ -37,7 +37,8 @@ public class DeviceTemperatureHandler : IMqttEventHandler
             {
                 UserId = deviceId,
                 DeviceId = deviceId,
-                Temperature = payloadObj.Temperature
+                Temperature = payloadObj.Temperature,
+                Ecg = payloadObj.Ecg
             };
 
             await _connectionManager.BroadcastToTopic(deviceId, deviceVitals);
@@ -48,8 +49,10 @@ public class DeviceTemperatureHandler : IMqttEventHandler
         }
     }
 
-    public class TemperaturePayload
+    public class VitalsPayload
     {
         public double Temperature { get; set; }
+        public double Ecg {get;set;}
+        
     }
 }

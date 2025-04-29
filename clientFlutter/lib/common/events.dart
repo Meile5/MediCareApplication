@@ -33,11 +33,13 @@ class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
   final String userId;
   final String deviceId;
   final double temperature;
+  final double ecg;
 
   DeviceVitals({
     required this.userId,
     required this.deviceId,
     required this.temperature,
+    required this.ecg,
   });
 }
 

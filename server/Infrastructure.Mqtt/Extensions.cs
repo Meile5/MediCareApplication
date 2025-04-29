@@ -23,8 +23,8 @@ public static class Extensions
         services.AddSingleton<MqttEventBus>();
         
       
-        services.AddScoped<DeviceTemperatureHandler>();
-        services.AddScoped<IMqttEventHandler, DeviceTemperatureHandler>();
+        services.AddScoped<DeviceVitalsHandler>();
+        services.AddScoped<IMqttEventHandler, DeviceVitalsHandler>();
         services.AddScoped<DevicePairingCodeHandler>();
         services.AddScoped<IMqttEventHandler, DevicePairingCodeHandler>();
         services.AddSingleton<IMqttPublisher<ClientWantsToPairDeviceDto>, PairDeviceHandler>();

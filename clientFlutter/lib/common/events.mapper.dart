@@ -434,12 +434,15 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
   static double _$temperature(DeviceVitals v) => v.temperature;
   static const Field<DeviceVitals, double> _f$temperature =
       Field('temperature', _$temperature);
+  static double _$ecg(DeviceVitals v) => v.ecg;
+  static const Field<DeviceVitals, double> _f$ecg = Field('ecg', _$ecg);
 
   @override
   final MappableFields<DeviceVitals> fields = const {
     #userId: _f$userId,
     #deviceId: _f$deviceId,
     #temperature: _f$temperature,
+    #ecg: _f$ecg,
   };
 
   @override
@@ -453,7 +456,8 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
     return DeviceVitals(
         userId: data.dec(_f$userId),
         deviceId: data.dec(_f$deviceId),
-        temperature: data.dec(_f$temperature));
+        temperature: data.dec(_f$temperature),
+        ecg: data.dec(_f$ecg));
   }
 
   @override
@@ -510,7 +514,7 @@ extension DeviceVitalsValueCopy<$R, $Out>
 abstract class DeviceVitalsCopyWith<$R, $In extends DeviceVitals, $Out>
     implements BaseEventCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? userId, String? deviceId, double? temperature});
+  $R call({String? userId, String? deviceId, double? temperature, double? ecg});
   DeviceVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -523,17 +527,23 @@ class _DeviceVitalsCopyWithImpl<$R, $Out>
   late final ClassMapperBase<DeviceVitals> $mapper =
       DeviceVitalsMapper.ensureInitialized();
   @override
-  $R call({String? userId, String? deviceId, double? temperature}) =>
+  $R call(
+          {String? userId,
+          String? deviceId,
+          double? temperature,
+          double? ecg}) =>
       $apply(FieldCopyWithData({
         if (userId != null) #userId: userId,
         if (deviceId != null) #deviceId: deviceId,
-        if (temperature != null) #temperature: temperature
+        if (temperature != null) #temperature: temperature,
+        if (ecg != null) #ecg: ecg
       }));
   @override
   DeviceVitals $make(CopyWithData data) => DeviceVitals(
       userId: data.get(#userId, or: $value.userId),
       deviceId: data.get(#deviceId, or: $value.deviceId),
-      temperature: data.get(#temperature, or: $value.temperature));
+      temperature: data.get(#temperature, or: $value.temperature),
+      ecg: data.get(#ecg, or: $value.ecg));
 
   @override
   DeviceVitalsCopyWith<$R2, DeviceVitals, $Out2> $chain<$R2, $Out2>(
