@@ -659,6 +659,30 @@
           }
         ]
       },
+      "DeviceVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "userId": {
+                "type": "string",
+                "nullable": true
+              },
+              "deviceId": {
+                "type": "string"
+              },
+              "temperature": {
+                "type": "number",
+                "format": "double"
+              }
+            }
+          }
+        ]
+      },
       "SendTestToSubscribedClientDto": {
         "allOf": [
           {
@@ -725,6 +749,7 @@
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
           "ChatMessageDto",
+          "DeviceVitalsDto",
           "SendTestToSubscribedClientDto",
           "SubscribeToVitalsDto",
           "ServerMessageDto"

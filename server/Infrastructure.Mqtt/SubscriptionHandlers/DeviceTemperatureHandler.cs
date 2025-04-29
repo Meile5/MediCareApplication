@@ -5,11 +5,11 @@ using Application.Models.Dtos;
 
 namespace Infrastructure.Mqtt.SubscriptionHandlers;
 
-public class DeviceVitalsHandler : IMqttEventHandler
+public class DeviceTemperatureHandler : IMqttEventHandler
 {
     private readonly IConnectionManager _connectionManager;
 
-    public DeviceVitalsHandler(IConnectionManager connectionManager)
+    public DeviceTemperatureHandler(IConnectionManager connectionManager)
     {
         _connectionManager = connectionManager;
     }
