@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:medicare/common/widgets.dart';
 import 'package:medicare/patient/appointment/models_appointments.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'appointment_cubit.dart';
 import 'appointment_state.dart';
+import 'models_for_mapping.dart';
 
 class CustomBookingCalendar extends StatefulWidget {
   const CustomBookingCalendar({super.key});
@@ -21,7 +23,6 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
       return isSameDay(slot.startTime, _selectedDay);
     }).toList();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,12 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
-                          _selectedSlot = slot;
+                          // Select the slot if it's not already selected, otherwise deselect
+                          if (_selectedSlot?.startTime != slot.startTime || _selectedSlot?.endTime != slot.endTime) {
+                            _selectedSlot = slot;
+                          } else {
+                            _selectedSlot = null;
+                          }
                         });
                       },
                       child: Container(
@@ -88,7 +94,8 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                               : null,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withValues(alpha: 0.2),                              spreadRadius: 2,
+                              color: Colors.grey.withValues(alpha: 0.2),
+                              spreadRadius: 2,
                               blurRadius: 5,
                               offset: const Offset(0, 3),
                             )],
@@ -119,6 +126,15 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                 : () {
 
               final selectedTime = _selectedSlot!.startTime;
+              final appointmentDto = BookAppointmentDto(
+                startTime: _selectedSlot!.startTime!,
+                endTime: _selectedSlot!.endTime!,
+                patientId: 'user123',
+                doctorId: 'user-doctor-1',
+              );
+
+              context.read<AppointmentCubit>().bookAppointment(appointmentDto);
+
               print('Selected time: $selectedTime');
 
 
@@ -131,6 +147,17 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
             child: const Text('Book Appointment'),
           ),
         ),
+        BlocListener<AppointmentCubit, AppointmentState>(
+          listener: (context, state) {
+            if (state is AppointmentBookedSuccessfully) {
+              context.showSnackBar(message: state.message);
+            } else if (state is AppointmentError) {
+              context.showErrorSnackBar(message: state.message);
+            }
+          },
+          child: const SizedBox.shrink(), // Empty widget, just for listener
+        )
+
 
 
 
