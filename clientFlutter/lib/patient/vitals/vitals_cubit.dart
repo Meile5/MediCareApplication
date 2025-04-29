@@ -18,7 +18,7 @@ class VitalsCubit extends Cubit<VitalsState> {
         userId: 'MedicareApp',
       ).toJson(),
     );
-
+    //small change
     // Listen for incoming messages
     _subscription = webSocketService.stream.listen(
       (rawEvent) {
