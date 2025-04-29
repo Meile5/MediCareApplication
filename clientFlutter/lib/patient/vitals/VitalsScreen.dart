@@ -5,7 +5,7 @@ import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
 class VitalsScreen extends StatelessWidget {
   const VitalsScreen({super.key});
-
+  //small change
   @override
   Widget build(BuildContext context) {
     return Scaffold(

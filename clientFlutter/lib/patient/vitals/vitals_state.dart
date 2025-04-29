@@ -4,6 +4,7 @@ abstract class VitalsState {}
 
 class VitalsInitial extends VitalsState {}
 
+//small change
 class VitalsUpdated extends VitalsState {
   final double temperature;
 
