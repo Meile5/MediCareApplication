@@ -483,14 +483,6 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
           "startTime": {
             "type": "string",
             "format": "date-time"
@@ -659,6 +651,25 @@
           }
         ]
       },
+      "SubscribeToVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "userId": {
+                "type": "string"
+              },
+              "deviceId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ServerMessageDto2": {
         "allOf": [
           {
@@ -690,6 +701,7 @@
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
           "ChatMessageDto",
+          "SubscribeToVitalsDto",
           "ServerMessageDto"
         ]
       }
