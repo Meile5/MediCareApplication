@@ -41,6 +41,7 @@ class ChatMessage extends BaseEvent with ServerMessageMappable {
   ChatMessage({required this.roomId, required this.message});
 }
 
+
 @MappableClass(discriminatorValue: "DeviceVitals")
 class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
   final String userId;
@@ -70,3 +71,4 @@ class SubscribeSuccess extends BaseEvent with SubscribeSuccessMappable {
 
   SubscribeSuccess({required this.message});
 }
+

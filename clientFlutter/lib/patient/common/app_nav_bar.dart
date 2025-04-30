@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/common/navigation_notifier.dart';
 import '../appointment/AppoinmentScreen.dart';
 import '../chat/ChatScreen.dart';
 import '../overview/OverviewScreen.dart';
 import '../vitals/VitalsScreen.dart';
 
-class NavigationWidget extends StatefulWidget {
-  const NavigationWidget({super.key});
+
+class AppNavBar extends StatefulWidget {
+  const AppNavBar({
+    super.key,
+  });
 
   @override
-  State<NavigationWidget> createState() => _NavigationWidgetState();
+  State<AppNavBar> createState() => _AppNavBarState();
 }
 
-class _NavigationWidgetState extends State<NavigationWidget> {
-  int _selectedIndex = 0;
+class _AppNavBarState extends State<AppNavBar> {
 
   final List<Widget> widgetOptions = const [
     OverviewScreen(),
@@ -22,18 +26,17 @@ class _NavigationWidgetState extends State<NavigationWidget> {
     VitalsScreen(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _onItemTapped(BuildContext context, int index) {
+    context.read<NavigationModel>().currentIndex.value = index;
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => widgetOptions[index]));
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widgetOptions[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+    final navModel = context.read<NavigationModel>();
+    return ValueListenableBuilder(
+      valueListenable: navModel.currentIndex,
+      builder: (context, value, _) => BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
@@ -57,8 +60,8 @@ class _NavigationWidgetState extends State<NavigationWidget> {
             label: 'Vitals',
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        currentIndex: value,
+        onTap: (index) => _onItemTapped(context, index),
       ),
     );
   }

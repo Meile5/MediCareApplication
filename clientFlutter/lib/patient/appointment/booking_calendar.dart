@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/common/widgets.dart';
 import 'package:medicare/patient/appointment/models_appointments.dart';
+import 'package:medicare/patient/common/app_nav_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'appointment_cubit.dart';
 import 'appointment_state.dart';
@@ -165,7 +166,8 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
           )
 
         ],
-      )
+      ),
+      bottomNavigationBar: AppNavBar(),
     );
   }
 }
