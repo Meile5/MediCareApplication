@@ -198,27 +198,32 @@ void loop() {
     DS18B20.requestTemperatures();
     tempC = DS18B20.getTempCByIndex(0);
 
-    String tempPayload = "{\"temperature\": " + String(tempC, 2) + "}";
-    Serial.println("Publishing Temp: " + tempPayload);
-    
-    String tempTopic = "medicare/patient/temperature/" + deviceId;
-    client.publish(tempTopic.c_str(), tempPayload.c_str());
+    int ecgValue = analogRead(ECG_PIN);
 
+    StaticJsonDocument<128> doc;
+    doc["temperature"] = tempC;
+    doc["ecg"] = ecgValue;
+
+    String payload;
+    serializeJson(doc, payload);
+
+    String unifiedTopic = "medicare/patient/vitals/" + deviceId;
+    client.publish(unifiedTopic.c_str(), payload.c_str());
+
+    Serial.println("Publishing Vitals: " + payload);
+
+    
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Temp:");
-    lcd.setCursor(0, 1);
     lcd.print(tempC, 1);
-    lcd.print((char)223); 
+    lcd.print((char)223);
     lcd.print("C");
-
-    int ecgValue = analogRead(ECG_PIN);
-    String ecgPayload = "{\"ecg\": " + String(ecgValue) + "}";
-    Serial.println("Publishing ECG: " + ecgPayload);
-    
-    String ecgTopic = "medicare/patient/ecg/" + deviceId;
-    client.publish(ecgTopic.c_str(), ecgPayload.c_str());
+    lcd.setCursor(0, 1);
+    lcd.print("ECG:");
+    lcd.print(ecgValue);
   }
 
-  delay(5000); 
+  delay(5000);
 }
+

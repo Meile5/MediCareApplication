@@ -7,4 +7,5 @@ public class DeviceVitalsDto
     public string UserId { get; set; } = null!;              
     public string DeviceId { get; set; } = null!;
     public double Temperature { get; set; }
+    public double Ecg { get; set; }
 }
