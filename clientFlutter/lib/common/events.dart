@@ -11,6 +11,19 @@ class JoinRoom extends BaseEvent with JoinRoomMappable {
 
   JoinRoom({required this.roomId});
 }
+@MappableClass(discriminatorValue: "JoinDoctorRoom")
+class JoinDoctorRoom extends BaseEvent with JoinDoctorRoomMappable {
+  final String roomId;
+
+  JoinDoctorRoom({required this.roomId});
+}
+
+@MappableClass(discriminatorValue: "BroadcastBookedSlot")
+class BroadcastBookedSlot extends BaseEvent with BroadcastBookedSlotMappable {
+  final String id;
+
+  BroadcastBookedSlot({required this.id});
+}
 
 @MappableClass(discriminatorValue: "ServerMessage")
 class ServerMessage extends BaseEvent with ServerMessageMappable {

@@ -55,23 +55,23 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
+                .HasColumnType("timestamp with time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
             entity.Property(e => e.EndTime)
-                .HasColumnType("timestamp without time zone")
+                .HasColumnType("timestamp with time zone")
                 .HasColumnName("end_time");
             entity.Property(e => e.Notes).HasColumnName("notes");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
             entity.Property(e => e.StartTime)
-                .HasColumnType("timestamp without time zone")
+                .HasColumnType("timestamp with time zone")
                 .HasColumnName("start_time");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
+                .HasColumnType("timestamp with time zone")
                 .HasColumnName("updated_at");
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Appointments)

@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/patient/appointment/test.dart';
-
-import 'Booking.dart';
+import 'package:medicare/patient/appointment/appointment_navigation.dart';
+import 'package:medicare/patient/appointment/booking_calendar.dart';
 
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: //Text('Appointment Screen', style: TextStyle(fontSize: 24)),
-      CustomBookingCalendar(),
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomBookingCalendar(),
+                  ),
+                );
+              },
+            ),
+          ),
+          Expanded(
+            child: AppointmentNavigation(),
+          ),
+        ],
+      ),
     );
   }
+
 }
 

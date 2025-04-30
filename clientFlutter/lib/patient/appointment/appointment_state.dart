@@ -15,7 +15,18 @@ final class AppointmentLoaded extends AppointmentState {
   AppointmentLoaded({required this.availableTimes});
 }
 
+final class AppointmentBooked extends AppointmentState {
+  final String message;
+  AppointmentBooked({required this.message});
+}
+
 final class AppointmentError extends AppointmentState {
   final String message;
   AppointmentError({required this.message});
+}
+
+final class AppointmentBookedSuccessfully extends AppointmentState {
+  final String message;
+  AppointmentBookedSuccessfully({required this.message});
+
 }

@@ -14,6 +14,8 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = BaseEventMapper._());
       JoinRoomMapper.ensureInitialized();
+      JoinDoctorRoomMapper.ensureInitialized();
+      BroadcastBookedSlotMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
     }
@@ -163,6 +165,238 @@ class _JoinRoomCopyWithImpl<$R, $Out>
   JoinRoomCopyWith<$R2, JoinRoom, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _JoinRoomCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class JoinDoctorRoomMapper extends SubClassMapperBase<JoinDoctorRoom> {
+  JoinDoctorRoomMapper._();
+
+  static JoinDoctorRoomMapper? _instance;
+  static JoinDoctorRoomMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = JoinDoctorRoomMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'JoinDoctorRoom';
+
+  static String _$roomId(JoinDoctorRoom v) => v.roomId;
+  static const Field<JoinDoctorRoom, String> _f$roomId =
+      Field('roomId', _$roomId);
+
+  @override
+  final MappableFields<JoinDoctorRoom> fields = const {
+    #roomId: _f$roomId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "JoinDoctorRoom";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static JoinDoctorRoom _instantiate(DecodingData data) {
+    return JoinDoctorRoom(roomId: data.dec(_f$roomId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static JoinDoctorRoom fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<JoinDoctorRoom>(map);
+  }
+
+  static JoinDoctorRoom fromJson(String json) {
+    return ensureInitialized().decodeJson<JoinDoctorRoom>(json);
+  }
+}
+
+mixin JoinDoctorRoomMappable {
+  String toJson() {
+    return JoinDoctorRoomMapper.ensureInitialized()
+        .encodeJson<JoinDoctorRoom>(this as JoinDoctorRoom);
+  }
+
+  Map<String, dynamic> toMap() {
+    return JoinDoctorRoomMapper.ensureInitialized()
+        .encodeMap<JoinDoctorRoom>(this as JoinDoctorRoom);
+  }
+
+  JoinDoctorRoomCopyWith<JoinDoctorRoom, JoinDoctorRoom, JoinDoctorRoom>
+      get copyWith =>
+          _JoinDoctorRoomCopyWithImpl<JoinDoctorRoom, JoinDoctorRoom>(
+              this as JoinDoctorRoom, $identity, $identity);
+  @override
+  String toString() {
+    return JoinDoctorRoomMapper.ensureInitialized()
+        .stringifyValue(this as JoinDoctorRoom);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return JoinDoctorRoomMapper.ensureInitialized()
+        .equalsValue(this as JoinDoctorRoom, other);
+  }
+
+  @override
+  int get hashCode {
+    return JoinDoctorRoomMapper.ensureInitialized()
+        .hashValue(this as JoinDoctorRoom);
+  }
+}
+
+extension JoinDoctorRoomValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, JoinDoctorRoom, $Out> {
+  JoinDoctorRoomCopyWith<$R, JoinDoctorRoom, $Out> get $asJoinDoctorRoom =>
+      $base.as((v, t, t2) => _JoinDoctorRoomCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class JoinDoctorRoomCopyWith<$R, $In extends JoinDoctorRoom, $Out>
+    implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? roomId});
+  JoinDoctorRoomCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _JoinDoctorRoomCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, JoinDoctorRoom, $Out>
+    implements JoinDoctorRoomCopyWith<$R, JoinDoctorRoom, $Out> {
+  _JoinDoctorRoomCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<JoinDoctorRoom> $mapper =
+      JoinDoctorRoomMapper.ensureInitialized();
+  @override
+  $R call({String? roomId}) =>
+      $apply(FieldCopyWithData({if (roomId != null) #roomId: roomId}));
+  @override
+  JoinDoctorRoom $make(CopyWithData data) =>
+      JoinDoctorRoom(roomId: data.get(#roomId, or: $value.roomId));
+
+  @override
+  JoinDoctorRoomCopyWith<$R2, JoinDoctorRoom, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _JoinDoctorRoomCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class BroadcastBookedSlotMapper
+    extends SubClassMapperBase<BroadcastBookedSlot> {
+  BroadcastBookedSlotMapper._();
+
+  static BroadcastBookedSlotMapper? _instance;
+  static BroadcastBookedSlotMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = BroadcastBookedSlotMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'BroadcastBookedSlot';
+
+  static String _$id(BroadcastBookedSlot v) => v.id;
+  static const Field<BroadcastBookedSlot, String> _f$id = Field('id', _$id);
+
+  @override
+  final MappableFields<BroadcastBookedSlot> fields = const {
+    #id: _f$id,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "BroadcastBookedSlot";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static BroadcastBookedSlot _instantiate(DecodingData data) {
+    return BroadcastBookedSlot(id: data.dec(_f$id));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static BroadcastBookedSlot fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<BroadcastBookedSlot>(map);
+  }
+
+  static BroadcastBookedSlot fromJson(String json) {
+    return ensureInitialized().decodeJson<BroadcastBookedSlot>(json);
+  }
+}
+
+mixin BroadcastBookedSlotMappable {
+  String toJson() {
+    return BroadcastBookedSlotMapper.ensureInitialized()
+        .encodeJson<BroadcastBookedSlot>(this as BroadcastBookedSlot);
+  }
+
+  Map<String, dynamic> toMap() {
+    return BroadcastBookedSlotMapper.ensureInitialized()
+        .encodeMap<BroadcastBookedSlot>(this as BroadcastBookedSlot);
+  }
+
+  BroadcastBookedSlotCopyWith<BroadcastBookedSlot, BroadcastBookedSlot,
+      BroadcastBookedSlot> get copyWith => _BroadcastBookedSlotCopyWithImpl<
+          BroadcastBookedSlot, BroadcastBookedSlot>(
+      this as BroadcastBookedSlot, $identity, $identity);
+  @override
+  String toString() {
+    return BroadcastBookedSlotMapper.ensureInitialized()
+        .stringifyValue(this as BroadcastBookedSlot);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return BroadcastBookedSlotMapper.ensureInitialized()
+        .equalsValue(this as BroadcastBookedSlot, other);
+  }
+
+  @override
+  int get hashCode {
+    return BroadcastBookedSlotMapper.ensureInitialized()
+        .hashValue(this as BroadcastBookedSlot);
+  }
+}
+
+extension BroadcastBookedSlotValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, BroadcastBookedSlot, $Out> {
+  BroadcastBookedSlotCopyWith<$R, BroadcastBookedSlot, $Out>
+      get $asBroadcastBookedSlot => $base.as(
+          (v, t, t2) => _BroadcastBookedSlotCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class BroadcastBookedSlotCopyWith<$R, $In extends BroadcastBookedSlot,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? id});
+  BroadcastBookedSlotCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _BroadcastBookedSlotCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, BroadcastBookedSlot, $Out>
+    implements BroadcastBookedSlotCopyWith<$R, BroadcastBookedSlot, $Out> {
+  _BroadcastBookedSlotCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<BroadcastBookedSlot> $mapper =
+      BroadcastBookedSlotMapper.ensureInitialized();
+  @override
+  $R call({String? id}) => $apply(FieldCopyWithData({if (id != null) #id: id}));
+  @override
+  BroadcastBookedSlot $make(CopyWithData data) =>
+      BroadcastBookedSlot(id: data.get(#id, or: $value.id));
+
+  @override
+  BroadcastBookedSlotCopyWith<$R2, BroadcastBookedSlot, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _BroadcastBookedSlotCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ServerMessageMapper extends SubClassMapperBase<ServerMessage> {

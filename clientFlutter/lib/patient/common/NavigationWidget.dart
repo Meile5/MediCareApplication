@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../appointment/AppoinmentScreen.dart';
 import '../chat/ChatScreen.dart';
 import '../overview/OverviewScreen.dart';

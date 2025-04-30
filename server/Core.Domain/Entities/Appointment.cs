@@ -19,9 +19,9 @@ public partial class Appointment
 
     public DateTime? UpdatedAt { get; set; }
 
-    public DateTime? StartTime { get; set; }
+    public DateTime StartTime { get; set; }
 
-    public DateTime? EndTime { get; set; }
+    public DateTime EndTime { get; set; }
 
     public virtual Doctor Doctor { get; set; } = null!;
 
