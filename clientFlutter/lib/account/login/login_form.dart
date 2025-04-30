@@ -1,12 +1,13 @@
 //import 'package:chat/common/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medicare/patient/overview/OverviewScreen.dart';
 
 //import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../common/widgets.dart';
 import '../../patient/appointment/appointment_cubit.dart';
-import '../../patient/common/NavigationWidget.dart';
+import '../../patient/common/app_nav_bar.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -28,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
 
     Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (context) => NavigationWidget()));
+    ).push(MaterialPageRoute(builder: (context) => OverviewScreen()));
   }
 
   @override

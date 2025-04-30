@@ -35,19 +35,16 @@ class AppointmentCubit extends Cubit<AppointmentState> {
 
   Future<void> bookAppointment(BookAppointmentDto dto) async {
     try {
-      // Optional: emit loading state here if UI needs to show spinner
       final response = await dataSource.bookAppointment(dto);
 
       if (response.statusCode == 200) {
-        // You could re-load available times or show success
         print('Appointment booked successfully');
         final currentState = state;
-        if (currentState is AppointmentLoaded) {
-          // Emit the same state with availableTimes intact
+        /*if (currentState is AppointmentLoaded) {
           emit(AppointmentLoaded(
             availableTimes: currentState.availableTimes, // Keep previous available times
           ));
-        }
+        }*/
         emit(AppointmentBookedSuccessfully(message: 'Your appointment is currently pending and waiting for approval!'));
         // emit(...) if needed
       } else {
