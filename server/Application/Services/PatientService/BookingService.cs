@@ -1,11 +1,13 @@
-﻿using Application.Interfaces.Infrastructure.Postgres.PatientRep;
+﻿using System.ComponentModel.Design;
+using Application.Interfaces.Infrastructure.Postgres.PatientRep;
+using Application.Interfaces.Infrastructure.Websocket;
 using Application.Interfaces.IPatientService;
 using Application.Models.Dtos.PatientDto;
 using Core.Domain.Entities;
 
 namespace Application.Services.PatientService;
 
-public class BookingService (IBookingRep bookingRep) : IBookingService
+public class BookingService (IBookingRep bookingRep, IConnectionManager connectionManager) : IBookingService
 {
     public async Task<DoctorAvailabilityResponseDto> RetrieveBookingInfo(string doctorId)
     {
@@ -80,7 +82,14 @@ public class BookingService (IBookingRep bookingRep) : IBookingService
     public async Task BookAppointment(BookAppointmentDto dto)
     {
         var appointments = BookAppointmentDto.ToEntity(dto);
-        await bookingRep.BookAppointment(appointments);
+        var savedId = await bookingRep.BookAppointment(appointments);
+        
+        var broadcast = new BroadcastBookedSlotDto()
+        {
+            Id = savedId
+        };
+        await connectionManager.BroadcastToTopic($"doctor_{dto.DoctorId}",broadcast);
+        
         
     }
 

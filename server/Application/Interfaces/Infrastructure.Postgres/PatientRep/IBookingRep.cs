@@ -8,5 +8,5 @@ public interface IBookingRep
     
     Task<List<DoctorAvailability>> RetrieveDoctorAvailability(string doctorId);
     Task<List<Appointment>> RetrieveDoctorAppointments(string doctorId);
-    Task BookAppointment(Appointment appointments);
+    Task <string>BookAppointment(Appointment appointments);
 }

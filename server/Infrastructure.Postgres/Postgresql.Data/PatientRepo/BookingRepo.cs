@@ -21,8 +21,12 @@ public class BookingRepo (MyDbContext context): IBookingRep
             .ToListAsync();
     }
 
-    public async Task BookAppointment(Appointment appointments)
+    public async Task<string> BookAppointment(Appointment appointment)
     {
-        await context.Appointments.AddAsync(appointments);
+        var result = await context.Appointments.AddAsync(appointment);
+        await context.SaveChangesAsync(); 
+
+        return result.Entity.Id;
     }
+
 }
