@@ -7,26 +7,30 @@ class AppointmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-            onPressed: () {
-              Navigator.push(
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        CustomBookingCalendar(),
-                  ));
-            },
-            child: Text('Goto Next Page')),
-
-        AppointmentNavigation(),
-      ]
-
-
-
-
+                    builder: (context) => CustomBookingCalendar(),
+                  ),
+                );
+              },
+            ),
+          ),
+          Expanded(
+            child: AppointmentNavigation(),
+          ),
+        ],
+      ),
     );
   }
+
 }
 
