@@ -101,7 +101,8 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
             entity.Property(e => e.Topic).HasColumnName("topic");
-
+            entity.Property(e => e.IsFinished).HasColumnName("is_finished");
+            
             entity.HasOne(d => d.Doctor).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.DoctorId)
                 .OnDelete(DeleteBehavior.Cascade)

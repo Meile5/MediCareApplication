@@ -106,6 +106,7 @@ CREATE TABLE chat_rooms (
     patient_id text,
     created_at timestamp without time zone DEFAULT (now()),
     topic text,
+    is_finished boolean,
     CONSTRAINT chat_rooms_pkey PRIMARY KEY (id),
     CONSTRAINT chat_rooms_doctor_id_fkey FOREIGN KEY (doctor_id) REFERENCES doctors (doctorid) ON DELETE CASCADE,
     CONSTRAINT chat_rooms_patient_id_fkey FOREIGN KEY (patient_id) REFERENCES patients (userid) ON DELETE CASCADE
