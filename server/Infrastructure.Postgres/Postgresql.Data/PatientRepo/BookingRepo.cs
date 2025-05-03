@@ -54,4 +54,13 @@ public class BookingRepo (MyDbContext context): IBookingRep
             .Where(a => a.PatientId == userId && a.StartTime < DateTime.UtcNow)
             .ToListAsync();
     }
+
+    public async Task CancelAppointment(string dtoId)
+    {
+        var user =  context.Appointments
+            .Where(a => a.Id == dtoId);
+        context.Appointments.RemoveRange(user);
+        await context.SaveChangesAsync();
+
+    }
 }

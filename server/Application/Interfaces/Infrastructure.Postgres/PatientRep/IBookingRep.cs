@@ -11,4 +11,5 @@ public interface IBookingRep
     Task <string>BookAppointment(Appointment appointments);
     Task<List<Appointment>> RetrieveFutureAppointments(string userId);
     Task<List<Appointment>> RetrievePastAppointments(string userId);
+    Task CancelAppointment(string dtoId);
 }

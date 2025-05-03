@@ -50,6 +50,17 @@ public class BookingController (IBookingService _bookingService) : ControllerBas
         var response = await _bookingService.RetrievePastAppointments(userId);
         return Ok(response);
     }
+    
+    public const string CancelAppointmentRoute = nameof(CancelAppointment);
+    
+    [Route(CancelAppointmentRoute)]
+    public async Task <ActionResult> CancelAppointment([FromBody] CancelAppointmentDto dto) 
+    
+    {
+        // securityService.VerifyJwtOrThrow(authorization);
+        await _bookingService.CancelAppointment(dto);
+        return Ok();
+    }
 
 
 }

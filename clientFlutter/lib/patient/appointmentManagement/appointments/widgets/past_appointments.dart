@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/patient/appointment/appointments/widgets/past_appointment_card.dart';
+import 'package:medicare/patient/appointmentManagement/appointments/widgets/past_appointment_card.dart';
 import '../state/appointment_cubit.dart';
 import '../state/appointment_state.dart';
 
