@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Infrastructure.Websocket;
+﻿/*
+using Application.Interfaces.Infrastructure.Websocket;
 using Fleck;
 using WebSocketBoilerplate;
 
@@ -35,3 +36,4 @@ public class ChatMessageEventHandler(IConnectionManager connectionManager) : Bas
     }
 
 }
+*/

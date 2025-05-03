@@ -680,6 +680,25 @@
           }
         ]
       },
+      "SubscribeToVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "userId": {
+                "type": "string"
+              },
+              "deviceId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ChatMessageDto": {
         "allOf": [
           {
@@ -695,26 +714,10 @@
               "userId": {
                 "type": "string"
               },
-              "message": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "SubscribeToVitalsDto": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "userId": {
+              "name": {
                 "type": "string"
               },
-              "deviceId": {
+              "message": {
                 "type": "string"
               }
             }
@@ -751,8 +754,8 @@
           "ServerMessageDto",
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
-          "ChatMessageDto",
           "SubscribeToVitalsDto",
+          "ChatMessageDto",
           "ServerMessageDto"
         ]
       }

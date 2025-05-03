@@ -3,7 +3,7 @@ using Application.Interfaces.Infrastructure.Websocket;
 using Fleck;
 using WebSocketBoilerplate;
 
-namespace Api.Websocket;
+namespace Api.Websocket.EventHandlers.Device;
 
 public class SubscribeToVitalsEventHandler(IConnectionManager connectionManager) : BaseEventHandler<SubscribeToVitalsEventHandler.SubscribeToVitalsDto>
 {

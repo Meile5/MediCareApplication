@@ -12,4 +12,12 @@ public class ChatService(IChatRep chatRep, IConnectionManager connectionManager)
         var chatRoom = CreateChatRoomDto.ToEntity(createChatRoomDto);
         await chatRep.CreateChatRoom(chatRoom);
     }
+
+    public async Task SaveMessage(SendMessageDto messageDto)
+    {
+        var message = SendMessageDto.ToEntity(messageDto);
+        await chatRep.SaveMessageOnDb(message);
+        
+
+    }
 }
