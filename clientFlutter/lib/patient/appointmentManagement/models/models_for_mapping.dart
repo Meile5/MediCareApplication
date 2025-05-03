@@ -55,3 +55,20 @@ class PastAppointmentsDto with PastAppointmentsDtoMappable {
   });
 }
 
+
+@MappableClass()
+class CancelAppointmentDto with CancelAppointmentDtoMappable {
+  final String id;
+  final String status;
+
+
+  CancelAppointmentDto({
+    required this.id,
+    required this.status,
+  });
+
+
+
+}
+
+

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/models_for_mapping.dart';
 import 'package:intl/intl.dart';
+
+import '../state/appointment_cubit.dart';
 
 class AppointmentCard extends StatelessWidget {
   final FutureAppointmentsDto appointment;
@@ -82,7 +85,11 @@ class AppointmentCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
               onPressed: appointment.status == 'Rejected' ? null : () {
-                // Handle cancel logic
+                final appointmentDto = CancelAppointmentDto(
+                  id: appointment.id,
+                  status: appointment.status,
+                );
+                context.read<AppointmentCubit>().cancelAppointment(appointmentDto);
               },
               child: const Text('Cancel'),
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/patient/appointment/appointments/widgets/past_appointments.dart';
 
 import '../appointments/widgets/future_appointments.dart';
+import '../appointments/widgets/past_appointments.dart';
 class AppointmentNavigation extends StatefulWidget {
   const AppointmentNavigation({super.key});
 

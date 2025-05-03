@@ -64,6 +64,19 @@ class DataSource {
     final List<dynamic> decoded = json.decode(response.body);
     return decoded.map((e) => PastAppointmentsDtoMapper.fromMap(e)).toList();
   }
+  Future<http.Response> cancelAppointments(CancelAppointmentDto dto) async {
+    final response = await http.post(
+      Uri.parse("http://localhost:5000/CancelAppointment"),
+      headers: {'Content-Type': 'application/json'},
+        body: json.encode(dto.toMap())
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load data');
+    }
+
+    return response;
+  }
 
 
 

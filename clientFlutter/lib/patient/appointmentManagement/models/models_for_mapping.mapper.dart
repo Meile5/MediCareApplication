@@ -400,3 +400,118 @@ class _PastAppointmentsDtoCopyWithImpl<$R, $Out>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _PastAppointmentsDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
+class CancelAppointmentDtoMapper extends ClassMapperBase<CancelAppointmentDto> {
+  CancelAppointmentDtoMapper._();
+
+  static CancelAppointmentDtoMapper? _instance;
+  static CancelAppointmentDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = CancelAppointmentDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'CancelAppointmentDto';
+
+  static String _$id(CancelAppointmentDto v) => v.id;
+  static const Field<CancelAppointmentDto, String> _f$id = Field('id', _$id);
+  static String _$status(CancelAppointmentDto v) => v.status;
+  static const Field<CancelAppointmentDto, String> _f$status =
+      Field('status', _$status);
+
+  @override
+  final MappableFields<CancelAppointmentDto> fields = const {
+    #id: _f$id,
+    #status: _f$status,
+  };
+
+  static CancelAppointmentDto _instantiate(DecodingData data) {
+    return CancelAppointmentDto(
+        id: data.dec(_f$id), status: data.dec(_f$status));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static CancelAppointmentDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<CancelAppointmentDto>(map);
+  }
+
+  static CancelAppointmentDto fromJson(String json) {
+    return ensureInitialized().decodeJson<CancelAppointmentDto>(json);
+  }
+}
+
+mixin CancelAppointmentDtoMappable {
+  String toJson() {
+    return CancelAppointmentDtoMapper.ensureInitialized()
+        .encodeJson<CancelAppointmentDto>(this as CancelAppointmentDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return CancelAppointmentDtoMapper.ensureInitialized()
+        .encodeMap<CancelAppointmentDto>(this as CancelAppointmentDto);
+  }
+
+  CancelAppointmentDtoCopyWith<CancelAppointmentDto, CancelAppointmentDto,
+      CancelAppointmentDto> get copyWith => _CancelAppointmentDtoCopyWithImpl<
+          CancelAppointmentDto, CancelAppointmentDto>(
+      this as CancelAppointmentDto, $identity, $identity);
+  @override
+  String toString() {
+    return CancelAppointmentDtoMapper.ensureInitialized()
+        .stringifyValue(this as CancelAppointmentDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return CancelAppointmentDtoMapper.ensureInitialized()
+        .equalsValue(this as CancelAppointmentDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return CancelAppointmentDtoMapper.ensureInitialized()
+        .hashValue(this as CancelAppointmentDto);
+  }
+}
+
+extension CancelAppointmentDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, CancelAppointmentDto, $Out> {
+  CancelAppointmentDtoCopyWith<$R, CancelAppointmentDto, $Out>
+      get $asCancelAppointmentDto => $base.as(
+          (v, t, t2) => _CancelAppointmentDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class CancelAppointmentDtoCopyWith<
+    $R,
+    $In extends CancelAppointmentDto,
+    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R call({String? id, String? status});
+  CancelAppointmentDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _CancelAppointmentDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, CancelAppointmentDto, $Out>
+    implements CancelAppointmentDtoCopyWith<$R, CancelAppointmentDto, $Out> {
+  _CancelAppointmentDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<CancelAppointmentDto> $mapper =
+      CancelAppointmentDtoMapper.ensureInitialized();
+  @override
+  $R call({String? id, String? status}) => $apply(FieldCopyWithData(
+      {if (id != null) #id: id, if (status != null) #status: status}));
+  @override
+  CancelAppointmentDto $make(CopyWithData data) => CancelAppointmentDto(
+      id: data.get(#id, or: $value.id),
+      status: data.get(#status, or: $value.status));
+
+  @override
+  CancelAppointmentDtoCopyWith<$R2, CancelAppointmentDto, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _CancelAppointmentDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}

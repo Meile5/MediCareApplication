@@ -43,4 +43,27 @@ class AppointmentCubit extends Cubit<AppointmentState> {
       emit(AppointmentError(message: e.toString()));
     }
   }
+
+  Future<void> cancelAppointment(CancelAppointmentDto dto) async {
+    try {
+      final response = await dataSource.cancelAppointments(dto);
+      print(response.body + "herrrrrrr");
+
+      if (response.statusCode == 200) {
+        // Remove just the canceled appointment from state
+        if (state is FutureAppointmentsLoaded) {
+          final currentAppointments = (state as FutureAppointmentsLoaded).futureAppointments;
+          final updatedAppointments = currentAppointments
+              .where((appointment) => appointment.id != dto.id)
+              .toList();
+
+          emit(FutureAppointmentsLoaded(futureAppointments: updatedAppointments));
+        }
+      } else {
+        emit(AppointmentError(message: 'Failed to cancel: ${response.body}'));
+      }
+    } catch (e) {
+      emit(AppointmentError(message: e.toString()));
+    }
+  }
 }
