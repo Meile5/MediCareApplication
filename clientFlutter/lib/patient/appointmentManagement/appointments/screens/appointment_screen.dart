@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/patient/appointment/appointment_navigation.dart';
-import 'package:medicare/patient/appointment/booking_calendar.dart';
+import 'package:medicare/patient/appointment/utils/appointment_navigation.dart';
+import 'package:medicare/patient/appointment/booking/screens/booking_calendar_screen.dart';
 
-import '../common/app_nav_bar.dart';
+import '../../../common/app_nav_bar.dart';
 
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({super.key});

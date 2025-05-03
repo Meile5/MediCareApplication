@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'AppointmentCard.dart';
-import 'appointment_cubit.dart';
-import 'appointment_state.dart';
-import 'models_for_mapping.dart';
+import 'package:medicare/patient/appointment/appointments/widgets/past_appointment_card.dart';
+import '../state/appointment_cubit.dart';
+import '../state/appointment_state.dart';
 
-class FutureAppointments extends StatefulWidget {
-  const FutureAppointments({super.key});
+
+class PastAppointments extends StatefulWidget {
+  const PastAppointments({super.key});
 
   @override
-  State<FutureAppointments> createState() => _FutureAppointmentsState();
+  State<PastAppointments> createState() => _FutureAppointmentsState();
 }
 
-class _FutureAppointmentsState extends State<FutureAppointments> {
+class _FutureAppointmentsState extends State<PastAppointments> {
   @override
   void initState() {
     super.initState();
     final userId = "user123"; // Replace or pass from constructor
-    context.read<AppointmentCubit>().getFutureAppointments(userId);
+    context.read<AppointmentCubit>().getPastAppointments(userId);
   }
 
   @override
@@ -27,15 +27,15 @@ class _FutureAppointmentsState extends State<FutureAppointments> {
         builder: (context, state) {
           if (state is AppointmentLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is FutureAppointmentsLoaded) {
+          } else if (state is PastAppointmentsLoaded) {
             return ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: state.futureAppointments.length,
+              itemCount: state.pastAppointments.length,
               itemBuilder: (context, index) {
-                final appointment = state.futureAppointments[index];
+                final appointment = state.pastAppointments[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: AppointmentCard(appointment: appointment),
+                  child: PastAppointmentCard(appointment: appointment),
                 );
               },
             );

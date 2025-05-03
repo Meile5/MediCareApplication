@@ -6,7 +6,7 @@ import 'package:medicare/patient/overview/OverviewScreen.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../common/widgets.dart';
-import '../../patient/appointment/appointment_cubit.dart';
+import '../../patient/appointment/booking/state/booking_cubit.dart';
 import '../../patient/common/app_nav_bar.dart';
 
 class LoginForm extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LoginFormState extends State<LoginForm> {
       email: _emailController.text,
       password: _passwordController.text,
     );*/
-    context.read<AppointmentCubit>().loadAvailableTimes("user-doctor-1");
+    context.read<BookingCubit>().loadAvailableTimes("user-doctor-1");
 
     Navigator.of(
       context,

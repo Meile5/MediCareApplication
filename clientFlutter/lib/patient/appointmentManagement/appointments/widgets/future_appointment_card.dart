@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'models_for_mapping.dart'; // Import your DTO
+import '../../models/models_for_mapping.dart';
+import 'package:intl/intl.dart';
 
 class AppointmentCard extends StatelessWidget {
   final FutureAppointmentsDto appointment;
@@ -17,9 +18,15 @@ class AppointmentCard extends StatelessWidget {
         case 'Rejected':
           return Colors.red;
         default:
-          return Colors.grey; // Fallback color
+          return Colors.grey;
       }
     }
+    String formatDate(DateTime date) {
+      final formattedDate = DateFormat.yMMMMd().format(date);
+      final formattedTime = DateFormat('jm').format(date);
+      return 'Date: $formattedDate, Time: $formattedTime';
+    }
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(8),
@@ -42,7 +49,7 @@ class AppointmentCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${appointment.startTime} - ${appointment.endTime}'),
+                Text(formatDate(appointment.startTime)),
               ],
             ),
           ),
@@ -54,10 +61,15 @@ class AppointmentCard extends StatelessWidget {
                 color: getStatusColor(appointment.status),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(child: Text(
-                '${appointment.status}',
-                style: TextStyle(color: Colors.white),
-              )),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    '${appointment.status}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 18),
@@ -67,14 +79,15 @@ class AppointmentCard extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent,
                 foregroundColor: Colors.white,
-                minimumSize: const Size(0, 40),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
-              onPressed: () {
-
+              onPressed: appointment.status == 'Rejected' ? null : () {
+                // Handle cancel logic
               },
               child: const Text('Cancel'),
             ),
           ),
+
         ],
       ),
     );

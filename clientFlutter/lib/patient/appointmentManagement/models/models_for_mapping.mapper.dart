@@ -283,3 +283,120 @@ class _FutureAppointmentsDtoCopyWithImpl<$R, $Out>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _FutureAppointmentsDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
+class PastAppointmentsDtoMapper extends ClassMapperBase<PastAppointmentsDto> {
+  PastAppointmentsDtoMapper._();
+
+  static PastAppointmentsDtoMapper? _instance;
+  static PastAppointmentsDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = PastAppointmentsDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'PastAppointmentsDto';
+
+  static DateTime _$startTime(PastAppointmentsDto v) => v.startTime;
+  static const Field<PastAppointmentsDto, DateTime> _f$startTime =
+      Field('startTime', _$startTime);
+  static DateTime _$endTime(PastAppointmentsDto v) => v.endTime;
+  static const Field<PastAppointmentsDto, DateTime> _f$endTime =
+      Field('endTime', _$endTime);
+
+  @override
+  final MappableFields<PastAppointmentsDto> fields = const {
+    #startTime: _f$startTime,
+    #endTime: _f$endTime,
+  };
+
+  static PastAppointmentsDto _instantiate(DecodingData data) {
+    return PastAppointmentsDto(
+        startTime: data.dec(_f$startTime), endTime: data.dec(_f$endTime));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static PastAppointmentsDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<PastAppointmentsDto>(map);
+  }
+
+  static PastAppointmentsDto fromJson(String json) {
+    return ensureInitialized().decodeJson<PastAppointmentsDto>(json);
+  }
+}
+
+mixin PastAppointmentsDtoMappable {
+  String toJson() {
+    return PastAppointmentsDtoMapper.ensureInitialized()
+        .encodeJson<PastAppointmentsDto>(this as PastAppointmentsDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return PastAppointmentsDtoMapper.ensureInitialized()
+        .encodeMap<PastAppointmentsDto>(this as PastAppointmentsDto);
+  }
+
+  PastAppointmentsDtoCopyWith<PastAppointmentsDto, PastAppointmentsDto,
+      PastAppointmentsDto> get copyWith => _PastAppointmentsDtoCopyWithImpl<
+          PastAppointmentsDto, PastAppointmentsDto>(
+      this as PastAppointmentsDto, $identity, $identity);
+  @override
+  String toString() {
+    return PastAppointmentsDtoMapper.ensureInitialized()
+        .stringifyValue(this as PastAppointmentsDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return PastAppointmentsDtoMapper.ensureInitialized()
+        .equalsValue(this as PastAppointmentsDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return PastAppointmentsDtoMapper.ensureInitialized()
+        .hashValue(this as PastAppointmentsDto);
+  }
+}
+
+extension PastAppointmentsDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, PastAppointmentsDto, $Out> {
+  PastAppointmentsDtoCopyWith<$R, PastAppointmentsDto, $Out>
+      get $asPastAppointmentsDto => $base.as(
+          (v, t, t2) => _PastAppointmentsDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class PastAppointmentsDtoCopyWith<$R, $In extends PastAppointmentsDto,
+    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R call({DateTime? startTime, DateTime? endTime});
+  PastAppointmentsDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _PastAppointmentsDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, PastAppointmentsDto, $Out>
+    implements PastAppointmentsDtoCopyWith<$R, PastAppointmentsDto, $Out> {
+  _PastAppointmentsDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<PastAppointmentsDto> $mapper =
+      PastAppointmentsDtoMapper.ensureInitialized();
+  @override
+  $R call({DateTime? startTime, DateTime? endTime}) =>
+      $apply(FieldCopyWithData({
+        if (startTime != null) #startTime: startTime,
+        if (endTime != null) #endTime: endTime
+      }));
+  @override
+  PastAppointmentsDto $make(CopyWithData data) => PastAppointmentsDto(
+      startTime: data.get(#startTime, or: $value.startTime),
+      endTime: data.get(#endTime, or: $value.endTime));
+
+  @override
+  PastAppointmentsDtoCopyWith<$R2, PastAppointmentsDto, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _PastAppointmentsDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
