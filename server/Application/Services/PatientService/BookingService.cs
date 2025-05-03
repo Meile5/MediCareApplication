@@ -83,7 +83,6 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
     {
         var appointments = BookAppointmentDto.ToEntity(dto);
         var savedId = await bookingRep.BookAppointment(appointments);
-        await bookingRep.UpdateChatRoomStartTime(appointments.StartTime, dto.PatientId, dto.DoctorId);
         
         var broadcast = new BroadcastBookedSlotDto()
         {
@@ -94,6 +93,24 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
         
     }
 
+    public async Task <List<FutureAppointmentsDto>> RetrieveFutureAppointments(string userId)
+    {
+        var futureAppointments = await bookingRep.RetrieveFutureAppointments(userId);
+        var futureAppointmentsDto = futureAppointments
+            .Select(FutureAppointmentsDto.FromEntity)
+            .ToList();
+        return futureAppointmentsDto;
+        
+    }
 
+    public async Task<List<PastAppointmentsDto>> RetrievePastAppointments(string userId)
+    {
+        var pastAppointments = await bookingRep.RetrievePastAppointments(userId);
+        var pastAppointmentsDto = pastAppointments
+            .Select(PastAppointmentsDto.FromEntity)
+            .ToList();
+        return pastAppointmentsDto;
+        
+    }
 
 }

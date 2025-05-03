@@ -29,15 +29,29 @@ public class BookingRepo (MyDbContext context): IBookingRep
         return result.Entity.Id;
     }
 
-    public async Task UpdateChatRoomStartTime(DateTime appointmentsStartTime, string doctorId, string userId)
+    public async Task<List<Appointment>> RetrieveFutureAppointments(string userId)
     {
-        var chatRoom = await context.ChatRooms
-            .FirstOrDefaultAsync(c => c.DoctorId == doctorId && c.PatientId == userId);
+        Console.WriteLine($"Current UTC Time: {DateTime.UtcNow}");
+        Console.WriteLine($"UserId: {userId}");
 
-        if (chatRoom != null)
+        var result = await context.Appointments
+            .Where(a => a.PatientId == userId && a.StartTime > DateTime.UtcNow)
+            .ToListAsync();
+
+        Console.WriteLine($"Appointments found: {result.Count}");
+        foreach (var appointment in result)
         {
-            chatRoom.StartTime = appointmentsStartTime;
-            await context.SaveChangesAsync();
+            Console.WriteLine($"ID: {appointment.Id}, StartTime: {appointment.StartTime}, PatientId: {appointment.PatientId}");
         }
+        return result;
+
+       
+    }
+    
+    public async Task<List<Appointment>> RetrievePastAppointments(string userId)
+    {
+        return await context.Appointments
+            .Where(a => a.PatientId == userId && a.StartTime < DateTime.UtcNow)
+            .ToListAsync();
     }
 }

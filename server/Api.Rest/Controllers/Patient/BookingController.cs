@@ -28,6 +28,28 @@ public class BookingController (IBookingService _bookingService) : ControllerBas
         
         return Ok();
     }
+    
+    public const string RetrieveFutureAppointmentsRoute = nameof(RetrieveFutureAppointments);
+    
+    [Route(RetrieveFutureAppointmentsRoute)]
+    public async Task <ActionResult<List<FutureAppointmentsDto>>> RetrieveFutureAppointments([FromBody] string userId) 
+    
+    {
+        // securityService.VerifyJwtOrThrow(authorization);
+        var response = await _bookingService.RetrieveFutureAppointments(userId);
+        return Ok(response);
+    }
+    
+    public const string RetrievePastAppointmentsRoute = nameof(RetrievePastAppointments);
+    
+    [Route(RetrievePastAppointmentsRoute)]
+    public async Task <ActionResult<List<PastAppointmentsDto>>> RetrievePastAppointments([FromBody] string userId) 
+    
+    {
+        // securityService.VerifyJwtOrThrow(authorization);
+        var response = await _bookingService.RetrievePastAppointments(userId);
+        return Ok(response);
+    }
 
 
 }

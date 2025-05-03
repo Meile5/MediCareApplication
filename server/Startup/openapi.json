@@ -327,6 +327,76 @@
           }
         }
       }
+    },
+    "/RetrieveFutureAppointments": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "operationId": "Booking_RetrieveFutureAppointments",
+        "requestBody": {
+          "x-name": "userId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FutureAppointmentsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrievePastAppointments": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "operationId": "Booking_RetrievePastAppointments",
+        "requestBody": {
+          "x-name": "userId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PastAppointmentsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -483,14 +553,6 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
           "startTime": {
             "type": "string",
             "format": "date-time"
@@ -503,6 +565,46 @@
             "type": "string"
           },
           "doctorId": {
+            "type": "string"
+          }
+        }
+      },
+      "FutureAppointmentsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "PastAppointmentsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
             "type": "string"
           }
         }
