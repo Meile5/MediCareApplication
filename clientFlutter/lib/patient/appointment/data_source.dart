@@ -35,6 +35,22 @@ class DataSource {
     return response;
   }
 
+  Future<List<FutureAppointmentsDto>> getFutureAppointments(String userId) async {
+    final response = await http.post(
+      Uri.parse("http://localhost:5000/RetrieveFutureAppointments"),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(userId),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load data');
+    }
+
+    final List<dynamic> decoded = json.decode(response.body);
+    return decoded.map((e) => FutureAppointmentsDtoMapper.fromMap(e)).toList();
+  }
+
+
 
 
 }

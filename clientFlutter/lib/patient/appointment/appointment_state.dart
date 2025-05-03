@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'models_appointments.dart';
+import 'models_for_mapping.dart';
 
 @immutable
 sealed class AppointmentState {}
@@ -30,3 +31,9 @@ final class AppointmentBookedSuccessfully extends AppointmentState {
   AppointmentBookedSuccessfully({required this.message});
 
 }
+
+final class FutureAppointmentsLoaded extends AppointmentState {
+  final List<FutureAppointmentsDto> futureAppointments;
+  FutureAppointmentsLoaded({required this.futureAppointments});
+}
+

@@ -21,9 +21,9 @@ public partial class Patient
 
     public string Phonenumber { get; set; } = null!;
 
-    public string? Deviceid { get; set; }
-
     public string Address { get; set; } = null!;
+
+    public string? DeviceId { get; set; }
 
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

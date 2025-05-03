@@ -25,6 +25,7 @@ public class BookingController (IBookingService _bookingService) : ControllerBas
     public async Task<ActionResult> BookAppointment([FromBody] BookAppointmentDto dto)
     {
         await _bookingService.BookAppointment(dto);
+        
         return Ok();
     }
 

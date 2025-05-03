@@ -83,6 +83,7 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
     {
         var appointments = BookAppointmentDto.ToEntity(dto);
         var savedId = await bookingRep.BookAppointment(appointments);
+        await bookingRep.UpdateChatRoomStartTime(appointments.StartTime, dto.PatientId, dto.DoctorId);
         
         var broadcast = new BroadcastBookedSlotDto()
         {

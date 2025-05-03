@@ -22,6 +22,18 @@ class AppointmentCubit extends Cubit<AppointmentState> {
           }
         });
   }
+  Future<void> getFutureAppointments(String userId) async {
+    emit(AppointmentLoading());
+    try {
+      final List<FutureAppointmentsDto> futureAppointments = await dataSource.getFutureAppointments(userId);
+      print(futureAppointments.toString());
+
+      emit(FutureAppointmentsLoaded(futureAppointments: futureAppointments));
+    }catch (e) {
+      emit(AppointmentError(message: e.toString()));
+    }
+  }
+
 
   Future<void> loadAvailableTimes(String id) async {
     emit(AppointmentLoading());

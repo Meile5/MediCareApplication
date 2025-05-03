@@ -29,4 +29,15 @@ public class BookingRepo (MyDbContext context): IBookingRep
         return result.Entity.Id;
     }
 
+    public async Task UpdateChatRoomStartTime(DateTime appointmentsStartTime, string doctorId, string userId)
+    {
+        var chatRoom = await context.ChatRooms
+            .FirstOrDefaultAsync(c => c.DoctorId == doctorId && c.PatientId == userId);
+
+        if (chatRoom != null)
+        {
+            chatRoom.StartTime = appointmentsStartTime;
+            await context.SaveChangesAsync();
+        }
+    }
 }

@@ -28,4 +28,18 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
   }
 
 }
+@MappableClass()
+class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
+  final String id;
+  final DateTime startTime;
+  final DateTime endTime;
+  final String status;
+
+  FutureAppointmentsDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.status,
+  });
+}
 

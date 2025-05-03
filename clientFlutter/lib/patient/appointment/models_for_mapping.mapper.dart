@@ -145,3 +145,141 @@ class _BookAppointmentDtoCopyWithImpl<$R, $Out>
           Then<$Out2, $R2> t) =>
       _BookAppointmentDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
+class FutureAppointmentsDtoMapper
+    extends ClassMapperBase<FutureAppointmentsDto> {
+  FutureAppointmentsDtoMapper._();
+
+  static FutureAppointmentsDtoMapper? _instance;
+  static FutureAppointmentsDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = FutureAppointmentsDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'FutureAppointmentsDto';
+
+  static String _$id(FutureAppointmentsDto v) => v.id;
+  static const Field<FutureAppointmentsDto, String> _f$id = Field('id', _$id);
+  static DateTime _$startTime(FutureAppointmentsDto v) => v.startTime;
+  static const Field<FutureAppointmentsDto, DateTime> _f$startTime =
+      Field('startTime', _$startTime);
+  static DateTime _$endTime(FutureAppointmentsDto v) => v.endTime;
+  static const Field<FutureAppointmentsDto, DateTime> _f$endTime =
+      Field('endTime', _$endTime);
+  static String _$status(FutureAppointmentsDto v) => v.status;
+  static const Field<FutureAppointmentsDto, String> _f$status =
+      Field('status', _$status);
+
+  @override
+  final MappableFields<FutureAppointmentsDto> fields = const {
+    #id: _f$id,
+    #startTime: _f$startTime,
+    #endTime: _f$endTime,
+    #status: _f$status,
+  };
+
+  static FutureAppointmentsDto _instantiate(DecodingData data) {
+    return FutureAppointmentsDto(
+        id: data.dec(_f$id),
+        startTime: data.dec(_f$startTime),
+        endTime: data.dec(_f$endTime),
+        status: data.dec(_f$status));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static FutureAppointmentsDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<FutureAppointmentsDto>(map);
+  }
+
+  static FutureAppointmentsDto fromJson(String json) {
+    return ensureInitialized().decodeJson<FutureAppointmentsDto>(json);
+  }
+}
+
+mixin FutureAppointmentsDtoMappable {
+  String toJson() {
+    return FutureAppointmentsDtoMapper.ensureInitialized()
+        .encodeJson<FutureAppointmentsDto>(this as FutureAppointmentsDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return FutureAppointmentsDtoMapper.ensureInitialized()
+        .encodeMap<FutureAppointmentsDto>(this as FutureAppointmentsDto);
+  }
+
+  FutureAppointmentsDtoCopyWith<FutureAppointmentsDto, FutureAppointmentsDto,
+      FutureAppointmentsDto> get copyWith => _FutureAppointmentsDtoCopyWithImpl<
+          FutureAppointmentsDto, FutureAppointmentsDto>(
+      this as FutureAppointmentsDto, $identity, $identity);
+  @override
+  String toString() {
+    return FutureAppointmentsDtoMapper.ensureInitialized()
+        .stringifyValue(this as FutureAppointmentsDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return FutureAppointmentsDtoMapper.ensureInitialized()
+        .equalsValue(this as FutureAppointmentsDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return FutureAppointmentsDtoMapper.ensureInitialized()
+        .hashValue(this as FutureAppointmentsDto);
+  }
+}
+
+extension FutureAppointmentsDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, FutureAppointmentsDto, $Out> {
+  FutureAppointmentsDtoCopyWith<$R, FutureAppointmentsDto, $Out>
+      get $asFutureAppointmentsDto => $base.as(
+          (v, t, t2) => _FutureAppointmentsDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class FutureAppointmentsDtoCopyWith<
+    $R,
+    $In extends FutureAppointmentsDto,
+    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R call({String? id, DateTime? startTime, DateTime? endTime, String? status});
+  FutureAppointmentsDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _FutureAppointmentsDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, FutureAppointmentsDto, $Out>
+    implements FutureAppointmentsDtoCopyWith<$R, FutureAppointmentsDto, $Out> {
+  _FutureAppointmentsDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<FutureAppointmentsDto> $mapper =
+      FutureAppointmentsDtoMapper.ensureInitialized();
+  @override
+  $R call(
+          {String? id,
+          DateTime? startTime,
+          DateTime? endTime,
+          String? status}) =>
+      $apply(FieldCopyWithData({
+        if (id != null) #id: id,
+        if (startTime != null) #startTime: startTime,
+        if (endTime != null) #endTime: endTime,
+        if (status != null) #status: status
+      }));
+  @override
+  FutureAppointmentsDto $make(CopyWithData data) => FutureAppointmentsDto(
+      id: data.get(#id, or: $value.id),
+      startTime: data.get(#startTime, or: $value.startTime),
+      endTime: data.get(#endTime, or: $value.endTime),
+      status: data.get(#status, or: $value.status));
+
+  @override
+  FutureAppointmentsDtoCopyWith<$R2, FutureAppointmentsDto, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _FutureAppointmentsDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}

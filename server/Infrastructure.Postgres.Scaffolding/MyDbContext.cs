@@ -54,24 +54,19 @@ public partial class MyDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp with time zone")
+                .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
-            entity.Property(e => e.EndTime)
-                .HasColumnType("timestamp with time zone")
-                .HasColumnName("end_time");
+            entity.Property(e => e.EndTime).HasColumnName("end_time");
             entity.Property(e => e.Notes).HasColumnName("notes");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("timestamp with time zone")
-                .HasColumnName("start_time");
+            entity.Property(e => e.StartTime).HasColumnName("start_time");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp with time zone")
+                .HasColumnType("timestamp without time zone")
                 .HasColumnName("updated_at");
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Appointments)
@@ -99,7 +94,11 @@ public partial class MyDbContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
+            entity.Property(e => e.IsFinished).HasColumnName("is_finished");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
+            entity.Property(e => e.StartTime)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("start_time");
             entity.Property(e => e.Topic).HasColumnName("topic");
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.ChatRooms)
@@ -262,12 +261,8 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.DateOverride).HasColumnName("date_override");
             entity.Property(e => e.DayOfWeek).HasColumnName("day_of_week");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
-            entity.Property(e => e.EndTime)
-                .HasColumnType("time")
-                .HasColumnName("end_time");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("time")
-                .HasColumnName("start_time");
+            entity.Property(e => e.EndTime).HasColumnName("end_time");
+            entity.Property(e => e.StartTime).HasColumnName("start_time");
             entity.Property(e => e.Type)
                 .HasMaxLength(20)
                 .HasDefaultValueSql("'default'::character varying")
@@ -325,7 +320,7 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.Allergies).HasColumnName("allergies");
             entity.Property(e => e.Bloodtype).HasColumnName("bloodtype");
-            entity.Property(e => e.Deviceid).HasColumnName("deviceid");
+            entity.Property(e => e.DeviceId).HasColumnName("device_id");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Phonenumber).HasColumnName("phonenumber");

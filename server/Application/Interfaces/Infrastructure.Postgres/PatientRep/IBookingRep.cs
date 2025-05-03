@@ -9,4 +9,5 @@ public interface IBookingRep
     Task<List<DoctorAvailability>> RetrieveDoctorAvailability(string doctorId);
     Task<List<Appointment>> RetrieveDoctorAppointments(string doctorId);
     Task <string>BookAppointment(Appointment appointments);
+    Task UpdateChatRoomStartTime(DateTime appointmentsStartTime, string doctorId, string roomId);
 }

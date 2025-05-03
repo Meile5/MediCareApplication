@@ -13,7 +13,7 @@ public partial class DoctorAvailability
 
     public TimeOnly StartTime { get; set; }
 
-    public TimeOnly EndTime { get; set; } 
+    public TimeOnly EndTime { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
