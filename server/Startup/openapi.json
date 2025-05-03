@@ -761,6 +761,25 @@
           }
         ]
       },
+      "SubscribeToVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "userId": {
+                "type": "string"
+              },
+              "deviceId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ServerMessageDto2": {
         "allOf": [
           {
@@ -792,6 +811,7 @@
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
           "ChatMessageDto",
+          "SubscribeToVitalsDto",
           "ServerMessageDto"
         ]
       }
