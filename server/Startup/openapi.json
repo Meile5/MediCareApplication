@@ -656,38 +656,6 @@
           }
         }
       },
-      "ExampleClientDto": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "messageTheClientSends": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "ExampleServerResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "somethingTheServerSends": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
       "JoinRoomDto": {
         "allOf": [
           {
@@ -717,6 +685,38 @@
                 "type": "string"
               },
               "roomId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ExampleClientDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "messageTheClientSends": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ExampleServerResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "somethingTheServerSends": {
                 "type": "string"
               }
             }
@@ -823,10 +823,10 @@
         "description": "Available eventType constants",
         "enum": [
           "MemberLeftNotification",
-          "ExampleClientDto",
-          "ExampleServerResponse",
           "JoinRoomDto",
           "ServerMessageDto",
+          "ExampleClientDto",
+          "ExampleServerResponse",
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
           "SubscribeToVitalsDto",
