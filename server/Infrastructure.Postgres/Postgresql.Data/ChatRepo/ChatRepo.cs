@@ -1,6 +1,7 @@
 using Application.Interfaces.Infrastructure.Postgres.ChatRep;
 using Core.Domain.Entities;
 using Infrastructure.Postgres.Scaffolding;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Postgres.Postgresql.Data.ChatRepo;
 
@@ -14,6 +15,20 @@ public class ChatRepo(MyDbContext context) : IChatRep
         } catch (Exception e){
             Console.WriteLine(e);
         }
+    }
+
+    public async Task<List<ChatRoom>> GetChatRoomsForDoctor(string doctorId)
+    {
+        return await context.ChatRooms
+        .Where(a => a.DoctorId == doctorId)
+        .ToListAsync();
+    }
+
+    public async Task<List<ChatRoom>> GetChatRoomsForPatient(string patientId)
+    {
+        return await context.ChatRooms
+        .Where(a => a.PatientId == patientId)
+        .ToListAsync();
     }
 
     public async Task SaveMessageOnDb(Message message)

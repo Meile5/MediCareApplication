@@ -360,6 +360,72 @@
           }
         }
       }
+    },
+    "/chat/retreiveChats/patient": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_GetChatsForPatient",
+        "requestBody": {
+          "x-name": "chatRoomRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserIdChatRoomRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/retreiveChats/doctor": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_GetChatsForDoctor",
+        "requestBody": {
+          "x-name": "chatRoomRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserIdChatRoomRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -547,6 +613,15 @@
           "topic": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "UserIdChatRoomRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userId": {
+            "type": "string"
           }
         }
       },
