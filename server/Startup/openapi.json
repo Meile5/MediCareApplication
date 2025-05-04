@@ -426,6 +426,39 @@
           }
         }
       }
+    },
+    "/chat/retreiveMessages": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_GetChatMessages",
+        "requestBody": {
+          "x-name": "roomIdRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomIdRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -621,6 +654,15 @@
         "additionalProperties": false,
         "properties": {
           "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "RoomIdRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "roomId": {
             "type": "string"
           }
         }

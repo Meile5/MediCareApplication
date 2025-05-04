@@ -4,14 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../common/events.dart';
 import '../../common/websocket_service.dart';
+import 'chat_data_source.dart';
 import 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final WebSocketService webSocketService;
   final List<ChatMessage> _messages = [];
+  final ChatDataSource dataSource;
   StreamSubscription? _subscription;
 
-  ChatCubit({required this.webSocketService}) : super(ChatInitial()) {
+  ChatCubit({required this.webSocketService, required this.dataSource})
+    : super(ChatInitial()) {
     _subscription = webSocketService.stream.listen(
       (rawEvent) {
         try {
@@ -46,6 +49,18 @@ class ChatCubit extends Cubit<ChatState> {
 
   void joinRoom(String roomId) {
     webSocketService.send(JoinRoom(roomId: roomId).toJson());
+  }
+
+  Future<void> loadMessagesForRoom(String roomId) async {
+    emit(ChatLoading());
+    try {
+      _messages.clear();
+      final fetchedMessages = await dataSource.getMessagesForRoom(roomId);
+      _messages.addAll(fetchedMessages);
+      emit(ChatLoaded(messages: List.unmodifiable(_messages)));
+    } catch (e) {
+      emit(ChatError(message: 'Failed to load messages: $e'));
+    }
   }
 
   void clearMessages() {

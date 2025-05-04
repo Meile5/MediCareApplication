@@ -8,4 +8,5 @@ public interface IChatService{
     Task SaveMessage(SendMessageDto messageDto);
     Task<List<ChatRoom>> GetChatRoomsForPatient(string patientId);
     Task<List<ChatRoom>> GetChatRoomsForDoctor(string doctorId);
+    Task<List<Message>> GetMessages(string roomId);
 }

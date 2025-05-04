@@ -26,9 +26,20 @@ public class ChatController(IChatService chatService) : ControllerBase{
         return Ok(chatRooms);
     }
 
+    [Route("chat/retreiveMessages")]
+    public async Task<ActionResult> GetChatMessages([FromBody] RoomIdRequest roomIdRequest){
+        string roomId = roomIdRequest.roomId;
+        var messages = await chatService.GetMessages(roomId);
+        return Ok(messages);
+    }
+
 }
 
 public class UserIdChatRoomRequest
 {
     public string userId { get; set; }
+}
+
+public class RoomIdRequest{
+    public string roomId {get;set;}
 }

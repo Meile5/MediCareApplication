@@ -31,6 +31,13 @@ public class ChatRepo(MyDbContext context) : IChatRep
         .ToListAsync();
     }
 
+    public async Task<List<Message>> RetreiveChatHistory(string roomId)
+    {
+        return await context.Messages
+        .Where (a => a.RoomId == roomId)
+        .ToListAsync();
+    }
+
     public async Task SaveMessageOnDb(Message message)
     {
         await context.Messages.AddAsync(message);

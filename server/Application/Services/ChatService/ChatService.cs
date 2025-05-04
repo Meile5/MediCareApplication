@@ -26,6 +26,11 @@ public class ChatService(IChatRep chatRep, IConnectionManager connectionManager)
        
     }
 
+    public async Task<List<Message>> GetMessages(string roomId)
+    {
+        return await chatRep.RetreiveChatHistory(roomId);
+    }
+
     public async Task SaveMessage(SendMessageDto messageDto)
     {
         var message = SendMessageDto.ToEntity(messageDto);

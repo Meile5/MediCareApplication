@@ -27,7 +27,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ChatCubit>().joinRoom(widget.roomId);
+    final cubit = context.read<ChatCubit>();
+    cubit.clearMessages();
+    cubit.joinRoom(widget.roomId);
+    cubit.loadMessagesForRoom(widget.roomId);
   }
 
   void _sendMessage() {
