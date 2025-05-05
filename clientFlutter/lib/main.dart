@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/account/login/login_page.dart';
@@ -10,6 +11,9 @@ import 'package:medicare/patient/vitals/vitals_cubit.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+
+//DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
+
   runApp(const MyApp());
 }
 

@@ -17,7 +17,7 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
   });
 
   /// Override the map to ensure proper date formatting
-  @override
+  /*@override
   Map<String, dynamic> toMap() {
     return {
       'startTime': startTime.toUtc().toIso8601String(),
@@ -25,7 +25,7 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
       'patientId': patientId,
       'doctorId': doctorId,
     };
-  }
+  }*/
 
 }
 @MappableClass()

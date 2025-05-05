@@ -25,8 +25,9 @@ class AppointmentCard extends StatelessWidget {
       }
     }
     String formatDate(DateTime date) {
-      final formattedDate = DateFormat.yMMMMd().format(date);
-      final formattedTime = DateFormat('jm').format(date);
+      final local = date.toLocal();
+      final formattedDate = DateFormat.yMMMMd().format(local);
+      final formattedTime = DateFormat('jm').format(local);
       return 'Date: $formattedDate, Time: $formattedTime';
     }
 
