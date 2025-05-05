@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/patient/vitals/vitals_card.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
-import 'ecg_screen.dart';
+import '../common/app_nav_bar.dart';
+import 'ecg_card.dart';
+import 'temperature_card.dart';
 
 class VitalsScreen extends StatelessWidget {
   const VitalsScreen({super.key});
@@ -47,117 +50,16 @@ class VitalsScreen extends StatelessWidget {
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               children: [
-                _buildTemperatureCard(temperatureStatus, temperatureColor),
-                _buildEcgCard(context, ecg),
-                _buildVitalsCard(FontAwesomeIcons.heartbeat, 'Heart Rate'),
-                _buildVitalsCard(FontAwesomeIcons.lungs, 'Blood Oxygen'),
+                temperatureCard(temperatureStatus, temperatureColor),
+                ecgCard(context, ecg),
+                vitalsCard(FontAwesomeIcons.heartbeat, 'Heart Rate'),
+                vitalsCard(FontAwesomeIcons.lungs, 'Blood Oxygen'),
               ],
             ),
           );
         },
       ),
-    );
-  }
-
-  Widget _buildTemperatureCard(String value, Color color) {
-    return Card(
-      elevation: 5.0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.thermostat_outlined,
-            size: 50.0,
-            color: Colors.blueAccent,
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            'Temperature',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEcgCard(BuildContext context, double? ecg) {
-    final hasData = ecg != null;
-
-    return Card(
-      elevation: 5.0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: InkWell(
-        onTap:
-            hasData
-                ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => EcgScreen(ecgValue: ecg!),
-                    ),
-                  );
-                }
-                : null,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            Icon(
-              FontAwesomeIcons.heartbeat,
-              size: 50.0,
-              color: Colors.blueAccent,
-            ),
-            SizedBox(height: 10),
-            Text(
-              'ECG',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Tap to view ECG',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildVitalsCard(IconData icon, String label) {
-    return Card(
-      elevation: 5.0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: InkWell(
-        onTap: () {
-          // Add action here if needed
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(icon, size: 50.0, color: Colors.blueAccent),
-            const SizedBox(height: 10),
-            Text(
-              label,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: AppNavBar(),
     );
   }
 }

@@ -94,21 +94,18 @@ public partial class MyDbContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
+            entity.Property(e => e.EndTime).HasColumnName("end_time");
             entity.Property(e => e.IsFinished).HasColumnName("is_finished");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("start_time");
+            entity.Property(e => e.StartTime).HasColumnName("start_time");
             entity.Property(e => e.Topic).HasColumnName("topic");
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.DoctorId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("chat_rooms_doctor_id_fkey");
 
             entity.HasOne(d => d.Patient).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.PatientId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("chat_rooms_patient_id_fkey");
         });
 

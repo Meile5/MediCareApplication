@@ -110,39 +110,6 @@
         }
       }
     },
-    "/device/pair": {
-      "post": {
-        "tags": [
-          "Device"
-        ],
-        "operationId": "Device_PairDevice",
-        "requestBody": {
-          "x-name": "request",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/login": {
       "post": {
         "tags": [
@@ -465,6 +432,171 @@
           }
         }
       }
+    },
+    "/device/pair": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "Device_PairDevice",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/create": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_CreateChatRoom",
+        "requestBody": {
+          "x-name": "chatRoomDto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChatRoomDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/retreiveChats/patient": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_GetChatsForPatient",
+        "requestBody": {
+          "x-name": "chatRoomRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserIdChatRoomRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/retreiveChats/doctor": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_GetChatsForDoctor",
+        "requestBody": {
+          "x-name": "chatRoomRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserIdChatRoomRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/retreiveMessages": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_GetChatMessages",
+        "requestBody": {
+          "x-name": "roomIdRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomIdRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -506,24 +638,6 @@
         "properties": {
           "userId": {
             "type": "string"
-          }
-        }
-      },
-      "ClientWantsToPairDeviceDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "deviceId",
-          "pairingCode"
-        ],
-        "properties": {
-          "deviceId": {
-            "type": "string",
-            "minLength": 1
-          },
-          "pairingCode": {
-            "type": "string",
-            "minLength": 1
           }
         }
       },
@@ -711,6 +825,61 @@
         "type": "object",
         "additionalProperties": false
       },
+      "ClientWantsToPairDeviceDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deviceId",
+          "pairingCode"
+        ],
+        "properties": {
+          "deviceId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pairingCode": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "CreateChatRoomDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doctorId": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserIdChatRoomRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "RoomIdRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "roomId": {
+            "type": "string"
+          }
+        }
+      },
       "MemberLeftNotification": {
         "allOf": [
           {
@@ -742,38 +911,6 @@
           }
         }
       },
-      "ExampleClientDto": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "messageTheClientSends": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "ExampleServerResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "somethingTheServerSends": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
       "JoinRoomDto": {
         "allOf": [
           {
@@ -803,6 +940,38 @@
                 "type": "string"
               },
               "roomId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ExampleClientDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "messageTheClientSends": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ExampleServerResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "somethingTheServerSends": {
                 "type": "string"
               }
             }
@@ -841,6 +1010,25 @@
           }
         ]
       },
+      "SubscribeToVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "userId": {
+                "type": "string"
+              },
+              "deviceId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ChatMessageDto": {
         "allOf": [
           {
@@ -856,26 +1044,10 @@
               "userId": {
                 "type": "string"
               },
-              "message": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "SubscribeToVitalsDto": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "userId": {
+              "name": {
                 "type": "string"
               },
-              "deviceId": {
+              "message": {
                 "type": "string"
               }
             }
@@ -906,14 +1078,14 @@
         "description": "Available eventType constants",
         "enum": [
           "MemberLeftNotification",
-          "ExampleClientDto",
-          "ExampleServerResponse",
           "JoinRoomDto",
           "ServerMessageDto",
+          "ExampleClientDto",
+          "ExampleServerResponse",
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
-          "ChatMessageDto",
           "SubscribeToVitalsDto",
+          "ChatMessageDto",
           "ServerMessageDto"
         ]
       }
