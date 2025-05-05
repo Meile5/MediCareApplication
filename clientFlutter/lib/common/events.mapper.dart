@@ -541,6 +541,10 @@ class ChatMessageMapper extends SubClassMapperBase<ChatMessage> {
 
   static String _$roomId(ChatMessage v) => v.roomId;
   static const Field<ChatMessage, String> _f$roomId = Field('roomId', _$roomId);
+  static String _$userId(ChatMessage v) => v.userId;
+  static const Field<ChatMessage, String> _f$userId = Field('userId', _$userId);
+  static String _$name(ChatMessage v) => v.name;
+  static const Field<ChatMessage, String> _f$name = Field('name', _$name);
   static String _$message(ChatMessage v) => v.message;
   static const Field<ChatMessage, String> _f$message =
       Field('message', _$message);
@@ -548,6 +552,8 @@ class ChatMessageMapper extends SubClassMapperBase<ChatMessage> {
   @override
   final MappableFields<ChatMessage> fields = const {
     #roomId: _f$roomId,
+    #userId: _f$userId,
+    #name: _f$name,
     #message: _f$message,
   };
 
@@ -560,7 +566,10 @@ class ChatMessageMapper extends SubClassMapperBase<ChatMessage> {
 
   static ChatMessage _instantiate(DecodingData data) {
     return ChatMessage(
-        roomId: data.dec(_f$roomId), message: data.dec(_f$message));
+        roomId: data.dec(_f$roomId),
+        userId: data.dec(_f$userId),
+        name: data.dec(_f$name),
+        message: data.dec(_f$message));
   }
 
   @override
@@ -616,7 +625,7 @@ extension ChatMessageValueCopy<$R, $Out>
 abstract class ChatMessageCopyWith<$R, $In extends ChatMessage, $Out>
     implements BaseEventCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? roomId, String? message});
+  $R call({String? roomId, String? userId, String? name, String? message});
   ChatMessageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -629,13 +638,18 @@ class _ChatMessageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ChatMessage> $mapper =
       ChatMessageMapper.ensureInitialized();
   @override
-  $R call({String? roomId, String? message}) => $apply(FieldCopyWithData({
+  $R call({String? roomId, String? userId, String? name, String? message}) =>
+      $apply(FieldCopyWithData({
         if (roomId != null) #roomId: roomId,
+        if (userId != null) #userId: userId,
+        if (name != null) #name: name,
         if (message != null) #message: message
       }));
   @override
   ChatMessage $make(CopyWithData data) => ChatMessage(
       roomId: data.get(#roomId, or: $value.roomId),
+      userId: data.get(#userId, or: $value.userId),
+      name: data.get(#name, or: $value.name),
       message: data.get(#message, or: $value.message));
 
   @override

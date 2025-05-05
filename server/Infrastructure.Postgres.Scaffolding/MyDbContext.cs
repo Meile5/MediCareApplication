@@ -100,7 +100,8 @@ public partial class MyDbContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("start_time");
             entity.Property(e => e.Topic).HasColumnName("topic");
-
+            entity.Property(e => e.IsFinished).HasColumnName("is_finished");
+            
             entity.HasOne(d => d.Doctor).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.DoctorId)
                 .OnDelete(DeleteBehavior.Cascade)

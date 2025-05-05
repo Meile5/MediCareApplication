@@ -5,8 +5,9 @@ import 'package:medicare/common/navigation_notifier.dart';
 import 'package:medicare/common/websocket_service.dart';
 import 'package:medicare/patient/appointment/appointment_cubit.dart';
 import 'package:medicare/patient/appointment/data_source.dart';
+import 'package:medicare/patient/chat/chat_cubit.dart';
+import 'package:medicare/patient/chat/chat_data_source.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,6 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  //small change
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -42,14 +42,21 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create:
               (context) => AppointmentCubit(
-            dataSource: DataSource(),
-            webSocketService: webSocketService,
-          ),
+                dataSource: DataSource(),
+                webSocketService: webSocketService,
+              ),
         ),
         BlocProvider(
           create: (context) => VitalsCubit(webSocketService: webSocketService),
         ),
-        RepositoryProvider(create: (context) => NavigationModel(),)
+        BlocProvider(
+          create:
+              (context) => ChatCubit(
+                webSocketService: webSocketService,
+                dataSource: ChatDataSource(),
+              ),
+        ),
+        RepositoryProvider(create: (context) => NavigationModel()),
       ],
       child: MaterialApp(title: 'Medicare', home: const LoginPage()),
     );

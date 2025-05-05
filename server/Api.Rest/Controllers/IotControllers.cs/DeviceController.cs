@@ -2,7 +2,7 @@ using Application.Interfaces.Infrastructure.Mqtt;
 using Application.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Rest.Controllers;
+namespace Api.Rest.Controllers.Device;
 
 [ApiController]
 [Route("device")]
