@@ -10,6 +10,8 @@ class ChatRoomDto with ChatRoomDtoMappable {
   final String topic;
   final bool isFinished;
   final DateTime createdAt;
+  final DateTime startTime;
+  final DateTime endTime;
 
   ChatRoomDto({
     required this.id,
@@ -18,5 +20,7 @@ class ChatRoomDto with ChatRoomDtoMappable {
     required this.topic,
     required this.isFinished,
     required this.createdAt,
+    required this.startTime,
+    required this.endTime,
   });
 }

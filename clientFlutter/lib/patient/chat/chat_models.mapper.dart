@@ -36,6 +36,12 @@ class ChatRoomDtoMapper extends ClassMapperBase<ChatRoomDto> {
   static DateTime _$createdAt(ChatRoomDto v) => v.createdAt;
   static const Field<ChatRoomDto, DateTime> _f$createdAt =
       Field('createdAt', _$createdAt);
+  static DateTime _$startTime(ChatRoomDto v) => v.startTime;
+  static const Field<ChatRoomDto, DateTime> _f$startTime =
+      Field('startTime', _$startTime);
+  static DateTime _$endTime(ChatRoomDto v) => v.endTime;
+  static const Field<ChatRoomDto, DateTime> _f$endTime =
+      Field('endTime', _$endTime);
 
   @override
   final MappableFields<ChatRoomDto> fields = const {
@@ -45,6 +51,8 @@ class ChatRoomDtoMapper extends ClassMapperBase<ChatRoomDto> {
     #topic: _f$topic,
     #isFinished: _f$isFinished,
     #createdAt: _f$createdAt,
+    #startTime: _f$startTime,
+    #endTime: _f$endTime,
   };
 
   static ChatRoomDto _instantiate(DecodingData data) {
@@ -54,7 +62,9 @@ class ChatRoomDtoMapper extends ClassMapperBase<ChatRoomDto> {
         patientId: data.dec(_f$patientId),
         topic: data.dec(_f$topic),
         isFinished: data.dec(_f$isFinished),
-        createdAt: data.dec(_f$createdAt));
+        createdAt: data.dec(_f$createdAt),
+        startTime: data.dec(_f$startTime),
+        endTime: data.dec(_f$endTime));
   }
 
   @override
@@ -115,7 +125,9 @@ abstract class ChatRoomDtoCopyWith<$R, $In extends ChatRoomDto, $Out>
       String? patientId,
       String? topic,
       bool? isFinished,
-      DateTime? createdAt});
+      DateTime? createdAt,
+      DateTime? startTime,
+      DateTime? endTime});
   ChatRoomDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -134,14 +146,18 @@ class _ChatRoomDtoCopyWithImpl<$R, $Out>
           String? patientId,
           String? topic,
           bool? isFinished,
-          DateTime? createdAt}) =>
+          DateTime? createdAt,
+          DateTime? startTime,
+          DateTime? endTime}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (doctorId != null) #doctorId: doctorId,
         if (patientId != null) #patientId: patientId,
         if (topic != null) #topic: topic,
         if (isFinished != null) #isFinished: isFinished,
-        if (createdAt != null) #createdAt: createdAt
+        if (createdAt != null) #createdAt: createdAt,
+        if (startTime != null) #startTime: startTime,
+        if (endTime != null) #endTime: endTime
       }));
   @override
   ChatRoomDto $make(CopyWithData data) => ChatRoomDto(
@@ -150,7 +166,9 @@ class _ChatRoomDtoCopyWithImpl<$R, $Out>
       patientId: data.get(#patientId, or: $value.patientId),
       topic: data.get(#topic, or: $value.topic),
       isFinished: data.get(#isFinished, or: $value.isFinished),
-      createdAt: data.get(#createdAt, or: $value.createdAt));
+      createdAt: data.get(#createdAt, or: $value.createdAt),
+      startTime: data.get(#startTime, or: $value.startTime),
+      endTime: data.get(#endTime, or: $value.endTime));
 
   @override
   ChatRoomDtoCopyWith<$R2, ChatRoomDto, $Out2> $chain<$R2, $Out2>(

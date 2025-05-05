@@ -27,9 +27,7 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
   void _loadChatRooms() async {
     setState(() => _state = ChatRoomLoading());
     try {
-      final chatRooms = await _dataSource.getChatRoomsForUser(
-        'user-patient-001',
-      );
+      final chatRooms = await _dataSource.getChatRoomsForUser('user123');
       setState(() => _state = ChatRoomLoaded(chatRooms: chatRooms));
     } catch (e) {
       setState(() => _state = ChatRoomError(message: e.toString()));
@@ -72,7 +70,7 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
                               value: context.read<ChatCubit>(),
                               child: ChatRoomScreen(
                                 roomId: chat.id,
-                                userId: 'user-patient-001',
+                                userId: 'user123',
                                 userName: 'John',
                               ),
                             ),

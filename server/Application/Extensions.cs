@@ -1,7 +1,9 @@
 using Application.Interfaces;
+using Application.Interfaces.IChatService;
 using Application.Interfaces.Infrastructure.Postgres;
 using Application.Interfaces.IPatientService;
 using Application.Services;
+using Application.Services.ChatService;
 using Application.Services.PatientService;
 using Microsoft.Extensions.DependencyInjection;
 
