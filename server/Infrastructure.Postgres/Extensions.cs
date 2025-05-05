@@ -26,6 +26,7 @@ public static class Extensions
        // services.AddScoped<IQuestionRepository, QuestionRepository>();
        services.AddScoped<IBookingRep, BookingRepo>();
        services.AddScoped<IChatRep, ChatRepo>();
+       services.AddScoped<IOverviewRepo, OverviewRepo>();
         services.AddScoped<Seeder>();
 
         return services;

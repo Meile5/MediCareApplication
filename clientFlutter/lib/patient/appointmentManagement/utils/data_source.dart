@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'models_appointments.dart';
-import 'models_for_mapping.dart';
+import '../models/models_appointments.dart';
+import '../models/models_for_mapping.dart';
 
 class DataSource {
   Future<DoctorAvailabilityResponseDto> getAvailability(String doctorId) async {
@@ -48,6 +48,34 @@ class DataSource {
 
     final List<dynamic> decoded = json.decode(response.body);
     return decoded.map((e) => FutureAppointmentsDtoMapper.fromMap(e)).toList();
+  }
+
+  Future<List<PastAppointmentsDto>> getPastAppointments(String userId) async {
+    final response = await http.post(
+      Uri.parse("http://localhost:5000/RetrievePastAppointments"),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(userId),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load data');
+    }
+
+    final List<dynamic> decoded = json.decode(response.body);
+    return decoded.map((e) => PastAppointmentsDtoMapper.fromMap(e)).toList();
+  }
+  Future<http.Response> cancelAppointments(CancelAppointmentDto dto) async {
+    final response = await http.post(
+      Uri.parse("http://localhost:5000/CancelAppointment"),
+      headers: {'Content-Type': 'application/json'},
+        body: json.encode(dto.toMap())
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load data');
+    }
+
+    return response;
   }
 
 

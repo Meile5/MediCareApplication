@@ -7,6 +7,9 @@ import 'package:medicare/patient/appointment/appointment_cubit.dart';
 import 'package:medicare/patient/appointment/data_source.dart';
 import 'package:medicare/patient/chat/chat_cubit.dart';
 import 'package:medicare/patient/chat/chat_data_source.dart';
+import 'package:medicare/patient/appointmentManagement/appointments/state/appointment_cubit.dart';
+import 'package:medicare/patient/appointmentManagement/booking/state/booking_cubit.dart';
+import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
 void main() {
@@ -45,6 +48,10 @@ class _MyAppState extends State<MyApp> {
                 dataSource: DataSource(),
                 webSocketService: webSocketService,
               ),
+              (context) => BookingCubit(
+            dataSource: DataSource(),
+            webSocketService: webSocketService,
+          ),
         ),
         BlocProvider(
           create: (context) => VitalsCubit(webSocketService: webSocketService),
@@ -57,6 +64,12 @@ class _MyAppState extends State<MyApp> {
               ),
         ),
         RepositoryProvider(create: (context) => NavigationModel()),
+        BlocProvider(
+          create: (context) => AppointmentCubit(webSocketService: webSocketService,
+            dataSource: DataSource(),
+          ),
+        ),
+        RepositoryProvider(create: (context) => NavigationModel(),)
       ],
       child: MaterialApp(title: 'Medicare', home: const LoginPage()),
     );

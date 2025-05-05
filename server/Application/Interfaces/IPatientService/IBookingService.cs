@@ -9,4 +9,5 @@ public interface IBookingService
      Task BookAppointment(BookAppointmentDto dto);
      Task<List<FutureAppointmentsDto>> RetrieveFutureAppointments(string userId);
      Task <List<PastAppointmentsDto>> RetrievePastAppointments(string userId);
+     Task CancelAppointment(CancelAppointmentDto dto);
 }

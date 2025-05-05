@@ -123,6 +123,7 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.Clinicname).HasColumnName("clinicname");
             entity.Property(e => e.Phonenumber).HasColumnName("phonenumber");
+            entity.Property(e => e.Type).HasColumnName("type");
         });
 
         modelBuilder.Entity<ClinicDoctor>(entity =>

@@ -113,4 +113,8 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
         
     }
 
+    public async Task CancelAppointment(CancelAppointmentDto dto)
+    {
+        await bookingRep.CancelAppointment(dto.Id);
+    }
 }

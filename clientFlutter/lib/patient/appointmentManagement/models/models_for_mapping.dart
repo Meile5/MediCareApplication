@@ -43,3 +43,32 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
   });
 }
 
+@MappableClass()
+class PastAppointmentsDto with PastAppointmentsDtoMappable {
+  final DateTime startTime;
+  final DateTime endTime;
+
+
+  PastAppointmentsDto({
+    required this.startTime,
+    required this.endTime,
+  });
+}
+
+
+@MappableClass()
+class CancelAppointmentDto with CancelAppointmentDtoMappable {
+  final String id;
+  final String status;
+
+
+  CancelAppointmentDto({
+    required this.id,
+    required this.status,
+  });
+
+
+
+}
+
+
