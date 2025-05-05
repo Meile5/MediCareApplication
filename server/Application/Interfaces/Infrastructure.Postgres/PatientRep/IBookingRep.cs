@@ -1,5 +1,4 @@
-﻿using Application.Models.Dtos.PatientDto;
-using Core.Domain.Entities;
+﻿using Core.Domain.Entities;
 
 namespace Application.Interfaces.Infrastructure.Postgres.PatientRep;
 

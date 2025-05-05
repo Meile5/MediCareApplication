@@ -4,6 +4,7 @@ CREATE TABLE clinic (
     clinicname text NOT NULL,
     address text NOT NULL,
     phonenumber text NOT NULL,
+    type text NOT NULL,
     CONSTRAINT clinic_pk PRIMARY KEY (idclinic)
 );
 

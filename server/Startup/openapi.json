@@ -430,6 +430,41 @@
           }
         }
       }
+    },
+    "/RetrieveClinicInfo": {
+      "post": {
+        "tags": [
+          "Overview"
+        ],
+        "operationId": "Overview_RetrieveClinicInfo",
+        "requestBody": {
+          "x-name": "userId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicInfoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -647,6 +682,34 @@
             "type": "string"
           }
         }
+      },
+      "ClinicInfoDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "clinicname": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phonenumber": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "doctor": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DoctorInfoDto"
+            }
+          }
+        }
+      },
+      "DoctorInfoDto": {
+        "type": "object",
+        "additionalProperties": false
       },
       "MemberLeftNotification": {
         "allOf": [

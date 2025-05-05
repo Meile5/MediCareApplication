@@ -1,8 +1,6 @@
-﻿using Application.Interfaces.Infrastructure.Postgres;
-using Application.Interfaces.Infrastructure.Postgres.PatientRep;
+﻿using Application.Interfaces.Infrastructure.Postgres.PatientRep;
 using Application.Models;
 using Infrastructure.Postgres.Postgresql.Data.PatientRepo;
-//using Infrastructure.Postgres.Postgresql.Data;
 using Infrastructure.Postgres.Scaffolding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -23,6 +21,7 @@ public static class Extensions
 
        // services.AddScoped<IQuestionRepository, QuestionRepository>();
        services.AddScoped<IBookingRep, BookingRepo>();
+       services.AddScoped<IOverviewRepo, OverviewRepo>();
         services.AddScoped<Seeder>();
 
         return services;

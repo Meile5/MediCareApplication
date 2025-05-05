@@ -13,6 +13,8 @@ public partial class Clinic
 
     public string Phonenumber { get; set; } = null!;
 
+    public string Type { get; set; } = null!;
+
     public virtual ICollection<ClinicDoctor> ClinicDoctors { get; set; } = new List<ClinicDoctor>();
 
     public virtual ICollection<ClinicPatient> ClinicPatients { get; set; } = new List<ClinicPatient>();
