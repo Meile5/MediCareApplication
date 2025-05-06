@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../common/app_nav_bar.dart';
-import 'chat_cubit.dart';
 import 'chat_data_source.dart';
-import 'chat_room_screen.dart';
+import 'chat_navigation.dart';
+import 'chat_room_list_view.dart';
 import 'chat_room_state.dart';
 
 class ChatRoomListScreen extends StatefulWidget {
@@ -46,56 +45,42 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
           if (_state is ChatRoomLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (_state is ChatRoomError) {
-            final message = (_state as ChatRoomError).message;
-            return Center(child: Text('Error: $message'));
+            return Center(
+              child: Text('Error: ${(_state as ChatRoomError).message}'),
+            );
           } else if (_state is ChatRoomLoaded) {
             final chatRooms = (_state as ChatRoomLoaded).chatRooms;
-            if (chatRooms.isEmpty) {
-              return const Center(child: Text('No chat rooms found.'));
-            }
-            return ListView.builder(
-              itemCount: chatRooms.length,
-              itemBuilder: (context, index) {
-                final chat = chatRooms[index];
-                return ListTile(
-                  title: Text(chat.topic),
-                  subtitle: Text('Created at: ${chat.createdAt.toLocal()}'),
-                  trailing: const Icon(Icons.chat_bubble_outline),
-                  onTap: () {
-                    final now = DateTime.now();
-                    if (now.isBefore(chat.startTime)) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'This chat room is not available yet. It starts at ${chat.startTime.toLocal()}',
-                          ),
-                          duration: Duration(seconds: 3),
-                        ),
-                      );
-                      return;
-                    }
+            final pastChatRooms =
+                chatRooms.where((chat) => chat.isFinished).toList();
+            final futureChatRooms =
+                chatRooms.where((chat) => !chat.isFinished).toList();
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (_) => BlocProvider.value(
-                              value: context.read<ChatCubit>(),
-                              child: ChatRoomScreen(
-                                roomId: chat.id,
-                                userId: 'user123',
-                                userName: 'John',
-                              ),
-                            ),
-                      ),
-                    );
-                  },
-                );
-              },
+            return DefaultTabController(
+              length: 2,
+              child: Column(
+                children: [
+                  const ChatNavigation(),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        ChatRoomListView(
+                          chatRooms: futureChatRooms,
+                          userId: 'user123',
+                          userName: 'John',
+                        ),
+                        ChatRoomListView(
+                          chatRooms: pastChatRooms,
+                          userId: 'user123',
+                          userName: 'John',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             );
-          } else {
-            return const SizedBox.shrink();
           }
+          return const SizedBox.shrink();
         },
       ),
       bottomNavigationBar: AppNavBar(),

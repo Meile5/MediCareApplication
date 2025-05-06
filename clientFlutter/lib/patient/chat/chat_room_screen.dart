@@ -9,12 +9,14 @@ class ChatRoomScreen extends StatefulWidget {
   final String roomId;
   final String userId;
   final String userName;
+  final bool isFinished;
 
   const ChatRoomScreen({
     super.key,
     required this.roomId,
     required this.userId,
     required this.userName,
+    required this.isFinished,
   });
 
   @override
@@ -34,6 +36,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   }
 
   void _sendMessage() {
+    if (widget.isFinished) return;
+
     final messageText = _controller.text.trim();
     if (messageText.isEmpty) return;
 
@@ -99,14 +103,19 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    decoration: const InputDecoration(
-                      hintText: 'Type a message...',
+                    decoration: InputDecoration(
+                      hintText:
+                          widget.isFinished
+                              ? 'Chat is finished'
+                              : 'Type a message...',
+                      enabled: !widget.isFinished,
                     ),
                   ),
                 ),
                 IconButton(
                   icon: const Icon(Icons.send),
-                  onPressed: _sendMessage,
+                  onPressed: widget.isFinished ? null : _sendMessage,
+                  color: widget.isFinished ? Colors.grey : null,
                 ),
               ],
             ),

@@ -532,6 +532,39 @@
         }
       }
     },
+    "/chat/retreivePastChats/patient": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_GetPastChatsForPatient",
+        "requestBody": {
+          "x-name": "chatRoomRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserIdChatRoomRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/chat/retreiveChats/doctor": {
       "post": {
         "tags": [
