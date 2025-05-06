@@ -163,11 +163,12 @@ CREATE TABLE patient_vitals (
 
 CREATE TABLE messages (
     id text NOT NULL,
-    room_id text,
-    sender_id text,
-    content text,
+    room_id text NOT NULL,
+    sender_id text NOT NULL,
+    content text NOT NULL,
     sent_at timestamp without time zone DEFAULT (now()),
     is_read boolean DEFAULT FALSE,
+    sender_name text NOT NULL,
     CONSTRAINT messages_pkey PRIMARY KEY (id),
     CONSTRAINT messages_room_id_fkey FOREIGN KEY (room_id) REFERENCES chat_rooms (id) ON DELETE CASCADE,
     CONSTRAINT messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES "User" (iduser)

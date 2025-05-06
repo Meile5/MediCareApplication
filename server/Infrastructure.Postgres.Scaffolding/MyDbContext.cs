@@ -292,6 +292,7 @@ public partial class MyDbContext : DbContext
                 .HasColumnName("is_read");
             entity.Property(e => e.RoomId).HasColumnName("room_id");
             entity.Property(e => e.SenderId).HasColumnName("sender_id");
+            entity.Property(e => e.SenderName).HasColumnName("sender_name");
             entity.Property(e => e.SentAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
@@ -299,11 +300,11 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Room).WithMany(p => p.Messages)
                 .HasForeignKey(d => d.RoomId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("messages_room_id_fkey");
 
             entity.HasOne(d => d.Sender).WithMany(p => p.Messages)
                 .HasForeignKey(d => d.SenderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("messages_sender_id_fkey");
         });
 

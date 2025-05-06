@@ -3,10 +3,11 @@ using Core.Domain.Entities;
 namespace Application.Models.Dtos.ChatDtos;
 
 public class SendMessageDto{
-    public string? RoomId { get; set; }
-    public string? SenderId { get; set; }
-    public string? Content { get; set; }
-    public bool? IsRead { get; set; }
+    public required string RoomId { get; set; }
+    public required string SenderId { get; set; }
+    public required string Content { get; set; }
+    public required string SenderName {get;set;}
+    public bool IsRead { get; set; }
 
     public static Message ToEntity (SendMessageDto messageDto){
         return new Message{
@@ -15,7 +16,8 @@ public class SendMessageDto{
             SenderId = messageDto.SenderId,
             Content = messageDto.Content,
             SentAt = DateTime.Now,
-            IsRead = messageDto.IsRead
+            IsRead = messageDto.IsRead,
+            SenderName = messageDto.SenderName
         };
     }
 }

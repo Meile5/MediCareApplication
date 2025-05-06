@@ -28,7 +28,8 @@ public class ChatMessageEventHandler(IConnectionManager connectionManager, IChat
             RoomId = roomId,
             SenderId = userId,
             Content = dto.Message,
-            IsRead = false
+            IsRead = false,
+            SenderName = dto.Name
         };
 
         // Broadcast the message to everyone in the room

@@ -40,7 +40,7 @@ class ChatDataSource {
           (e) => ChatMessage(
             roomId: e['roomId'],
             userId: e['senderId'],
-            name: e['sender']?['name'] ?? 'Unknown', // fallback
+            name: e['senderName'] ?? 'Unknown',
             message: e['content'],
           ),
         )
