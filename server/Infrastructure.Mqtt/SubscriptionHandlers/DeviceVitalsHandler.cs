@@ -52,7 +52,7 @@ public class DeviceVitalsHandler : IMqttEventHandler
     public class VitalsPayload
     {
         public double Temperature { get; set; }
-        public double Ecg {get;set;}
+        public List<int> Ecg { get; set; } = new();
         
     }
 }

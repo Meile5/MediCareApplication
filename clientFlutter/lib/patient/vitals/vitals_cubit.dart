@@ -26,8 +26,13 @@ class VitalsCubit extends Cubit<VitalsState> {
         try {
           final message = BaseEventMapper.fromJson(rawEvent);
           if (message is DeviceVitals) {
+            final averageEcg =
+                message.ecg.isNotEmpty
+                    ? message.ecg.reduce((a, b) => a + b) / message.ecg.length
+                    : 0.0;
+
             emit(
-              VitalsUpdated(temperature: message.temperature, ecg: message.ecg),
+              VitalsUpdated(temperature: message.temperature, ecg: averageEcg),
             );
           }
         } catch (e) {

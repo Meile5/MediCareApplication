@@ -152,10 +152,10 @@ CREATE TABLE patient_vitals (
     id text NOT NULL,
     patient_id text NOT NULL,
     oxygen_level numeric(5,2),
-    body_temperature numeric(5,2),
+    body_temperature numeric(4,2),
     heart_rate integer,
-    created_at timestamp without time zone DEFAULT (now()),
-    updated_at timestamp without time zone DEFAULT (now()),
+    created_at timestamp with time zone DEFAULT (now()),
+    ecg_summary jsonb,
     CONSTRAINT patient_vitals_pkey PRIMARY KEY (id),
     CONSTRAINT fk_patient FOREIGN KEY (patient_id) REFERENCES patients (userid) ON DELETE CASCADE
 );

@@ -341,21 +341,19 @@ public partial class MyDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BodyTemperature)
-                .HasPrecision(5, 2)
+                .HasPrecision(4, 2)
                 .HasColumnName("body_temperature");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
+            entity.Property(e => e.EcgSummary)
+                .HasColumnType("jsonb")
+                .HasColumnName("ecg_summary");
             entity.Property(e => e.HeartRate).HasColumnName("heart_rate");
             entity.Property(e => e.OxygenLevel)
                 .HasPrecision(5, 2)
                 .HasColumnName("oxygen_level");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("updated_at");
 
             entity.HasOne(d => d.Patient).WithMany(p => p.PatientVitals)
                 .HasForeignKey(d => d.PatientId)

@@ -23,9 +23,12 @@ const int mqtt_port = 8883;
 const char* mqtt_user = "MedicareDevice"; 
 const char* mqtt_password = "MedicarePass492154";
 
-// Sensor Setup
+// ecg setup stuff
 #define SENSOR_PIN 17
 #define ECG_PIN 35  
+#define ECG_SAMPLE_INTERVAL 40 // milliseconds (25Hz)
+#define ECG_AVG_GROUP_SIZE 5   // average every 5 samples
+
 OneWire oneWire(SENSOR_PIN);
 DallasTemperature DS18B20(&oneWire);
 
@@ -37,6 +40,13 @@ float tempC;
 String deviceId = "DEVICE123";
 String pairingCode = "";
 bool isPaired = false;
+
+const int ECG_BATCH_SIZE = 100;  // collect 100 samples (4 seconds at 25Hz)
+int ecgRawBuffer[ECG_BATCH_SIZE];
+int ecgRawIndex = 0;
+
+unsigned long lastSampleTime = 0;
+unsigned long lastSendTime = 0;
 
 
 
@@ -139,6 +149,61 @@ void resetPairing() {
   delay(3000);
 }
 
+void collectECGData() {
+  if (millis() - lastSampleTime >= ECG_SAMPLE_INTERVAL) {
+    if (ecgRawIndex < ECG_BATCH_SIZE) {
+      ecgRawBuffer[ecgRawIndex++] = analogRead(ECG_PIN);
+    }
+    lastSampleTime = millis();
+  }
+}
+
+void sendVitalsIfReady() {
+  if (millis() - lastSendTime >= 2000 && ecgRawIndex >= ECG_AVG_GROUP_SIZE) {
+    DS18B20.requestTemperatures();
+    tempC = DS18B20.getTempCByIndex(0);
+
+    int avgSize = ecgRawIndex / ECG_AVG_GROUP_SIZE;
+    int ecgAveraged[avgSize];
+    for (int i = 0; i < avgSize; i++) {
+      long sum = 0;
+      for (int j = 0; j < ECG_AVG_GROUP_SIZE; j++) {
+        sum += ecgRawBuffer[i * ECG_AVG_GROUP_SIZE + j];
+      }
+      ecgAveraged[i] = sum / ECG_AVG_GROUP_SIZE;
+    }
+
+    StaticJsonDocument<512> doc;
+    doc["temperature"] = tempC;
+    JsonArray ecgArray = doc.createNestedArray("ecg");
+
+    for (int i = 0; i < avgSize; i++) {
+      ecgArray.add(ecgAveraged[i]);
+    }
+
+    String payload;
+    serializeJson(doc, payload);
+    String topic = "medicare/patient/vitals/" + deviceId;
+    client.publish(topic.c_str(), payload.c_str());
+    Serial.println("Publishing Vitals Batch:\n" + payload);
+
+    // Reset 
+    ecgRawIndex = 0;
+    lastSendTime = millis();
+
+    // LCD Display 
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Temp:");
+    lcd.print(tempC, 1);
+    lcd.print((char)223);
+    lcd.print("C");
+    lcd.setCursor(0, 1);
+    lcd.print("ECG Avg:");
+    lcd.print(ecgAveraged[avgSize - 1]); 
+  }
+}
+
 
 void setup() {
   Serial.begin(9600);
@@ -182,48 +247,18 @@ void setup() {
 }
 
 void loop() {
-  if (!client.connected()) {
-    reconnect();
-  }
+    if (!client.connected()) reconnect();
   client.loop();
 
   if (Serial.available()) {
     char c = Serial.read();
-    if (c == 'r') {
-      resetPairing();
-    }
+    if (c == 'r') resetPairing();
   }
 
   if (isPaired) {
-    DS18B20.requestTemperatures();
-    tempC = DS18B20.getTempCByIndex(0);
-
-    int ecgValue = analogRead(ECG_PIN);
-
-    StaticJsonDocument<128> doc;
-    doc["temperature"] = tempC;
-    doc["ecg"] = ecgValue;
-
-    String payload;
-    serializeJson(doc, payload);
-
-    String unifiedTopic = "medicare/patient/vitals/" + deviceId;
-    client.publish(unifiedTopic.c_str(), payload.c_str());
-
-    Serial.println("Publishing Vitals: " + payload);
-
-    
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Temp:");
-    lcd.print(tempC, 1);
-    lcd.print((char)223);
-    lcd.print("C");
-    lcd.setCursor(0, 1);
-    lcd.print("ECG:");
-    lcd.print(ecgValue);
+    collectECGData();
+    sendVitalsIfReady();
   }
 
-  delay(5000);
 }
 

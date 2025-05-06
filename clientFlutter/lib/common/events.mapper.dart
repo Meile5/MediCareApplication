@@ -682,8 +682,8 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
   static double _$temperature(DeviceVitals v) => v.temperature;
   static const Field<DeviceVitals, double> _f$temperature =
       Field('temperature', _$temperature);
-  static double _$ecg(DeviceVitals v) => v.ecg;
-  static const Field<DeviceVitals, double> _f$ecg = Field('ecg', _$ecg);
+  static List<int> _$ecg(DeviceVitals v) => v.ecg;
+  static const Field<DeviceVitals, List<int>> _f$ecg = Field('ecg', _$ecg);
 
   @override
   final MappableFields<DeviceVitals> fields = const {
@@ -761,8 +761,10 @@ extension DeviceVitalsValueCopy<$R, $Out>
 
 abstract class DeviceVitalsCopyWith<$R, $In extends DeviceVitals, $Out>
     implements BaseEventCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get ecg;
   @override
-  $R call({String? userId, String? deviceId, double? temperature, double? ecg});
+  $R call(
+      {String? userId, String? deviceId, double? temperature, List<int>? ecg});
   DeviceVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -775,11 +777,16 @@ class _DeviceVitalsCopyWithImpl<$R, $Out>
   late final ClassMapperBase<DeviceVitals> $mapper =
       DeviceVitalsMapper.ensureInitialized();
   @override
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get ecg => ListCopyWith(
+      $value.ecg,
+      (v, t) => ObjectCopyWith(v, $identity, t),
+      (v) => call(ecg: v));
+  @override
   $R call(
           {String? userId,
           String? deviceId,
           double? temperature,
-          double? ecg}) =>
+          List<int>? ecg}) =>
       $apply(FieldCopyWithData({
         if (userId != null) #userId: userId,
         if (deviceId != null) #deviceId: deviceId,

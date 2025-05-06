@@ -17,7 +17,7 @@ public partial class PatientVital
 
     public DateTime? CreatedAt { get; set; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public string? EcgSummary { get; set; }
 
     public virtual Patient Patient { get; set; } = null!;
 }
