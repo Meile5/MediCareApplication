@@ -62,6 +62,19 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
                   subtitle: Text('Created at: ${chat.createdAt.toLocal()}'),
                   trailing: const Icon(Icons.chat_bubble_outline),
                   onTap: () {
+                    final now = DateTime.now();
+                    if (now.isBefore(chat.startTime)) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'This chat room is not available yet. It starts at ${chat.startTime.toLocal()}',
+                          ),
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                      return;
+                    }
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
