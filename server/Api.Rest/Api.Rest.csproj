@@ -16,6 +16,7 @@
         <PackageReference Include="NSwag.AspNetCore" Version="14.2.0"/>
         <PackageReference Include="uldahlalex.websocket.boilerplate" Version="2.3.4" />
 
+
     </ItemGroup>
 
     <ItemGroup>

@@ -27,4 +27,12 @@ public class AuthController(ISecurityService securityService, IConnectionManager
         connectionManager.AddToTopic("teacher", clientId);
         return Ok();
     }
+    public const string RegisterRoute = nameof(Register);
+
+    [HttpPost]
+        [Route(RegisterRoute)]
+        public ActionResult<AuthResponseDto> Register([FromBody] AuthRequestDto dto)
+        {
+            return Ok(securityService.Register(dto));
+        }
 }

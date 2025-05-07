@@ -14,20 +14,20 @@ using JWT.Builder;
 using JWT.Serializers;
 using Microsoft.Extensions.Options;
 
-/*namespace Application.Services;
+namespace Application.Services;
 
 public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRepository repository) : ISecurityService
 {
     public AuthResponseDto Login(AuthRequestDto dto)
     {
-        var player = repository.GetUserOrNull(dto.Email) ?? throw new ValidationException("Username not found");
-        VerifyPasswordOrThrow(dto.Password + player.Salt, player.Hash);
+        var user = repository.GetUserOrNull(dto.Email) ?? throw new ValidationException("Username not found");
+        VerifyPasswordOrThrow(dto.Password + user.Salt, user.Hash);
         return new AuthResponseDto
         {
             Jwt = GenerateJwt(new JwtClaims
             {
-                Id = player.Id,
-                Role = player.Role,
+                Id = user.Iduser,
+                Role = user.Role,
                 Exp = DateTimeOffset.UtcNow.AddHours(1000)
                     .ToUnixTimeSeconds()
                     .ToString(),
@@ -44,7 +44,7 @@ public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRe
         var hash = HashPassword(dto.Password + salt);
         var insertedPlayer = repository.AddUser(new User
         {
-            Id = Guid.NewGuid().ToString(),
+            Iduser = Guid.NewGuid().ToString(),
             Email = dto.Email,
             Role = Constants.UserRole,
             Salt = salt,
@@ -54,7 +54,7 @@ public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRe
         {
             Jwt = GenerateJwt(new JwtClaims
             {
-                Id = insertedPlayer.Id,
+                Id = insertedPlayer.Iduser,
                 Role = insertedPlayer.Role,
                 Exp = DateTimeOffset.UtcNow.AddHours(1000).ToUnixTimeSeconds().ToString(),
                 Email = insertedPlayer.Email
@@ -113,4 +113,4 @@ public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRe
             throw new AuthenticationException("Token expired");
         return token;
     }
-}*/
+}

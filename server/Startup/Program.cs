@@ -10,6 +10,7 @@ using NSwag.Generation;
 using Startup.Documentation;
 using Startup.Proxy;
 using Microsoft.AspNetCore.Builder;
+using Scalar.AspNetCore;
 
 namespace Startup;
 
@@ -87,6 +88,7 @@ public class Program
             conf.Path = "/swagger";
             conf.DocumentPath = "/openapi/v1.json";
         });
+        app.MapScalarApiReference();
         //app.GenerateTypeScriptClient("/../../client/src/generated-client.ts").GetAwaiter().GetResult();
     }
 }

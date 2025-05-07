@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import 'chat_cubit.dart';
 import 'chat_room_screen.dart';
@@ -18,6 +19,13 @@ class ChatRoomListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formatDate(DateTime date) {
+      final local = date.toLocal();
+      final formattedDate = DateFormat.yMMMMd().format(local);
+      final formattedTime = DateFormat('jm').format(local);
+      return '$formattedDate,  $formattedTime';
+    }
+
     if (chatRooms.isEmpty) {
       return const Center(child: Text('No chat rooms in this category.'));
     }
@@ -32,9 +40,18 @@ class ChatRoomListView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (chat.isFinished)
-                Text(
-                  'Completed at: ${chat.endTime.toLocal()}',
-                  style: TextStyle(color: Colors.green),
+                Row(
+                  children: [
+                    Text(
+                      'Completed at: ',
+                      style: TextStyle(color: Colors.green),
+                    ),
+
+                    Text(
+                      formatDate(chat.endTime),
+                      style: TextStyle(color: Colors.green),
+                    ),
+                  ],
                 ),
               if (!chat.isFinished && chat.startTime.isBefore(DateTime.now()))
                 const Text(
@@ -42,9 +59,15 @@ class ChatRoomListView extends StatelessWidget {
                   style: TextStyle(color: Colors.orange),
                 ),
               if (!chat.isFinished && chat.startTime.isAfter(DateTime.now()))
-                Text(
-                  'Starts at: ${chat.startTime.toLocal()}',
-                  style: TextStyle(color: Colors.blue),
+                Row(
+                  children: [
+                    Text('Starts at: ', style: TextStyle(color: Colors.blue)),
+
+                    Text(
+                      formatDate(chat.startTime),
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ],
                 ),
             ],
           ),

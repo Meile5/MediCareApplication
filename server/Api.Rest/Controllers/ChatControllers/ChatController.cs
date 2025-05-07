@@ -1,10 +1,11 @@
+using Application.Interfaces;
 using Application.Interfaces.IChatService;
 using Application.Models.Dtos.ChatDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Rest.Controllers.Chat;
 [ApiController]
-public class ChatController(IChatService chatService) : ControllerBase{
+public class ChatController(IChatService chatService, ISecurityService securityService) : ControllerBase{
 
     [Route("chat/create")]
     public async Task<ActionResult> CreateChatRoom([FromBody] CreateChatRoomDto chatRoomDto){
@@ -13,9 +14,13 @@ public class ChatController(IChatService chatService) : ControllerBase{
     }
 
     [Route("chat/retreiveChats/patient")]
-    public async Task<ActionResult> GetChatsForPatient([FromBody] UserIdChatRoomRequest chatRoomRequest){
+    [HttpPost]
+    public async Task<ActionResult> GetChatsForPatient([FromBody] UserIdChatRoomRequest chatRoomRequest, [FromHeader]string authorization)
+    {
+
         string patientId = chatRoomRequest.userId;
         var chatRooms = await chatService.GetChatRoomsForPatient(patientId);
+        securityService.VerifyJwtOrThrow(authorization);
         return Ok(chatRooms);
     }
 

@@ -1,4 +1,6 @@
-﻿using Application.Models.Dtos;
+﻿
+/*
+using Application.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Rest.Controllers;
@@ -27,3 +29,4 @@ public class Login :ControllerBase
     }
 
 }
+*/
