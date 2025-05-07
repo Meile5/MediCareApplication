@@ -47,8 +47,6 @@ class AppointmentCubit extends Cubit<AppointmentState> {
   Future<void> cancelAppointment(CancelAppointmentDto dto) async {
     try {
       final response = await dataSource.cancelAppointments(dto);
-      print(response.body + "herrrrrrr");
-
       if (response.statusCode == 200) {
         // Remove just the canceled appointment from state
         if (state is FutureAppointmentsLoaded) {

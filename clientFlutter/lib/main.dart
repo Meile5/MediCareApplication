@@ -9,6 +9,8 @@ import 'package:medicare/patient/appointmentManagement/booking/state/booking_cub
 import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
 import 'package:medicare/patient/chat/chat_cubit.dart';
 import 'package:medicare/patient/chat/chat_data_source.dart';
+import 'package:medicare/patient/overview/state/overview_cubit.dart';
+import 'package:medicare/patient/overview/utility/data_source_overview.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
 void main() {
@@ -67,6 +69,12 @@ class _MyAppState extends State<MyApp> {
                 webSocketService: webSocketService,
                 dataSource: ChatDataSource(),
               ),
+        ),
+        BlocProvider(
+          create:
+              (context) => OverviewCubit(
+            dataSource: DataSourceOverview(),
+          ),
         ),
         RepositoryProvider(create: (context) => NavigationModel()),
         BlocProvider(

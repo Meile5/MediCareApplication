@@ -28,7 +28,7 @@ class AppointmentCard extends StatelessWidget {
       final local = date.toLocal();
       final formattedDate = DateFormat.yMMMMd().format(local);
       final formattedTime = DateFormat('jm').format(local);
-      return 'Date: $formattedDate, Time: $formattedTime';
+      return '$formattedDate, $formattedTime';
     }
 
     return Container(
@@ -62,7 +62,7 @@ class AppointmentCard extends StatelessWidget {
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: getStatusColor(appointment.status),
+                //color: getStatusColor(appointment.status),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -70,7 +70,7 @@ class AppointmentCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(
                     '${appointment.status}',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: getStatusColor(appointment.status)),
                   ),
                 ),
               ),

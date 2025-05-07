@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:medicare/common/widgets.dart';
 import 'package:medicare/patient/common/app_nav_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../appointments/screens/appointment_screen.dart';
 import '../../appointments/state/appointment_cubit.dart';
 import '../../models/models_appointments.dart';
 import '../state/booking_cubit.dart';
@@ -13,7 +14,12 @@ import '../widgets/book_appointment_button.dart';
 import '../widgets/custom_calendar.dart';
 
 class CustomBookingCalendar extends StatefulWidget {
-  const CustomBookingCalendar({super.key});
+  final String selectedReason;
+
+  const CustomBookingCalendar(
+      {super.key,
+        required this.selectedReason
+      });
 
   @override
   State<CustomBookingCalendar> createState() => _CustomBookingCalendarState();
@@ -86,6 +92,7 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
           ),
           BookAppointmentButton(
             selectedSlot: _selectedSlot,
+            selectedReason: widget.selectedReason,
 
           ),
           BlocListener<BookingCubit, BookingState>(
@@ -96,8 +103,12 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                 Future.microtask(() {
                   if (context.mounted) {
                     context.read<AppointmentCubit>().getFutureAppointments('user123');
-                    Navigator.of(context).pop();
-                  }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AppointmentScreen(),
+                      ),
+                    );                  }
                 });
               } else if (state is BookingError) {
                 context.showErrorSnackBar(message: state.message);

@@ -9,23 +9,14 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
   final String patientId;
   final String doctorId;
 
-  BookAppointmentDto({
+
+  BookAppointmentDto( {
     required this.startTime,
     required this.endTime,
     required this.patientId,
     required this.doctorId,
-  });
 
-  /// Override the map to ensure proper date formatting
-  /*@override
-  Map<String, dynamic> toMap() {
-    return {
-      'startTime': startTime.toUtc().toIso8601String(),
-      'endTime': endTime.toUtc().toIso8601String(),
-      'patientId': patientId,
-      'doctorId': doctorId,
-    };
-  }*/
+  });
 
 }
 @MappableClass()
@@ -68,7 +59,35 @@ class CancelAppointmentDto with CancelAppointmentDtoMappable {
   });
 
 
+}
 
+
+@MappableClass()
+class CreateChatRoomDto with CreateChatRoomDtoMappable {
+  final String doctorId;
+  final String patientId;
+  final String topic;
+  final DateTime startTime;
+  final DateTime endTime;
+
+  CreateChatRoomDto({
+    required this.doctorId,
+    required this.patientId,
+    required this.topic,
+    required this.startTime,
+    required this.endTime,
+  });
+}
+
+@MappableClass()
+class BookAppointmentRequest with BookAppointmentRequestMappable {
+  final BookAppointmentDto appointment;
+  final CreateChatRoomDto chatRoom;
+
+  BookAppointmentRequest({
+    required this.appointment,
+    required this.chatRoom,
+  });
 }
 
 

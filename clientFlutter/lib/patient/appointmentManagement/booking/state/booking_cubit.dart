@@ -31,7 +31,7 @@ class BookingCubit extends Cubit<BookingState> {
     }
   }
 
-  Future<void> bookAppointment(BookAppointmentDto dto) async {
+  Future<void> bookAppointment(BookAppointmentRequest dto) async {
     try {
       final response = await dataSource.bookAppointment(dto);
 

@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../models/models_for_mapping.dart';
 import 'package:intl/intl.dart';
 
-class PastAppointmentCard extends StatelessWidget {
-  final PastAppointmentsDto appointment;
+import '../models/models_overview.dart';
 
-  const PastAppointmentCard({super.key, required this.appointment});
+class ClinicInfo extends StatelessWidget {
+  final ClinicInfoDto clinicInfo;
+
+  const ClinicInfo({super.key, required this.clinicInfo});
 
   @override
   Widget build(BuildContext context) {
-
-    String formatDate(DateTime date) {
-      final formattedDate = DateFormat.yMMMMd().format(date);
-      final formattedTime = DateFormat('jm').format(date);
-      return '$formattedDate, $formattedTime';
-    }
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -38,7 +33,10 @@ class PastAppointmentCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(formatDate(appointment.startTime)),
+                Text(clinicInfo.clinicname),
+                Text(clinicInfo.address),
+                Text(clinicInfo.phonenumber),
+                Text(clinicInfo.type),
               ],
             ),
           ),

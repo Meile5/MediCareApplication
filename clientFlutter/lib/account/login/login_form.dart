@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/patient/overview/OverviewScreen.dart';
+import 'package:medicare/patient/overview/screens/OverviewScreen.dart';
 import '../../common/widgets.dart';
 
 class LoginForm extends StatefulWidget {

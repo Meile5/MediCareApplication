@@ -8,10 +8,13 @@ import '../state/booking_cubit.dart';
 class BookAppointmentButton extends StatelessWidget{
   final AvailableDates? selectedSlot;
 
+  final String selectedReason;
+
 
   const BookAppointmentButton({
     super.key,
     required this.selectedSlot,
+    required this.selectedReason,
 
   });
 
@@ -25,14 +28,27 @@ class BookAppointmentButton extends StatelessWidget{
             : () {
 
           final selectedTime = selectedSlot!.startTime;
+          print('rason: $selectedReason');
+
           final appointmentDto = BookAppointmentDto(
             startTime: selectedSlot!.startTime!,
             endTime: selectedSlot!.endTime!,
             patientId: 'user123',
             doctorId: 'user-doctor-1',
           );
+          final chatRoomDto = CreateChatRoomDto(
+            doctorId: 'user-doctor-1',
+            patientId: 'user123',
+            topic: selectedReason,
+            startTime: selectedSlot!.startTime!,
+            endTime: selectedSlot!.endTime!,
+          );
+          final bookingRequestDto = BookAppointmentRequest(
+            appointment: appointmentDto,
+            chatRoom: chatRoomDto,
+          );
 
-          context.read<BookingCubit>().bookAppointment(appointmentDto);
+          context.read<BookingCubit>().bookAppointment(bookingRequestDto);
 
           print('Selected time: $selectedTime');
 

@@ -22,7 +22,7 @@ class DataSource {
     return DoctorAvailabilityResponseDto.fromJson(map);
   }
 
-  Future<http.Response> bookAppointment(BookAppointmentDto dto) async {
+  Future<http.Response> bookAppointment(BookAppointmentRequest dto) async {
     final jsonBody = json.encode(dto.toMap()); // Encode payload
     print('Request body: $jsonBody'); // Log payload
 

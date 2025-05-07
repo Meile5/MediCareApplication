@@ -30,6 +30,7 @@ class CustomSlotGrid extends StatelessWidget {
         childAspectRatio: 3.5,
       ),
       itemBuilder: (context, index) {
+        /* This checks if the currently selected slot (selectedSlot) is equal to the slot at this index.*/
         final slot = slots[index];
         final isSelected = selectedSlot == slot;
 
