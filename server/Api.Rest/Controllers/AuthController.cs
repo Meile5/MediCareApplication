@@ -9,6 +9,10 @@ namespace Api.Rest.Controllers;
 public class AuthController(ISecurityService securityService, IConnectionManager connectionManager) : ControllerBase
 {
 
+    public const string RegisterPatientRoute = nameof(RegisterPatient);
+    public const string RegisterDoctorRoute = nameof(RegisterDoctor);
+
+
     public const string LoginRoute =  nameof(Login);
     [HttpPost]
     [Route(LoginRoute)]
@@ -27,12 +31,18 @@ public class AuthController(ISecurityService securityService, IConnectionManager
         connectionManager.AddToTopic("teacher", clientId);
         return Ok();
     }
-    public const string RegisterRoute = nameof(Register);
+   
+    [HttpPost]
+    [Route(RegisterPatientRoute)]
+    public ActionResult<AuthResponseDto> RegisterPatient([FromBody] PatientRegisterRequestDto dto)
+    {
+        return Ok(securityService.RegisterPatient(dto));
+    }
 
     [HttpPost]
-        [Route(RegisterRoute)]
-        public ActionResult<AuthResponseDto> Register([FromBody] AuthRequestDto dto)
-        {
-            return Ok(securityService.Register(dto));
-        }
+    [Route(RegisterDoctorRoute)]
+    public ActionResult<AuthResponseDto> RegisterDoctor([FromBody] DoctorRegisterRequestDto dto)
+    {
+        return Ok(securityService.RegisterDoctor(dto));
+    }
 }

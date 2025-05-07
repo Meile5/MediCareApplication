@@ -36,31 +36,69 @@ public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRe
         };
     }
 
-    public AuthResponseDto Register(AuthRequestDto dto)
+    public AuthResponseDto RegisterPatient(PatientRegisterRequestDto dto)
+{
+    var salt = GenerateSalt(); 
+    var user = new User
     {
-        var player = repository.GetUserOrNull(dto.Email);
-        if (player is not null) throw new ValidationException("User already exists");
-        var salt = GenerateSalt();
-        var hash = HashPassword(dto.Password + salt);
-        var insertedPlayer = repository.AddUser(new User
+        Iduser = Guid.NewGuid().ToString(),
+        Email = dto.Email,
+        Role = "role-patient",
+        Salt = salt,
+        Hash = HashPassword(dto.Password + salt) 
+    };
+
+    repository.AddUser(user);
+
+    repository.AddPatient(new Patient
+    {
+        Userid = user.Iduser,
+        Name = dto.Name,
+        Surname = dto.Surname,
+        Gender = dto.Gender,
+        Age = dto.Age,
+        Bloodtype = dto.Bloodtype,
+        Allergies = dto.Allergies,
+        Phonenumber = dto.Phonenumber,
+        Address = dto.Address,
+        DeviceId = dto.DeviceId
+    });
+
+    return GenerateAuthResponse(user);
+}
+
+
+    public AuthResponseDto RegisterDoctor(DoctorRegisterRequestDto dto)
+    {
+    var salt = GenerateSalt(); 
+        var user = new User
         {
             Iduser = Guid.NewGuid().ToString(),
             Email = dto.Email,
-            Role = Constants.UserRole,
+            Role = "role-doctor",
             Salt = salt,
-            Hash = hash
-        });
-        return new AuthResponseDto
-        {
-            Jwt = GenerateJwt(new JwtClaims
-            {
-                Id = insertedPlayer.Iduser,
-                Role = insertedPlayer.Role,
-                Exp = DateTimeOffset.UtcNow.AddHours(1000).ToUnixTimeSeconds().ToString(),
-                Email = insertedPlayer.Email
-            })
+            Hash = HashPassword(dto.Password + salt) 
+
         };
+
+        repository.AddUser(user);
+
+        repository.AddDoctor(new Doctor
+        {
+            Doctorid = user.Iduser,
+            Name = dto.Name,
+            Surname = dto.Surname,
+            Age = dto.Age,
+            Gender = dto.Gender,
+            Specialty = dto.Specialty
+        });
+
+        return GenerateAuthResponse(user);
     }
+
+
+
+
 
     /// <summary>
     ///     Gives hex representation of SHA512 hash
@@ -113,4 +151,17 @@ public class SecurityService(IOptionsMonitor<AppOptions> optionsMonitor, IDataRe
             throw new AuthenticationException("Token expired");
         return token;
     }
+
+    private AuthResponseDto GenerateAuthResponse(User user) =>
+    new()
+    {
+        Jwt = GenerateJwt(new JwtClaims
+        {
+            Id = user.Iduser,
+            Role = user.Role,
+            Exp = DateTimeOffset.UtcNow.AddHours(1000).ToUnixTimeSeconds().ToString(),
+            Email = user.Email
+        })
+    };
+
 }

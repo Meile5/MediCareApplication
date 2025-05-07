@@ -1,3 +1,5 @@
+
+/*
 using Application.Models.Enums;
 using Core.Domain.Entities;
 
@@ -9,7 +11,7 @@ public static class MockObjects
     {
         return new User
         {
-            Role = role ?? Constants.UserRole,
+            Role = role ?? Constants.PatientRole,
             Email = "test" + Guid.NewGuid() + "@test.com",
             Id = Guid.NewGuid().ToString(),
             Salt = "word", //password is "pass" and the hash is the combined pass + word hashed together 
@@ -18,3 +20,4 @@ public static class MockObjects
         };
     }
 }
+*/

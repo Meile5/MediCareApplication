@@ -77,18 +77,50 @@
         }
       }
     },
-    "/Register": {
+    "/RegisterPatient": {
       "post": {
         "tags": [
           "Auth"
         ],
-        "operationId": "Auth_Register",
+        "operationId": "Auth_RegisterPatient",
         "requestBody": {
           "x-name": "dto",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AuthRequestDto"
+                "$ref": "#/components/schemas/PatientRegisterRequestDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RegisterDoctor": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_RegisterDoctor",
+        "requestBody": {
+          "x-name": "dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DoctorRegisterRequestDto"
               }
             }
           },
@@ -135,93 +167,6 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/AddQuestion": {
-      "post": {
-        "tags": [
-          "Question"
-        ],
-        "operationId": "Question_AddQuestion",
-        "requestBody": {
-          "x-name": "dto",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateQuestionDto"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/GetPreviousQuestions": {
-      "post": {
-        "tags": [
-          "Question"
-        ],
-        "operationId": "Question_GetPreviousQuestions",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1
-          },
-          {
-            "name": "take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 5
-            },
-            "x-position": 3
-          }
-        ],
-        "requestBody": {
-          "x-name": "lastQuestion",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Question"
-              }
-            }
-          },
-          "x-position": 2
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Question"
-                  }
                 }
               }
             }
@@ -471,6 +416,16 @@
           "Chat"
         ],
         "operationId": "Chat_CreateChatRoom",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "chatRoomDto",
           "content": {
@@ -504,16 +459,6 @@
           "Chat"
         ],
         "operationId": "Chat_GetChatsForPatient",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 2
-          }
-        ],
         "requestBody": {
           "x-name": "chatRoomRequest",
           "content": {
@@ -641,38 +586,108 @@
           }
         }
       },
+      "PatientRegisterRequestDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AuthRequestDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "surname",
+              "gender",
+              "age",
+              "bloodtype",
+              "phonenumber",
+              "address"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "surname": {
+                "type": "string",
+                "minLength": 1
+              },
+              "gender": {
+                "type": "string",
+                "minLength": 1
+              },
+              "age": {
+                "type": "string",
+                "minLength": 1
+              },
+              "bloodtype": {
+                "type": "string",
+                "minLength": 1
+              },
+              "allergies": {
+                "type": "string",
+                "nullable": true
+              },
+              "phonenumber": {
+                "type": "string",
+                "minLength": 1
+              },
+              "address": {
+                "type": "string",
+                "minLength": 1
+              },
+              "deviceId": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "DoctorRegisterRequestDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AuthRequestDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "surname",
+              "specialty"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "surname": {
+                "type": "string",
+                "minLength": 1
+              },
+              "age": {
+                "type": "string",
+                "nullable": true
+              },
+              "gender": {
+                "type": "string",
+                "nullable": true
+              },
+              "specialty": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      },
       "EnterChatRequest": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "userId": {
             "type": "string"
-          }
-        }
-      },
-      "CreateQuestionDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "questionText": {
-            "type": "string"
-          }
-        }
-      },
-      "Question": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "questiontext": {
-            "type": "string"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
           }
         }
       },

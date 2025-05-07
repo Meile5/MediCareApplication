@@ -6,4 +6,7 @@ public interface IDataRepository
 {
     User? GetUserOrNull(string email);
     User AddUser(User user);
+    void AddPatient(Patient patient);
+    void AddDoctor(Doctor doctor);
+
 }

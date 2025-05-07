@@ -12,4 +12,16 @@ class LoginError extends LoginState {
   LoginError(this.message);
 }
 
-class LoggedIn extends LoginState {}
+class LoggedIn extends LoginState {
+  final String jwt;
+  final String userId;
+  final String email;
+  final String role;
+
+  LoggedIn({
+    required this.jwt,
+    required this.userId,
+    required this.email,
+    required this.role,
+  });
+}
