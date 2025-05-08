@@ -8,6 +8,7 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
   final DateTime endTime;
   final String patientId;
   final String doctorId;
+  final String notes;
 
 
   BookAppointmentDto( {
@@ -15,6 +16,7 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
     required this.endTime,
     required this.patientId,
     required this.doctorId,
+    required this.notes,
 
   });
 
@@ -25,12 +27,14 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
   final DateTime startTime;
   final DateTime endTime;
   final String status;
+  final String notes;
 
   FutureAppointmentsDto({
     required this.id,
     required this.startTime,
     required this.endTime,
     required this.status,
+    required this.notes,
   });
 }
 
@@ -103,6 +107,21 @@ class ClinicDoctorDto with ClinicDoctorDtoMappable {
     required this.surname,
   });
 }
+
+@MappableClass()
+class AvailabilityDto with AvailabilityDtoMappable {
+  final DateTime startTime;
+  final DateTime endTime;
+
+  AvailabilityDto({
+    required this.startTime,
+    required this.endTime,
+
+  });
+
+}
+
+
 
 
 

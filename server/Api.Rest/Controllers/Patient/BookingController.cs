@@ -13,7 +13,7 @@ public class BookingController (IBookingService _bookingService) : ControllerBas
     public const string RetrieveBookingInfoRoute = nameof(RetrieveBookingInfo);
     
     [Route(RetrieveBookingInfoRoute)]
-    public async Task <ActionResult<DoctorAvailabilityResponseDto> >RetrieveBookingInfo([FromBody] string doctorId) 
+    public async Task <ActionResult<AvailabilityDto> >RetrieveBookingInfo([FromBody] string doctorId) 
     
     {
        // securityService.VerifyJwtOrThrow(authorization);

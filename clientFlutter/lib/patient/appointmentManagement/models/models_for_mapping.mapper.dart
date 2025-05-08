@@ -32,6 +32,9 @@ class BookAppointmentDtoMapper extends ClassMapperBase<BookAppointmentDto> {
   static String _$doctorId(BookAppointmentDto v) => v.doctorId;
   static const Field<BookAppointmentDto, String> _f$doctorId =
       Field('doctorId', _$doctorId);
+  static String _$notes(BookAppointmentDto v) => v.notes;
+  static const Field<BookAppointmentDto, String> _f$notes =
+      Field('notes', _$notes);
 
   @override
   final MappableFields<BookAppointmentDto> fields = const {
@@ -39,6 +42,7 @@ class BookAppointmentDtoMapper extends ClassMapperBase<BookAppointmentDto> {
     #endTime: _f$endTime,
     #patientId: _f$patientId,
     #doctorId: _f$doctorId,
+    #notes: _f$notes,
   };
 
   static BookAppointmentDto _instantiate(DecodingData data) {
@@ -46,7 +50,8 @@ class BookAppointmentDtoMapper extends ClassMapperBase<BookAppointmentDto> {
         startTime: data.dec(_f$startTime),
         endTime: data.dec(_f$endTime),
         patientId: data.dec(_f$patientId),
-        doctorId: data.dec(_f$doctorId));
+        doctorId: data.dec(_f$doctorId),
+        notes: data.dec(_f$notes));
   }
 
   @override
@@ -108,7 +113,8 @@ abstract class BookAppointmentDtoCopyWith<$R, $In extends BookAppointmentDto,
       {DateTime? startTime,
       DateTime? endTime,
       String? patientId,
-      String? doctorId});
+      String? doctorId,
+      String? notes});
   BookAppointmentDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -126,19 +132,22 @@ class _BookAppointmentDtoCopyWithImpl<$R, $Out>
           {DateTime? startTime,
           DateTime? endTime,
           String? patientId,
-          String? doctorId}) =>
+          String? doctorId,
+          String? notes}) =>
       $apply(FieldCopyWithData({
         if (startTime != null) #startTime: startTime,
         if (endTime != null) #endTime: endTime,
         if (patientId != null) #patientId: patientId,
-        if (doctorId != null) #doctorId: doctorId
+        if (doctorId != null) #doctorId: doctorId,
+        if (notes != null) #notes: notes
       }));
   @override
   BookAppointmentDto $make(CopyWithData data) => BookAppointmentDto(
       startTime: data.get(#startTime, or: $value.startTime),
       endTime: data.get(#endTime, or: $value.endTime),
       patientId: data.get(#patientId, or: $value.patientId),
-      doctorId: data.get(#doctorId, or: $value.doctorId));
+      doctorId: data.get(#doctorId, or: $value.doctorId),
+      notes: data.get(#notes, or: $value.notes));
 
   @override
   BookAppointmentDtoCopyWith<$R2, BookAppointmentDto, $Out2> $chain<$R2, $Out2>(
@@ -172,6 +181,9 @@ class FutureAppointmentsDtoMapper
   static String _$status(FutureAppointmentsDto v) => v.status;
   static const Field<FutureAppointmentsDto, String> _f$status =
       Field('status', _$status);
+  static String _$notes(FutureAppointmentsDto v) => v.notes;
+  static const Field<FutureAppointmentsDto, String> _f$notes =
+      Field('notes', _$notes);
 
   @override
   final MappableFields<FutureAppointmentsDto> fields = const {
@@ -179,6 +191,7 @@ class FutureAppointmentsDtoMapper
     #startTime: _f$startTime,
     #endTime: _f$endTime,
     #status: _f$status,
+    #notes: _f$notes,
   };
 
   static FutureAppointmentsDto _instantiate(DecodingData data) {
@@ -186,7 +199,8 @@ class FutureAppointmentsDtoMapper
         id: data.dec(_f$id),
         startTime: data.dec(_f$startTime),
         endTime: data.dec(_f$endTime),
-        status: data.dec(_f$status));
+        status: data.dec(_f$status),
+        notes: data.dec(_f$notes));
   }
 
   @override
@@ -246,7 +260,12 @@ abstract class FutureAppointmentsDtoCopyWith<
     $R,
     $In extends FutureAppointmentsDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? id, DateTime? startTime, DateTime? endTime, String? status});
+  $R call(
+      {String? id,
+      DateTime? startTime,
+      DateTime? endTime,
+      String? status,
+      String? notes});
   FutureAppointmentsDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -264,19 +283,22 @@ class _FutureAppointmentsDtoCopyWithImpl<$R, $Out>
           {String? id,
           DateTime? startTime,
           DateTime? endTime,
-          String? status}) =>
+          String? status,
+          String? notes}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (startTime != null) #startTime: startTime,
         if (endTime != null) #endTime: endTime,
-        if (status != null) #status: status
+        if (status != null) #status: status,
+        if (notes != null) #notes: notes
       }));
   @override
   FutureAppointmentsDto $make(CopyWithData data) => FutureAppointmentsDto(
       id: data.get(#id, or: $value.id),
       startTime: data.get(#startTime, or: $value.startTime),
       endTime: data.get(#endTime, or: $value.endTime),
-      status: data.get(#status, or: $value.status));
+      status: data.get(#status, or: $value.status),
+      notes: data.get(#notes, or: $value.notes));
 
   @override
   FutureAppointmentsDtoCopyWith<$R2, FutureAppointmentsDto, $Out2>
@@ -923,4 +945,122 @@ class _ClinicDoctorDtoCopyWithImpl<$R, $Out>
   ClinicDoctorDtoCopyWith<$R2, ClinicDoctorDto, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _ClinicDoctorDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class AvailabilityDtoMapper extends ClassMapperBase<AvailabilityDto> {
+  AvailabilityDtoMapper._();
+
+  static AvailabilityDtoMapper? _instance;
+  static AvailabilityDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = AvailabilityDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'AvailabilityDto';
+
+  static DateTime _$startTime(AvailabilityDto v) => v.startTime;
+  static dynamic _arg$startTime(f) => f<DateTime>();
+  static const Field<AvailabilityDto, dynamic> _f$startTime =
+      Field('startTime', _$startTime, arg: _arg$startTime);
+  static DateTime _$endTime(AvailabilityDto v) => v.endTime;
+  static dynamic _arg$endTime(f) => f<DateTime>();
+  static const Field<AvailabilityDto, dynamic> _f$endTime =
+      Field('endTime', _$endTime, arg: _arg$endTime);
+
+  @override
+  final MappableFields<AvailabilityDto> fields = const {
+    #startTime: _f$startTime,
+    #endTime: _f$endTime,
+  };
+
+  static AvailabilityDto _instantiate(DecodingData data) {
+    return AvailabilityDto(
+        startTime: data.dec(_f$startTime), endTime: data.dec(_f$endTime));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static AvailabilityDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<AvailabilityDto>(map);
+  }
+
+  static AvailabilityDto fromJson(String json) {
+    return ensureInitialized().decodeJson<AvailabilityDto>(json);
+  }
+}
+
+mixin AvailabilityDtoMappable {
+  String toJson() {
+    return AvailabilityDtoMapper.ensureInitialized()
+        .encodeJson<AvailabilityDto>(this as AvailabilityDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return AvailabilityDtoMapper.ensureInitialized()
+        .encodeMap<AvailabilityDto>(this as AvailabilityDto);
+  }
+
+  AvailabilityDtoCopyWith<AvailabilityDto, AvailabilityDto, AvailabilityDto>
+      get copyWith =>
+          _AvailabilityDtoCopyWithImpl<AvailabilityDto, AvailabilityDto>(
+              this as AvailabilityDto, $identity, $identity);
+  @override
+  String toString() {
+    return AvailabilityDtoMapper.ensureInitialized()
+        .stringifyValue(this as AvailabilityDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return AvailabilityDtoMapper.ensureInitialized()
+        .equalsValue(this as AvailabilityDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return AvailabilityDtoMapper.ensureInitialized()
+        .hashValue(this as AvailabilityDto);
+  }
+}
+
+extension AvailabilityDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, AvailabilityDto, $Out> {
+  AvailabilityDtoCopyWith<$R, AvailabilityDto, $Out> get $asAvailabilityDto =>
+      $base.as((v, t, t2) => _AvailabilityDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class AvailabilityDtoCopyWith<$R, $In extends AvailabilityDto, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  $R call({dynamic startTime, dynamic endTime});
+  AvailabilityDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _AvailabilityDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, AvailabilityDto, $Out>
+    implements AvailabilityDtoCopyWith<$R, AvailabilityDto, $Out> {
+  _AvailabilityDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<AvailabilityDto> $mapper =
+      AvailabilityDtoMapper.ensureInitialized();
+  @override
+  $R call({Object? startTime = $none, Object? endTime = $none}) =>
+      $apply(FieldCopyWithData({
+        if (startTime != $none) #startTime: startTime,
+        if (endTime != $none) #endTime: endTime
+      }));
+  @override
+  AvailabilityDto $make(CopyWithData data) => AvailabilityDto(
+      startTime: data.get(#startTime, or: $value.startTime),
+      endTime: data.get(#endTime, or: $value.endTime));
+
+  @override
+  AvailabilityDtoCopyWith<$R2, AvailabilityDto, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _AvailabilityDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

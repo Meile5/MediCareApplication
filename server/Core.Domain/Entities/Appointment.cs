@@ -13,7 +13,7 @@ public partial class Appointment
 
     public string Status { get; set; } = null!;
 
-    public string? Notes { get; set; }
+    public string Notes { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
 

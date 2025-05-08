@@ -30,12 +30,13 @@ class CustomBookingCalendar extends StatefulWidget {
 
 class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
   DateTime _selectedDay = DateTime.now();
-  AvailableDates? _selectedSlot;
-  List<AvailableDates> _getFilteredTimeSlots(List<AvailableDates> allSlots) {
+  AvailabilityDto? _selectedSlot;
+  List<AvailabilityDto> _getFilteredTimeSlots(List<AvailabilityDto> allSlots) {
     return allSlots.where((slot) {
       return isSameDay(slot.startTime, _selectedDay);
     }).toList();
   }
+
 
 
   @override
@@ -72,8 +73,8 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
             child: BlocBuilder<BookingCubit, BookingState>(
               builder: (context, state) {
                 if (state is BookingLoaded) {
-                  final allSlots = state.availableTimes.availableDates;
-                  final filteredSlots = _getFilteredTimeSlots(allSlots!);
+                  final allSlots = state.availableTimes;
+                  final filteredSlots = _getFilteredTimeSlots(allSlots);
                   return CustomSlotGrid(
                     slots: filteredSlots,
                     selectedSlot: _selectedSlot,

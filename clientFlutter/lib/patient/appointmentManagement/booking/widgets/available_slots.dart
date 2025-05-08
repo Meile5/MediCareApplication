@@ -1,12 +1,11 @@
-// custom_slot_grid.dart
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../models/models_appointments.dart';
+import 'package:medicare/patient/appointmentManagement/models/models_for_mapping.dart';
 
 class CustomSlotGrid extends StatelessWidget {
-  final List<AvailableDates> slots;
-  final AvailableDates? selectedSlot;
-  final void Function(AvailableDates) onSlotSelected;
+  final List<AvailabilityDto> slots;
+  final AvailabilityDto? selectedSlot;
+  final void Function(AvailabilityDto) onSlotSelected;
 
   const CustomSlotGrid({
     super.key,
@@ -54,7 +53,7 @@ class CustomSlotGrid extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                DateFormat('hh:mm a').format(slot.startTime!),
+                DateFormat('hh:mm a').format(slot.startTime.toLocal()),
                 style: TextStyle(fontSize: 16, color: isSelected ? Colors.white : Colors.black,
                 ),
               ),

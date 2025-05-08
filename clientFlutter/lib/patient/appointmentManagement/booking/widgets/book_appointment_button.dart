@@ -8,7 +8,7 @@ import '../../models/models_for_mapping.dart';
 import '../state/booking_cubit.dart';
 
 class BookAppointmentButton extends StatelessWidget{
-  final AvailableDates? selectedSlot;
+  final AvailabilityDto? selectedSlot;
 
   final String selectedReason;
 
@@ -59,6 +59,7 @@ class BookAppointmentButton extends StatelessWidget{
                     endTime: selectedSlot!.endTime!,
                     patientId: 'user123',
                     doctorId: 'user-doctor-1',
+                    notes: selectedReason,
                   );
 
                   final chatRoomDto = CreateChatRoomDto(

@@ -254,7 +254,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DoctorAvailabilityResponseDto"
+                  "$ref": "#/components/schemas/AvailabilityDto"
                 }
               }
             }
@@ -702,32 +702,6 @@
           }
         }
       },
-      "DoctorAvailabilityResponseDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "doctorId": {
-            "type": "string",
-            "nullable": true
-          },
-          "doctorName": {
-            "type": "string",
-            "nullable": true
-          },
-          "availableDates": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AvailabilityDto"
-            }
-          },
-          "appointments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AppointmentDto"
-            }
-          }
-        }
-      },
       "AvailabilityDto": {
         "type": "object",
         "additionalProperties": false,
@@ -739,30 +713,6 @@
           "endTime": {
             "type": "string",
             "format": "date-time"
-          }
-        }
-      },
-      "AppointmentDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
           }
         }
       },
@@ -794,6 +744,9 @@
             "type": "string"
           },
           "doctorId": {
+            "type": "string"
+          },
+          "notes": {
             "type": "string"
           }
         }
@@ -837,6 +790,9 @@
             "format": "date-time"
           },
           "status": {
+            "type": "string"
+          },
+          "notes": {
             "type": "string"
           }
         }

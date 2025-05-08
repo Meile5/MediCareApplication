@@ -4,7 +4,7 @@ import '../models/models_appointments.dart';
 import '../models/models_for_mapping.dart';
 
 class DataSource {
-  Future<DoctorAvailabilityResponseDto> getAvailability(String doctorId) async {
+  Future<List<AvailabilityDto>> getAvailability(String doctorId) async {
 
     final url = "http://localhost:5000/RetrieveBookingInfo";
     final response = await http.post(
@@ -14,12 +14,9 @@ class DataSource {
       },
       body: json.encode(doctorId),
     );
-    // Check if the response is successful
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load availability data: ${response.statusCode}');
-    }
-    final map = json.decode(response.body);
-    return DoctorAvailabilityResponseDto.fromJson(map);
+
+    final List<dynamic> decoded = json.decode(response.body);
+    return decoded.map((e) => AvailabilityDtoMapper.fromMap(e)).toList();
   }
 
   Future<http.Response> bookAppointment(BookAppointmentRequest dto) async {

@@ -6,7 +6,7 @@ namespace Application.Interfaces.IPatientService;
 
 public interface IBookingService
 {
-     Task<DoctorAvailabilityResponseDto> RetrieveBookingInfo(string doctorId);
+     Task<List<AvailabilityDto>> RetrieveBookingInfo(string doctorId);
 
      Task BookAppointment(BookAppointmentDto dto, CreateChatRoomDto dtoChatRoom);
      Task<List<FutureAppointmentsDto>> RetrieveFutureAppointments(string userId);

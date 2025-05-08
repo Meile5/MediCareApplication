@@ -90,7 +90,7 @@ CREATE TABLE appointments (
     doctor_id text NOT NULL,
     patient_id text NOT NULL,
     status character varying(20) NOT NULL,
-    notes text,
+    notes text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone DEFAULT (now()),
     start_time timestamp with time zone NOT NULL,

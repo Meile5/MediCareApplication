@@ -63,27 +63,18 @@ public class BookingRepo (MyDbContext context): IBookingRep
 
     public async Task<List<Appointment>> RetrieveFutureAppointments(string userId)
     {
-        Console.WriteLine($"Current UTC Time: {DateTime.UtcNow}");
-        Console.WriteLine($"UserId: {userId}");
-
         var result = await context.Appointments
-            .Where(a => a.PatientId == userId && a.StartTime > DateTime.UtcNow)
+            .Where(a => a.PatientId == userId && a.EndTime > DateTime.UtcNow)
             .ToListAsync();
-
-        Console.WriteLine($"Appointments found: {result.Count}");
-        foreach (var appointment in result)
-        {
-            Console.WriteLine($"ID: {appointment.Id}, StartTime: {appointment.StartTime}, PatientId: {appointment.PatientId}");
-        }
+        
         return result;
-
-       
+        
     }
     
     public async Task<List<Appointment>> RetrievePastAppointments(string userId)
     {
         return await context.Appointments
-            .Where(a => a.PatientId == userId && a.StartTime < DateTime.UtcNow)
+            .Where(a => a.PatientId == userId && a.EndTime < DateTime.UtcNow)
             .ToListAsync();
     }
 

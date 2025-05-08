@@ -9,6 +9,8 @@ public class FutureAppointmentsDto
     public DateTime EndTime { get; set; }
     public string Status { get; set; } = null!;
     
+    public string Notes { get; set; } = null!;
+    
     public static FutureAppointmentsDto FromEntity(Appointment appointment)
     {
         return new FutureAppointmentsDto()
@@ -17,6 +19,7 @@ public class FutureAppointmentsDto
             StartTime = appointment.StartTime,
             EndTime = appointment.EndTime,
             Status = appointment.Status,
+            Notes = appointment.Notes
             
         };
     }
