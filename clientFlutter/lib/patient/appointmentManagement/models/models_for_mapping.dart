@@ -91,3 +91,20 @@ class BookAppointmentRequest with BookAppointmentRequestMappable {
 }
 
 
+@MappableClass()
+class ClinicDoctorDto with ClinicDoctorDtoMappable {
+  final String doctorId;
+  final String name;
+  final String surname;
+
+  ClinicDoctorDto({
+    required this.doctorId,
+    required this.name,
+    required this.surname,
+  });
+}
+
+
+
+
+

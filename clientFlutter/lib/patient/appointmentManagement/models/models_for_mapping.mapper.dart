@@ -801,3 +801,126 @@ class _BookAppointmentRequestCopyWithImpl<$R, $Out>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _BookAppointmentRequestCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
+class ClinicDoctorDtoMapper extends ClassMapperBase<ClinicDoctorDto> {
+  ClinicDoctorDtoMapper._();
+
+  static ClinicDoctorDtoMapper? _instance;
+  static ClinicDoctorDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ClinicDoctorDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ClinicDoctorDto';
+
+  static String _$doctorId(ClinicDoctorDto v) => v.doctorId;
+  static const Field<ClinicDoctorDto, String> _f$doctorId =
+      Field('doctorId', _$doctorId);
+  static String _$name(ClinicDoctorDto v) => v.name;
+  static const Field<ClinicDoctorDto, String> _f$name = Field('name', _$name);
+  static String _$surname(ClinicDoctorDto v) => v.surname;
+  static const Field<ClinicDoctorDto, String> _f$surname =
+      Field('surname', _$surname);
+
+  @override
+  final MappableFields<ClinicDoctorDto> fields = const {
+    #doctorId: _f$doctorId,
+    #name: _f$name,
+    #surname: _f$surname,
+  };
+
+  static ClinicDoctorDto _instantiate(DecodingData data) {
+    return ClinicDoctorDto(
+        doctorId: data.dec(_f$doctorId),
+        name: data.dec(_f$name),
+        surname: data.dec(_f$surname));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ClinicDoctorDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ClinicDoctorDto>(map);
+  }
+
+  static ClinicDoctorDto fromJson(String json) {
+    return ensureInitialized().decodeJson<ClinicDoctorDto>(json);
+  }
+}
+
+mixin ClinicDoctorDtoMappable {
+  String toJson() {
+    return ClinicDoctorDtoMapper.ensureInitialized()
+        .encodeJson<ClinicDoctorDto>(this as ClinicDoctorDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ClinicDoctorDtoMapper.ensureInitialized()
+        .encodeMap<ClinicDoctorDto>(this as ClinicDoctorDto);
+  }
+
+  ClinicDoctorDtoCopyWith<ClinicDoctorDto, ClinicDoctorDto, ClinicDoctorDto>
+      get copyWith =>
+          _ClinicDoctorDtoCopyWithImpl<ClinicDoctorDto, ClinicDoctorDto>(
+              this as ClinicDoctorDto, $identity, $identity);
+  @override
+  String toString() {
+    return ClinicDoctorDtoMapper.ensureInitialized()
+        .stringifyValue(this as ClinicDoctorDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ClinicDoctorDtoMapper.ensureInitialized()
+        .equalsValue(this as ClinicDoctorDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return ClinicDoctorDtoMapper.ensureInitialized()
+        .hashValue(this as ClinicDoctorDto);
+  }
+}
+
+extension ClinicDoctorDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ClinicDoctorDto, $Out> {
+  ClinicDoctorDtoCopyWith<$R, ClinicDoctorDto, $Out> get $asClinicDoctorDto =>
+      $base.as((v, t, t2) => _ClinicDoctorDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class ClinicDoctorDtoCopyWith<$R, $In extends ClinicDoctorDto, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  $R call({String? doctorId, String? name, String? surname});
+  ClinicDoctorDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ClinicDoctorDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ClinicDoctorDto, $Out>
+    implements ClinicDoctorDtoCopyWith<$R, ClinicDoctorDto, $Out> {
+  _ClinicDoctorDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ClinicDoctorDto> $mapper =
+      ClinicDoctorDtoMapper.ensureInitialized();
+  @override
+  $R call({String? doctorId, String? name, String? surname}) =>
+      $apply(FieldCopyWithData({
+        if (doctorId != null) #doctorId: doctorId,
+        if (name != null) #name: name,
+        if (surname != null) #surname: surname
+      }));
+  @override
+  ClinicDoctorDto $make(CopyWithData data) => ClinicDoctorDto(
+      doctorId: data.get(#doctorId, or: $value.doctorId),
+      name: data.get(#name, or: $value.name),
+      surname: data.get(#surname, or: $value.surname));
+
+  @override
+  ClinicDoctorDtoCopyWith<$R2, ClinicDoctorDto, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ClinicDoctorDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}

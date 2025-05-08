@@ -37,7 +37,6 @@ class CustomSlotGrid extends StatelessWidget {
         return GestureDetector(
           onTap: () => onSlotSelected(slot),
           child: Container(
-            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: isSelected ? Colors.blueAccent : Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -56,7 +55,8 @@ class CustomSlotGrid extends StatelessWidget {
             child: Center(
               child: Text(
                 DateFormat('hh:mm a').format(slot.startTime!),
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16, color: isSelected ? Colors.white : Colors.black,
+                ),
               ),
             ),
           ),

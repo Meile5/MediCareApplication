@@ -77,6 +77,23 @@ class DataSource {
 
     return response;
   }
+  Future<List<ClinicDoctorDto>> getDoctors(String doctorId) async {
+    final response = await http.post(
+      Uri.parse("http://localhost:5000/RetrieveDoctors"),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(doctorId),
+    );
+    print("hereee" + response.body);
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load data');
+    }
+
+    final List<dynamic> decoded = json.decode(response.body);
+    print("hereee" + decoded.toString());
+
+    return decoded.map((e) => ClinicDoctorDtoMapper.fromMap(e)).toList();
+  }
 
 
 

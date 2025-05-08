@@ -7,6 +7,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../appointments/screens/appointment_screen.dart';
 import '../../appointments/state/appointment_cubit.dart';
 import '../../models/models_appointments.dart';
+import '../../models/models_for_mapping.dart';
 import '../state/booking_cubit.dart';
 import '../state/booking_state.dart';
 import '../widgets/available_slots.dart';
@@ -15,10 +16,12 @@ import '../widgets/custom_calendar.dart';
 
 class CustomBookingCalendar extends StatefulWidget {
   final String selectedReason;
+  final ClinicDoctorDto selectedDoctor;
 
   const CustomBookingCalendar(
       {super.key,
-        required this.selectedReason
+        required this.selectedReason,
+        required this.selectedDoctor
       });
 
   @override
@@ -39,7 +42,7 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
   void initState() {
     super.initState();
     // Load available times as soon as the widget is created
-    final doctorId = 'user-doctor-1'; // You can replace this with the actual doctor ID
+    final doctorId = widget.selectedDoctor.doctorId;
     context.read<BookingCubit>().loadAvailableTimes(doctorId);
   }
 
@@ -93,6 +96,7 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
           BookAppointmentButton(
             selectedSlot: _selectedSlot,
             selectedReason: widget.selectedReason,
+            selectedDoctor: widget.selectedDoctor,
 
           ),
           BlocListener<BookingCubit, BookingState>(
@@ -103,7 +107,7 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                 Future.microtask(() {
                   if (context.mounted) {
                     context.read<AppointmentCubit>().getFutureAppointments('user123');
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AppointmentScreen(),

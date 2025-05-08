@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicare/common/widgets.dart';
+import 'package:medicare/patient/appointmentManagement/booking/screens/choose_doctor_screen.dart';
 import '../../../common/app_nav_bar.dart';
 import '../widgets/appointment_reason.dart';
 import 'booking_calendar_screen.dart';
+
 class ReasonForAppointmentScreen extends StatefulWidget {
   const ReasonForAppointmentScreen({super.key});
 
@@ -47,7 +48,7 @@ class _ReasonForAppointmentScreenState extends State<ReasonForAppointmentScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(title: const Text('Reason for appointment'), centerTitle: true,),
+      appBar: AppBar(title: const Text('Reason for appointment'), centerTitle: true,),
       body: Column(
         children: [
           Expanded(
@@ -88,8 +89,9 @@ class _ReasonForAppointmentScreenState extends State<ReasonForAppointmentScreen>
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                    builder: (context) => CustomBookingCalendar(selectedReason: selectedReason!),
-              ));
+                      builder: (context) => ChooseDoctorScreen(selectedReason: selectedReason!),
+
+                    ));
                 // Navigate or process
               } else {
                 context.showErrorSnackBar(message: "Please select or input reason");
