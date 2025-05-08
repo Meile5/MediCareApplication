@@ -1,7 +1,6 @@
-import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/account/login/login_page.dart';
+import 'package:medicare/common/auth/auth_gate.dart';
 import 'package:medicare/common/navigation_notifier.dart';
 import 'package:medicare/common/websocket_service.dart';
 import 'package:medicare/patient/appointmentManagement/appointments/state/appointment_cubit.dart';
@@ -11,9 +10,12 @@ import 'package:medicare/patient/chat/chat_cubit.dart';
 import 'package:medicare/patient/chat/chat_data_source.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
-void main() {
+import 'account/login/login_page.dart';
+import 'common/auth/auth_cubit.dart';
+import 'common/auth/auth_state.dart';
 
-//DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
+void main() {
+  //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
 
   runApp(const MyApp());
 }
@@ -42,43 +44,50 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create:
-              (context) => AppointmentCubit(
-                dataSource: DataSource(),
-                webSocketService: webSocketService,
-              ),
-        ),
-        BlocProvider(
-          create:
-              (context) => BookingCubit(
-                dataSource: DataSource(),
-                webSocketService: webSocketService,
-              ),
-        ),
-        BlocProvider(
-          create: (context) => VitalsCubit(webSocketService: webSocketService),
-        ),
-        BlocProvider(
-          create:
-              (context) => ChatCubit(
-                webSocketService: webSocketService,
-                dataSource: ChatDataSource(),
-              ),
-        ),
-        RepositoryProvider(create: (context) => NavigationModel()),
-        BlocProvider(
-          create:
-              (context) => AppointmentCubit(
-                webSocketService: webSocketService,
-                dataSource: DataSource(),
-              ),
-        ),
-        RepositoryProvider(create: (context) => NavigationModel()),
-      ],
-      child: MaterialApp(title: 'Medicare', home: const LoginPage()),
+    return BlocProvider(
+      create: (context) => AuthCubit()..loadAuth(),
+      child: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, state) {
+          if (state is Authenticated) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create:
+                      (context) => AppointmentCubit(
+                        dataSource: DataSource(),
+                        webSocketService: webSocketService,
+                      ),
+                ),
+                BlocProvider(
+                  create:
+                      (context) => BookingCubit(
+                        dataSource: DataSource(),
+                        webSocketService: webSocketService,
+                      ),
+                ),
+                BlocProvider(
+                  create:
+                      (context) =>
+                          VitalsCubit(webSocketService: webSocketService),
+                ),
+                BlocProvider(
+                  create:
+                      (context) => ChatCubit(
+                        webSocketService: webSocketService,
+                        dataSource: ChatDataSource(jwt: state.jwt),
+                      ),
+                ),
+                RepositoryProvider(create: (context) => NavigationModel()),
+                // Other providers...
+              ],
+              child: MaterialApp(title: 'Medicare', home: const AuthGate()),
+            );
+          }
+
+          // While loading or logged out
+          return const MaterialApp(home: LoginPage());
+        },
+      ),
     );
   }
 }

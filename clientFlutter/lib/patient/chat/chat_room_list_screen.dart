@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medicare/common/auth/auth_state.dart';
 
+import '../../common/auth/auth_cubit.dart';
 import '../common/app_nav_bar.dart';
 import 'chat_data_source.dart';
 import 'chat_navigation.dart';
@@ -14,13 +17,19 @@ class ChatRoomListScreen extends StatefulWidget {
 }
 
 class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
-  final ChatDataSource _dataSource = ChatDataSource();
+  late ChatDataSource _dataSource;
   ChatRoomState _state = ChatRoomInitial();
 
   @override
   void initState() {
     super.initState();
-    _loadChatRooms();
+    final authState = context.read<AuthCubit>().state;
+    if (authState is Authenticated) {
+      _dataSource = ChatDataSource(jwt: authState.jwt);
+      _loadChatRooms();
+    } else {
+      // Optionally redirect to login
+    }
   }
 
   void _loadChatRooms() async {

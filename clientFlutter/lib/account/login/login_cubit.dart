@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
+import '../../common/auth/auth_cubit.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginReady());
+  final AuthCubit authCubit;
+
+  LoginCubit(this.authCubit) : super(LoginReady());
 
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
@@ -23,7 +26,6 @@ class LoginCubit extends Cubit<LoginState> {
         final jwt = data['jwt'];
 
         final parts = jwt.split('.');
-        if (parts.length != 3) throw Exception('Invalid token');
         final payload = json.decode(
           utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))),
         );
@@ -31,6 +33,13 @@ class LoginCubit extends Cubit<LoginState> {
         final userId = payload['Id'];
         final userEmail = payload['Email'];
         final userRole = payload['Role'];
+
+        await authCubit.saveAuth(
+          jwt: jwt,
+          userId: userId,
+          email: userEmail,
+          role: userRole,
+        );
 
         emit(
           LoggedIn(jwt: jwt, userId: userId, email: userEmail, role: userRole),

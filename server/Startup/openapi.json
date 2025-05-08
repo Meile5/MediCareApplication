@@ -459,6 +459,16 @@
           "Chat"
         ],
         "operationId": "Chat_GetChatsForPatient",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "chatRoomRequest",
           "content": {
@@ -525,6 +535,16 @@
           "Chat"
         ],
         "operationId": "Chat_GetChatMessages",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "roomIdRequest",
           "content": {

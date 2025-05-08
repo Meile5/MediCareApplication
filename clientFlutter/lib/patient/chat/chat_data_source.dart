@@ -6,11 +6,13 @@ import '../../common/events.dart';
 import 'chat_models.dart';
 
 class ChatDataSource {
+  final String jwt;
+  ChatDataSource({required this.jwt});
   Future<List<ChatRoomDto>> getChatRoomsForUser(String userId) async {
     final url = 'http://localhost:5000/chat/retreiveChats/patient';
     final response = await http.post(
       Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': jwt},
       body: json.encode({"userId": userId}),
     );
 
@@ -26,7 +28,7 @@ class ChatDataSource {
     final url = 'http://localhost:5000/chat/retreiveMessages';
     final response = await http.post(
       Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': jwt},
       body: json.encode({"roomId": roomId}),
     );
 
