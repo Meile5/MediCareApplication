@@ -28,6 +28,8 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<DoctorAvailability> DoctorAvailabilities { get; set; }
 
+    public virtual DbSet<DoctorPatient> DoctorPatients { get; set; }
+
     public virtual DbSet<Message> Messages { get; set; }
 
     public virtual DbSet<Patient> Patients { get; set; }
@@ -102,10 +104,12 @@ public partial class MyDbContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.DoctorId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("chat_rooms_doctor_id_fkey");
 
             entity.HasOne(d => d.Patient).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("chat_rooms_patient_id_fkey");
         });
 
@@ -223,24 +227,6 @@ public partial class MyDbContext : DbContext
                 .HasForeignKey<Doctor>(d => d.Doctorid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("doctors_user_iduser_fk");
-
-            entity.HasMany(d => d.Patients).WithMany(p => p.Doctors)
-                .UsingEntity<Dictionary<string, object>>(
-                    "DoctorPatient",
-                    r => r.HasOne<Patient>().WithMany()
-                        .HasForeignKey("PatientId")
-                        .HasConstraintName("doctor_patient_patient_id_fkey"),
-                    l => l.HasOne<Doctor>().WithMany()
-                        .HasForeignKey("DoctorId")
-                        .HasConstraintName("doctor_patient_doctor_id_fkey"),
-                    j =>
-                    {
-                        j.HasKey("DoctorId", "PatientId").HasName("doctor_patient_pkey");
-                        j.ToTable("doctor_patient");
-                        j.HasIndex(new[] { "PatientId" }, "IX_doctor_patient_patient_id");
-                        j.IndexerProperty<string>("DoctorId").HasColumnName("doctor_id");
-                        j.IndexerProperty<string>("PatientId").HasColumnName("patient_id");
-                    });
         });
 
         modelBuilder.Entity<DoctorAvailability>(entity =>
@@ -273,6 +259,27 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.Doctor).WithMany(p => p.DoctorAvailabilities)
                 .HasForeignKey(d => d.DoctorId)
                 .HasConstraintName("fk_doctor");
+        });
+
+        modelBuilder.Entity<DoctorPatient>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("doctor_patient_pk");
+
+            entity.ToTable("doctor_patient");
+
+            entity.HasIndex(e => e.PatientId, "IX_doctor_patient_patient_id");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
+            entity.Property(e => e.PatientId).HasColumnName("patient_id");
+
+            entity.HasOne(d => d.Doctor).WithMany(p => p.DoctorPatients)
+                .HasForeignKey(d => d.DoctorId)
+                .HasConstraintName("doctor_patient_doctor_id_fkey");
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.DoctorPatients)
+                .HasForeignKey(d => d.PatientId)
+                .HasConstraintName("doctor_patient_patient_id_fkey");
         });
 
         modelBuilder.Entity<Message>(entity =>

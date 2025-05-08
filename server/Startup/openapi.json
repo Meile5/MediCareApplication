@@ -273,7 +273,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookAppointmentDto"
+                "$ref": "#/components/schemas/BookAppointmentRequest"
               }
             }
           },
@@ -391,6 +391,41 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrieveDoctors": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "operationId": "Booking_RetrieveDoctors",
+        "requestBody": {
+          "x-name": "clinicId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicDoctorDto"
+                  }
                 }
               }
             }
@@ -731,6 +766,18 @@
           }
         }
       },
+      "BookAppointmentRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "appointment": {
+            "$ref": "#/components/schemas/BookAppointmentDto"
+          },
+          "chatRoom": {
+            "$ref": "#/components/schemas/CreateChatRoomDto"
+          }
+        }
+      },
       "BookAppointmentDto": {
         "type": "object",
         "additionalProperties": false,
@@ -748,6 +795,29 @@
           },
           "doctorId": {
             "type": "string"
+          }
+        }
+      },
+      "CreateChatRoomDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doctorId": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -797,6 +867,21 @@
           }
         }
       },
+      "ClinicDoctorDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doctorId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          }
+        }
+      },
       "ClinicInfoDto": {
         "type": "object",
         "additionalProperties": false,
@@ -840,25 +925,6 @@
           "pairingCode": {
             "type": "string",
             "minLength": 1
-          }
-        }
-      },
-      "CreateChatRoomDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "doctorId": {
-            "type": "string"
-          },
-          "patientId": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },

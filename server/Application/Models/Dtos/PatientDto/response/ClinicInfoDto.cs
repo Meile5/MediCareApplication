@@ -22,7 +22,6 @@ public class ClinicInfoDto
             Address = clinicInfo.Address,
             Phonenumber = clinicInfo.Phonenumber,
             Type = clinicInfo.Type,
-            //Doctor = clinicInfo.ClinicDoctors.ToList()
             
         };
     }

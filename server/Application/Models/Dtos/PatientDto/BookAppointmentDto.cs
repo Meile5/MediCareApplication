@@ -9,6 +9,7 @@ public class BookAppointmentDto
     public DateTime EndTime { get; set; }
     public string PatientId { get; set; } = null!;
     public string DoctorId { get; set; } = null!;
+   
     
     public static  Appointment ToEntity(BookAppointmentDto appointment)
     {

@@ -103,13 +103,13 @@ CREATE TABLE appointments (
 
 CREATE TABLE chat_rooms (
     id text NOT NULL,
-    doctor_id text NOT NULL,
-    patient_id text NOT NULL,
+    doctor_id text,
+    patient_id text,
     created_at timestamp without time zone DEFAULT (now()),
     topic text NOT NULL,
-    is_finished boolean NOT NULL,
     start_time timestamp with time zone NOT NULL,
-    end_time timestamp with time zone,
+    is_finished boolean,
+    end_time timestamp with time zone NOT NULL,
     CONSTRAINT chat_rooms_pkey PRIMARY KEY (id),
     CONSTRAINT chat_rooms_doctor_id_fkey FOREIGN KEY (doctor_id) REFERENCES doctors (doctorid) ON DELETE CASCADE,
     CONSTRAINT chat_rooms_patient_id_fkey FOREIGN KEY (patient_id) REFERENCES patients (userid) ON DELETE CASCADE
@@ -140,9 +140,10 @@ CREATE TABLE diagnoses (
 
 
 CREATE TABLE doctor_patient (
+    id text NOT NULL,
     doctor_id text NOT NULL,
     patient_id text NOT NULL,
-    CONSTRAINT doctor_patient_pkey PRIMARY KEY (doctor_id, patient_id),
+    CONSTRAINT doctor_patient_pk PRIMARY KEY (id),
     CONSTRAINT doctor_patient_doctor_id_fkey FOREIGN KEY (doctor_id) REFERENCES doctors (doctorid) ON DELETE CASCADE,
     CONSTRAINT doctor_patient_patient_id_fkey FOREIGN KEY (patient_id) REFERENCES patients (userid) ON DELETE CASCADE
 );
@@ -205,6 +206,9 @@ CREATE INDEX "IX_diagnoses_idpatient" ON diagnoses (idpatient);
 
 
 CREATE INDEX "IX_doctor_availability_doctor_id" ON doctor_availability (doctor_id);
+
+
+CREATE INDEX "IX_doctor_patient_doctor_id" ON doctor_patient (doctor_id);
 
 
 CREATE INDEX "IX_doctor_patient_patient_id" ON doctor_patient (patient_id);

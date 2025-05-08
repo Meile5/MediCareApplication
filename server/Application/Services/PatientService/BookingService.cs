@@ -2,7 +2,9 @@
 using Application.Interfaces.Infrastructure.Postgres.PatientRep;
 using Application.Interfaces.Infrastructure.Websocket;
 using Application.Interfaces.IPatientService;
+using Application.Models.Dtos.ChatDtos;
 using Application.Models.Dtos.PatientDto;
+using Application.Models.Dtos.PatientDto.response;
 using Core.Domain.Entities;
 
 namespace Application.Services.PatientService;
@@ -79,10 +81,11 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
     
     
     
-    public async Task BookAppointment(BookAppointmentDto dto)
+    public async Task BookAppointment(BookAppointmentDto dto, CreateChatRoomDto dtoChatRoom)
     {
         var appointments = BookAppointmentDto.ToEntity(dto);
-        var savedId = await bookingRep.BookAppointment(appointments);
+        var chatRoom = CreateChatRoomDto.ToEntity(dtoChatRoom);
+        var savedId = await bookingRep.ManageAppointments(appointments, chatRoom);
         
         var broadcast = new BroadcastBookedSlotDto()
         {
@@ -116,5 +119,14 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
     public async Task CancelAppointment(CancelAppointmentDto dto)
     {
         await bookingRep.CancelAppointment(dto.Id);
+    }
+
+    public async Task<List<ClinicDoctorDto>> RetrieveClinicDoctors(string clinicId)
+    {
+        var doctors = await bookingRep.RetrieveClinicDoctor(clinicId);
+        var doctorsDto = doctors
+            .Select(ClinicDoctorDto.FromEntity)
+            .ToList();
+        return doctorsDto;
     }
 }
