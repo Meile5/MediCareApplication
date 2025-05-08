@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/models_appointments.dart';
 import '../models/models_for_mapping.dart';
 
 class DataSource {

@@ -39,6 +39,8 @@ class PastAppointmentCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(formatDate(appointment.startTime)),
+                Text("${appointment.notes}"),
+
               ],
             ),
           ),

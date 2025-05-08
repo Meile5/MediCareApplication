@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/patient/appointmentManagement/booking/widgets/reusable_dialog.dart';
-import '../../models/models_appointments.dart';
 import '../../models/models_for_mapping.dart';
 import '../state/booking_cubit.dart';
 
@@ -55,8 +54,8 @@ class BookAppointmentButton extends StatelessWidget{
               ),
                 onConfirm: () async {
                  final appointmentDto = BookAppointmentDto(
-                    startTime: selectedSlot!.startTime!,
-                    endTime: selectedSlot!.endTime!,
+                    startTime: selectedSlot!.startTime,
+                    endTime: selectedSlot!.endTime,
                     patientId: 'user123',
                     doctorId: 'user-doctor-1',
                     notes: selectedReason,
@@ -66,8 +65,8 @@ class BookAppointmentButton extends StatelessWidget{
                     doctorId: 'user-doctor-1',
                     patientId: 'user123',
                     topic: selectedReason,
-                    startTime: selectedSlot!.startTime!,
-                    endTime: selectedSlot!.endTime!,
+                    startTime: selectedSlot!.startTime,
+                    endTime: selectedSlot!.endTime,
                   );
 
                   final bookingRequestDto = BookAppointmentRequest(

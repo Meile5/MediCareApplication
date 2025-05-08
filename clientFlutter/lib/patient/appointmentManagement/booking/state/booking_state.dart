@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../../models/models_appointments.dart';
 import '../../models/models_for_mapping.dart';
 
 @immutable

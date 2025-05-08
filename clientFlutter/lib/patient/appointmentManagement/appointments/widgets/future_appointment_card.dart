@@ -55,11 +55,12 @@ class AppointmentCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(formatDate(appointment.startTime)),
+                Text(formatDate(appointment.startTime),),
+                const SizedBox(height: 4),
+                Text("${appointment.notes}"),
               ],
             ),
           ),
-          const SizedBox(width: 18),
           Expanded(
             flex: 1,
             child: Container(
@@ -77,7 +78,6 @@ class AppointmentCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 18),
           Expanded(
             flex: 1,
             child: ElevatedButton(
@@ -87,7 +87,7 @@ class AppointmentCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
               onPressed: appointment.status == 'Rejected' ? null : () async{
-                  await showDialog(
+                await showDialog(
                   context: context,
                   builder: (context) => ReusableDialog(
                       title: 'Confirm Cancel',

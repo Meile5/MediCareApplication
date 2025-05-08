@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:medicare/common/widgets.dart';
 import 'package:medicare/patient/common/app_nav_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../appointments/screens/appointment_screen.dart';
 import '../../appointments/state/appointment_cubit.dart';
-import '../../models/models_appointments.dart';
 import '../../models/models_for_mapping.dart';
 import '../state/booking_cubit.dart';
 import '../state/booking_state.dart';
@@ -67,6 +65,7 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
               });
             },
           ),
+          Text("Available time slots for doctor ${widget.selectedDoctor.name} ${widget.selectedDoctor.surname}"),
 
           const SizedBox(height: 10),
           Expanded(

@@ -42,11 +42,15 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
 class PastAppointmentsDto with PastAppointmentsDtoMappable {
   final DateTime startTime;
   final DateTime endTime;
+  final String notes;
+
 
 
   PastAppointmentsDto({
     required this.startTime,
     required this.endTime,
+    required this.notes,
+
   });
 }
 

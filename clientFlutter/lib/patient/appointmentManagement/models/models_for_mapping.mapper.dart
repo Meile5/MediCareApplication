@@ -326,16 +326,22 @@ class PastAppointmentsDtoMapper extends ClassMapperBase<PastAppointmentsDto> {
   static DateTime _$endTime(PastAppointmentsDto v) => v.endTime;
   static const Field<PastAppointmentsDto, DateTime> _f$endTime =
       Field('endTime', _$endTime);
+  static String _$notes(PastAppointmentsDto v) => v.notes;
+  static const Field<PastAppointmentsDto, String> _f$notes =
+      Field('notes', _$notes);
 
   @override
   final MappableFields<PastAppointmentsDto> fields = const {
     #startTime: _f$startTime,
     #endTime: _f$endTime,
+    #notes: _f$notes,
   };
 
   static PastAppointmentsDto _instantiate(DecodingData data) {
     return PastAppointmentsDto(
-        startTime: data.dec(_f$startTime), endTime: data.dec(_f$endTime));
+        startTime: data.dec(_f$startTime),
+        endTime: data.dec(_f$endTime),
+        notes: data.dec(_f$notes));
   }
 
   @override
@@ -393,7 +399,7 @@ extension PastAppointmentsDtoValueCopy<$R, $Out>
 
 abstract class PastAppointmentsDtoCopyWith<$R, $In extends PastAppointmentsDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({DateTime? startTime, DateTime? endTime});
+  $R call({DateTime? startTime, DateTime? endTime, String? notes});
   PastAppointmentsDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -407,15 +413,17 @@ class _PastAppointmentsDtoCopyWithImpl<$R, $Out>
   late final ClassMapperBase<PastAppointmentsDto> $mapper =
       PastAppointmentsDtoMapper.ensureInitialized();
   @override
-  $R call({DateTime? startTime, DateTime? endTime}) =>
+  $R call({DateTime? startTime, DateTime? endTime, String? notes}) =>
       $apply(FieldCopyWithData({
         if (startTime != null) #startTime: startTime,
-        if (endTime != null) #endTime: endTime
+        if (endTime != null) #endTime: endTime,
+        if (notes != null) #notes: notes
       }));
   @override
   PastAppointmentsDto $make(CopyWithData data) => PastAppointmentsDto(
       startTime: data.get(#startTime, or: $value.startTime),
-      endTime: data.get(#endTime, or: $value.endTime));
+      endTime: data.get(#endTime, or: $value.endTime),
+      notes: data.get(#notes, or: $value.notes));
 
   @override
   PastAppointmentsDtoCopyWith<$R2, PastAppointmentsDto, $Out2>
@@ -962,13 +970,11 @@ class AvailabilityDtoMapper extends ClassMapperBase<AvailabilityDto> {
   final String id = 'AvailabilityDto';
 
   static DateTime _$startTime(AvailabilityDto v) => v.startTime;
-  static dynamic _arg$startTime(f) => f<DateTime>();
-  static const Field<AvailabilityDto, dynamic> _f$startTime =
-      Field('startTime', _$startTime, arg: _arg$startTime);
+  static const Field<AvailabilityDto, DateTime> _f$startTime =
+      Field('startTime', _$startTime);
   static DateTime _$endTime(AvailabilityDto v) => v.endTime;
-  static dynamic _arg$endTime(f) => f<DateTime>();
-  static const Field<AvailabilityDto, dynamic> _f$endTime =
-      Field('endTime', _$endTime, arg: _arg$endTime);
+  static const Field<AvailabilityDto, DateTime> _f$endTime =
+      Field('endTime', _$endTime);
 
   @override
   final MappableFields<AvailabilityDto> fields = const {
@@ -1035,7 +1041,7 @@ extension AvailabilityDtoValueCopy<$R, $Out>
 
 abstract class AvailabilityDtoCopyWith<$R, $In extends AvailabilityDto, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({dynamic startTime, dynamic endTime});
+  $R call({DateTime? startTime, DateTime? endTime});
   AvailabilityDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -1049,10 +1055,10 @@ class _AvailabilityDtoCopyWithImpl<$R, $Out>
   late final ClassMapperBase<AvailabilityDto> $mapper =
       AvailabilityDtoMapper.ensureInitialized();
   @override
-  $R call({Object? startTime = $none, Object? endTime = $none}) =>
+  $R call({DateTime? startTime, DateTime? endTime}) =>
       $apply(FieldCopyWithData({
-        if (startTime != $none) #startTime: startTime,
-        if (endTime != $none) #endTime: endTime
+        if (startTime != null) #startTime: startTime,
+        if (endTime != null) #endTime: endTime
       }));
   @override
   AvailabilityDto $make(CopyWithData data) => AvailabilityDto(
