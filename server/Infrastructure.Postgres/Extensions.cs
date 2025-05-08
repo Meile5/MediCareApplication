@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.Infrastructure.Postgres;
 using Application.Interfaces.Infrastructure.Postgres.ChatRep;
 using Application.Interfaces.Infrastructure.Postgres.PatientRep;
+using Application.Interfaces.Infrastructure.Postgres.PatientRepRep;
 using Application.Interfaces.Infrastructure.Postgres.VitalsRep;
 using Application.Models;
 using Infrastructure.Postgres.Postgresql.Data;
@@ -29,6 +30,7 @@ public static class Extensions
 
        // services.AddScoped<IQuestionRepository, QuestionRepository>();\
        services.AddScoped<IDataRepository, Repo>();
+       services.AddScoped<IPatientRep, PatientRepo>();
        services.AddScoped<IBookingRep, BookingRepo>();
        services.AddScoped<IChatRep, ChatRepo>();
        services.AddScoped<IOverviewRepo, OverviewRepo>();

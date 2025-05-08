@@ -7,13 +7,14 @@ import 'chat_models.dart';
 
 class ChatDataSource {
   final String jwt;
-  ChatDataSource({required this.jwt});
-  Future<List<ChatRoomDto>> getChatRoomsForUser(String userId) async {
+  final String patientId;
+  ChatDataSource({required this.jwt, required this.patientId});
+  Future<List<ChatRoomDto>> getChatRoomsForUser() async {
     final url = 'http://localhost:5000/chat/retreiveChats/patient';
     final response = await http.post(
       Uri.parse(url),
       headers: {'Content-Type': 'application/json', 'Authorization': jwt},
-      body: json.encode({"userId": userId}),
+      body: json.encode({"userId": patientId}),
     );
 
     if (response.statusCode != 200) {

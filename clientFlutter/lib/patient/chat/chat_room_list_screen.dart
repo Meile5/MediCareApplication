@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_state.dart';
+import 'package:medicare/patient/common/patient_cubit.dart';
 
 import '../../common/auth/auth_cubit.dart';
 import '../common/app_nav_bar.dart';
@@ -25,17 +26,18 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
     super.initState();
     final authState = context.read<AuthCubit>().state;
     if (authState is Authenticated) {
-      _dataSource = ChatDataSource(jwt: authState.jwt);
+      _dataSource = ChatDataSource(
+        jwt: authState.jwt,
+        patientId: authState.userId,
+      );
       _loadChatRooms();
-    } else {
-      // Optionally redirect to login
-    }
+    } else {}
   }
 
   void _loadChatRooms() async {
     setState(() => _state = ChatRoomLoading());
     try {
-      final chatRooms = await _dataSource.getChatRoomsForUser('user123');
+      final chatRooms = await _dataSource.getChatRoomsForUser();
       setState(() => _state = ChatRoomLoaded(chatRooms: chatRooms));
     } catch (e) {
       setState(() => _state = ChatRoomError(message: e.toString()));
@@ -51,45 +53,57 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
       ),
       body: Builder(
         builder: (context) {
-          if (_state is ChatRoomLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (_state is ChatRoomError) {
-            return Center(
-              child: Text('Error: ${(_state as ChatRoomError).message}'),
-            );
-          } else if (_state is ChatRoomLoaded) {
-            final chatRooms = (_state as ChatRoomLoaded).chatRooms;
-            final pastChatRooms =
-                chatRooms.where((chat) => chat.isFinished).toList();
-            final futureChatRooms =
-                chatRooms.where((chat) => !chat.isFinished).toList();
+          return BlocBuilder<PatientCubit, PatientState>(
+            builder: (context, patientState) {
+              if (patientState.loading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (patientState.error != null) {
+                return Center(child: Text('Error: ${patientState.error}'));
+              } else if (patientState.patient != null) {
+                final patient = patientState.patient!;
 
-            return DefaultTabController(
-              length: 2,
-              child: Column(
-                children: [
-                  const ChatNavigation(),
-                  Expanded(
-                    child: TabBarView(
+                if (_state is ChatRoomLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (_state is ChatRoomError) {
+                  return Center(
+                    child: Text('Error: ${(_state as ChatRoomError).message}'),
+                  );
+                } else if (_state is ChatRoomLoaded) {
+                  final chatRooms = (_state as ChatRoomLoaded).chatRooms;
+                  final pastChatRooms =
+                      chatRooms.where((chat) => chat.isFinished).toList();
+                  final futureChatRooms =
+                      chatRooms.where((chat) => !chat.isFinished).toList();
+
+                  return DefaultTabController(
+                    length: 2,
+                    child: Column(
                       children: [
-                        ChatRoomListView(
-                          chatRooms: futureChatRooms,
-                          userId: 'user123',
-                          userName: 'John',
-                        ),
-                        ChatRoomListView(
-                          chatRooms: pastChatRooms,
-                          userId: 'user123',
-                          userName: 'John',
+                        const ChatNavigation(),
+                        Expanded(
+                          child: TabBarView(
+                            children: [
+                              ChatRoomListView(
+                                chatRooms: futureChatRooms,
+                                userId: patient.userid,
+                                userName: patient.name,
+                              ),
+                              ChatRoomListView(
+                                chatRooms: pastChatRooms,
+                                userId: patient.userid,
+                                userName: patient.name,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            );
-          }
-          return const SizedBox.shrink();
+                  );
+                }
+              }
+              return const SizedBox.shrink();
+            },
+          );
         },
       ),
       bottomNavigationBar: AppNavBar(),

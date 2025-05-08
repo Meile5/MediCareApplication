@@ -377,6 +377,49 @@
         }
       }
     },
+    "/patient/getPatient": {
+      "post": {
+        "tags": [
+          "Patient"
+        ],
+        "operationId": "Patient_GetPatientById",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "patientIdRequest",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatientIdRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/device/pair": {
       "post": {
         "tags": [
@@ -502,6 +545,16 @@
           "Chat"
         ],
         "operationId": "Chat_GetChatsForDoctor",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "chatRoomRequest",
           "content": {
@@ -868,6 +921,15 @@
       "DoctorInfoDto": {
         "type": "object",
         "additionalProperties": false
+      },
+      "PatientIdRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "patientId": {
+            "type": "string"
+          }
+        }
       },
       "ClientWantsToPairDeviceDto": {
         "type": "object",

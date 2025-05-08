@@ -8,11 +8,13 @@ import 'package:medicare/patient/appointmentManagement/booking/state/booking_cub
 import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
 import 'package:medicare/patient/chat/chat_cubit.dart';
 import 'package:medicare/patient/chat/chat_data_source.dart';
+import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
 import 'account/login/login_page.dart';
 import 'common/auth/auth_cubit.dart';
 import 'common/auth/auth_state.dart';
+import 'patient/common/patient_cubit.dart';
 
 void main() {
   //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
@@ -49,42 +51,51 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           if (state is Authenticated) {
+            final jwt = state.jwt;
+            final userId = state.userId;
+
             return MultiBlocProvider(
               providers: [
                 BlocProvider(
                   create:
-                      (context) => AppointmentCubit(
+                      (_) => AppointmentCubit(
                         dataSource: DataSource(),
                         webSocketService: webSocketService,
                       ),
                 ),
                 BlocProvider(
                   create:
-                      (context) => BookingCubit(
+                      (_) => BookingCubit(
                         dataSource: DataSource(),
                         webSocketService: webSocketService,
                       ),
                 ),
                 BlocProvider(
                   create:
-                      (context) =>
-                          VitalsCubit(webSocketService: webSocketService),
+                      (_) => VitalsCubit(webSocketService: webSocketService),
                 ),
                 BlocProvider(
                   create:
-                      (context) => ChatCubit(
+                      (_) => ChatCubit(
                         webSocketService: webSocketService,
-                        dataSource: ChatDataSource(jwt: state.jwt),
+                        dataSource: ChatDataSource(jwt: jwt, patientId: userId),
                       ),
                 ),
-                RepositoryProvider(create: (context) => NavigationModel()),
-                // Other providers...
+                BlocProvider(
+                  create: (_) {
+                    final cubit = PatientCubit(
+                      dataSource: PatientDataSource(jwt: jwt),
+                    );
+                    return cubit;
+                  },
+                ),
+                RepositoryProvider(create: (_) => NavigationModel()),
               ],
-              child: MaterialApp(title: 'Medicare', home: const AuthGate()),
+              child: const MaterialApp(title: 'Medicare', home: AuthGate()),
             );
           }
 
-          // While loading or logged out
+          // While loading or not authenticated
           return const MaterialApp(home: LoginPage());
         },
       ),

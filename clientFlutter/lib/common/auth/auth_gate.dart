@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../account/login/login_page.dart';
+import '../../patient/common/patient_cubit.dart';
 import '../../patient/overview/OverviewScreen.dart';
 import '../auth/auth_cubit.dart';
 import '../auth/auth_state.dart';
@@ -18,10 +19,11 @@ class AuthGate extends StatelessWidget {
             body: Center(child: CircularProgressIndicator()),
           );
         } else if (state is Authenticated) {
+          // Load patient data when authenticated as patient
           if (state.role == 'role-patient') {
-            return OverviewScreen();
+            context.read<PatientCubit>().loadPatient(state.userId);
+            return const OverviewScreen();
           } else if (state.role == 'role-doctor') {
-            // placeholder screen for doctorscren
             return const Scaffold(
               body: Center(child: Text('Doctor dashboard coming soon...')),
             );

@@ -14,6 +14,7 @@ public static class Extensions
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<ISecurityService, SecurityService>();
+        services.AddScoped<IPatientService, PatientService>();
         services.AddScoped<IServiceLogic, ServiceLogic>();
         services.AddScoped<IBookingService, BookingService>();
         services.AddScoped<IChatService, ChatService>();
