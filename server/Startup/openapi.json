@@ -845,6 +845,9 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "clinicname": {
             "type": "string"
           },
@@ -856,18 +859,8 @@
           },
           "type": {
             "type": "string"
-          },
-          "doctor": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DoctorInfoDto"
-            }
           }
         }
-      },
-      "DoctorInfoDto": {
-        "type": "object",
-        "additionalProperties": false
       },
       "ClientWantsToPairDeviceDto": {
         "type": "object",
