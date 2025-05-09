@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../account/login/login_page.dart';
 import '../../patient/common/patient_cubit.dart';
-import '../../patient/overview/OverviewScreen.dart';
+
+import '../../patient/overview/screens/OverviewScreen.dart';
 import '../auth/auth_cubit.dart';
 import '../auth/auth_state.dart';
 

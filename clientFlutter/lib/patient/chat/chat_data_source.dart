@@ -1,20 +1,18 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:medicare/common/auth/auth_prefs.dart';
 
 import '../../common/events.dart';
 import 'chat_models.dart';
 
 class ChatDataSource {
-  final String jwt;
-  final String patientId;
-  ChatDataSource({required this.jwt, required this.patientId});
   Future<List<ChatRoomDto>> getChatRoomsForUser() async {
     final url = 'http://localhost:5000/chat/retreiveChats/patient';
     final response = await http.post(
       Uri.parse(url),
-      headers: {'Content-Type': 'application/json', 'Authorization': jwt},
-      body: json.encode({"userId": patientId}),
+      headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
+      body: json.encode({"userId": AuthPrefs.userId!}),
     );
 
     if (response.statusCode != 200) {
@@ -29,7 +27,7 @@ class ChatDataSource {
     final url = 'http://localhost:5000/chat/retreiveMessages';
     final response = await http.post(
       Uri.parse(url),
-      headers: {'Content-Type': 'application/json', 'Authorization': jwt},
+      headers: {'Content-Type': 'application/json', 'Authorization':  AuthPrefs.jwt!},
       body: json.encode({"roomId": roomId}),
     );
 

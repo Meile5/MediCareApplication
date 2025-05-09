@@ -25,10 +25,10 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     });
   }
 
-  Future<void> getFutureAppointments(String userId) async {
+  Future<void> getFutureAppointments() async {
     emit(AppointmentLoading());
     try {
-      final List<FutureAppointmentsDto> futureAppointments = await dataSource.getFutureAppointments(userId);
+      final List<FutureAppointmentsDto> futureAppointments = await dataSource.getFutureAppointments();
       emit(FutureAppointmentsLoaded(futureAppointments: futureAppointments));
     } on SocketException catch (_) {
       emit(AppointmentError(message: ApplicationMessages.networkError.message));
@@ -37,10 +37,10 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     }
   }
 
-  Future<void> getPastAppointments(String userId) async {
+  Future<void> getPastAppointments() async {
     emit(AppointmentLoading());
     try {
-      final pastAppointments = await dataSource.getPastAppointments(userId);
+      final pastAppointments = await dataSource.getPastAppointments();
       emit(PastAppointmentsLoaded(pastAppointments: pastAppointments));
     } on SocketException catch (_) {
       emit(AppointmentError(message: ApplicationMessages.networkError.message));

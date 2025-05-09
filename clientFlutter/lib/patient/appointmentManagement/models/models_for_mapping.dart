@@ -75,6 +75,7 @@ class CreateChatRoomDto with CreateChatRoomDtoMappable {
   final String doctorId;
   final String patientId;
   final String topic;
+  final bool isFinished;
   final DateTime startTime;
   final DateTime endTime;
 
@@ -83,6 +84,7 @@ class CreateChatRoomDto with CreateChatRoomDtoMappable {
     required this.patientId,
     required this.topic,
     required this.startTime,
+    required this.isFinished,
     required this.endTime,
   });
 }

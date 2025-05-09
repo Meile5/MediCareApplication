@@ -2,6 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_gate.dart';
+import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/common/navigation_notifier.dart';
 import 'package:medicare/common/websocket_service.dart';
 import 'package:medicare/patient/appointmentManagement/appointments/state/appointment_cubit.dart';
@@ -20,9 +21,9 @@ import 'common/auth/auth_cubit.dart';
 import 'common/auth/auth_state.dart';
 import 'patient/common/patient_cubit.dart';
 
-void main() {
+void main() async {
   //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
-
+await AuthPrefs.init();
   runApp(const MyApp());
 }
 
@@ -50,71 +51,49 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit()..loadAuth(),
-      child: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          if (state is Authenticated) {
-            final jwt = state.jwt;
-            final userId = state.userId;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthCubit()..loadAuth()),
+        BlocProvider(
+          create: (context) => OverviewCubit(dataSource: DataSourceOverview()),
+        ),
+        BlocProvider(
+          create:
+              (_) => AppointmentCubit(
+                dataSource: DataSource(),
+                webSocketService: webSocketService,
+              ),
+        ),
+        BlocProvider(
+          create:
+              (_) => BookingCubit(
+                dataSource: DataSource(),
+                webSocketService: webSocketService,
+              ),
+        ),
+        BlocProvider(
+          create: (_) => VitalsCubit(webSocketService: webSocketService),
+        ),
+        BlocProvider(
+          create:
+              (_) => ChatCubit(
+                webSocketService: webSocketService,
+                dataSource: ChatDataSource(),
+              ),
+        ),
+        BlocProvider(
+          create: (_) {
+            final cubit = PatientCubit(dataSource: PatientDataSource());
+            return cubit;
+          },
+        ),
+        BlocProvider(
+          create: (context) => DoctorsCubit(dataSource: DataSource()),
+        ),
 
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create:
-                      (_) => AppointmentCubit(
-                        dataSource: DataSource(),
-                        webSocketService: webSocketService,
-                      ),
-                ),
-                BlocProvider(
-                  create:
-                      (_) => BookingCubit(
-                        dataSource: DataSource(),
-                        webSocketService: webSocketService,
-                      ),
-                ),
-                BlocProvider(
-                  create:
-                      (_) => VitalsCubit(webSocketService: webSocketService),
-                ),
-                BlocProvider(
-                  create:
-                      (_) => ChatCubit(
-                        webSocketService: webSocketService,
-                        dataSource: ChatDataSource(jwt: jwt, patientId: userId),
-                      ),
-                ),
-                BlocProvider(
-                  create: (_) {
-                    final cubit = PatientCubit(
-                      dataSource: PatientDataSource(jwt: jwt),
-                    );
-                    return cubit;
-                  },
-                ),
-                BlocProvider(
-                  create:
-                      (context) => DoctorsCubit(
-                    dataSource: DataSource(),
-                  ),
-                ),
-                BlocProvider(
-                  create:
-                      (context) => OverviewCubit(
-                    dataSource: DataSourceOverview(),
-                  ),
-                ),
-                RepositoryProvider(create: (_) => NavigationModel()),
-              ],
-              child: const MaterialApp(title: 'Medicare', home: AuthGate()),
-            );
-          }
-
-          // While loading or not authenticated
-          return const MaterialApp(home: LoginPage());
-        },
-      ),
+        RepositoryProvider(create: (_) => NavigationModel()),
+      ],
+      child: const MaterialApp(title: 'Medicare', home: AuthGate()),
     );
   }
 }

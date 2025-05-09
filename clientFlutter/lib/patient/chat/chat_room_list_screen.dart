@@ -4,6 +4,7 @@ import 'package:medicare/common/auth/auth_state.dart';
 import 'package:medicare/patient/common/patient_cubit.dart';
 
 import '../../common/auth/auth_cubit.dart';
+import '../../common/auth/auth_prefs.dart';
 import '../common/app_nav_bar.dart';
 import 'chat_data_source.dart';
 import 'chat_navigation.dart';
@@ -26,10 +27,7 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
     super.initState();
     final authState = context.read<AuthCubit>().state;
     if (authState is Authenticated) {
-      _dataSource = ChatDataSource(
-        jwt: authState.jwt,
-        patientId: authState.userId,
-      );
+      _dataSource = ChatDataSource();
       _loadChatRooms();
     } else {}
   }

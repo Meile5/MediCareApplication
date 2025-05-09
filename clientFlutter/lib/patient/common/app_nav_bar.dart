@@ -5,10 +5,9 @@ import 'package:medicare/common/navigation_notifier.dart';
 
 import '../appointmentManagement/appointments/screens/appointment_screen.dart';
 import '../chat/chat_room_list_screen.dart';
-import '../overview/OverviewScreen.dart';
-import '../vitals/vitals_screen.dart';
 import '../overview/screens/OverviewScreen.dart';
-import '../vitals/VitalsScreen.dart';
+import '../vitals/vitals_screen.dart';
+//import '../overview/screens/OverviewScreen.dart';
 
 class AppNavBar extends StatefulWidget {
   const AppNavBar({super.key});

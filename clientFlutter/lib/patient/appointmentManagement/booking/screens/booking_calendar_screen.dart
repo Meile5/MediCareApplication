@@ -104,7 +104,7 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                 /* microtask to ensure navigation completes first*/
                 Future.microtask(() {
                   if (context.mounted) {
-                    context.read<AppointmentCubit>().getFutureAppointments('user123');
+                    context.read<AppointmentCubit>().getFutureAppointments();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../../common/auth/auth_prefs.dart';
 import '../models/models_for_mapping.dart';
 
 class DataSource {
@@ -30,11 +31,11 @@ class DataSource {
     return response;
   }
 
-  Future<List<FutureAppointmentsDto>> getFutureAppointments(String userId) async {
+  Future<List<FutureAppointmentsDto>> getFutureAppointments() async {
     final response = await http.post(
       Uri.parse("http://localhost:5000/RetrieveFutureAppointments"),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(userId),
+      body: json.encode(AuthPrefs.userId),
     );
 
     if (response.statusCode != 200) {
@@ -45,11 +46,11 @@ class DataSource {
     return decoded.map((e) => FutureAppointmentsDtoMapper.fromMap(e)).toList();
   }
 
-  Future<List<PastAppointmentsDto>> getPastAppointments(String userId) async {
+  Future<List<PastAppointmentsDto>> getPastAppointments() async {
     final response = await http.post(
       Uri.parse("http://localhost:5000/RetrievePastAppointments"),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(userId),
+      body: json.encode(AuthPrefs.userId),
     );
 
     final List<dynamic> decoded = json.decode(response.body);
@@ -63,11 +64,11 @@ class DataSource {
     );
     return response;
   }
-  Future<List<ClinicDoctorDto>> getDoctors(String doctorId) async {
+  Future<List<ClinicDoctorDto>> getDoctors(String clinicId) async {
     final response = await http.post(
       Uri.parse("http://localhost:5000/RetrieveDoctors"),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(doctorId),
+      body: json.encode(clinicId),
     );
 
     final List<dynamic> decoded = json.decode(response.body);

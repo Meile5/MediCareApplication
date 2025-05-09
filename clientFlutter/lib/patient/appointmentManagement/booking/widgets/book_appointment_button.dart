@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/patient/appointmentManagement/booking/widgets/reusable_dialog.dart';
+import '../../../../common/auth/auth_prefs.dart';
 import '../../models/models_for_mapping.dart';
 import '../state/booking_cubit.dart';
 
@@ -56,16 +57,17 @@ class BookAppointmentButton extends StatelessWidget{
                  final appointmentDto = BookAppointmentDto(
                     startTime: selectedSlot!.startTime,
                     endTime: selectedSlot!.endTime,
-                    patientId: 'user123',
-                    doctorId: 'user-doctor-1',
+                    patientId: AuthPrefs.userId!,
+                    doctorId: selectedDoctor.doctorId,
                     notes: selectedReason,
                   );
 
                   final chatRoomDto = CreateChatRoomDto(
-                    doctorId: 'user-doctor-1',
-                    patientId: 'user123',
+                    doctorId: selectedDoctor.doctorId,
+                    patientId: AuthPrefs.userId!,
                     topic: selectedReason,
                     startTime: selectedSlot!.startTime,
+                    isFinished: false,
                     endTime: selectedSlot!.endTime,
                   );
 

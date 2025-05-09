@@ -29,6 +29,7 @@ class _ChooseDoctorScreenState extends State<ChooseDoctorScreen> {
 
   @override
   void initState() {
+
     super.initState();
     final clinicState = context.read<OverviewCubit>().state;
 

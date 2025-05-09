@@ -572,6 +572,9 @@ class CreateChatRoomDtoMapper extends ClassMapperBase<CreateChatRoomDto> {
   static DateTime _$startTime(CreateChatRoomDto v) => v.startTime;
   static const Field<CreateChatRoomDto, DateTime> _f$startTime =
       Field('startTime', _$startTime);
+  static bool _$isFinished(CreateChatRoomDto v) => v.isFinished;
+  static const Field<CreateChatRoomDto, bool> _f$isFinished =
+      Field('isFinished', _$isFinished);
   static DateTime _$endTime(CreateChatRoomDto v) => v.endTime;
   static const Field<CreateChatRoomDto, DateTime> _f$endTime =
       Field('endTime', _$endTime);
@@ -582,6 +585,7 @@ class CreateChatRoomDtoMapper extends ClassMapperBase<CreateChatRoomDto> {
     #patientId: _f$patientId,
     #topic: _f$topic,
     #startTime: _f$startTime,
+    #isFinished: _f$isFinished,
     #endTime: _f$endTime,
   };
 
@@ -591,6 +595,7 @@ class CreateChatRoomDtoMapper extends ClassMapperBase<CreateChatRoomDto> {
         patientId: data.dec(_f$patientId),
         topic: data.dec(_f$topic),
         startTime: data.dec(_f$startTime),
+        isFinished: data.dec(_f$isFinished),
         endTime: data.dec(_f$endTime));
   }
 
@@ -655,6 +660,7 @@ abstract class CreateChatRoomDtoCopyWith<$R, $In extends CreateChatRoomDto,
       String? patientId,
       String? topic,
       DateTime? startTime,
+      bool? isFinished,
       DateTime? endTime});
   CreateChatRoomDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
@@ -674,12 +680,14 @@ class _CreateChatRoomDtoCopyWithImpl<$R, $Out>
           String? patientId,
           String? topic,
           DateTime? startTime,
+          bool? isFinished,
           DateTime? endTime}) =>
       $apply(FieldCopyWithData({
         if (doctorId != null) #doctorId: doctorId,
         if (patientId != null) #patientId: patientId,
         if (topic != null) #topic: topic,
         if (startTime != null) #startTime: startTime,
+        if (isFinished != null) #isFinished: isFinished,
         if (endTime != null) #endTime: endTime
       }));
   @override
@@ -688,6 +696,7 @@ class _CreateChatRoomDtoCopyWithImpl<$R, $Out>
       patientId: data.get(#patientId, or: $value.patientId),
       topic: data.get(#topic, or: $value.topic),
       startTime: data.get(#startTime, or: $value.startTime),
+      isFinished: data.get(#isFinished, or: $value.isFinished),
       endTime: data.get(#endTime, or: $value.endTime));
 
   @override

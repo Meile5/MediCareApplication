@@ -17,8 +17,7 @@ class _FutureAppointmentsState extends State<FutureAppointments> {
   @override
   void initState() {
     super.initState();
-    final userId = "user123"; // Replace or pass from constructor
-    context.read<AppointmentCubit>().getFutureAppointments(userId);
+    context.read<AppointmentCubit>().getFutureAppointments();
   }
 
   final String animationEmpty = 'https://lottie.host/d6872b61-0888-460f-b77b-c99cfde00602/8sjSztLhTt.json';
