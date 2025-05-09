@@ -22,7 +22,7 @@ class MessageDisplay extends StatelessWidget{
             child: Lottie.network(animationEmpty),
           ),
           const SizedBox(height: 20),
-          const Text('No upcoming appointments'),
+          Text(message),
         ],
       ),
     );

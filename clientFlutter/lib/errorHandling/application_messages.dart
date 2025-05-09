@@ -6,7 +6,8 @@ enum ApplicationMessages{
   generalError("An unexpected error occurred. Please try again later."),
   waitingForApproval('Your appointment is currently pending and waiting for approval!'),
   badRequestError("Bad request. Please check your input and try again."),
-  selectReason("Please select a reason for your appointment.");
+  selectReason("Please select a reason for your appointment."),
+  noUpcomingAppointments("No upcoming appointments found.");
 
   const ApplicationMessages(this.message);
   final String message;
