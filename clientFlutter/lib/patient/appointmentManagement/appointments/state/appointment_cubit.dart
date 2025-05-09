@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/events.dart';
 import 'package:medicare/common/websocket_service.dart';
+import '../../../../errorHandling/application_messages.dart';
 import 'appointment_state.dart';
 import '../../utils/data_source.dart';
 import '../../models/models_for_mapping.dart';
@@ -26,11 +29,11 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     emit(AppointmentLoading());
     try {
       final List<FutureAppointmentsDto> futureAppointments = await dataSource.getFutureAppointments(userId);
-      print(futureAppointments.toString());
-
       emit(FutureAppointmentsLoaded(futureAppointments: futureAppointments));
-    } catch (e) {
-      emit(AppointmentError(message: e.toString()));
+    } on SocketException catch (_) {
+      emit(AppointmentError(message: ApplicationMessages.networkError.message));
+    } catch(e) {
+      emit(AppointmentError(message: ApplicationMessages.generalError.message));
     }
   }
 
@@ -39,8 +42,10 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     try {
       final pastAppointments = await dataSource.getPastAppointments(userId);
       emit(PastAppointmentsLoaded(pastAppointments: pastAppointments));
-    } catch (e) {
-      emit(AppointmentError(message: e.toString()));
+    } on SocketException catch (_) {
+      emit(AppointmentError(message: ApplicationMessages.networkError.message));
+    } catch(e) {
+      emit(AppointmentError(message: ApplicationMessages.generalError.message));
     }
   }
 
@@ -48,7 +53,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     try {
       final response = await dataSource.cancelAppointments(dto);
       if (response.statusCode == 200) {
-        // Remove just the canceled appointment from state
+        /* Remove just the canceled appointment from state */
         if (state is FutureAppointmentsLoaded) {
           final currentAppointments = (state as FutureAppointmentsLoaded).futureAppointments;
           final updatedAppointments = currentAppointments
@@ -57,11 +62,15 @@ class AppointmentCubit extends Cubit<AppointmentState> {
 
           emit(FutureAppointmentsLoaded(futureAppointments: updatedAppointments));
         }
-      } else {
-        emit(AppointmentError(message: 'Failed to cancel: ${response.body}'));
+      } else if (response.statusCode >= 500) {
+        emit(AppointmentError(message: ApplicationMessages.serverError.message));
+      } else if (response.statusCode >= 400) {
+        emit(AppointmentError(message: ApplicationMessages.badRequestError.message));
       }
-    } catch (e) {
-      emit(AppointmentError(message: e.toString()));
+    } on SocketException catch (_) {
+      emit(AppointmentError(message: ApplicationMessages.networkError.message));
+    } catch(e) {
+      emit(AppointmentError(message: ApplicationMessages.generalError.message));
     }
   }
 }

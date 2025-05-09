@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/events.dart';
 import 'package:medicare/common/websocket_service.dart';
+import '../../../../errorHandling/application_messages.dart';
 import 'booking_state.dart';
 import '../../utils/data_source.dart';
 import '../../models/models_for_mapping.dart';
@@ -25,9 +28,12 @@ class BookingCubit extends Cubit<BookingState> {
     emit(BookingLoading());
     try {
       final availableTimes = await dataSource.getAvailability(id);
+
       emit(BookingLoaded(availableTimes: availableTimes));
-    } catch (e) {
-      emit(BookingError(message: e.toString()));
+    } on SocketException catch (_) {
+      emit(BookingError(message: ApplicationMessages.networkError.message));
+    } catch(e) {
+      emit(BookingError(message: ApplicationMessages.generalError.message));
     }
   }
 
@@ -36,20 +42,18 @@ class BookingCubit extends Cubit<BookingState> {
       final response = await dataSource.bookAppointment(dto);
 
       if (response.statusCode == 200) {
-        print('Appointment booked successfully');
-        final currentState = state;
-        /*if (currentState is BookingLoaded) {
-          emit(BookingLoaded(
-            availableTimes: currentState.availableTimes, // Keep previous available times
-          ));
-        }*/
-        emit(BookingSuccessful(message: 'Your appointment is currently pending and waiting for approval!'));
-        // emit(...) if needed
-      } else {
-        emit(BookingError(message: 'Failed to book: ${response.body}'));
+        emit(BookingSuccessful(
+            message: ApplicationMessages.waitingForApproval.message));
+      } else if (response.statusCode >= 500) {
+        emit(BookingError(message: ApplicationMessages.serverError.message));
+      } else if (response.statusCode >= 400) {
+        emit(
+            BookingError(message: ApplicationMessages.badRequestError.message));
       }
-    } catch (e) {
-      emit(BookingError(message: e.toString()));
+    } on SocketException catch (_) {
+      emit(BookingError(message: ApplicationMessages.networkError.message));
+    } catch(e) {
+      emit(BookingError(message: ApplicationMessages.generalError.message));
     }
   }
 }

@@ -19,8 +19,7 @@ class DataSource {
   }
 
   Future<http.Response> bookAppointment(BookAppointmentRequest dto) async {
-    final jsonBody = json.encode(dto.toMap()); // Encode payload
-    print('Request body: $jsonBody'); // Log payload
+    final jsonBody = json.encode(dto.toMap());
 
     final response = await http.post(
       Uri.parse('http://localhost:5000/BookAppointment'),
@@ -53,10 +52,6 @@ class DataSource {
       body: json.encode(userId),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load data');
-    }
-
     final List<dynamic> decoded = json.decode(response.body);
     return decoded.map((e) => PastAppointmentsDtoMapper.fromMap(e)).toList();
   }
@@ -66,11 +61,6 @@ class DataSource {
       headers: {'Content-Type': 'application/json'},
         body: json.encode(dto.toMap())
     );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load data');
-    }
-
     return response;
   }
   Future<List<ClinicDoctorDto>> getDoctors(String doctorId) async {
@@ -79,15 +69,8 @@ class DataSource {
       headers: {'Content-Type': 'application/json'},
       body: json.encode(doctorId),
     );
-    print("hereee" + response.body);
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load data');
-    }
 
     final List<dynamic> decoded = json.decode(response.body);
-    print("hereee" + decoded.toString());
-
     return decoded.map((e) => ClinicDoctorDtoMapper.fromMap(e)).toList();
   }
 

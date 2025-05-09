@@ -36,11 +36,9 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
   }
 
 
-
   @override
   void initState() {
     super.initState();
-    // Load available times as soon as the widget is created
     final doctorId = widget.selectedDoctor.doctorId;
     context.read<BookingCubit>().loadAvailableTimes(doctorId);
   }

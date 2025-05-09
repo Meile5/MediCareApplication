@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medicare/common/widgets.dart';
 import 'package:medicare/patient/appointmentManagement/booking/screens/choose_doctor_screen.dart';
+import '../../../../errorHandling/application_messages.dart';
 import '../../../common/app_nav_bar.dart';
 import '../widgets/appointment_reason.dart';
 import 'booking_calendar_screen.dart';
@@ -94,7 +95,7 @@ class _ReasonForAppointmentScreenState extends State<ReasonForAppointmentScreen>
                     ));
                 // Navigate or process
               } else {
-                context.showErrorSnackBar(message: "Please select or input reason");
+                context.showErrorSnackBar(message: ApplicationMessages.selectReason.message);
               }
             },
             style: ElevatedButton.styleFrom(

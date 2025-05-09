@@ -20,6 +20,8 @@ class ClinicInfoDtoMapper extends ClassMapperBase<ClinicInfoDto> {
   @override
   final String id = 'ClinicInfoDto';
 
+  static String _$id(ClinicInfoDto v) => v.id;
+  static const Field<ClinicInfoDto, String> _f$id = Field('id', _$id);
   static String _$clinicname(ClinicInfoDto v) => v.clinicname;
   static const Field<ClinicInfoDto, String> _f$clinicname =
       Field('clinicname', _$clinicname);
@@ -34,6 +36,7 @@ class ClinicInfoDtoMapper extends ClassMapperBase<ClinicInfoDto> {
 
   @override
   final MappableFields<ClinicInfoDto> fields = const {
+    #id: _f$id,
     #clinicname: _f$clinicname,
     #address: _f$address,
     #phonenumber: _f$phonenumber,
@@ -42,6 +45,7 @@ class ClinicInfoDtoMapper extends ClassMapperBase<ClinicInfoDto> {
 
   static ClinicInfoDto _instantiate(DecodingData data) {
     return ClinicInfoDto(
+        id: data.dec(_f$id),
         clinicname: data.dec(_f$clinicname),
         address: data.dec(_f$address),
         phonenumber: data.dec(_f$phonenumber),
@@ -102,7 +106,11 @@ extension ClinicInfoDtoValueCopy<$R, $Out>
 abstract class ClinicInfoDtoCopyWith<$R, $In extends ClinicInfoDto, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call(
-      {String? clinicname, String? address, String? phonenumber, String? type});
+      {String? id,
+      String? clinicname,
+      String? address,
+      String? phonenumber,
+      String? type});
   ClinicInfoDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -116,11 +124,13 @@ class _ClinicInfoDtoCopyWithImpl<$R, $Out>
       ClinicInfoDtoMapper.ensureInitialized();
   @override
   $R call(
-          {String? clinicname,
+          {String? id,
+          String? clinicname,
           String? address,
           String? phonenumber,
           String? type}) =>
       $apply(FieldCopyWithData({
+        if (id != null) #id: id,
         if (clinicname != null) #clinicname: clinicname,
         if (address != null) #address: address,
         if (phonenumber != null) #phonenumber: phonenumber,
@@ -128,6 +138,7 @@ class _ClinicInfoDtoCopyWithImpl<$R, $Out>
       }));
   @override
   ClinicInfoDto $make(CopyWithData data) => ClinicInfoDto(
+      id: data.get(#id, or: $value.id),
       clinicname: data.get(#clinicname, or: $value.clinicname),
       address: data.get(#address, or: $value.address),
       phonenumber: data.get(#phonenumber, or: $value.phonenumber),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/widgets.dart';
+import '../../../../errorHandling/application_messages.dart';
 import '../../../common/app_nav_bar.dart';
+import '../../../overview/state/overview_cubit.dart';
+import '../../../overview/state/overview_state.dart';
 import '../../models/models_for_mapping.dart';
 import '../state/doctors_cubit.dart';
 import '../state/doctors_state.dart';
@@ -27,7 +30,14 @@ class _ChooseDoctorScreenState extends State<ChooseDoctorScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<DoctorsCubit>().retrieveDoctors('CLINIC001');
+    final clinicState = context.read<OverviewCubit>().state;
+
+    if (clinicState is ClinicInfoLoaded) {
+      final clinicId = clinicState.clinicInfo.firstWhere((clinic) => clinic.type == "Normal");
+      context.read<DoctorsCubit>().retrieveDoctors(clinicId.id);
+    } else if (clinicState is ClinicInfoError) {
+      Center(child: Text(ApplicationMessages.generalError.message));
+    }
   }
 
   @override
