@@ -14,20 +14,15 @@ class VitalsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vitals', style: TextStyle(fontSize: 24)),
-        backgroundColor: Colors.blueAccent,
-      ),
       body: BlocBuilder<VitalsCubit, VitalsState>(
         builder: (context, state) {
           double? temperature;
-          double? ecg;
           String temperatureStatus = 'Waiting for data...';
           Color temperatureColor = Colors.grey;
 
           if (state is VitalsUpdated) {
             temperature = state.temperature;
-            ecg = state.ecg;
+
             temperatureStatus = '${temperature.toStringAsFixed(1)}°C';
 
             if (temperature > 37.5) {
@@ -40,7 +35,6 @@ class VitalsScreen extends StatelessWidget {
           } else if (state is VitalsError) {
             temperatureStatus = 'Error: ${state.message}';
             temperatureColor = Colors.orange;
-            ecg = null;
           }
 
           return Padding(
@@ -51,7 +45,7 @@ class VitalsScreen extends StatelessWidget {
               mainAxisSpacing: 8.0,
               children: [
                 temperatureCard(temperatureStatus, temperatureColor),
-                ecgCard(context, ecg),
+                ecgCard(context),
                 vitalsCard(FontAwesomeIcons.heartbeat, 'Heart Rate'),
                 vitalsCard(FontAwesomeIcons.lungs, 'Blood Oxygen'),
               ],

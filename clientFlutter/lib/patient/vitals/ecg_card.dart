@@ -3,23 +3,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'ecg_screen.dart';
 
-Widget ecgCard(BuildContext context, double? ecg) {
-  final hasData = ecg != null;
-
+Widget ecgCard(BuildContext context) {
   return Card(
     elevation: 5.0,
     color: Colors.white,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     child: InkWell(
-      onTap:
-          hasData
-              ? () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => EcgScreen(ecgValue: ecg!)),
-                );
-              }
-              : null,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const EcgScreen()),
+        );
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
