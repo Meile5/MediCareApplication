@@ -198,7 +198,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DoctorAvailabilityResponseDto"
+                  "$ref": "#/components/schemas/AvailabilityDto"
                 }
               }
             }
@@ -217,7 +217,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookAppointmentDto"
+                "$ref": "#/components/schemas/BookAppointmentRequest"
               }
             }
           },
@@ -335,6 +335,41 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrieveDoctors": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "operationId": "Booking_RetrieveDoctors",
+        "requestBody": {
+          "x-name": "clinicId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicDoctorDto"
+                  }
                 }
               }
             }
@@ -764,32 +799,6 @@
           }
         }
       },
-      "DoctorAvailabilityResponseDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "doctorId": {
-            "type": "string",
-            "nullable": true
-          },
-          "doctorName": {
-            "type": "string",
-            "nullable": true
-          },
-          "availableDates": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AvailabilityDto"
-            }
-          },
-          "appointments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AppointmentDto"
-            }
-          }
-        }
-      },
       "AvailabilityDto": {
         "type": "object",
         "additionalProperties": false,
@@ -804,27 +813,15 @@
           }
         }
       },
-      "AppointmentDto": {
+      "BookAppointmentRequest": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
-            "type": "string"
+          "appointment": {
+            "$ref": "#/components/schemas/BookAppointmentDto"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+          "chatRoom": {
+            "$ref": "#/components/schemas/CreateChatRoomDto"
           }
         }
       },
@@ -845,6 +842,35 @@
           },
           "doctorId": {
             "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateChatRoomDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doctorId": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isFinished": {
+            "type": "boolean"
           }
         }
       },
@@ -865,6 +891,9 @@
           },
           "status": {
             "type": "string"
+          },
+          "notes": {
+            "type": "string"
           }
         }
       },
@@ -879,6 +908,9 @@
           "endTime": {
             "type": "string",
             "format": "date-time"
+          },
+          "notes": {
+            "type": "string"
           }
         }
       },
@@ -894,10 +926,28 @@
           }
         }
       },
+      "ClinicDoctorDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doctorId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          }
+        }
+      },
       "ClinicInfoDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "clinicname": {
             "type": "string"
           },
@@ -909,18 +959,8 @@
           },
           "type": {
             "type": "string"
-          },
-          "doctor": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DoctorInfoDto"
-            }
           }
         }
-      },
-      "DoctorInfoDto": {
-        "type": "object",
-        "additionalProperties": false
       },
       "PatientIdRequest": {
         "type": "object",
@@ -946,25 +986,6 @@
           "pairingCode": {
             "type": "string",
             "minLength": 1
-          }
-        }
-      },
-      "CreateChatRoomDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "doctorId": {
-            "type": "string"
-          },
-          "patientId": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },

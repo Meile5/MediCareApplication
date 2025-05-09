@@ -8,6 +8,7 @@ public class CreateChatRoomDto{
     public string Topic { get; set; } = null!;
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
+    public bool IsFinished { get; set; } 
 
     
 
@@ -21,6 +22,7 @@ public class CreateChatRoomDto{
             Topic = chatRoom.Topic,
             StartTime = chatRoom.StartTime,
             EndTime = chatRoom.EndTime,
+            IsFinished = chatRoom.IsFinished
         };
     }
 
