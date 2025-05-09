@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/models_appointments.dart';
 import '../models/models_for_mapping.dart';
 
 class DataSource {
-  Future<DoctorAvailabilityResponseDto> getAvailability(String doctorId) async {
+  Future<List<AvailabilityDto>> getAvailability(String doctorId) async {
 
     final url = "http://localhost:5000/RetrieveBookingInfo";
     final response = await http.post(
@@ -14,17 +13,13 @@ class DataSource {
       },
       body: json.encode(doctorId),
     );
-    // Check if the response is successful
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load availability data: ${response.statusCode}');
-    }
-    final map = json.decode(response.body);
-    return DoctorAvailabilityResponseDto.fromJson(map);
+
+    final List<dynamic> decoded = json.decode(response.body);
+    return decoded.map((e) => AvailabilityDtoMapper.fromMap(e)).toList();
   }
 
-  Future<http.Response> bookAppointment(BookAppointmentDto dto) async {
-    final jsonBody = json.encode(dto.toMap()); // Encode payload
-    print('Request body: $jsonBody'); // Log payload
+  Future<http.Response> bookAppointment(BookAppointmentRequest dto) async {
+    final jsonBody = json.encode(dto.toMap());
 
     final response = await http.post(
       Uri.parse('http://localhost:5000/BookAppointment'),
@@ -57,10 +52,6 @@ class DataSource {
       body: json.encode(userId),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load data');
-    }
-
     final List<dynamic> decoded = json.decode(response.body);
     return decoded.map((e) => PastAppointmentsDtoMapper.fromMap(e)).toList();
   }
@@ -70,12 +61,17 @@ class DataSource {
       headers: {'Content-Type': 'application/json'},
         body: json.encode(dto.toMap())
     );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load data');
-    }
-
     return response;
+  }
+  Future<List<ClinicDoctorDto>> getDoctors(String doctorId) async {
+    final response = await http.post(
+      Uri.parse("http://localhost:5000/RetrieveDoctors"),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(doctorId),
+    );
+
+    final List<dynamic> decoded = json.decode(response.body);
+    return decoded.map((e) => ClinicDoctorDtoMapper.fromMap(e)).toList();
   }
 
 

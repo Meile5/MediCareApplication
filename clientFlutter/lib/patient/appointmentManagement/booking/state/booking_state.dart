@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../../models/models_appointments.dart';
+import '../../models/models_for_mapping.dart';
 
 @immutable
 sealed class BookingState {}
@@ -10,7 +10,7 @@ final class BookingInitial extends BookingState {}
 final class BookingLoading extends BookingState {}
 
 final class BookingLoaded extends BookingState {
-  final DoctorAvailabilityResponseDto availableTimes;
+  final List<AvailabilityDto> availableTimes;
   BookingLoaded({required this.availableTimes});
 }
 

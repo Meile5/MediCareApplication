@@ -29,5 +29,5 @@ public partial class Doctor
 
     public virtual User DoctorNavigation { get; set; } = null!;
 
-    public virtual ICollection<Patient> Patients { get; set; } = new List<Patient>();
+    public virtual ICollection<DoctorPatient> DoctorPatients { get; set; } = new List<DoctorPatient>();
 }

@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces.IPatientService;
 using Application.Models.Dtos.PatientDto;
+using Application.Models.Dtos.PatientDto.request;
+using Application.Models.Dtos.PatientDto.response;
 using Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +13,7 @@ public class BookingController (IBookingService _bookingService) : ControllerBas
     public const string RetrieveBookingInfoRoute = nameof(RetrieveBookingInfo);
     
     [Route(RetrieveBookingInfoRoute)]
-    public async Task <ActionResult<DoctorAvailabilityResponseDto> >RetrieveBookingInfo([FromBody] string doctorId) 
+    public async Task <ActionResult<AvailabilityDto> >RetrieveBookingInfo([FromBody] string doctorId) 
     
     {
        // securityService.VerifyJwtOrThrow(authorization);
@@ -22,9 +24,9 @@ public class BookingController (IBookingService _bookingService) : ControllerBas
     public const string BookAppointmentRoute = nameof(BookAppointment);
 
     [Route(BookAppointmentRoute)]
-    public async Task<ActionResult> BookAppointment([FromBody] BookAppointmentDto dto)
+    public async Task<ActionResult> BookAppointment([FromBody] BookAppointmentRequest dto)
     {
-        await _bookingService.BookAppointment(dto);
+        await _bookingService.BookAppointment(dto.Appointment, dto.ChatRoom);
         
         return Ok();
     }
@@ -61,6 +63,21 @@ public class BookingController (IBookingService _bookingService) : ControllerBas
         await _bookingService.CancelAppointment(dto);
         return Ok();
     }
+    
+    public const string RetrieveDoctorsRoute = nameof(RetrieveDoctors);
+    
+    [Route(RetrieveDoctorsRoute)]
+    public async Task <ActionResult<List<ClinicDoctorDto>>> RetrieveDoctors([FromBody] string clinicId) 
+    
+    {
+        // securityService.VerifyJwtOrThrow(authorization);
+        var response = await _bookingService.RetrieveClinicDoctors(clinicId);
+        return Ok(response);
+    }
+    
+    
+    
+    
 
 
 }

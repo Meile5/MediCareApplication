@@ -13,7 +13,7 @@ class PastAppointmentCard extends StatelessWidget {
     String formatDate(DateTime date) {
       final formattedDate = DateFormat.yMMMMd().format(date);
       final formattedTime = DateFormat('jm').format(date);
-      return 'Date: $formattedDate, Time: $formattedTime';
+      return '$formattedDate, $formattedTime';
     }
 
     return Container(
@@ -39,6 +39,8 @@ class PastAppointmentCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(formatDate(appointment.startTime)),
+                Text("${appointment.notes}"),
+
               ],
             ),
           ),

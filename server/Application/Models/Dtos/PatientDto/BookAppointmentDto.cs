@@ -10,6 +10,9 @@ public class BookAppointmentDto
     public string PatientId { get; set; } = null!;
     public string DoctorId { get; set; } = null!;
     
+    public string Notes { get; set; } 
+   
+    
     public static  Appointment ToEntity(BookAppointmentDto appointment)
     {
         return new Appointment()
@@ -19,7 +22,8 @@ public class BookAppointmentDto
             EndTime = appointment.EndTime,
             PatientId = appointment.PatientId,
             DoctorId = appointment.DoctorId,
-            Status = Status.Pending
+            Status = Status.Pending,
+            Notes = appointment.Notes
             
         };
     }

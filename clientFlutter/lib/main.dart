@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_gate.dart';
@@ -5,10 +6,13 @@ import 'package:medicare/common/navigation_notifier.dart';
 import 'package:medicare/common/websocket_service.dart';
 import 'package:medicare/patient/appointmentManagement/appointments/state/appointment_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/booking/state/booking_cubit.dart';
+import 'package:medicare/patient/appointmentManagement/booking/state/doctors_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
 import 'package:medicare/patient/chat/chat_cubit.dart';
 import 'package:medicare/patient/chat/chat_data_source.dart';
 import 'package:medicare/patient/common/patient_data_source.dart';
+import 'package:medicare/patient/overview/state/overview_cubit.dart';
+import 'package:medicare/patient/overview/utility/data_source_overview.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
 import 'account/login/login_page.dart';
@@ -88,6 +92,18 @@ class _MyAppState extends State<MyApp> {
                     );
                     return cubit;
                   },
+                ),
+                BlocProvider(
+                  create:
+                      (context) => DoctorsCubit(
+                    dataSource: DataSource(),
+                  ),
+                ),
+                BlocProvider(
+                  create:
+                      (context) => OverviewCubit(
+                    dataSource: DataSourceOverview(),
+                  ),
                 ),
                 RepositoryProvider(create: (_) => NavigationModel()),
               ],

@@ -8,24 +8,17 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
   final DateTime endTime;
   final String patientId;
   final String doctorId;
+  final String notes;
 
-  BookAppointmentDto({
+
+  BookAppointmentDto( {
     required this.startTime,
     required this.endTime,
     required this.patientId,
     required this.doctorId,
-  });
+    required this.notes,
 
-  /// Override the map to ensure proper date formatting
-  /*@override
-  Map<String, dynamic> toMap() {
-    return {
-      'startTime': startTime.toUtc().toIso8601String(),
-      'endTime': endTime.toUtc().toIso8601String(),
-      'patientId': patientId,
-      'doctorId': doctorId,
-    };
-  }*/
+  });
 
 }
 @MappableClass()
@@ -34,12 +27,14 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
   final DateTime startTime;
   final DateTime endTime;
   final String status;
+  final String notes;
 
   FutureAppointmentsDto({
     required this.id,
     required this.startTime,
     required this.endTime,
     required this.status,
+    required this.notes,
   });
 }
 
@@ -47,11 +42,15 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
 class PastAppointmentsDto with PastAppointmentsDtoMappable {
   final DateTime startTime;
   final DateTime endTime;
+  final String notes;
+
 
 
   PastAppointmentsDto({
     required this.startTime,
     required this.endTime,
+    required this.notes,
+
   });
 }
 
@@ -68,7 +67,67 @@ class CancelAppointmentDto with CancelAppointmentDtoMappable {
   });
 
 
+}
+
+
+@MappableClass()
+class CreateChatRoomDto with CreateChatRoomDtoMappable {
+  final String doctorId;
+  final String patientId;
+  final String topic;
+  final DateTime startTime;
+  final DateTime endTime;
+
+  CreateChatRoomDto({
+    required this.doctorId,
+    required this.patientId,
+    required this.topic,
+    required this.startTime,
+    required this.endTime,
+  });
+}
+
+@MappableClass()
+class BookAppointmentRequest with BookAppointmentRequestMappable {
+  final BookAppointmentDto appointment;
+  final CreateChatRoomDto chatRoom;
+
+  BookAppointmentRequest({
+    required this.appointment,
+    required this.chatRoom,
+  });
+}
+
+
+@MappableClass()
+class ClinicDoctorDto with ClinicDoctorDtoMappable {
+  final String doctorId;
+  final String name;
+  final String surname;
+
+  ClinicDoctorDto({
+    required this.doctorId,
+    required this.name,
+    required this.surname,
+  });
+}
+
+@MappableClass()
+class AvailabilityDto with AvailabilityDtoMappable {
+  final DateTime startTime;
+  final DateTime endTime;
+
+  AvailabilityDto({
+    required this.startTime,
+    required this.endTime,
+
+  });
 
 }
+
+
+
+
+
 
 

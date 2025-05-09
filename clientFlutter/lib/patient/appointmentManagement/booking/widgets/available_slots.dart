@@ -1,12 +1,11 @@
-// custom_slot_grid.dart
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../models/models_appointments.dart';
+import 'package:medicare/patient/appointmentManagement/models/models_for_mapping.dart';
 
 class CustomSlotGrid extends StatelessWidget {
-  final List<AvailableDates> slots;
-  final AvailableDates? selectedSlot;
-  final void Function(AvailableDates) onSlotSelected;
+  final List<AvailabilityDto> slots;
+  final AvailabilityDto? selectedSlot;
+  final void Function(AvailabilityDto) onSlotSelected;
 
   const CustomSlotGrid({
     super.key,
@@ -30,13 +29,13 @@ class CustomSlotGrid extends StatelessWidget {
         childAspectRatio: 3.5,
       ),
       itemBuilder: (context, index) {
+        /* This checks if the currently selected slot (selectedSlot) is equal to the slot at this index.*/
         final slot = slots[index];
         final isSelected = selectedSlot == slot;
 
         return GestureDetector(
           onTap: () => onSlotSelected(slot),
           child: Container(
-            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: isSelected ? Colors.blueAccent : Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -54,8 +53,9 @@ class CustomSlotGrid extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                DateFormat('hh:mm a').format(slot.startTime!),
-                style: const TextStyle(fontSize: 16),
+                DateFormat('hh:mm a').format(slot.startTime.toLocal()),
+                style: TextStyle(fontSize: 16, color: isSelected ? Colors.white : Colors.black,
+                ),
               ),
             ),
           ),

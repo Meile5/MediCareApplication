@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../appointments/widgets/future_appointments.dart';
 import '../appointments/widgets/past_appointments.dart';
 class AppointmentNavigation extends StatefulWidget {

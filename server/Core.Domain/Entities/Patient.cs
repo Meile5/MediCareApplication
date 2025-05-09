@@ -33,9 +33,9 @@ public partial class Patient
 
     public virtual ICollection<Diagnosis> Diagnoses { get; set; } = new List<Diagnosis>();
 
+    public virtual ICollection<DoctorPatient> DoctorPatients { get; set; } = new List<DoctorPatient>();
+
     public virtual ICollection<PatientVital> PatientVitals { get; set; } = new List<PatientVital>();
 
     public virtual User User { get; set; } = null!;
-
-    public virtual ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
 }

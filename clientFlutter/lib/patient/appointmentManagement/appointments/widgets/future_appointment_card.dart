@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../booking/widgets/reusable_dialog.dart';
 import '../../models/models_for_mapping.dart';
 import 'package:intl/intl.dart';
 
@@ -28,8 +29,9 @@ class AppointmentCard extends StatelessWidget {
       final local = date.toLocal();
       final formattedDate = DateFormat.yMMMMd().format(local);
       final formattedTime = DateFormat('jm').format(local);
-      return 'Date: $formattedDate, Time: $formattedTime';
+      return '$formattedDate, $formattedTime';
     }
+
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -53,16 +55,16 @@ class AppointmentCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(formatDate(appointment.startTime)),
+                Text(formatDate(appointment.startTime),),
+                const SizedBox(height: 4),
+                Text("${appointment.notes}"),
               ],
             ),
           ),
-          const SizedBox(width: 18),
           Expanded(
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: getStatusColor(appointment.status),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -70,13 +72,12 @@ class AppointmentCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(
                     '${appointment.status}',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: getStatusColor(appointment.status)),
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 18),
           Expanded(
             flex: 1,
             child: ElevatedButton(
@@ -85,12 +86,29 @@ class AppointmentCard extends StatelessWidget {
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
-              onPressed: appointment.status == 'Rejected' ? null : () {
-                final appointmentDto = CancelAppointmentDto(
-                  id: appointment.id,
-                  status: appointment.status,
-                );
-                context.read<AppointmentCubit>().cancelAppointment(appointmentDto);
+              onPressed: appointment.status == 'Rejected' ? null : () async{
+                await showDialog(
+                  context: context,
+                  builder: (context) => ReusableDialog(
+                      title: 'Confirm Cancel',
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Topic: ${appointment.notes}"),
+                          Text("Appointment: ${formatDate(appointment.startTime)}"),
+                        ],
+                      ),
+                      onConfirm: () async {
+                        final appointmentDto = CancelAppointmentDto(
+                          id: appointment.id,
+                          status: appointment.status,
+                        );
+                        context.read<AppointmentCubit>().cancelAppointment(appointmentDto);
+
+                      }
+                  ),
+                  );
               },
               child: const Text('Cancel'),
             ),

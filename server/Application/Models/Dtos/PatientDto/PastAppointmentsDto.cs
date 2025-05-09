@@ -7,6 +7,9 @@ public class PastAppointmentsDto
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     
+    public string Notes { get; set; } = null!;
+
+    
     
     public static PastAppointmentsDto FromEntity(Appointment appointment)
     {
@@ -14,6 +17,7 @@ public class PastAppointmentsDto
         {
             StartTime = appointment.StartTime,
             EndTime = appointment.EndTime,
+            Notes = appointment.Notes
             
         };
     }

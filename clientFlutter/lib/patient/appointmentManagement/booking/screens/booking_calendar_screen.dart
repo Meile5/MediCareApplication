@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:medicare/common/widgets.dart';
 import 'package:medicare/patient/common/app_nav_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../appointments/screens/appointment_screen.dart';
 import '../../appointments/state/appointment_cubit.dart';
-import '../../models/models_appointments.dart';
+import '../../models/models_for_mapping.dart';
 import '../state/booking_cubit.dart';
 import '../state/booking_state.dart';
 import '../widgets/available_slots.dart';
@@ -13,7 +13,14 @@ import '../widgets/book_appointment_button.dart';
 import '../widgets/custom_calendar.dart';
 
 class CustomBookingCalendar extends StatefulWidget {
-  const CustomBookingCalendar({super.key});
+  final String selectedReason;
+  final ClinicDoctorDto selectedDoctor;
+
+  const CustomBookingCalendar(
+      {super.key,
+        required this.selectedReason,
+        required this.selectedDoctor
+      });
 
   @override
   State<CustomBookingCalendar> createState() => _CustomBookingCalendarState();
@@ -21,8 +28,8 @@ class CustomBookingCalendar extends StatefulWidget {
 
 class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
   DateTime _selectedDay = DateTime.now();
-  AvailableDates? _selectedSlot;
-  List<AvailableDates> _getFilteredTimeSlots(List<AvailableDates> allSlots) {
+  AvailabilityDto? _selectedSlot;
+  List<AvailabilityDto> _getFilteredTimeSlots(List<AvailabilityDto> allSlots) {
     return allSlots.where((slot) {
       return isSameDay(slot.startTime, _selectedDay);
     }).toList();
@@ -32,8 +39,7 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
   @override
   void initState() {
     super.initState();
-    // Load available times as soon as the widget is created
-    final doctorId = 'user-doctor-1'; // You can replace this with the actual doctor ID
+    final doctorId = widget.selectedDoctor.doctorId;
     context.read<BookingCubit>().loadAvailableTimes(doctorId);
   }
 
@@ -57,14 +63,15 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
               });
             },
           ),
+          Text("Available time slots for doctor ${widget.selectedDoctor.name} ${widget.selectedDoctor.surname}"),
 
           const SizedBox(height: 10),
           Expanded(
             child: BlocBuilder<BookingCubit, BookingState>(
               builder: (context, state) {
                 if (state is BookingLoaded) {
-                  final allSlots = state.availableTimes.availableDates;
-                  final filteredSlots = _getFilteredTimeSlots(allSlots!);
+                  final allSlots = state.availableTimes;
+                  final filteredSlots = _getFilteredTimeSlots(allSlots);
                   return CustomSlotGrid(
                     slots: filteredSlots,
                     selectedSlot: _selectedSlot,
@@ -86,6 +93,8 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
           ),
           BookAppointmentButton(
             selectedSlot: _selectedSlot,
+            selectedReason: widget.selectedReason,
+            selectedDoctor: widget.selectedDoctor,
 
           ),
           BlocListener<BookingCubit, BookingState>(
@@ -96,8 +105,12 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                 Future.microtask(() {
                   if (context.mounted) {
                     context.read<AppointmentCubit>().getFutureAppointments('user123');
-                    Navigator.of(context).pop();
-                  }
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AppointmentScreen(),
+                      ),
+                    );                  }
                 });
               } else if (state is BookingError) {
                 context.showErrorSnackBar(message: state.message);
