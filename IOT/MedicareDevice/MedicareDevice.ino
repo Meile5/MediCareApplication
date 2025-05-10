@@ -159,7 +159,7 @@ void collectECGData() {
 }
 
 void sendVitalsIfReady() {
-  if (millis() - lastSendTime >= 2000 && ecgRawIndex >= ECG_AVG_GROUP_SIZE) {
+  if (millis() - lastSendTime >= 1500 && ecgRawIndex >= ECG_AVG_GROUP_SIZE) {
     DS18B20.requestTemperatures();
     tempC = DS18B20.getTempCByIndex(0);
 
@@ -236,6 +236,8 @@ void setup() {
     lcd.setCursor(0, 0);
     lcd.print("Device Paired!");
     delay(2000);
+    lcd.clear();
+    lcd.print("Connecting...");
   } else {
     Serial.println("No deviceId found, needs pairing");
     randomSeed(analogRead(0)); 

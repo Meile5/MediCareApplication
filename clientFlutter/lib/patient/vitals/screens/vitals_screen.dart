@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:medicare/patient/vitals/vitals_card.dart';
-import 'package:medicare/patient/vitals/vitals_cubit.dart';
+import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
+import 'package:medicare/patient/vitals/widgets/vitals_card.dart';
 
-import '../common/app_nav_bar.dart';
-import 'ecg_card.dart';
-import 'temperature_card.dart';
+import '../../common/app_nav_bar.dart';
+import '../widgets/ecg_card.dart';
+import '../widgets/temperature_card.dart';
 
 class VitalsScreen extends StatelessWidget {
   const VitalsScreen({super.key});

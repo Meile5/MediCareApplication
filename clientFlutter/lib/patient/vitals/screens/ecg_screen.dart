@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/patient/vitals/vitals_cubit.dart';
+import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 
 class EcgScreen extends StatelessWidget {
   const EcgScreen({super.key});

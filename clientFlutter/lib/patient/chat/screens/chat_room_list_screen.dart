@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_state.dart';
 import 'package:medicare/patient/common/patient_cubit.dart';
 
-import '../../common/auth/auth_cubit.dart';
-import '../../common/auth/auth_prefs.dart';
-import '../common/app_nav_bar.dart';
-import 'chat_data_source.dart';
-import 'chat_navigation.dart';
+import '../../../common/auth/auth_cubit.dart';
+import '../../common/app_nav_bar.dart';
+import '../state/chat_room_state.dart';
+import '../utils/chat_data_source.dart';
+import '../utils/chat_navigation.dart';
 import 'chat_room_list_view.dart';
-import 'chat_room_state.dart';
 
 class ChatRoomListScreen extends StatefulWidget {
   const ChatRoomListScreen({super.key});

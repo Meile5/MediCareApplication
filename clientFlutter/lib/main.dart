@@ -1,4 +1,3 @@
-import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_gate.dart';
@@ -9,21 +8,19 @@ import 'package:medicare/patient/appointmentManagement/appointments/state/appoin
 import 'package:medicare/patient/appointmentManagement/booking/state/booking_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/booking/state/doctors_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
-import 'package:medicare/patient/chat/chat_cubit.dart';
-import 'package:medicare/patient/chat/chat_data_source.dart';
+import 'package:medicare/patient/chat/state/chat_cubit.dart';
+import 'package:medicare/patient/chat/utils/chat_data_source.dart';
 import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
 import 'package:medicare/patient/overview/utility/data_source_overview.dart';
-import 'package:medicare/patient/vitals/vitals_cubit.dart';
+import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 
-import 'account/login/login_page.dart';
 import 'common/auth/auth_cubit.dart';
-import 'common/auth/auth_state.dart';
 import 'patient/common/patient_cubit.dart';
 
 void main() async {
   //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
-await AuthPrefs.init();
+  await AuthPrefs.init();
   runApp(const MyApp());
 }
 

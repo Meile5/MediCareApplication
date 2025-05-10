@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'chat_models.dart';
+import '../models/chat_models.dart';
 
 @immutable
 sealed class ChatRoomState {}
