@@ -38,7 +38,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 final patient = patientState.patient!;
                 return Column(
                   children: [
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 40),
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),

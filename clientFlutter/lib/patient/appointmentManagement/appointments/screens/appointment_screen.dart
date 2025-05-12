@@ -11,6 +11,10 @@ class AppointmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Appointments'),
+        automaticallyImplyLeading: false,
+      ),
       body: Column(
         children: [
           Container(

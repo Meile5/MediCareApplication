@@ -19,6 +19,15 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: AppColors.background,
 
+      appBarTheme: AppBarTheme(
+       // backgroundColor: AppColors.primary,
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        )
+      ),
+
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
