@@ -6,8 +6,8 @@ namespace Api.Rest.Controllers.Patient;
 [ApiController]
 public class PatientController(IPatientService patientService, ISecurityService securityService) : ControllerBase{
     [Route("patient/getPatient")]
-    [HttpPost]
-    public async Task<ActionResult> GetPatientById([FromBody] PatientIdRequest patientIdRequest, [FromHeader]string authorization){
+    [HttpGet]
+    public async Task<ActionResult> GetPatientById([FromQuery] PatientIdRequest patientIdRequest, [FromHeader]string authorization){
         string patientId = patientIdRequest.patientId;
         var patient = await patientService.GetPatientFromDb(patientId);
         securityService.VerifyJwtOrThrow(authorization);

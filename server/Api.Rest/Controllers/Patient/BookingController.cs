@@ -14,8 +14,8 @@ public class BookingController (IBookingService bookingService, ISecurityService
     public const string RetrieveBookingInfoRoute = nameof(RetrieveBookingInfo);
     
     [Route(RetrieveBookingInfoRoute)]
-    [HttpPost]
-    public async Task <ActionResult<AvailabilityDto> >RetrieveBookingInfo([FromBody] string doctorId, [FromHeader]string authorization) 
+    [HttpGet]
+    public async Task <ActionResult<AvailabilityDto> >RetrieveBookingInfo([FromQuery] string doctorId, [FromHeader]string authorization) 
     
     { 
         securityService.VerifyJwtOrThrow(authorization);
@@ -26,6 +26,7 @@ public class BookingController (IBookingService bookingService, ISecurityService
     public const string BookAppointmentRoute = nameof(BookAppointment);
 
     [Route(BookAppointmentRoute)]
+    [HttpPost]
     public async Task<ActionResult> BookAppointment([FromBody] BookAppointmentRequest dto, [FromHeader]string authorization)
     {
         securityService.VerifyJwtOrThrow(authorization);
@@ -37,7 +38,8 @@ public class BookingController (IBookingService bookingService, ISecurityService
     public const string RetrieveFutureAppointmentsRoute = nameof(RetrieveFutureAppointments);
     
     [Route(RetrieveFutureAppointmentsRoute)]
-    public async Task <ActionResult<List<FutureAppointmentsDto>>> RetrieveFutureAppointments([FromBody] string userId, [FromHeader]string authorization) 
+    [HttpGet]
+    public async Task <ActionResult<List<FutureAppointmentsDto>>> RetrieveFutureAppointments([FromQuery] string userId, [FromHeader]string authorization) 
     
     {
         securityService.VerifyJwtOrThrow(authorization);
@@ -48,7 +50,8 @@ public class BookingController (IBookingService bookingService, ISecurityService
     public const string RetrievePastAppointmentsRoute = nameof(RetrievePastAppointments);
     
     [Route(RetrievePastAppointmentsRoute)]
-    public async Task <ActionResult<List<PastAppointmentsDto>>> RetrievePastAppointments([FromBody] string userId, [FromHeader]string authorization) 
+    [HttpGet]
+    public async Task <ActionResult<List<PastAppointmentsDto>>> RetrievePastAppointments([FromQuery] string userId, [FromHeader]string authorization) 
     
     {
         securityService.VerifyJwtOrThrow(authorization);
@@ -59,6 +62,7 @@ public class BookingController (IBookingService bookingService, ISecurityService
     public const string CancelAppointmentRoute = nameof(CancelAppointment);
     
     [Route(CancelAppointmentRoute)]
+    [HttpDelete]
     public async Task <ActionResult> CancelAppointment([FromBody] CancelAppointmentDto dto, [FromHeader]string authorization) 
     
     {
@@ -70,7 +74,8 @@ public class BookingController (IBookingService bookingService, ISecurityService
     public const string RetrieveDoctorsRoute = nameof(RetrieveDoctors);
     
     [Route(RetrieveDoctorsRoute)]
-    public async Task <ActionResult<List<ClinicDoctorDto>>> RetrieveDoctors([FromBody] string clinicId, [FromHeader]string authorization) 
+    [HttpGet]
+    public async Task <ActionResult<List<ClinicDoctorDto>>> RetrieveDoctors([FromQuery] string clinicId, [FromHeader]string authorization) 
     
     {
         securityService.VerifyJwtOrThrow(authorization);
