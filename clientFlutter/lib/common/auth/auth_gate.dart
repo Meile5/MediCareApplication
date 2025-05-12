@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medicare/doctor/common/doctor_navigator_manager.dart';
 
 import '../../account/login/login_page.dart';
 import '../../patient/common/patient_cubit.dart';
@@ -25,9 +26,7 @@ class AuthGate extends StatelessWidget {
             context.read<PatientCubit>().loadPatient(state.userId);
             return const OverviewScreen();
           } else if (state.role == 'role-doctor') {
-            return const Scaffold(
-              body: Center(child: Text('Doctor dashboard coming soon...')),
-            );
+            return const DoctorNavigationManager();
           } else {
             return const Scaffold(
               body: Center(
