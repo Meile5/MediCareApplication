@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../booking/widgets/reusable_dialog.dart';
+import '../../../../common/widgets_shared/reusable_dialog.dart';
 import '../../models/models_for_mapping.dart';
 import 'package:intl/intl.dart';
-
 import '../state/appointment_cubit.dart';
 
 class AppointmentCard extends StatelessWidget {

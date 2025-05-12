@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:medicare/common/auth/auth_prefs.dart';
 
-import '../../common/events.dart';
+import '../../common/event_models/events.dart';
 import 'chat_models.dart';
 
 class ChatDataSource {

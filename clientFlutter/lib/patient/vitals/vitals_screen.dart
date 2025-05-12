@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/common/widgets_shared/info_card.dart';
 import 'package:medicare/patient/vitals/vitals_card.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
 
@@ -52,8 +53,8 @@ class VitalsScreen extends StatelessWidget {
               children: [
                 temperatureCard(temperatureStatus, temperatureColor),
                 ecgCard(context, ecg),
-                vitalsCard(FontAwesomeIcons.heartbeat, 'Heart Rate'),
-                vitalsCard(FontAwesomeIcons.lungs, 'Blood Oxygen'),
+                InfoCard(icon: FontAwesomeIcons.heartbeat, label2: 'Heart Rate'),
+                InfoCard(icon: FontAwesomeIcons.lungs, label2: 'Blood Oxygen'),
               ],
             ),
           );

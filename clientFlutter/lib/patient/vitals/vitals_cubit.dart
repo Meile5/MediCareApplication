@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/common/events.dart';
-import 'package:medicare/common/websocket_service.dart';
+import 'package:medicare/common/event_models/events.dart';
+import 'package:medicare/common/utility/websocket_service.dart';
 
 part 'vitals_state.dart';
 

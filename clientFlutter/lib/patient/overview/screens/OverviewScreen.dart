@@ -4,10 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/patient/common/app_nav_bar.dart';
 import 'package:medicare/patient/common/patient_cubit.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
-
 import '../state/overview_state.dart';
 import '../widgets/clinic_info.dart';
-import '../widgets/patient_info_card.dart';
+import '../../../common/widgets_shared/info_card.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
@@ -39,6 +38,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 final patient = patientState.patient!;
                 return Column(
                   children: [
+                    const SizedBox(height: 16),
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
@@ -58,7 +58,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -66,12 +66,12 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         crossAxisSpacing: 8.0,
                         mainAxisSpacing: 8.0,
                         children:  [
-                          PatientInfoCard(
-                              FontAwesomeIcons.droplet, 'My blood type', patient.bloodtype),
-                          PatientInfoCard(
-                            FontAwesomeIcons.personDotsFromLine,
-                            'Allergies',
-                            (patient.allergies != null && patient.allergies!.isNotEmpty)
+                          InfoCard(
+                              icon: FontAwesomeIcons.droplet, label: 'My blood type', label2: patient.bloodtype),
+                          InfoCard(
+                            icon: FontAwesomeIcons.personDotsFromLine,
+                            label: 'Allergies',
+                            label2: (patient.allergies != null && patient.allergies!.isNotEmpty)
                                 ? patient.allergies!
                                 : 'none',
                           ),
@@ -89,8 +89,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
             },
           ),
 
-
-
           Expanded(
             child: BlocBuilder<OverviewCubit, OverviewState>(
               builder: (context, state) {
@@ -103,8 +101,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     itemBuilder: (context, index) {
                       final clinic = state.clinicInfo[index];
                       return Padding(
+
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: ClinicInfo(clinicInfo: clinic),
+
                       );
                     },
                   );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/common/events.dart';
+import 'package:medicare/common/event_models/events.dart';
 
 @immutable
 sealed class ChatState {}

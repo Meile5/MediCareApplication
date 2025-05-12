@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/common/widgets.dart';
+import 'package:medicare/common/widgets_shared/widgets.dart';
 import '../../../../errorHandling/application_messages.dart';
 import '../../../common/app_nav_bar.dart';
 import '../../../overview/state/overview_cubit.dart';

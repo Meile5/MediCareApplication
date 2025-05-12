@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/common/widgets.dart';
+import 'package:medicare/common/widgets_shared/widgets.dart';
 import 'package:medicare/patient/common/app_nav_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../appointments/screens/appointment_screen.dart';

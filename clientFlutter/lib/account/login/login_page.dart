@@ -17,8 +17,8 @@ class LoginPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => LoginCubit(context.read<AuthCubit>()),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Sign In')),
-        body: const LoginForm(),
+        //appBar: AppBar(title: const Text('Sign In')),
+        body: Center(child: const LoginForm()),
       ),
     );
   }

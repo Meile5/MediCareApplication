@@ -1,10 +1,12 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:medicare/common/auth/auth_gate.dart';
 import 'package:medicare/common/auth/auth_prefs.dart';
-import 'package:medicare/common/navigation_notifier.dart';
-import 'package:medicare/common/websocket_service.dart';
+import 'package:medicare/common/utility/navigation_notifier.dart';
+import 'package:medicare/common/utility/websocket_service.dart';
 import 'package:medicare/patient/appointmentManagement/appointments/state/appointment_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/booking/state/booking_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/booking/state/doctors_cubit.dart';
@@ -15,14 +17,12 @@ import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
 import 'package:medicare/patient/overview/utility/data_source_overview.dart';
 import 'package:medicare/patient/vitals/vitals_cubit.dart';
-
-import 'account/login/login_page.dart';
+import 'common/utility/app_theme.dart';
 import 'common/auth/auth_cubit.dart';
-import 'common/auth/auth_state.dart';
 import 'patient/common/patient_cubit.dart';
 
 void main() async {
-  //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
+  //await dotenv.load(fileName: kReleaseMode ? ".env.production" : ".env");
 await AuthPrefs.init();
   runApp(const MyApp());
 }
@@ -93,7 +93,7 @@ class _MyAppState extends State<MyApp> {
 
         RepositoryProvider(create: (_) => NavigationModel()),
       ],
-      child: const MaterialApp(title: 'Medicare', home: AuthGate()),
+      child: MaterialApp(title: 'Medicare', home: const AuthGate(),  theme: AppTheme.lightTheme,),
     );
   }
 }

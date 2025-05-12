@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/common/widgets.dart';
+import 'package:medicare/common/widgets_shared/widgets.dart';
 import 'package:medicare/patient/appointmentManagement/booking/screens/choose_doctor_screen.dart';
 import '../../../../errorHandling/application_messages.dart';
 import '../../../common/app_nav_bar.dart';

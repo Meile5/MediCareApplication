@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:medicare/common/widgets_shared/widgets.dart';
 import 'package:medicare/patient/appointmentManagement/appointments/widgets/past_appointment_card.dart';
+import '../../../../common/widgets_shared/message_display.dart';
+import '../../../../errorHandling/application_messages.dart';
 import '../state/appointment_cubit.dart';
 import '../state/appointment_state.dart';
 
@@ -20,7 +23,6 @@ class _FutureAppointmentsState extends State<PastAppointments> {
     context.read<AppointmentCubit>().getPastAppointments();
   }
 
-  final String animationEmpty = 'https://lottie.host/d6872b61-0888-460f-b77b-c99cfde00602/8sjSztLhTt.json';
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +33,7 @@ class _FutureAppointmentsState extends State<PastAppointments> {
             return const Center(child: CircularProgressIndicator());
           } else if (state is PastAppointmentsLoaded) {
             if (state.pastAppointments.isEmpty) {
-              return Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Lottie animation
-                    SizedBox(
-                      height: 200,
-                      child: Lottie.network(animationEmpty),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text('No past appointments'),
-                  ],
-                ),
-              );
+              return MessageDisplay(message: 'No past appointments');
             }else{
             return ListView.builder(
               padding: const EdgeInsets.all(16),
@@ -58,9 +47,10 @@ class _FutureAppointmentsState extends State<PastAppointments> {
               },
             );}
           } else if (state is AppointmentError) {
-            return Center(child: Text('Error: ${state.message}'));
+            context.showErrorSnackBar(message: 'Error: ${state.message}');
+            return const MessageDisplay(message: 'Failed to load appointments.');
           } else {
-            return const Center(child: Text('No appointments found.'));
+            return MessageDisplay(message: (ApplicationMessages.generalError.message));
           }
         },
       ),

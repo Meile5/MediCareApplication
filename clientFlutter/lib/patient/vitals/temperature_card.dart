@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 
 Widget temperatureCard(String value, Color color) {
-  return Card(
-    elevation: 5.0,
-    color: Colors.white,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  return Container(
+    margin: const EdgeInsets.only(bottom: 12),
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withValues(alpha: 0.3), // softer and lighter
+          spreadRadius: 2,
+          blurRadius: 10, // more blur for softness
+          offset: const Offset(0, 4), // vertical drop shadow
+        ),
+      ],
+    ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -23,7 +34,7 @@ Widget temperatureCard(String value, Color color) {
         Text(
           value,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 10,
             fontWeight: FontWeight.bold,
             color: color,
           ),

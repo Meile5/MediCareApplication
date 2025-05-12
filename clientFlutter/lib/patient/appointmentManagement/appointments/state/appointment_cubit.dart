@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/common/events.dart';
-import 'package:medicare/common/websocket_service.dart';
+import 'package:medicare/common/event_models/events.dart';
+import 'package:medicare/common/utility/websocket_service.dart';
 import '../../../../errorHandling/application_messages.dart';
 import 'appointment_state.dart';
 import '../../utils/data_source.dart';

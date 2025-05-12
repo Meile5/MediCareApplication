@@ -10,9 +10,10 @@ class DataSource {
     final response = await http.post(
       Uri.parse(url),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!,
       },
       body: json.encode(doctorId),
+
     );
 
     final List<dynamic> decoded = json.decode(response.body);
@@ -24,7 +25,7 @@ class DataSource {
 
     final response = await http.post(
       Uri.parse('http://localhost:5000/BookAppointment'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
       body: jsonBody,
     );
 
@@ -34,13 +35,9 @@ class DataSource {
   Future<List<FutureAppointmentsDto>> getFutureAppointments() async {
     final response = await http.post(
       Uri.parse("http://localhost:5000/RetrieveFutureAppointments"),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
       body: json.encode(AuthPrefs.userId),
     );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load data');
-    }
 
     final List<dynamic> decoded = json.decode(response.body);
     return decoded.map((e) => FutureAppointmentsDtoMapper.fromMap(e)).toList();
@@ -49,7 +46,7 @@ class DataSource {
   Future<List<PastAppointmentsDto>> getPastAppointments() async {
     final response = await http.post(
       Uri.parse("http://localhost:5000/RetrievePastAppointments"),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
       body: json.encode(AuthPrefs.userId),
     );
 
@@ -59,7 +56,7 @@ class DataSource {
   Future<http.Response> cancelAppointments(CancelAppointmentDto dto) async {
     final response = await http.post(
       Uri.parse("http://localhost:5000/CancelAppointment"),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
         body: json.encode(dto.toMap())
     );
     return response;
@@ -67,7 +64,7 @@ class DataSource {
   Future<List<ClinicDoctorDto>> getDoctors(String clinicId) async {
     final response = await http.post(
       Uri.parse("http://localhost:5000/RetrieveDoctors"),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
       body: json.encode(clinicId),
     );
 
