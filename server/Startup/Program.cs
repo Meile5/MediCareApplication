@@ -73,7 +73,7 @@ public class Program
 
         app.UseOpenApi(conf => { conf.Path = "openapi/v1.json"; });
         app.UseSwaggerUi(conf => {
-            conf.Path = "/swagger"; // You can also use conf.DocumentPath if needed
+            conf.Path = "/swagger"; 
             conf.DocumentPath = "/openapi/v1.json";
         });
 
