@@ -180,6 +180,16 @@
           "Booking"
         ],
         "operationId": "Booking_RetrieveBookingInfo",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "doctorId",
           "content": {
@@ -212,6 +222,16 @@
           "Booking"
         ],
         "operationId": "Booking_BookAppointment",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "dto",
           "content": {
@@ -245,6 +265,16 @@
           "Booking"
         ],
         "operationId": "Booking_RetrieveFutureAppointments",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "userId",
           "content": {
@@ -280,6 +310,16 @@
           "Booking"
         ],
         "operationId": "Booking_RetrievePastAppointments",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "userId",
           "content": {
@@ -315,6 +355,16 @@
           "Booking"
         ],
         "operationId": "Booking_CancelAppointment",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "dto",
           "content": {
@@ -348,6 +398,16 @@
           "Booking"
         ],
         "operationId": "Booking_RetrieveDoctors",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "clinicId",
           "content": {
@@ -378,11 +438,62 @@
       }
     },
     "/RetrieveClinicInfo": {
-      "post": {
+      "get": {
         "tags": [
           "Overview"
         ],
         "operationId": "Overview_RetrieveClinicInfo",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicInfoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrieveDiagnoses": {
+      "post": {
+        "tags": [
+          "Overview"
+        ],
+        "operationId": "Overview_RetrieveDiagnoses",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "userId",
           "content": {
