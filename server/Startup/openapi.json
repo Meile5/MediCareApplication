@@ -461,12 +461,65 @@
           "Device"
         ],
         "operationId": "Device_PairDevice",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "requestBody": {
           "x-name": "request",
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/device/saveVitals": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "Device_SaveVitals",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "saveVitalsDto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveVitalsDto"
               }
             }
           },
@@ -986,6 +1039,34 @@
           "pairingCode": {
             "type": "string",
             "minLength": 1
+          }
+        }
+      },
+      "SaveVitalsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "patientId": {
+            "type": "string"
+          },
+          "temperature": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "ecg": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "oxygenLevel": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "heartRate": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

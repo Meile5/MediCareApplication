@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/common/event_models/events.dart';
+import 'package:medicare/common/events.dart';
+import 'package:medicare/patient/chat/state/chat_state.dart';
 
-import 'chat_cubit.dart';
-import 'chat_state.dart';
+import '../state/chat_cubit.dart';
 
 class ChatRoomScreen extends StatefulWidget {
   final String roomId;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'ecg_screen.dart';
+import '../screens/ecg_screen.dart';
 
 Widget ecgCard(BuildContext context, double? ecg) {
   final hasData = ecg != null;

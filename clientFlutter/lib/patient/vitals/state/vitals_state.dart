@@ -7,7 +7,7 @@ class VitalsInitial extends VitalsState {}
 //small change
 class VitalsUpdated extends VitalsState {
   final double temperature;
-  final double ecg;
+  final List<int> ecg;
 
   VitalsUpdated({required this.temperature, required this.ecg});
 }
