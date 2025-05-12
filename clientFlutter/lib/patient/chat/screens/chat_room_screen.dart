@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/common/events.dart';
 import 'package:medicare/patient/chat/state/chat_state.dart';
 
+import '../../../common/event_models/events.dart';
 import '../state/chat_cubit.dart';
 
 class ChatRoomScreen extends StatefulWidget {

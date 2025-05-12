@@ -16,7 +16,6 @@ import 'package:medicare/patient/chat/utils/chat_data_source.dart';
 import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
 import 'package:medicare/patient/overview/utility/data_source_overview.dart';
-import 'package:medicare/patient/vitals/vitals_cubit.dart';
 import 'common/utility/app_theme.dart';
 import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 

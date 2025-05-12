@@ -5,6 +5,7 @@ import 'package:medicare/patient/vitals/screens/vitals_wizard_screen.dart';
 import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 import 'package:medicare/patient/vitals/widgets/vitals_card.dart';
 
+import '../../../common/widgets_shared/info_card.dart';
 import '../../common/app_nav_bar.dart';
 import '../widgets/ecg_card.dart';
 import '../widgets/temperature_card.dart';
@@ -53,8 +54,8 @@ class VitalsScreen extends StatelessWidget {
                   children: [
                     temperatureCard(temperatureStatus, temperatureColor),
                     ecgCard(context),
-                    vitalsCard(FontAwesomeIcons.heartbeat, 'Heart Rate'),
-                    vitalsCard(FontAwesomeIcons.lungs, 'Blood Oxygen'),
+                    InfoCard(icon: FontAwesomeIcons.heartbeat, label2: 'Heart Rate'),
+                    InfoCard(icon: FontAwesomeIcons.lungs, label2: 'Blood Oxygen'),
                   ],
                 ),
 

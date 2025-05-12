@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
 import '../screens/ecg_screen.dart';
 
-Widget ecgCard(BuildContext context, double? ecg) {
-  final hasData = ecg != null;
+Widget ecgCard(BuildContext context) {
 
   return Container(
     margin: const EdgeInsets.only(bottom: 12),
@@ -22,15 +22,12 @@ Widget ecgCard(BuildContext context, double? ecg) {
       ],
     ),
     child: InkWell(
-      onTap:
-          hasData
-              ? () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => EcgScreen(ecgValue: ecg!)),
-                );
-              }
-              : null,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const EcgScreen()),
+        );
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,6 +49,7 @@ Widget ecgCard(BuildContext context, double? ecg) {
           ),
         ],
       ),
+
     ),
   );
 }
