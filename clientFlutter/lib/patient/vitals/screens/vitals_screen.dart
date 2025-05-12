@@ -74,6 +74,7 @@ class VitalsScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
+                                  //small change
                                   builder: (_) => VitalsWizardScreen(),
                                 ),
                               );
