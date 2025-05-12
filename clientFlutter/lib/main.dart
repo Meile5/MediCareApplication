@@ -23,7 +23,8 @@ import 'common/auth/auth_cubit.dart';
 import 'patient/common/patient_cubit.dart';
 
 void main() async {
-  //await dotenv.load(fileName: kReleaseMode ? ".env.production" : ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: kReleaseMode ? ".env.production" : ".env");
 await AuthPrefs.init();
   //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
   await AuthPrefs.init();
