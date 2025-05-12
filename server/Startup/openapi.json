@@ -175,12 +175,20 @@
       }
     },
     "/RetrieveBookingInfo": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrieveBookingInfo",
         "parameters": [
+          {
+            "name": "doctorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -190,18 +198,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "doctorId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -260,12 +256,20 @@
       }
     },
     "/RetrieveFutureAppointments": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrieveFutureAppointments",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -275,18 +279,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "userId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -305,12 +297,20 @@
       }
     },
     "/RetrievePastAppointments": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrievePastAppointments",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -320,18 +320,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "userId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -350,7 +338,7 @@
       }
     },
     "/CancelAppointment": {
-      "post": {
+      "delete": {
         "tags": [
           "Booking"
         ],
@@ -393,12 +381,20 @@
       }
     },
     "/RetrieveDoctors": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrieveDoctors",
         "parameters": [
+          {
+            "name": "clinicId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -408,18 +404,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "clinicId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -524,12 +508,20 @@
       }
     },
     "/patient/getPatient": {
-      "post": {
+      "get": {
         "tags": [
           "Patient"
         ],
         "operationId": "Patient_GetPatientById",
         "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -539,18 +531,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "patientIdRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientIdRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -696,12 +676,20 @@
       }
     },
     "/chat/retreiveChats/patient": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
         "operationId": "Chat_GetChatsForPatient",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -711,18 +699,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "chatRoomRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserIdChatRoomRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -782,12 +758,20 @@
       }
     },
     "/chat/retreiveMessages": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
         "operationId": "Chat_GetChatMessages",
         "parameters": [
+          {
+            "name": "roomId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -797,18 +781,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "roomIdRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RoomIdRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -1126,15 +1098,6 @@
           }
         }
       },
-      "PatientIdRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "patientId": {
-            "type": "string"
-          }
-        }
-      },
       "ClientWantsToPairDeviceDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1186,15 +1149,6 @@
         "additionalProperties": false,
         "properties": {
           "userId": {
-            "type": "string"
-          }
-        }
-      },
-      "RoomIdRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "roomId": {
             "type": "string"
           }
         }

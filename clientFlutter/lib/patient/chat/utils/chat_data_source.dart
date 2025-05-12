@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:medicare/common/auth/auth_prefs.dart';
 
@@ -8,33 +9,29 @@ import '../models/chat_models.dart';
 
 class ChatDataSource {
   Future<List<ChatRoomDto>> getChatRoomsForUser() async {
-    final url = 'http://localhost:5000/chat/retreiveChats/patient';
-    final response = await http.post(
+    final url = "${dotenv.env['API_BASE_URL']!}/chat/retreiveChats/patient?userId=${AuthPrefs.userId}";
+    final response = await http.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': AuthPrefs.jwt!,
       },
-      body: json.encode({"userId": AuthPrefs.userId!}),
-    );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to fetch chat rooms: ${response.statusCode}');
-    }
+    );
 
     final List<dynamic> jsonList = json.decode(response.body);
     return jsonList.map((e) => ChatRoomDtoMapper.fromMap(e)).toList();
   }
 
   Future<List<ChatMessage>> getMessagesForRoom(String roomId) async {
-    final url = 'http://localhost:5000/chat/retreiveMessages';
-    final response = await http.post(
+    final url = "${dotenv.env['API_BASE_URL']!}/chat/retreiveMessages?roomId=$roomId";
+
+    final response = await http.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': AuthPrefs.jwt!,
       },
-      body: json.encode({"roomId": roomId}),
     );
 
     final List<dynamic> jsonList = json.decode(response.body);
