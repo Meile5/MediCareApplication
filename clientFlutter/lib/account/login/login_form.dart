@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:medicare/account/login/widgets/login_button.dart';
+import 'package:medicare/common/widgets_shared/general_button.dart';
 import 'login_cubit.dart';
 import 'login_state.dart';
 
@@ -139,8 +139,7 @@ class _LoginFormState extends State<LoginForm> {
 
                            const SizedBox(height: 24),
 
-                           /// Login Button
-                           LoginButton(
+                           GeneralButton(
                              label: "Log In",
                              onPressed: state is LoginLoading ? null : _login,
                              isLoading: state is LoginLoading,
