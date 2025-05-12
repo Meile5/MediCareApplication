@@ -6,8 +6,7 @@ import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 
 import '../utils/vitals_data_source.dart';
 import '../widgets/ecg_step.dart';
-import '../widgets/heart_rate_step.dart';
-import '../widgets/oxygen_step.dart';
+import '../widgets/finger_sensor_step.dart';
 import '../widgets/temperature_step.dart';
 
 class VitalsWizardScreen extends StatefulWidget {
@@ -83,9 +82,14 @@ class _VitalsWizardScreenState extends State<VitalsWizardScreen> {
         );
 
       case 2:
-        return OxygenStep(oxygenLevel: _oxygenLevel, onConfirm: _nextStep);
-      case 3:
-        return HeartRateStep(heartRate: _heartRate, onConfirm: _saveVitals);
+        return FingerSensorStep(
+          heartRate: _heartRate,
+          oxygenLevel: _oxygenLevel,
+          onHeartRateMeasured: (val) => setState(() => _heartRate = val),
+          onOxygenLevelMeasured: (val) => setState(() => _oxygenLevel = val),
+          onConfirm: _saveVitals,
+        );
+
       default:
         return Center(child: Text('Unknown step'));
     }

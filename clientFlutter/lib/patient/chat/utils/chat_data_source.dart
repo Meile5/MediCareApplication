@@ -37,10 +37,6 @@ class ChatDataSource {
       body: json.encode({"roomId": roomId}),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to fetch messages: ${response.statusCode}');
-    }
-
     final List<dynamic> jsonList = json.decode(response.body);
     return jsonList
         .map(
