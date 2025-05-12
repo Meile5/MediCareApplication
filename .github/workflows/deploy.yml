@@ -15,8 +15,10 @@ jobs:
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
           cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
-      - run: flutter pub get
-      - run: flutter build web --release --base-href /${{ github.event.repository.name }}/
+      - run: |
+          cd clientFlutter &&
+          flutter pub get &&
+          flutter build web --release --base-href /${{ github.event.repository.name }}/
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build/web
+          folder: clientFlutter/build/web
