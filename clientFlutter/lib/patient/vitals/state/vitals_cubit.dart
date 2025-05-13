@@ -9,17 +9,19 @@ part 'vitals_state.dart';
 class VitalsCubit extends Cubit<VitalsState> {
   final WebSocketService webSocketService;
   StreamSubscription? _subscription;
+  bool _isSubscribed = false;
 
-  VitalsCubit({required this.webSocketService}) : super(VitalsInitial()) {
-    // Subscribe to vitals stream
+  VitalsCubit({required this.webSocketService}) : super(VitalsInitial());
+
+  void subscribeToVitals(String deviceId) {
+    if (_isSubscribed) return;
+
+    _isSubscribed = true;
+
     webSocketService.send(
-      SubscribeToVitals(
-        deviceId: "MedicareDevice",
-        userId: 'MedicareApp',
-      ).toJson(),
+      SubscribeToVitals(deviceId: deviceId, userId: 'MedicareApp').toJson(),
     );
-    //small change
-    // Listen for incoming messages
+
     _subscription = webSocketService.stream.listen(
       (rawEvent) {
         print('Received raw event: $rawEvent');
@@ -43,6 +45,7 @@ class VitalsCubit extends Cubit<VitalsState> {
   @override
   Future<void> close() {
     _subscription?.cancel();
+    _isSubscribed = false; // Reset the subscription status when cubit is closed
     return super.close();
   }
 }
