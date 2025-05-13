@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:medicare/patient/chat/state/chat_state.dart';
+import 'package:medicare/common/chat/state/chat_state.dart';
 
+import '../../../common/chat/state/chat_cubit.dart';
 import '../../../common/event_models/events.dart';
-import '../state/chat_cubit.dart';
 
 class ChatRoomScreen extends StatefulWidget {
   final String roomId;
@@ -82,7 +82,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color:
-                                  isOwn ? Colors.blueAccent[100] : Colors.grey[300],
+                                  isOwn
+                                      ? Colors.blueAccent[100]
+                                      : Colors.grey[300],
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text('${msg.name}: ${msg.message}'),
@@ -114,7 +116,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: FaIcon(FontAwesomeIcons.paperPlane, color: Colors.blueAccent,),
+                  icon: FaIcon(
+                    FontAwesomeIcons.paperPlane,
+                    color: Colors.blueAccent,
+                  ),
                   onPressed: widget.isFinished ? null : _sendMessage,
                   color: widget.isFinished ? Colors.grey : null,
                 ),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-import '../state/chat_cubit.dart';
+import '../../../common/chat/state/chat_cubit.dart';
 import 'chat_room_screen.dart';
 
 class ChatRoomListView extends StatelessWidget {
@@ -38,7 +38,6 @@ class ChatRoomListView extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
-
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -70,15 +69,20 @@ class ChatRoomListView extends StatelessWidget {
                         ),
                       ],
                     ),
-                  if (!chat.isFinished && chat.startTime.isBefore(DateTime.now()))
+                  if (!chat.isFinished &&
+                      chat.startTime.isBefore(DateTime.now()))
                     const Text(
                       'In Progress',
                       style: TextStyle(color: Colors.orange),
                     ),
-                  if (!chat.isFinished && chat.startTime.isAfter(DateTime.now()))
+                  if (!chat.isFinished &&
+                      chat.startTime.isAfter(DateTime.now()))
                     Row(
                       children: [
-                        Text('Starts at: ', style: TextStyle(color: Colors.blue)),
+                        Text(
+                          'Starts at: ',
+                          style: TextStyle(color: Colors.blue),
+                        ),
 
                         Text(
                           formatDate(chat.startTime),
@@ -88,7 +92,7 @@ class ChatRoomListView extends StatelessWidget {
                     ),
                 ],
               ),
-              trailing: FaIcon(Icons.chat, color: Colors.blueAccent,),
+              trailing: FaIcon(Icons.chat, color: Colors.blueAccent),
               onTap: () {
                 final now = DateTime.now();
                 if (now.isBefore(chat.startTime)) {

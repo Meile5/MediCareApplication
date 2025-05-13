@@ -9,4 +9,5 @@ public interface IChatService{
     Task<List<ChatRoom>> GetChatRoomsForPatient(string patientId);
     Task<List<ChatRoom>> GetChatRoomsForDoctor(string doctorId);
     Task<List<Message>> GetMessages(string roomId);
+    Task FinishChat(string chatRoomId);
 }

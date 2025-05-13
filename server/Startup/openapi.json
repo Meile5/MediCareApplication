@@ -754,12 +754,20 @@
       }
     },
     "/chat/retreiveChats/doctor": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
         "operationId": "Chat_GetChatsForDoctor",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -769,18 +777,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "chatRoomRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserIdChatRoomRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -802,6 +798,45 @@
           "Chat"
         ],
         "operationId": "Chat_GetChatMessages",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/finish": {
+      "put": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_FinishChat",
         "parameters": [
           {
             "name": "roomId",
@@ -1180,15 +1215,6 @@
           "heartRate": {
             "type": "integer",
             "format": "int32"
-          }
-        }
-      },
-      "UserIdChatRoomRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "userId": {
-            "type": "string"
           }
         }
       },

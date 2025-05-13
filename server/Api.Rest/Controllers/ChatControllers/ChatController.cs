@@ -27,7 +27,8 @@ public class ChatController(IChatService chatService, ISecurityService securityS
     }
 
     [Route("chat/retreiveChats/doctor")]
-    public async Task<ActionResult> GetChatsForDoctor([FromBody] UserIdChatRoomRequest chatRoomRequest, [FromHeader]string authorization){
+    [HttpGet]
+    public async Task<ActionResult> GetChatsForDoctor([FromQuery] UserIdChatRoomRequest chatRoomRequest, [FromHeader]string authorization){
         string doctorId = chatRoomRequest.userId;
         var chatRooms = await chatService.GetChatRoomsForDoctor(doctorId);
         securityService.VerifyJwtOrThrow(authorization);
@@ -42,6 +43,16 @@ public class ChatController(IChatService chatService, ISecurityService securityS
         securityService.VerifyJwtOrThrow(authorization);
         return Ok(messages);
     }
+
+    [Route("chat/finish")]
+    [HttpPut]
+    public async Task<ActionResult> FinishChat([FromQuery] RoomIdRequest roomIdRequest, [FromHeader] string authorization)
+    {
+        securityService.VerifyJwtOrThrow(authorization);
+        await chatService.FinishChat(roomIdRequest.roomId);
+        return Ok();
+    }
+
 
 }
 

@@ -17,6 +17,17 @@ public class ChatRepo(MyDbContext context) : IChatRep
         }
     }
 
+    public async Task FinishChat(string chatRoomId)
+    {
+        var chatRoom = await context.ChatRooms.FirstOrDefaultAsync(cr => cr.Id == chatRoomId);
+        if (chatRoom != null)
+        {
+            chatRoom.IsFinished = true;
+            await context.SaveChangesAsync();
+        }
+    }
+
+
     public async Task<List<ChatRoom>> GetChatRoomsForDoctor(string doctorId)
     {
         return await context.ChatRooms
