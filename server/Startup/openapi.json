@@ -632,6 +632,45 @@
         }
       }
     },
+    "/doctor/getDoctor": {
+      "get": {
+        "tags": [
+          "Doctor"
+        ],
+        "operationId": "Doctor_GetDoctorById",
+        "parameters": [
+          {
+            "name": "doctorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/chat/create": {
       "post": {
         "tags": [
