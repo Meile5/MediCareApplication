@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
-import '../screens/ecg_screen.dart';
+import '../../../common/vitals/screens/ecg_screen.dart';
 
 Widget ecgCard(BuildContext context) {
-
   return Container(
     margin: const EdgeInsets.only(bottom: 12),
     padding: const EdgeInsets.all(12),
@@ -49,7 +47,6 @@ Widget ecgCard(BuildContext context) {
           ),
         ],
       ),
-
     ),
   );
 }

@@ -66,10 +66,9 @@ class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
 
 @MappableClass(discriminatorValue: "SubscribeToVitals")
 class SubscribeToVitals extends BaseEvent with SubscribeToVitalsMappable {
-  final String userId;
   final String deviceId;
 
-  SubscribeToVitals({required this.deviceId, required this.userId});
+  SubscribeToVitals({required this.deviceId});
 }
 
 @MappableClass(discriminatorValue: "SubscribeSuccess")
@@ -77,4 +76,19 @@ class SubscribeSuccess extends BaseEvent with SubscribeSuccessMappable {
   final String message;
 
   SubscribeSuccess({required this.message});
+}
+
+@MappableClass(discriminatorValue: "UnsubscribeFromVitals")
+class UnsubscribeFromVitals extends BaseEvent
+    with UnsubscribeFromVitalsMappable {
+  final String deviceId;
+
+  UnsubscribeFromVitals({required this.deviceId});
+}
+
+@MappableClass(discriminatorValue: "UnsubscribeSuccess")
+class UnsubscribeSuccess extends BaseEvent with UnsubscribeSuccessMappable {
+  final String message;
+
+  UnsubscribeSuccess({required this.message});
 }

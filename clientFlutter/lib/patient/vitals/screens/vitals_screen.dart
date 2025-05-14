@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/common/vitals/state/vitals_cubit.dart';
 import 'package:medicare/patient/vitals/screens/vitals_wizard_screen.dart';
-import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 
 import '../../../common/widgets_shared/info_card.dart';
 import '../../common/app_nav_bar.dart';

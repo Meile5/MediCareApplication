@@ -1357,9 +1357,22 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "userId": {
+              "deviceId": {
                 "type": "string"
-              },
+              }
+            }
+          }
+        ]
+      },
+      "UnsubscribeFromVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
               "deviceId": {
                 "type": "string"
               }
@@ -1423,6 +1436,7 @@
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
           "SubscribeToVitalsDto",
+          "UnsubscribeFromVitalsDto",
           "ChatMessageDto",
           "ServerMessageDto"
         ]

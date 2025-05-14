@@ -8,6 +8,7 @@ import 'package:medicare/common/chat/state/chat_cubit.dart';
 import 'package:medicare/common/chat/utils/chat_data_source.dart';
 import 'package:medicare/common/utility/navigation_notifier.dart';
 import 'package:medicare/common/utility/websocket_service.dart';
+import 'package:medicare/common/vitals/state/vitals_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/appointments/state/appointment_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/booking/state/booking_cubit.dart';
 import 'package:medicare/patient/appointmentManagement/booking/state/doctors_cubit.dart';
@@ -15,7 +16,6 @@ import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
 import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
 import 'package:medicare/patient/overview/utility/data_source_overview.dart';
-import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 
 import 'common/auth/auth_cubit.dart';
 import 'common/utility/app_theme.dart';

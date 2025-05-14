@@ -18,9 +18,7 @@ class VitalsCubit extends Cubit<VitalsState> {
 
     _isSubscribed = true;
 
-    webSocketService.send(
-      SubscribeToVitals(deviceId: deviceId, userId: 'MedicareApp').toJson(),
-    );
+    webSocketService.send(SubscribeToVitals(deviceId: deviceId).toJson());
 
     _subscription = webSocketService.stream.listen(
       (rawEvent) {
@@ -40,6 +38,17 @@ class VitalsCubit extends Cubit<VitalsState> {
         emit(VitalsError(message: 'WebSocket error: $error'));
       },
     );
+  }
+
+  void unsubscribeFromVitals(String deviceId) {
+    if (!_isSubscribed) return;
+
+    webSocketService.send(UnsubscribeFromVitals(deviceId: deviceId).toJson());
+
+    _subscription?.cancel();
+    _subscription = null;
+    _isSubscribed = false;
+    print('Unsubscribed from vitals for device: $deviceId');
   }
 
   @override

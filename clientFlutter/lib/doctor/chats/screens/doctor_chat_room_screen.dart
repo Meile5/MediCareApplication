@@ -8,6 +8,7 @@ import 'package:medicare/patient/common/patient_model.dart';
 
 import '../../../common/chat/state/chat_cubit.dart';
 import '../../../common/event_models/events.dart';
+import '../../../common/vitals/state/vitals_cubit.dart';
 import '../../../common/widgets_shared/reusable_dialog.dart';
 import '../widgets/right_panel.dart';
 
@@ -35,10 +36,12 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
   late PatientDataSource _patientDataSource;
   final TextEditingController _controller = TextEditingController();
   PatientDto? _patient;
+  late VitalsCubit _vitalsCubit;
 
   @override
   void initState() {
     super.initState();
+    _vitalsCubit = context.read<VitalsCubit>();
     final cubit = context.read<ChatCubit>();
     cubit.clearMessages();
     cubit.joinRoom(widget.roomId);
@@ -47,11 +50,24 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
     _loadPatient();
   }
 
+  @override
+  void dispose() {
+    if (_patient?.deviceId != null) {
+      _vitalsCubit.unsubscribeFromVitals(_patient!.deviceId!);
+    }
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _loadPatient() async {
     final patient = await _patientDataSource.getPatientById(widget.patientId);
     setState(() {
       _patient = patient;
     });
+
+    if (mounted && patient.deviceId != null) {
+      context.read<VitalsCubit>().subscribeToVitals(patient.deviceId!);
+    }
   }
 
   void _sendMessage() {
@@ -107,7 +123,7 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
         children: [
           // Left: Chat Area (takes 2/3)
           Expanded(
-            flex: 2,
+            flex: 1,
             child: Column(
               children: [
                 Expanded(
@@ -189,7 +205,7 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
           ),
 
           Expanded(
-            flex: 1,
+            flex: 2,
             child: RightPanel(
               isFinished: widget.isFinished,
               onFinishChatPressed: _showFinishChatDialog,

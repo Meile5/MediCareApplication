@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_prefs.dart';
+import 'package:medicare/common/vitals/state/vitals_cubit.dart';
 import 'package:medicare/patient/vitals/models/vitals_models.dart';
-import 'package:medicare/patient/vitals/state/vitals_cubit.dart';
 
 import '../utils/vitals_data_source.dart';
 import '../widgets/ecg_step.dart';
