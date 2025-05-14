@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:medicare/patient/common/patient_model.dart';
 
 class RightPanel extends StatelessWidget {
   final bool isFinished;
   final VoidCallback onFinishChatPressed;
-
+  final PatientDto? patient;
   const RightPanel({
     super.key,
     required this.isFinished,
     required this.onFinishChatPressed,
+    required this.patient,
   });
 
   @override
@@ -18,7 +20,23 @@ class RightPanel extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(),
+          if (patient != null)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Patient Info',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                Text('Name: ${patient!.name}'),
+                Text('Age: ${patient!.age}'),
+              ],
+            )
+          else
+            const Center(child: CircularProgressIndicator()),
+
+          const Spacer(),
 
           if (!isFinished)
             SizedBox(

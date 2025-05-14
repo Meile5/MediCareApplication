@@ -64,6 +64,7 @@ class DoctorChatsListView extends StatelessWidget {
                           roomId: chat.id,
                           userId: userId,
                           userName: userName,
+                          patientId: chat.patientId,
                           isFinished: chat.isFinished,
                         ),
                       ),

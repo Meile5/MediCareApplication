@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/common/chat/state/chat_state.dart';
 import 'package:medicare/common/chat/utils/chat_data_source.dart';
+import 'package:medicare/patient/common/patient_data_source.dart';
+import 'package:medicare/patient/common/patient_model.dart';
 
 import '../../../common/chat/state/chat_cubit.dart';
 import '../../../common/event_models/events.dart';
@@ -13,6 +15,7 @@ class DoctorChatRoomScreen extends StatefulWidget {
   final String roomId;
   final String userId;
   final String userName;
+  final String patientId;
   final bool isFinished;
 
   const DoctorChatRoomScreen({
@@ -20,6 +23,7 @@ class DoctorChatRoomScreen extends StatefulWidget {
     required this.roomId,
     required this.userId,
     required this.userName,
+    required this.patientId,
     required this.isFinished,
   });
 
@@ -28,7 +32,9 @@ class DoctorChatRoomScreen extends StatefulWidget {
 }
 
 class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
+  late PatientDataSource _patientDataSource;
   final TextEditingController _controller = TextEditingController();
+  PatientDto? _patient;
 
   @override
   void initState() {
@@ -37,6 +43,15 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
     cubit.clearMessages();
     cubit.joinRoom(widget.roomId);
     cubit.loadMessagesForRoom(widget.roomId);
+    _patientDataSource = PatientDataSource();
+    _loadPatient();
+  }
+
+  void _loadPatient() async {
+    final patient = await _patientDataSource.getPatientById(widget.patientId);
+    setState(() {
+      _patient = patient;
+    });
   }
 
   void _sendMessage() {
@@ -178,6 +193,7 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
             child: RightPanel(
               isFinished: widget.isFinished,
               onFinishChatPressed: _showFinishChatDialog,
+              patient: _patient,
             ),
           ),
         ],
