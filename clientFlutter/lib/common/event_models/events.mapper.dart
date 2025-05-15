@@ -18,6 +18,7 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
       BroadcastBookedSlotMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
+      UnsubscribeFromChatMapper.ensureInitialized();
       DeviceVitalsMapper.ensureInitialized();
       SubscribeToVitalsMapper.ensureInitialized();
       SubscribeSuccessMapper.ensureInitialized();
@@ -658,6 +659,124 @@ class _ChatMessageCopyWithImpl<$R, $Out>
   ChatMessageCopyWith<$R2, ChatMessage, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _ChatMessageCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class UnsubscribeFromChatMapper
+    extends SubClassMapperBase<UnsubscribeFromChat> {
+  UnsubscribeFromChatMapper._();
+
+  static UnsubscribeFromChatMapper? _instance;
+  static UnsubscribeFromChatMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = UnsubscribeFromChatMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'UnsubscribeFromChat';
+
+  static String _$roomId(UnsubscribeFromChat v) => v.roomId;
+  static const Field<UnsubscribeFromChat, String> _f$roomId =
+      Field('roomId', _$roomId);
+
+  @override
+  final MappableFields<UnsubscribeFromChat> fields = const {
+    #roomId: _f$roomId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "UnsubscribeFromChat";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static UnsubscribeFromChat _instantiate(DecodingData data) {
+    return UnsubscribeFromChat(roomId: data.dec(_f$roomId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static UnsubscribeFromChat fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<UnsubscribeFromChat>(map);
+  }
+
+  static UnsubscribeFromChat fromJson(String json) {
+    return ensureInitialized().decodeJson<UnsubscribeFromChat>(json);
+  }
+}
+
+mixin UnsubscribeFromChatMappable {
+  String toJson() {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .encodeJson<UnsubscribeFromChat>(this as UnsubscribeFromChat);
+  }
+
+  Map<String, dynamic> toMap() {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .encodeMap<UnsubscribeFromChat>(this as UnsubscribeFromChat);
+  }
+
+  UnsubscribeFromChatCopyWith<UnsubscribeFromChat, UnsubscribeFromChat,
+      UnsubscribeFromChat> get copyWith => _UnsubscribeFromChatCopyWithImpl<
+          UnsubscribeFromChat, UnsubscribeFromChat>(
+      this as UnsubscribeFromChat, $identity, $identity);
+  @override
+  String toString() {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .stringifyValue(this as UnsubscribeFromChat);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .equalsValue(this as UnsubscribeFromChat, other);
+  }
+
+  @override
+  int get hashCode {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .hashValue(this as UnsubscribeFromChat);
+  }
+}
+
+extension UnsubscribeFromChatValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, UnsubscribeFromChat, $Out> {
+  UnsubscribeFromChatCopyWith<$R, UnsubscribeFromChat, $Out>
+      get $asUnsubscribeFromChat => $base.as(
+          (v, t, t2) => _UnsubscribeFromChatCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class UnsubscribeFromChatCopyWith<$R, $In extends UnsubscribeFromChat,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? roomId});
+  UnsubscribeFromChatCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _UnsubscribeFromChatCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, UnsubscribeFromChat, $Out>
+    implements UnsubscribeFromChatCopyWith<$R, UnsubscribeFromChat, $Out> {
+  _UnsubscribeFromChatCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<UnsubscribeFromChat> $mapper =
+      UnsubscribeFromChatMapper.ensureInitialized();
+  @override
+  $R call({String? roomId}) =>
+      $apply(FieldCopyWithData({if (roomId != null) #roomId: roomId}));
+  @override
+  UnsubscribeFromChat $make(CopyWithData data) =>
+      UnsubscribeFromChat(roomId: data.get(#roomId, or: $value.roomId));
+
+  @override
+  UnsubscribeFromChatCopyWith<$R2, UnsubscribeFromChat, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _UnsubscribeFromChatCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {

@@ -546,12 +546,12 @@
         }
       }
     },
-    "/device/pair": {
-      "post": {
+    "/patient/device/pair": {
+      "put": {
         "tags": [
-          "Device"
+          "Patient"
         ],
-        "operationId": "Device_PairDevice",
+        "operationId": "Patient_PairDevice",
         "parameters": [
           {
             "name": "authorization",
@@ -567,7 +567,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
+                "$ref": "#/components/schemas/PairDeviceDto"
               }
             }
           },
@@ -1172,19 +1172,19 @@
           }
         }
       },
-      "ClientWantsToPairDeviceDto": {
+      "PairDeviceDto": {
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "deviceId",
-          "pairingCode"
+          "patientId",
+          "deviceId"
         ],
         "properties": {
-          "deviceId": {
+          "patientId": {
             "type": "string",
             "minLength": 1
           },
-          "pairingCode": {
+          "deviceId": {
             "type": "string",
             "minLength": 1
           }
@@ -1405,6 +1405,22 @@
           }
         ]
       },
+      "UnsubscribeFromChatDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "roomId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "ServerMessageDto2": {
         "allOf": [
           {
@@ -1438,6 +1454,7 @@
           "SubscribeToVitalsDto",
           "UnsubscribeFromVitalsDto",
           "ChatMessageDto",
+          "UnsubscribeFromChatDto",
           "ServerMessageDto"
         ]
       }

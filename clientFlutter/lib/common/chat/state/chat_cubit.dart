@@ -13,6 +13,7 @@ class ChatCubit extends Cubit<ChatState> {
   final List<ChatMessage> _messages = [];
   final ChatDataSource dataSource;
   StreamSubscription? _subscription;
+  bool _isSubscribed = false;
 
   ChatCubit({required this.webSocketService, required this.dataSource})
     : super(ChatInitial()) {
@@ -25,13 +26,6 @@ class ChatCubit extends Cubit<ChatState> {
             _messages.add(event);
             emit(ChatLoaded(messages: List.unmodifiable(_messages)));
           } else if (event is ServerMessage) {
-            final systemMsg = ChatMessage(
-              roomId: event.roomId,
-              userId: 'system',
-              name: 'System',
-              message: event.message,
-            );
-            _messages.add(systemMsg);
             emit(ChatLoaded(messages: List.unmodifiable(_messages)));
           }
         } catch (e) {
@@ -53,7 +47,21 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void joinRoom(String roomId) {
+    if (_isSubscribed) return;
+
+    _isSubscribed = true;
     webSocketService.send(JoinRoom(roomId: roomId).toJson());
+  }
+
+  void unsubscribeFromChat(String roomId) {
+    if (!_isSubscribed) return;
+
+    webSocketService.send(UnsubscribeFromChat(roomId: roomId).toJson());
+
+    _subscription?.cancel();
+    _subscription = null;
+    _isSubscribed = false;
+    print('Unsubscribed from Chat: $roomId');
   }
 
   Future<void> loadMessagesForRoom(String roomId) async {

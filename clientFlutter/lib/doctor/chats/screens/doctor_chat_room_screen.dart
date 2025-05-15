@@ -37,15 +37,18 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
   final TextEditingController _controller = TextEditingController();
   PatientDto? _patient;
   late VitalsCubit _vitalsCubit;
+  late ChatCubit _chatCubit;
 
   @override
   void initState() {
     super.initState();
     _vitalsCubit = context.read<VitalsCubit>();
-    final cubit = context.read<ChatCubit>();
-    cubit.clearMessages();
-    cubit.joinRoom(widget.roomId);
-    cubit.loadMessagesForRoom(widget.roomId);
+    _chatCubit = context.read<ChatCubit>();
+
+    _chatCubit.clearMessages();
+    _chatCubit.joinRoom(widget.roomId);
+    _chatCubit.loadMessagesForRoom(widget.roomId);
+
     _patientDataSource = PatientDataSource();
     _loadPatient();
   }
@@ -55,6 +58,9 @@ class _DoctorChatRoomScreenState extends State<DoctorChatRoomScreen> {
     if (_patient?.deviceId != null) {
       _vitalsCubit.unsubscribeFromVitals(_patient!.deviceId!);
     }
+
+    _chatCubit.unsubscribeFromChat(widget.roomId);
+
     _controller.dispose();
     super.dispose();
   }

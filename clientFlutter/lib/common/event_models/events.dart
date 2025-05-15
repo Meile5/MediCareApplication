@@ -49,6 +49,13 @@ class ChatMessage extends BaseEvent with ChatMessageMappable {
   });
 }
 
+@MappableClass(discriminatorValue: "UnsubscribeFromChat")
+class UnsubscribeFromChat extends BaseEvent with UnsubscribeFromChatMappable {
+  final String roomId;
+
+  UnsubscribeFromChat({required this.roomId});
+}
+
 @MappableClass(discriminatorValue: "DeviceVitals")
 class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
   final String userId;

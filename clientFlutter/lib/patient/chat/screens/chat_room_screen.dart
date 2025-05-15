@@ -26,14 +26,16 @@ class ChatRoomScreen extends StatefulWidget {
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   final TextEditingController _controller = TextEditingController();
+  late ChatCubit _chatCubit; // <- Add this
 
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<ChatCubit>();
-    cubit.clearMessages();
-    cubit.joinRoom(widget.roomId);
-    cubit.loadMessagesForRoom(widget.roomId);
+    _chatCubit = context.read<ChatCubit>();
+
+    _chatCubit.clearMessages();
+    _chatCubit.joinRoom(widget.roomId);
+    _chatCubit.loadMessagesForRoom(widget.roomId);
   }
 
   void _sendMessage() {
@@ -49,8 +51,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       message: messageText,
     );
 
-    context.read<ChatCubit>().sendMessage(message);
+    _chatCubit.sendMessage(message);
     _controller.clear();
+  }
+
+  @override
+  void dispose() {
+    _chatCubit.unsubscribeFromChat(widget.roomId);
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
