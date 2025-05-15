@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medicare/errorHandling/application_messages.dart';
 
 import '../../event_models/events.dart';
 import '../../utility/websocket_service.dart';
@@ -34,11 +35,15 @@ class ChatCubit extends Cubit<ChatState> {
             emit(ChatLoaded(messages: List.unmodifiable(_messages)));
           }
         } catch (e) {
-          emit(ChatError(message: 'Failed to process chat data: $e'));
+          emit(
+            ChatError(
+              message: ApplicationMessages.failedToRetrieveData.message,
+            ),
+          );
         }
       },
       onError: (error) {
-        emit(ChatError(message: 'WebSocket error: $error'));
+        emit(ChatError(message: ApplicationMessages.serverError.message));
       },
     );
   }
@@ -59,7 +64,9 @@ class ChatCubit extends Cubit<ChatState> {
       _messages.addAll(fetchedMessages);
       emit(ChatLoaded(messages: List.unmodifiable(_messages)));
     } catch (e) {
-      emit(ChatError(message: 'Failed to load messages: $e'));
+      emit(
+        ChatError(message: ApplicationMessages.failedToRetrieveData.message),
+      );
     }
   }
 

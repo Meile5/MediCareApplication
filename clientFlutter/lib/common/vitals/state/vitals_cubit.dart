@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/event_models/events.dart';
 import 'package:medicare/common/utility/websocket_service.dart';
+import 'package:medicare/errorHandling/application_messages.dart';
 
 part 'vitals_state.dart';
 
@@ -31,11 +32,11 @@ class VitalsCubit extends Cubit<VitalsState> {
             );
           }
         } catch (e) {
-          emit(VitalsError(message: 'Failed to process vitals data: $e'));
+          emit(VitalsError(message: ApplicationMessages.generalError.message));
         }
       },
       onError: (error) {
-        emit(VitalsError(message: 'WebSocket error: $error'));
+        emit(VitalsError(message: ApplicationMessages.serverError.message));
       },
     );
   }
