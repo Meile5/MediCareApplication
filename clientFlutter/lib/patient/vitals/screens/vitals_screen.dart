@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/common/vitals/state/vitals_cubit.dart';
+import 'package:medicare/patient/vitals/screens/pair_screen.dart';
 import 'package:medicare/patient/vitals/screens/vitals_wizard_screen.dart';
 
 import '../../../common/widgets_shared/info_card.dart';
@@ -56,9 +57,7 @@ class VitalsScreen extends StatelessWidget {
                             // Navigate to device pairing screen
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (_) => VitalsWizardScreen(),
-                              ),
+                              MaterialPageRoute(builder: (_) => PairScreen()),
                             );
                           },
                           child: const Text('Pair Device'),

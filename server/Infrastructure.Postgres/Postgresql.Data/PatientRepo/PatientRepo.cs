@@ -11,4 +11,17 @@ public class PatientRepo(MyDbContext context) : IPatientRep
     {
         return await context.Patients.FirstOrDefaultAsync(p => p.Userid == patientId);
     }
+
+    public async Task PairDeviceWithPatient(string patientId, string deviceId)
+    {
+        var patient = await context.Patients.FirstOrDefaultAsync(p => p.Userid == patientId);
+        if (patient == null)
+        {
+            throw new InvalidOperationException("Patient not found.");
+        }
+
+        patient.DeviceId = deviceId;
+        context.Patients.Update(patient);
+        await context.SaveChangesAsync();
+    }
 }
