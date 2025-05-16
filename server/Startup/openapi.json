@@ -671,6 +671,105 @@
         }
       }
     },
+    "/RetrievePatientsVitals": {
+      "get": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_RetrievePatientsVitals",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VitalsSignsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrievePatientsDiagnoses": {
+      "get": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_RetrievePatientsDiagnoses",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DiagnosesDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrievePatients": {
+      "get": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_RetrievePatients",
+        "parameters": [
+          {
+            "name": "clinicId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PatientDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/chat/create": {
       "post": {
         "tags": [
@@ -1215,6 +1314,84 @@
           "heartRate": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "VitalsSignsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "oxygenLevel": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "bodyTemperature": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "heartRate": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "DiagnosesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "patientDiagnosis": {
+            "type": "string"
+          },
+          "treatment": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "PatientDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "age": {
+            "type": "string"
+          },
+          "bloodtype": {
+            "type": "string"
+          },
+          "allergies": {
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumber": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
           }
         }
       },
