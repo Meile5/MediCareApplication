@@ -1,11 +1,13 @@
 ﻿using Application.Interfaces.Infrastructure.Postgres;
 using Application.Interfaces.Infrastructure.Postgres.ChatRep;
+using Application.Interfaces.Infrastructure.Postgres.DoctorRep;
 using Application.Interfaces.Infrastructure.Postgres.PatientRep;
 using Application.Interfaces.Infrastructure.Postgres.PatientRepRep;
 using Application.Interfaces.Infrastructure.Postgres.VitalsRep;
 using Application.Models;
 using Infrastructure.Postgres.Postgresql.Data;
 using Infrastructure.Postgres.Postgresql.Data.ChatRepo;
+using Infrastructure.Postgres.Postgresql.Data.DoctorRepo;
 using Infrastructure.Postgres.Postgresql.Data.PatientRepo;
 using Infrastructure.Postgres.Postgresql.Data.VitalsRepo;
 
@@ -35,6 +37,7 @@ public static class Extensions
        services.AddScoped<IChatRep, ChatRepo>();
        services.AddScoped<IOverviewRepo, OverviewRepo>();
        services.AddScoped<IVitalsRep, VitalsRepo>();
+       services.AddScoped<IOverviewPatientsRepo, OverviewPatientsRepo>();
         services.AddScoped<Seeder>();
 
         return services;

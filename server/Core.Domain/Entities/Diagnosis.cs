@@ -5,9 +5,9 @@ namespace Core.Domain.Entities;
 
 public partial class Diagnosis
 {
-    public string Iddiagnoses { get; set; } = null!;
+    public string Id { get; set; } = null!;
 
-    public string? Diagnoses { get; set; }
+    public string PatientDiagnosis { get; set; } = null!;
 
     public string Idpatient { get; set; } = null!;
 
@@ -15,7 +15,7 @@ public partial class Diagnosis
 
     public string Iddoctor { get; set; } = null!;
 
-    public DateOnly? Date { get; set; }
+    public DateTime? Date { get; set; }
 
     public virtual Doctor IddoctorNavigation { get; set; } = null!;
 
