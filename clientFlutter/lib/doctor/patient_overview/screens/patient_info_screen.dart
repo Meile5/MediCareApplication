@@ -17,7 +17,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
         title: const Text('Patient Information'),
       ),
       body: const Center(),
-      drawer: DoctorNavigationManager(),
+      //drawer: DoctorNavigationManager(),
 
     );
   }
