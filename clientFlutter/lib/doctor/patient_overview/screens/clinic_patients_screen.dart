@@ -27,85 +27,87 @@ class _ClinicPatientsState extends State<ClinicPatients> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-          width: MediaQuery.of(context).size.width * 0.6,
-          padding: const EdgeInsets.all(16),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: const Text(
-                    'Clinic Patients',
-                    style: TextStyle(
-                       fontSize: 20,))
-                ),
-                const SizedBox(height: 20 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: SearchBar(
-                      leading: FaIcon(FontAwesomeIcons.searchengin, color: Colors.blueAccent),
-                      hintText: "Search for patient",
+    return Scaffold(
+      body: Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            padding: const EdgeInsets.all(16),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: const Text(
+                      'Clinic Patients',
+                      style: TextStyle(
+                         fontSize: 20,))
+                  ),
+                  const SizedBox(height: 20 ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: SearchBar(
+                        leading: FaIcon(FontAwesomeIcons.searchengin, color: Colors.blueAccent),
+                        hintText: "Search for patient",
+                      ),
                     ),
                   ),
-                ),
-
-                const SizedBox(height: 20),
-                listViewHeader(context),
-                Expanded(
-                  child: BlocBuilder<PatientsCubit, PatientsState>(
-                    builder: (context, state) {
-                      if (state is PatientsLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is PatientsLoaded) {
-                        if (state.patients.isEmpty) {
-                          return MessageDisplay(message: 'No patients');
-                        }else{
-                          return ListView.builder(
-                            itemCount: state.patients.length,
-                            itemBuilder: (context, index) {
-                              final patient = state.patients[index];
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: PatientInfoCard(
-                                  label: patient.name,
-                                  label2: patient.surname,
-                                  label3: patient.age,
-                                  label4: patient.gender,
-                                  icon: IconButton(
-                                    icon: FaIcon(FontAwesomeIcons.ellipsis, color: Colors.blueAccent),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PatientInfoScreen(),
-
-                                        ),
-                                      );                                    },
+      
+                  const SizedBox(height: 20),
+                  listViewHeader(context),
+                  Expanded(
+                    child: BlocBuilder<PatientsCubit, PatientsState>(
+                      builder: (context, state) {
+                        if (state is PatientsLoading) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else if (state is PatientsLoaded) {
+                          if (state.patients.isEmpty) {
+                            return MessageDisplay(message: 'No patients');
+                          }else{
+                            return ListView.builder(
+                              itemCount: state.patients.length,
+                              itemBuilder: (context, index) {
+                                final patient = state.patients[index];
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: PatientInfoCard(
+                                    label: patient.name,
+                                    label2: patient.surname,
+                                    label3: patient.age,
+                                    label4: patient.gender,
+                                    icon: IconButton(
+                                      icon: FaIcon(FontAwesomeIcons.ellipsis, color: Colors.blueAccent),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => PatientInfoScreen(),
+      
+                                          ),
+                                        );                                    },
+                                    )
+      
                                   )
-
-                                )
-                              );
-                            },
-                          );}
-                      } else if (state is PatientsError) {
-                        return const MessageDisplay(message: 'Failed to load patients.');
-                      } else {
-                        return MessageDisplay(message: (ApplicationMessages.generalError.message));
-                      }
-                    },
-                  ),
-                )
-                  ],
-      
-      
-            ),
-          )),
+                                );
+                              },
+                            );}
+                        } else if (state is PatientsError) {
+                          return const MessageDisplay(message: 'Failed to load patients.');
+                        } else {
+                          return MessageDisplay(message: (ApplicationMessages.generalError.message));
+                        }
+                      },
+                    ),
+                  )
+                    ],
+        
+        
+              ),
+            )),
+      ),
     );
   }
 

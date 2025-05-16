@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:side_navigation/side_navigation.dart';
 
 class AppColors {
   static const Color primary = Colors.blueAccent;
@@ -65,7 +66,10 @@ class AppTheme {
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           )
-        ),)
+        ),),
+
+
+
 
       // Add more component themes here
     );
