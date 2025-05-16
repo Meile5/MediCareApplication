@@ -16,16 +16,7 @@ class DoctorNavigationManager extends StatefulWidget {
 }
 
 class _DoctorNavigationManagerState extends State<DoctorNavigationManager> {
-  final List<Widget> views = const [
-    DoctorOverviewScreen(),
-    ClinicPatients(),
-    ChatsScreen(),
-    AppointmentsScreen(),
-  ];
 
-  void _onNavigationItemSelected(BuildContext context, int index) {
-    context.read<NavigationModel>().currentIndex.value = index;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +25,9 @@ class _DoctorNavigationManagerState extends State<DoctorNavigationManager> {
     return Scaffold(
       body: Row(
         children: [
-          DoctorSideNavigation(
-            selectedIndex: navModel.currentIndex.value,
-            onItemSelected: (index) {
-              _onNavigationItemSelected(context, index);
-            },
-          ),
+          DoctorSideNavigation(),
           Expanded(
-            child: ValueListenableBuilder<int>(
-              valueListenable: navModel.currentIndex,
-              builder: (context, selectedIndex, _) {
-                return views[selectedIndex];
-              },
-            ),
+            child: Placeholder()
           ),
         ],
       ),

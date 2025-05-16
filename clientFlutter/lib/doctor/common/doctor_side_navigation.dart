@@ -3,15 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/utility/navigation_notifier.dart';
 import 'package:side_navigation/side_navigation.dart';
 
-class DoctorSideNavigation extends StatelessWidget {
-  final int selectedIndex;
-  final Function(int) onItemSelected;
+import '../appointment/screens/appointments_screen.dart';
+import '../chats/screens/chats_screen.dart';
+import '../overview/screens/doctor_overview_screen.dart';
+import '../patient_overview/screens/clinic_patients_screen.dart';
 
-  const DoctorSideNavigation({
-    Key? key,
-    required this.selectedIndex,
-    required this.onItemSelected,
-  }) : super(key: key);
+class DoctorSideNavigation extends StatelessWidget {
+  final  views = const  [
+    DoctorOverviewScreen.new,
+    ClinicPatients.new,
+    ChatsScreen.new,
+    AppointmentsScreen.new,
+  ];
+
+  const DoctorSideNavigation({Key? key})
+    : super(key: key);
+
+  void _onNavigationItemSelected(BuildContext context, int index) {
+    context.read<NavigationModel>().currentIndex.value = index;
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (context) => views[index]()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +42,13 @@ class DoctorSideNavigation extends StatelessWidget {
               label: 'Appointments',
             ),
           ],
-          onTap: onItemSelected,
+          onTap: (index) => _onNavigationItemSelected(context, index),
+          theme: SideNavigationBarTheme(
+            dividerTheme: SideNavigationBarDividerTheme.standard(),
+            togglerTheme: SideNavigationBarTogglerTheme.standard(),
+            backgroundColor: Colors.blueAccent,
+            itemTheme: SideNavigationBarItemTheme.standard(),
+          ),
         );
       },
     );
