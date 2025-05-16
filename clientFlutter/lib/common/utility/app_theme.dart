@@ -58,6 +58,14 @@ class AppTheme {
         labelStyle: TextStyle(color: Colors.grey[700]),
         floatingLabelStyle: TextStyle(color: AppColors.primary),
       ),
+      searchBarTheme:
+        SearchBarThemeData(
+          backgroundColor: WidgetStatePropertyAll(Colors.white),
+          elevation: WidgetStateProperty.all(1),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          )
+        ),)
 
       // Add more component themes here
     );

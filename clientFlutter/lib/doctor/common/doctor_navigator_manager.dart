@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/utility/navigation_notifier.dart';
 import 'package:medicare/doctor/appointment/screens/appointments_screen.dart';
 import 'package:medicare/doctor/chats/screens/chats_screen.dart';
-import 'package:medicare/doctor/patients/patients_screen.dart';
-
+import 'package:medicare/doctor/patient_overview/screens/clinic_patients_screen.dart';
 import '../overview/screens/doctor_overview_screen.dart';
 import 'doctor_side_navigation.dart';
 
@@ -19,7 +18,7 @@ class DoctorNavigationManager extends StatefulWidget {
 class _DoctorNavigationManagerState extends State<DoctorNavigationManager> {
   final List<Widget> views = const [
     DoctorOverviewScreen(),
-    PatientsScreen(),
+    ClinicPatients(),
     ChatsScreen(),
     AppointmentsScreen(),
   ];

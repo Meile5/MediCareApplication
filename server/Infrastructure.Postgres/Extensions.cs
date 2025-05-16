@@ -38,6 +38,7 @@ public static class Extensions
        services.AddScoped<IChatRep, ChatRepo>();
        services.AddScoped<IOverviewRepo, OverviewRepo>();
        services.AddScoped<IVitalsRep, VitalsRepo>();
+       services.AddScoped<IOverviewPatientsRepo, OverviewPatientsRepo>();
         services.AddScoped<Seeder>();
 
         return services;

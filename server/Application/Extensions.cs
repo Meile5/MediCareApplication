@@ -24,6 +24,7 @@ public static class Extensions
         services.AddScoped<IChatService, ChatService>();
         services.AddScoped<IVitalsService, VitalsService>();
         services.AddScoped<IOverviewService, OverviewService>();
+        services.AddScoped<IOverviewPatientsService, OverviewPatientsService>();
         
         return services;
     }
