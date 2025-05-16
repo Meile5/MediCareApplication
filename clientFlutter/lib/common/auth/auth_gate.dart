@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/doctor/common/doctor_cubit.dart';
 import 'package:medicare/doctor/common/doctor_navigator_manager.dart';
+import 'package:medicare/doctor/overview/screens/doctor_overview_screen.dart';
 
 import '../../account/login/login_page.dart';
 import '../../doctor/doctors_main_screan.dart';
@@ -28,7 +29,7 @@ class AuthGate extends StatelessWidget {
             return const OverviewScreen();
           } else if (state.role == 'role-doctor') {
             context.read<DoctorCubit>().loadDoctor(state.userId);
-            return const DoctorMainScreen();
+            return const DoctorOverviewScreen();
           } else {
             return const Scaffold(
               body: Center(
