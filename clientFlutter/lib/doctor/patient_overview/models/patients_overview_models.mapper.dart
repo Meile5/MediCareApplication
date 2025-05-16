@@ -1,0 +1,268 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
+
+part of 'patients_overview_models.dart';
+
+class DiagnosesDtoMapper extends ClassMapperBase<DiagnosesDto> {
+  DiagnosesDtoMapper._();
+
+  static DiagnosesDtoMapper? _instance;
+  static DiagnosesDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = DiagnosesDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'DiagnosesDto';
+
+  static String _$patientDiagnosis(DiagnosesDto v) => v.patientDiagnosis;
+  static const Field<DiagnosesDto, String> _f$patientDiagnosis =
+      Field('patientDiagnosis', _$patientDiagnosis);
+  static String _$treatment(DiagnosesDto v) => v.treatment;
+  static const Field<DiagnosesDto, String> _f$treatment =
+      Field('treatment', _$treatment);
+  static DateTime _$date(DiagnosesDto v) => v.date;
+  static const Field<DiagnosesDto, DateTime> _f$date = Field('date', _$date);
+
+  @override
+  final MappableFields<DiagnosesDto> fields = const {
+    #patientDiagnosis: _f$patientDiagnosis,
+    #treatment: _f$treatment,
+    #date: _f$date,
+  };
+
+  static DiagnosesDto _instantiate(DecodingData data) {
+    return DiagnosesDto(
+        patientDiagnosis: data.dec(_f$patientDiagnosis),
+        treatment: data.dec(_f$treatment),
+        date: data.dec(_f$date));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static DiagnosesDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<DiagnosesDto>(map);
+  }
+
+  static DiagnosesDto fromJson(String json) {
+    return ensureInitialized().decodeJson<DiagnosesDto>(json);
+  }
+}
+
+mixin DiagnosesDtoMappable {
+  String toJson() {
+    return DiagnosesDtoMapper.ensureInitialized()
+        .encodeJson<DiagnosesDto>(this as DiagnosesDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return DiagnosesDtoMapper.ensureInitialized()
+        .encodeMap<DiagnosesDto>(this as DiagnosesDto);
+  }
+
+  DiagnosesDtoCopyWith<DiagnosesDto, DiagnosesDto, DiagnosesDto> get copyWith =>
+      _DiagnosesDtoCopyWithImpl<DiagnosesDto, DiagnosesDto>(
+          this as DiagnosesDto, $identity, $identity);
+  @override
+  String toString() {
+    return DiagnosesDtoMapper.ensureInitialized()
+        .stringifyValue(this as DiagnosesDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return DiagnosesDtoMapper.ensureInitialized()
+        .equalsValue(this as DiagnosesDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return DiagnosesDtoMapper.ensureInitialized()
+        .hashValue(this as DiagnosesDto);
+  }
+}
+
+extension DiagnosesDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, DiagnosesDto, $Out> {
+  DiagnosesDtoCopyWith<$R, DiagnosesDto, $Out> get $asDiagnosesDto =>
+      $base.as((v, t, t2) => _DiagnosesDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class DiagnosesDtoCopyWith<$R, $In extends DiagnosesDto, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  $R call({String? patientDiagnosis, String? treatment, DateTime? date});
+  DiagnosesDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+}
+
+class _DiagnosesDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, DiagnosesDto, $Out>
+    implements DiagnosesDtoCopyWith<$R, DiagnosesDto, $Out> {
+  _DiagnosesDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<DiagnosesDto> $mapper =
+      DiagnosesDtoMapper.ensureInitialized();
+  @override
+  $R call({String? patientDiagnosis, String? treatment, DateTime? date}) =>
+      $apply(FieldCopyWithData({
+        if (patientDiagnosis != null) #patientDiagnosis: patientDiagnosis,
+        if (treatment != null) #treatment: treatment,
+        if (date != null) #date: date
+      }));
+  @override
+  DiagnosesDto $make(CopyWithData data) => DiagnosesDto(
+      patientDiagnosis:
+          data.get(#patientDiagnosis, or: $value.patientDiagnosis),
+      treatment: data.get(#treatment, or: $value.treatment),
+      date: data.get(#date, or: $value.date));
+
+  @override
+  DiagnosesDtoCopyWith<$R2, DiagnosesDto, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _DiagnosesDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class VitalsSignsDtoMapper extends ClassMapperBase<VitalsSignsDto> {
+  VitalsSignsDtoMapper._();
+
+  static VitalsSignsDtoMapper? _instance;
+  static VitalsSignsDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = VitalsSignsDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'VitalsSignsDto';
+
+  static double? _$oxygenLevel(VitalsSignsDto v) => v.oxygenLevel;
+  static const Field<VitalsSignsDto, double> _f$oxygenLevel =
+      Field('oxygenLevel', _$oxygenLevel, opt: true);
+  static double? _$bodyTemperature(VitalsSignsDto v) => v.bodyTemperature;
+  static const Field<VitalsSignsDto, double> _f$bodyTemperature =
+      Field('bodyTemperature', _$bodyTemperature, opt: true);
+  static int? _$heartRate(VitalsSignsDto v) => v.heartRate;
+  static const Field<VitalsSignsDto, int> _f$heartRate =
+      Field('heartRate', _$heartRate, opt: true);
+  static DateTime? _$createdAt(VitalsSignsDto v) => v.createdAt;
+  static const Field<VitalsSignsDto, DateTime> _f$createdAt =
+      Field('createdAt', _$createdAt, opt: true);
+
+  @override
+  final MappableFields<VitalsSignsDto> fields = const {
+    #oxygenLevel: _f$oxygenLevel,
+    #bodyTemperature: _f$bodyTemperature,
+    #heartRate: _f$heartRate,
+    #createdAt: _f$createdAt,
+  };
+
+  static VitalsSignsDto _instantiate(DecodingData data) {
+    return VitalsSignsDto(
+        oxygenLevel: data.dec(_f$oxygenLevel),
+        bodyTemperature: data.dec(_f$bodyTemperature),
+        heartRate: data.dec(_f$heartRate),
+        createdAt: data.dec(_f$createdAt));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static VitalsSignsDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<VitalsSignsDto>(map);
+  }
+
+  static VitalsSignsDto fromJson(String json) {
+    return ensureInitialized().decodeJson<VitalsSignsDto>(json);
+  }
+}
+
+mixin VitalsSignsDtoMappable {
+  String toJson() {
+    return VitalsSignsDtoMapper.ensureInitialized()
+        .encodeJson<VitalsSignsDto>(this as VitalsSignsDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return VitalsSignsDtoMapper.ensureInitialized()
+        .encodeMap<VitalsSignsDto>(this as VitalsSignsDto);
+  }
+
+  VitalsSignsDtoCopyWith<VitalsSignsDto, VitalsSignsDto, VitalsSignsDto>
+      get copyWith =>
+          _VitalsSignsDtoCopyWithImpl<VitalsSignsDto, VitalsSignsDto>(
+              this as VitalsSignsDto, $identity, $identity);
+  @override
+  String toString() {
+    return VitalsSignsDtoMapper.ensureInitialized()
+        .stringifyValue(this as VitalsSignsDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return VitalsSignsDtoMapper.ensureInitialized()
+        .equalsValue(this as VitalsSignsDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return VitalsSignsDtoMapper.ensureInitialized()
+        .hashValue(this as VitalsSignsDto);
+  }
+}
+
+extension VitalsSignsDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, VitalsSignsDto, $Out> {
+  VitalsSignsDtoCopyWith<$R, VitalsSignsDto, $Out> get $asVitalsSignsDto =>
+      $base.as((v, t, t2) => _VitalsSignsDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class VitalsSignsDtoCopyWith<$R, $In extends VitalsSignsDto, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  $R call(
+      {double? oxygenLevel,
+      double? bodyTemperature,
+      int? heartRate,
+      DateTime? createdAt});
+  VitalsSignsDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _VitalsSignsDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, VitalsSignsDto, $Out>
+    implements VitalsSignsDtoCopyWith<$R, VitalsSignsDto, $Out> {
+  _VitalsSignsDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<VitalsSignsDto> $mapper =
+      VitalsSignsDtoMapper.ensureInitialized();
+  @override
+  $R call(
+          {Object? oxygenLevel = $none,
+          Object? bodyTemperature = $none,
+          Object? heartRate = $none,
+          Object? createdAt = $none}) =>
+      $apply(FieldCopyWithData({
+        if (oxygenLevel != $none) #oxygenLevel: oxygenLevel,
+        if (bodyTemperature != $none) #bodyTemperature: bodyTemperature,
+        if (heartRate != $none) #heartRate: heartRate,
+        if (createdAt != $none) #createdAt: createdAt
+      }));
+  @override
+  VitalsSignsDto $make(CopyWithData data) => VitalsSignsDto(
+      oxygenLevel: data.get(#oxygenLevel, or: $value.oxygenLevel),
+      bodyTemperature: data.get(#bodyTemperature, or: $value.bodyTemperature),
+      heartRate: data.get(#heartRate, or: $value.heartRate),
+      createdAt: data.get(#createdAt, or: $value.createdAt));
+
+  @override
+  VitalsSignsDtoCopyWith<$R2, VitalsSignsDto, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _VitalsSignsDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
