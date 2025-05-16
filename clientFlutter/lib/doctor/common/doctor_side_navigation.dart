@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/common/utility/navigation_notifier.dart';
 import 'package:side_navigation/side_navigation.dart';
 
@@ -34,11 +35,11 @@ class DoctorSideNavigation extends StatelessWidget {
         return SideNavigationBar(
           selectedIndex: index,
           items: const [
-            SideNavigationBarItem(icon: Icons.home, label: 'Overview'),
-            SideNavigationBarItem(icon: Icons.people, label: 'Patients'),
-            SideNavigationBarItem(icon: Icons.chat, label: 'Chats'),
+            SideNavigationBarItem(icon: FontAwesomeIcons.houseMedical, label: 'Overview' ),
+            SideNavigationBarItem(icon: FontAwesomeIcons.peopleLine, label: 'Patients'),
+            SideNavigationBarItem(icon: FontAwesomeIcons.message, label: 'Chats'),
             SideNavigationBarItem(
-              icon: Icons.calendar_today,
+              icon: FontAwesomeIcons.calendarDay,
               label: 'Appointments',
             ),
           ],
@@ -46,8 +47,18 @@ class DoctorSideNavigation extends StatelessWidget {
           theme: SideNavigationBarTheme(
             dividerTheme: SideNavigationBarDividerTheme.standard(),
             togglerTheme: SideNavigationBarTogglerTheme.standard(),
-            backgroundColor: Colors.blueAccent,
-            itemTheme: SideNavigationBarItemTheme.standard(),
+            backgroundColor: Colors.white,
+            itemTheme:  SideNavigationBarItemTheme(
+                unselectedItemColor: Colors.black,
+                selectedItemColor: Colors.blueAccent,
+                iconSize: 15.5,
+                labelTextStyle: TextStyle(
+                    fontSize: 17,
+                    // !! Won't work !! Custom text style colors gets overridden
+                    // by unselectedItemColor and selectedItemColor
+                    color: Colors.black
+                )
+            ),
           ),
         );
       },

@@ -10,8 +10,18 @@ class DoctorOverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navModel = context.read<NavigationModel>();
+    return DoctorScaffold(child: Center(child: Text('Overview Screen')),);
+  }
+}
 
+class DoctorScaffold extends StatelessWidget {
+  final Widget child;
+  const DoctorScaffold({
+    super.key, required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
           children: [
@@ -20,7 +30,7 @@ class DoctorOverviewScreen extends StatelessWidget {
               child: Row(
                 children: [
                   DoctorSideNavigation(),
-                  Expanded(child: Center(child: Text('Overview Screen'))),
+                  Expanded(child: child),
                 ],
               ),
             ),

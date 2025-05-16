@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/doctor/overview/screens/doctor_overview_screen.dart';
 import 'package:medicare/doctor/patient_overview/screens/patient_info_screen.dart';
 import '../../../../common/widgets_shared/message_display.dart';
 import '../../../../errorHandling/application_messages.dart';
@@ -27,8 +28,8 @@ class _ClinicPatientsState extends State<ClinicPatients> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Align(
+    return DoctorScaffold(
+      child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
             width: MediaQuery.of(context).size.width * 0.6,
