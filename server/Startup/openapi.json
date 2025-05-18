@@ -672,7 +672,7 @@
       }
     },
     "/appointments/confirm": {
-      "get": {
+      "put": {
         "tags": [
           "Appointment"
         ],
@@ -711,7 +711,7 @@
       }
     },
     "/appointments/reject": {
-      "get": {
+      "put": {
         "tags": [
           "Appointment"
         ],

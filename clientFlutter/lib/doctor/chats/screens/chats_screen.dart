@@ -7,6 +7,7 @@ import '../../../common/auth/auth_cubit.dart';
 import '../../../common/chat/state/chat_room_state.dart';
 import '../../../common/chat/utils/chat_data_source.dart';
 import '../../../patient/chat/utils/chat_navigation.dart';
+import '../../overview/screens/doctor_overview_screen.dart';
 import 'doctor_chats_list_view.dart';
 
 class ChatsScreen extends StatefulWidget {
@@ -42,12 +43,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat Rooms'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Builder(
+    return DoctorScaffold(
+      child: Builder(
         builder: (context) {
           return BlocBuilder<DoctorCubit, DoctorState>(
             builder: (context, doctorState) {

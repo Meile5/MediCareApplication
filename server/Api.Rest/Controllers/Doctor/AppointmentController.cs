@@ -19,7 +19,7 @@ public class AppointmentController(IAppointmentService appointmentService, ISecu
     }
 
     [Route("appointments/confirm")]
-    [HttpGet]
+    [HttpPut]
     public async Task<ActionResult> ConfirmAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromHeader] string authorization)
     {
         securityService.VerifyJwtOrThrow(authorization);
@@ -28,7 +28,7 @@ public class AppointmentController(IAppointmentService appointmentService, ISecu
     }
 
     [Route("appointments/reject")]
-    [HttpGet]
+    [HttpPut]
     public async Task<ActionResult> RejectAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromHeader] string authorization)
     {
         securityService.VerifyJwtOrThrow(authorization);
