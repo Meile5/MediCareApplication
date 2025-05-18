@@ -632,6 +632,123 @@
         }
       }
     },
+    "/appointments/getAppointments": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_GetAppoinmentsForDoctor",
+        "parameters": [
+          {
+            "name": "doctorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/confirm": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_ConfirmAppointment",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/reject": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_RejectAppointment",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/doctor/getDoctor": {
       "get": {
         "tags": [

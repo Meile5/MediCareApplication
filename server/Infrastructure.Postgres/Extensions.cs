@@ -34,6 +34,7 @@ public static class Extensions
        services.AddScoped<IDataRepository, Repo>();
        services.AddScoped<IPatientRep, PatientRepo>();
        services.AddScoped<IDoctorRep, DoctorRepo>();
+        services.AddScoped<IAppointmentRep, AppointmentRepo>();
        services.AddScoped<IBookingRep, BookingRepo>();
        services.AddScoped<IChatRep, ChatRepo>();
        services.AddScoped<IOverviewRepo, OverviewRepo>();

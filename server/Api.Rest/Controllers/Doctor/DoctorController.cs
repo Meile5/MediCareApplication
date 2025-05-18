@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Application.Interfaces.IDoctorService;
 using Application.Interfaces.IPatientService;
+using Application.Models.Dtos.DoctorDto.requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Rest.Controllers.Doctor;
@@ -17,7 +18,3 @@ public class DoctorController(IDoctorService doctorService, ISecurityService sec
 
 }
 
-public class DoctorIdRequest
-{
-    public string doctorId { get; set; }
-}

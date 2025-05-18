@@ -19,6 +19,7 @@ public static class Extensions
         services.AddScoped<ISecurityService, SecurityService>();
         services.AddScoped<IPatientService, PatientService>();
         services.AddScoped<IDoctorService, DoctorService>();
+        services.AddScoped<IAppointmentService, AppointmentService>();
         services.AddScoped<IServiceLogic, ServiceLogic>();
         services.AddScoped<IBookingService, BookingService>();
         services.AddScoped<IChatService, ChatService>();
