@@ -1,4 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
+
+import '../../../patient/common/patient_model.dart';
 part 'patients_overview_models.mapper.dart';
 
 @MappableClass()
@@ -31,5 +33,18 @@ class VitalsSignsDto with VitalsSignsDtoMappable {
     this.bodyTemperature,
     this.heartRate,
     this.createdAt,
+  });
+}
+
+@MappableClass()
+class PatientAnalysisRequest with PatientAnalysisRequestMappable {
+  final List<VitalsSignsDto> vitals;
+  final List<DiagnosesDto> diagnoses;
+  final PatientDto patient;
+
+  PatientAnalysisRequest({
+    required this.vitals,
+    required this.diagnoses,
+    required this.patient,
   });
 }

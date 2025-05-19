@@ -127,13 +127,13 @@ CREATE TABLE clinic_patient (
 
 
 CREATE TABLE diagnoses (
-    iddiagnoses character varying NOT NULL,
-    diagnoses character varying NOT NULL,
+    id character varying NOT NULL,
+    patient_diagnosis character varying NOT NULL,
     idpatient character varying NOT NULL,
     treatment text,
     iddoctor text NOT NULL,
     date timestamp with time zone,
-    CONSTRAINT diagnoses_pk PRIMARY KEY (iddiagnoses),
+    CONSTRAINT diagnoses_pk PRIMARY KEY (id),
     CONSTRAINT diagnoses_doctors_doctorid_fk FOREIGN KEY (iddoctor) REFERENCES doctors (doctorid),
     CONSTRAINT diagnoses_user_iduser_fk FOREIGN KEY (idpatient) REFERENCES patients (userid)
 );
