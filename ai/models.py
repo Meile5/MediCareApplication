@@ -2,24 +2,30 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-class VitalSign(BaseModel):
-    vital_type: str
-    vital_value: float
-    measurement_date: datetime
+class VitalsSignsDto(BaseModel):
+    oxygenLevel: Optional[float] = None
+    bodyTemperature: Optional[float] = None
+    heartRate: Optional[int] = None
+    createdAt: datetime
 
-class Diagnosis(BaseModel):
-    patient_diagnosis: str
+class DiagnosesDto(BaseModel):
+    patientDiagnosis: str
     treatment: str
     date: datetime
 
-class Patient(BaseModel):
-    id: int
+class PatientDto(BaseModel):
+    userid: str
     name: str
+    surname: str
     gender: str
-    date_of_birth: datetime
-    medical_history: List[str] = []
+    age: str
+    bloodtype: str
+    allergies: Optional[str] = None
+    phonenumber: str
+    address: str
+    deviceId: Optional[str] = None
 
 class PatientAnalysisRequest(BaseModel):
-    patient: Patient
-    vitals: List[VitalSign]
-    diagnoses: Optional[List[Diagnosis]] = []
+    patient: PatientDto
+    vitals: List[VitalsSignsDto]
+    diagnoses: Optional[List[DiagnosesDto]] = []
