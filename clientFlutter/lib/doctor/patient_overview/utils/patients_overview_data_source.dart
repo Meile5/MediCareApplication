@@ -10,7 +10,7 @@ class PatientsOverviewDataSource {
 
   Future<List<VitalsSignsDto>> getPatientVitals(patientId) async {
     final response = await http.get(
-      Uri.parse("${dotenv.env['API_BASE_URL']!}/RetrievePatientsVitals?userId=$patientId"),
+      Uri.parse("${dotenv.env['API_BASE_URL']!}/RetrievePatientsVitals?patientId=$patientId"),
       headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
     );
 
@@ -20,7 +20,7 @@ class PatientsOverviewDataSource {
 
   Future<List<DiagnosesDto>> getPatientsDiagnoses(patientId) async {
     final response = await http.get(
-      Uri.parse("${dotenv.env['API_BASE_URL']!}/RetrievePatientsDiagnoses?userId=$patientId"),
+      Uri.parse("${dotenv.env['API_BASE_URL']!}/RetrievePatientsDiagnoses?patientId=$patientId"),
       headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
     );
 
