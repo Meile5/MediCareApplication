@@ -15,9 +15,11 @@ import '../state/patients_vitals_state.dart';
 import '../utils/charts_navigation.dart';
 import '../widgets/diagnoses_info_card.dart';
 import '../widgets/patient_info_card.dart';
+import 'analysis_screen.dart';
 
 class PatientInfoScreen extends StatefulWidget{
   final PatientDto patient;
+
 
   const PatientInfoScreen({
     super.key,
@@ -35,13 +37,25 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
     context.read<PatientsVitalsCubit>().retrievePatientsVitals("0fe65aae-a3ac-4d11-8abc-cc09bfde83ae");
     context.read<DiagnosesCubit>().retrieveDiagnoses("0fe65aae-a3ac-4d11-8abc-cc09bfde83ae");
 
-
-
-
   }
+  PatientAnalysisRequest? _analysisRequest;
+
+
 
   @override
   Widget build(BuildContext context) {
+    final vitalsState = context.watch<PatientsVitalsCubit>().state;
+    final diagnosesState = context.watch<DiagnosesCubit>().state;
+
+    if (vitalsState is PatientsVitalsLoaded && diagnosesState is DiagnosesLoaded) {
+      _analysisRequest = PatientAnalysisRequest(
+        patient: widget.patient,
+        vitals: vitalsState.vitals,
+        diagnoses: diagnosesState.diagnoses,
+      );
+    } else {
+      _analysisRequest = null;
+    }
     return DoctorScaffold(
         child:Container(
           width: MediaQuery.of(context).size.width * 0.3,
@@ -50,10 +64,27 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
             children: [
               Container(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                      "${widget.patient.name} ${widget.patient.surname}",
-                      style: const TextStyle(
-                        fontSize: 20,))
+                  child: Row(
+                    children: [
+                      Text(
+                          "${widget.patient.name} ${widget.patient.surname}",
+                          style: const TextStyle(
+                            fontSize: 20,)),
+
+                      IconButton(
+                        icon: FaIcon(FontAwesomeIcons.ellipsis, color: Colors.blueAccent),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AnalysisScreen(request: _analysisRequest!),
+
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  )
               ),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -140,6 +171,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                         if (state.diagnoses.isEmpty) {
                           return const MessageDisplay(message: 'No diagnoses');
                         }
+
                         return Expanded(
                           flex: 4,
                           child: DiagnosesInfo(

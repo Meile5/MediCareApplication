@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../../../common/auth/auth_prefs.dart';
@@ -37,6 +38,25 @@ class PatientsOverviewDataSource {
     final List<dynamic> decoded = json.decode(response.body);
     return decoded.map((e) => PatientDtoMapper.fromMap(e)).toList();
   }
+
+  Future<Uint8List> handlePdf(PatientAnalysisRequest patientAnalysisRequest) async {
+    final url = Uri.parse('http://127.0.0.1:8000/analyze');
+    final jsonPayload = jsonEncode(patientAnalysisRequest);
+
+    print('Sending JSON payload: $jsonPayload');
+
+    final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: jsonPayload,
+    );
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      throw Exception('Failed to fetch PDF: ${response.statusCode}');
+    }
+
+}
 
 
 

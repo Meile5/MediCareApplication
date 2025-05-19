@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:medicare/patient/appointmentManagement/models/models_for_mapping.dart';
-
 import '../../../patient/common/patient_model.dart';
-
+import 'package:flutter/material.dart';
 @immutable
 sealed class PatientsState {}
 

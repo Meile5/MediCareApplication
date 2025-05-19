@@ -88,7 +88,8 @@ class _ClinicPatientsState extends State<ClinicPatients> {
                                             builder: (context) => PatientInfoScreen(patient: patient),
       
                                           ),
-                                        );                                    },
+                                        );
+                                        },
                                     )
       
                                   )
