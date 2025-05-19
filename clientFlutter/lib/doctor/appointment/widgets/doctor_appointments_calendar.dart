@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:medicare/doctor/appointment/models/appointment_model.dart';
 import 'package:medicare/doctor/appointment/state/doctor_appointment_cubit.dart';
 import 'package:medicare/doctor/appointment/state/doctor_appointment_state.dart';
@@ -61,57 +62,74 @@ class _DoctorAppointmentsCalendarState
   }
 
   void _showAppointmentDialog(BuildContext context, AppointmentDto appt) {
+    String formatDate(DateTime date) {
+      final local = date.toLocal();
+      final formattedDate = DateFormat.yMMMMd().format(local);
+      final formattedTime = DateFormat('jm').format(local);
+      return '$formattedDate,  $formattedTime';
+    }
+
     showDialog(
       context: context,
       builder:
-          (_) => AlertDialog(
-            title: Text('Appointment with ${appt.patientId}'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("Start: ${appt.startTime}"),
-                Text("Reason: ${appt.notes}"),
-                Text("Status: ${appt.status}"),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        context
-                            .read<DoctorAppointmentCubit>()
-                            .confirmAppointment(appt.id)
-                            .then((_) {
-                              context
-                                  .read<DoctorAppointmentCubit>()
-                                  .getDoctorAppointments(); // reload appointments
-                            });
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Confirm'),
-                    ),
+          (_) => FutureBuilder<String>(
+            future: context
+                .read<DoctorAppointmentCubit>()
+                .dataSource
+                .getPatientName(appt.id),
+            builder: (context, snapshot) {
+              final patientName = snapshot.data ?? appt.patientId;
 
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                      ),
-                      onPressed: () {
-                        context
-                            .read<DoctorAppointmentCubit>()
-                            .rejectAppointment(appt.id)
-                            .then((_) {
-                              context
-                                  .read<DoctorAppointmentCubit>()
-                                  .getDoctorAppointments(); // reload appointments
-                            });
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Reject'),
+              return AlertDialog(
+                title: Text('Appointment with $patientName'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Starts at:"),
+                    Text(formatDate(appt.startTime)),
+                    Text("Reason: ${appt.notes}"),
+                    Text("Status: ${appt.status}"),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<DoctorAppointmentCubit>()
+                                .confirmAppointment(appt.id)
+                                .then((_) {
+                                  context
+                                      .read<DoctorAppointmentCubit>()
+                                      .getDoctorAppointments();
+                                });
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Confirm'),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          onPressed: () {
+                            context
+                                .read<DoctorAppointmentCubit>()
+                                .rejectAppointment(appt.id)
+                                .then((_) {
+                                  context
+                                      .read<DoctorAppointmentCubit>()
+                                      .getDoctorAppointments();
+                                });
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Reject'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
     );
   }
@@ -143,7 +161,19 @@ class AppointmentDataSourceSyncfusion extends CalendarDataSource {
       appointments![index].notes ?? "No reason provided";
 
   @override
-  Color getColor(int index) => Colors.blueAccent;
+  Color getColor(int index) {
+    final appointment = appointments![index] as AppointmentDto;
+    switch (appointment.status?.toLowerCase()) {
+      case 'rejected':
+        return Colors.red;
+      case 'confirmed':
+        return Colors.green;
+      case 'Pending':
+        return Colors.blue;
+      default:
+        return Colors.grey;
+    }
+  }
 
   @override
   bool isAllDay(int index) => false;

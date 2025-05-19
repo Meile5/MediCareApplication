@@ -11,6 +11,11 @@ public class AppointmentService(IAppointmentRep appointmentRep) : IAppointmentSe
         await appointmentRep.ConfirmAppointment(appointmentId);
     }
 
+    public async Task<string> GetPatientName(string appointmentId)
+    {
+        return await appointmentRep.GetPatientName(appointmentId);
+    }
+
     public async Task RejectAppointment(string appointmentId)
     {
         await appointmentRep.RejectAppointment(appointmentId);

@@ -17,6 +17,20 @@ public class AppointmentRepo(MyDbContext dbContext) : IAppointmentRep
         }
     }
 
+    public async Task<string> GetPatientName(string appointmentId){
+    var appointment = await dbContext.Appointments
+        .Include(a => a.Patient)
+        .FirstOrDefaultAsync(a => a.Id == appointmentId);
+
+    if (appointment == null || appointment.Patient == null)
+    {
+        throw new Exception("Appointment or patient not found.");
+    }
+
+    return $"{appointment.Patient.Name} {appointment.Patient.Surname}";
+}
+
+
     public async Task RejectAppointment(string appointmentId)
     {
         var appointment = await dbContext.Appointments.FirstOrDefaultAsync(ap => ap.Id == appointmentId);

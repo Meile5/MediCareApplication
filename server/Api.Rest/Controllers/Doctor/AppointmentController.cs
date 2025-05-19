@@ -36,6 +36,18 @@ public class AppointmentController(IAppointmentService appointmentService, ISecu
         return Ok();
     }
 
+    [Route("appointments/getPatientName")]
+    [HttpGet]
+    public async Task<ActionResult> GetPatientsNameForAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromHeader] string authorization)
+    {
+        string appointmentId = appointmentIdRequest.appointmentId;
+        var patientName = await appointmentService.GetPatientName(appointmentId);
+        securityService.VerifyJwtOrThrow(authorization);
+        return Ok(patientName);
+    }
+
+
+
 }
 
 public class AppointmentIdRequest

@@ -47,4 +47,23 @@ class DoctorAppointmentDataSource {
       },
     );
   }
+
+  Future<String> getPatientName(String appointmentId) async {
+    final url =
+        "${dotenv.env['API_BASE_URL']!}/appointments/getPatientName?appointmentId=$appointmentId";
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': AuthPrefs.jwt!,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return response.body.replaceAll('"', '');
+    } else {
+      throw Exception("Failed to fetch patient name");
+    }
+  }
 }
