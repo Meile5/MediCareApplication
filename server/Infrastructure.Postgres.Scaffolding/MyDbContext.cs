@@ -188,11 +188,11 @@ public partial class MyDbContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasColumnType("character varying")
-                .HasColumnName("iddiagnoses");
+                .HasColumnName("id");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.PatientDiagnosis)
                 .HasColumnType("character varying")
-                .HasColumnName("diagnoses");
+                .HasColumnName("patient_diagnosis");
             entity.Property(e => e.Iddoctor).HasColumnName("iddoctor");
             entity.Property(e => e.Idpatient)
                 .HasColumnType("character varying")
