@@ -85,7 +85,7 @@ class _ClinicPatientsState extends State<ClinicPatients> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => PatientInfoScreen(),
+                                            builder: (context) => PatientInfoScreen(patient: patient),
       
                                           ),
                                         );                                    },
