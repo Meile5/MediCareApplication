@@ -266,3 +266,161 @@ class _VitalsSignsDtoCopyWithImpl<$R, $Out>
           Then<$Out2, $R2> t) =>
       _VitalsSignsDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
+class PatientAnalysisRequestMapper
+    extends ClassMapperBase<PatientAnalysisRequest> {
+  PatientAnalysisRequestMapper._();
+
+  static PatientAnalysisRequestMapper? _instance;
+  static PatientAnalysisRequestMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = PatientAnalysisRequestMapper._());
+      VitalsSignsDtoMapper.ensureInitialized();
+      DiagnosesDtoMapper.ensureInitialized();
+      PatientDtoMapper.ensureInitialized();
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'PatientAnalysisRequest';
+
+  static List<VitalsSignsDto> _$vitals(PatientAnalysisRequest v) => v.vitals;
+  static const Field<PatientAnalysisRequest, List<VitalsSignsDto>> _f$vitals =
+      Field('vitals', _$vitals);
+  static List<DiagnosesDto> _$diagnoses(PatientAnalysisRequest v) =>
+      v.diagnoses;
+  static const Field<PatientAnalysisRequest, List<DiagnosesDto>> _f$diagnoses =
+      Field('diagnoses', _$diagnoses);
+  static PatientDto _$patient(PatientAnalysisRequest v) => v.patient;
+  static const Field<PatientAnalysisRequest, PatientDto> _f$patient =
+      Field('patient', _$patient);
+
+  @override
+  final MappableFields<PatientAnalysisRequest> fields = const {
+    #vitals: _f$vitals,
+    #diagnoses: _f$diagnoses,
+    #patient: _f$patient,
+  };
+
+  static PatientAnalysisRequest _instantiate(DecodingData data) {
+    return PatientAnalysisRequest(
+        vitals: data.dec(_f$vitals),
+        diagnoses: data.dec(_f$diagnoses),
+        patient: data.dec(_f$patient));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static PatientAnalysisRequest fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<PatientAnalysisRequest>(map);
+  }
+
+  static PatientAnalysisRequest fromJson(String json) {
+    return ensureInitialized().decodeJson<PatientAnalysisRequest>(json);
+  }
+}
+
+mixin PatientAnalysisRequestMappable {
+  String toJson() {
+    return PatientAnalysisRequestMapper.ensureInitialized()
+        .encodeJson<PatientAnalysisRequest>(this as PatientAnalysisRequest);
+  }
+
+  Map<String, dynamic> toMap() {
+    return PatientAnalysisRequestMapper.ensureInitialized()
+        .encodeMap<PatientAnalysisRequest>(this as PatientAnalysisRequest);
+  }
+
+  PatientAnalysisRequestCopyWith<PatientAnalysisRequest, PatientAnalysisRequest,
+          PatientAnalysisRequest>
+      get copyWith => _PatientAnalysisRequestCopyWithImpl<
+              PatientAnalysisRequest, PatientAnalysisRequest>(
+          this as PatientAnalysisRequest, $identity, $identity);
+  @override
+  String toString() {
+    return PatientAnalysisRequestMapper.ensureInitialized()
+        .stringifyValue(this as PatientAnalysisRequest);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return PatientAnalysisRequestMapper.ensureInitialized()
+        .equalsValue(this as PatientAnalysisRequest, other);
+  }
+
+  @override
+  int get hashCode {
+    return PatientAnalysisRequestMapper.ensureInitialized()
+        .hashValue(this as PatientAnalysisRequest);
+  }
+}
+
+extension PatientAnalysisRequestValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, PatientAnalysisRequest, $Out> {
+  PatientAnalysisRequestCopyWith<$R, PatientAnalysisRequest, $Out>
+      get $asPatientAnalysisRequest => $base.as((v, t, t2) =>
+          _PatientAnalysisRequestCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class PatientAnalysisRequestCopyWith<
+    $R,
+    $In extends PatientAnalysisRequest,
+    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, VitalsSignsDto,
+      VitalsSignsDtoCopyWith<$R, VitalsSignsDto, VitalsSignsDto>> get vitals;
+  ListCopyWith<$R, DiagnosesDto,
+      DiagnosesDtoCopyWith<$R, DiagnosesDto, DiagnosesDto>> get diagnoses;
+  PatientDtoCopyWith<$R, PatientDto, PatientDto> get patient;
+  $R call(
+      {List<VitalsSignsDto>? vitals,
+      List<DiagnosesDto>? diagnoses,
+      PatientDto? patient});
+  PatientAnalysisRequestCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _PatientAnalysisRequestCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, PatientAnalysisRequest, $Out>
+    implements
+        PatientAnalysisRequestCopyWith<$R, PatientAnalysisRequest, $Out> {
+  _PatientAnalysisRequestCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<PatientAnalysisRequest> $mapper =
+      PatientAnalysisRequestMapper.ensureInitialized();
+  @override
+  ListCopyWith<$R, VitalsSignsDto,
+          VitalsSignsDtoCopyWith<$R, VitalsSignsDto, VitalsSignsDto>>
+      get vitals => ListCopyWith($value.vitals, (v, t) => v.copyWith.$chain(t),
+          (v) => call(vitals: v));
+  @override
+  ListCopyWith<$R, DiagnosesDto,
+          DiagnosesDtoCopyWith<$R, DiagnosesDto, DiagnosesDto>>
+      get diagnoses => ListCopyWith($value.diagnoses,
+          (v, t) => v.copyWith.$chain(t), (v) => call(diagnoses: v));
+  @override
+  PatientDtoCopyWith<$R, PatientDto, PatientDto> get patient =>
+      $value.patient.copyWith.$chain((v) => call(patient: v));
+  @override
+  $R call(
+          {List<VitalsSignsDto>? vitals,
+          List<DiagnosesDto>? diagnoses,
+          PatientDto? patient}) =>
+      $apply(FieldCopyWithData({
+        if (vitals != null) #vitals: vitals,
+        if (diagnoses != null) #diagnoses: diagnoses,
+        if (patient != null) #patient: patient
+      }));
+  @override
+  PatientAnalysisRequest $make(CopyWithData data) => PatientAnalysisRequest(
+      vitals: data.get(#vitals, or: $value.vitals),
+      diagnoses: data.get(#diagnoses, or: $value.diagnoses),
+      patient: data.get(#patient, or: $value.patient));
+
+  @override
+  PatientAnalysisRequestCopyWith<$R2, PatientAnalysisRequest, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _PatientAnalysisRequestCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}

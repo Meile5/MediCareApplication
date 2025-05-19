@@ -24,6 +24,7 @@ import 'doctor/common/doctor_cubit.dart';
 import 'doctor/common/doctor_data_source.dart';
 import 'doctor/patient_overview/state/patients_diagnoses_cubit.dart';
 import 'doctor/patient_overview/state/patients_vitals_cubit.dart';
+import 'doctor/patient_overview/state/pdf_cubit.dart';
 import 'doctor/patient_overview/utils/patients_overview_data_source.dart';
 import 'patient/common/patient_cubit.dart';
 
@@ -122,6 +123,12 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => DoctorsCubit(dataSource: DataSource()),
+        ),
+        BlocProvider(
+          create: (_) {
+            final cubit = PdfCubit(dataSource: PatientsOverviewDataSource());
+            return cubit;
+          },
         ),
 
         RepositoryProvider(create: (_) => NavigationModel()),
