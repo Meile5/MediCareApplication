@@ -80,7 +80,6 @@ class DoctorChatsListView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    const FaIcon(Icons.chat, color: Colors.blueAccent),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
@@ -114,6 +113,7 @@ class DoctorChatsListView extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const FaIcon(Icons.chat, color: Colors.blueAccent),
                   ],
                 ),
               ),
