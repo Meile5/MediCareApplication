@@ -10,17 +10,15 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
   final String doctorId;
   final String notes;
 
-
-  BookAppointmentDto( {
+  BookAppointmentDto({
     required this.startTime,
     required this.endTime,
     required this.patientId,
     required this.doctorId,
     required this.notes,
-
   });
-
 }
+
 @MappableClass()
 class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
   final String id;
@@ -44,62 +42,27 @@ class PastAppointmentsDto with PastAppointmentsDtoMappable {
   final DateTime endTime;
   final String notes;
 
-
-
   PastAppointmentsDto({
     required this.startTime,
     required this.endTime,
     required this.notes,
-
   });
 }
-
 
 @MappableClass()
 class CancelAppointmentDto with CancelAppointmentDtoMappable {
   final String id;
   final String status;
 
-
-  CancelAppointmentDto({
-    required this.id,
-    required this.status,
-  });
-
-
-}
-
-
-@MappableClass()
-class CreateChatRoomDto with CreateChatRoomDtoMappable {
-  final String doctorId;
-  final String patientId;
-  final String topic;
-  final bool isFinished;
-  final DateTime startTime;
-  final DateTime endTime;
-
-  CreateChatRoomDto({
-    required this.doctorId,
-    required this.patientId,
-    required this.topic,
-    required this.startTime,
-    required this.isFinished,
-    required this.endTime,
-  });
+  CancelAppointmentDto({required this.id, required this.status});
 }
 
 @MappableClass()
 class BookAppointmentRequest with BookAppointmentRequestMappable {
   final BookAppointmentDto appointment;
-  final CreateChatRoomDto chatRoom;
 
-  BookAppointmentRequest({
-    required this.appointment,
-    required this.chatRoom,
-  });
+  BookAppointmentRequest({required this.appointment});
 }
-
 
 @MappableClass()
 class ClinicDoctorDto with ClinicDoctorDtoMappable {
@@ -119,17 +82,5 @@ class AvailabilityDto with AvailabilityDtoMappable {
   final DateTime startTime;
   final DateTime endTime;
 
-  AvailabilityDto({
-    required this.startTime,
-    required this.endTime,
-
-  });
-
+  AvailabilityDto({required this.startTime, required this.endTime});
 }
-
-
-
-
-
-
-

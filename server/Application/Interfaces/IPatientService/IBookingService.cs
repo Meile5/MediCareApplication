@@ -8,7 +8,7 @@ public interface IBookingService
 {
      Task<List<AvailabilityDto>> RetrieveBookingInfo(string doctorId);
 
-     Task BookAppointment(BookAppointmentDto dto, CreateChatRoomDto dtoChatRoom);
+     Task BookAppointment(BookAppointmentDto dto);
      Task<List<FutureAppointmentsDto>> RetrieveFutureAppointments(string userId);
      Task <List<PastAppointmentsDto>> RetrievePastAppointments(string userId);
      Task CancelAppointment(CancelAppointmentDto dto);

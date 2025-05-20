@@ -66,4 +66,18 @@ class DoctorAppointmentDataSource {
       throw Exception("Failed to fetch patient name");
     }
   }
+
+  Future<void> saveVitals(CreateChatRoomDto chatroom) async {
+    final url =
+        "${dotenv.env['API_BASE_URL']!}/appointments/confirm/createChatRoom";
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': AuthPrefs.jwt!,
+      },
+      body: json.encode(chatroom.toMap()),
+    );
+  }
 }

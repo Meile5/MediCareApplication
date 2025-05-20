@@ -546,165 +546,6 @@ class _CancelAppointmentDtoCopyWithImpl<$R, $Out>
           _CancelAppointmentDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
-class CreateChatRoomDtoMapper extends ClassMapperBase<CreateChatRoomDto> {
-  CreateChatRoomDtoMapper._();
-
-  static CreateChatRoomDtoMapper? _instance;
-  static CreateChatRoomDtoMapper ensureInitialized() {
-    if (_instance == null) {
-      MapperContainer.globals.use(_instance = CreateChatRoomDtoMapper._());
-    }
-    return _instance!;
-  }
-
-  @override
-  final String id = 'CreateChatRoomDto';
-
-  static String _$doctorId(CreateChatRoomDto v) => v.doctorId;
-  static const Field<CreateChatRoomDto, String> _f$doctorId =
-      Field('doctorId', _$doctorId);
-  static String _$patientId(CreateChatRoomDto v) => v.patientId;
-  static const Field<CreateChatRoomDto, String> _f$patientId =
-      Field('patientId', _$patientId);
-  static String _$topic(CreateChatRoomDto v) => v.topic;
-  static const Field<CreateChatRoomDto, String> _f$topic =
-      Field('topic', _$topic);
-  static DateTime _$startTime(CreateChatRoomDto v) => v.startTime;
-  static const Field<CreateChatRoomDto, DateTime> _f$startTime =
-      Field('startTime', _$startTime);
-  static bool _$isFinished(CreateChatRoomDto v) => v.isFinished;
-  static const Field<CreateChatRoomDto, bool> _f$isFinished =
-      Field('isFinished', _$isFinished);
-  static DateTime _$endTime(CreateChatRoomDto v) => v.endTime;
-  static const Field<CreateChatRoomDto, DateTime> _f$endTime =
-      Field('endTime', _$endTime);
-
-  @override
-  final MappableFields<CreateChatRoomDto> fields = const {
-    #doctorId: _f$doctorId,
-    #patientId: _f$patientId,
-    #topic: _f$topic,
-    #startTime: _f$startTime,
-    #isFinished: _f$isFinished,
-    #endTime: _f$endTime,
-  };
-
-  static CreateChatRoomDto _instantiate(DecodingData data) {
-    return CreateChatRoomDto(
-        doctorId: data.dec(_f$doctorId),
-        patientId: data.dec(_f$patientId),
-        topic: data.dec(_f$topic),
-        startTime: data.dec(_f$startTime),
-        isFinished: data.dec(_f$isFinished),
-        endTime: data.dec(_f$endTime));
-  }
-
-  @override
-  final Function instantiate = _instantiate;
-
-  static CreateChatRoomDto fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<CreateChatRoomDto>(map);
-  }
-
-  static CreateChatRoomDto fromJson(String json) {
-    return ensureInitialized().decodeJson<CreateChatRoomDto>(json);
-  }
-}
-
-mixin CreateChatRoomDtoMappable {
-  String toJson() {
-    return CreateChatRoomDtoMapper.ensureInitialized()
-        .encodeJson<CreateChatRoomDto>(this as CreateChatRoomDto);
-  }
-
-  Map<String, dynamic> toMap() {
-    return CreateChatRoomDtoMapper.ensureInitialized()
-        .encodeMap<CreateChatRoomDto>(this as CreateChatRoomDto);
-  }
-
-  CreateChatRoomDtoCopyWith<CreateChatRoomDto, CreateChatRoomDto,
-          CreateChatRoomDto>
-      get copyWith =>
-          _CreateChatRoomDtoCopyWithImpl<CreateChatRoomDto, CreateChatRoomDto>(
-              this as CreateChatRoomDto, $identity, $identity);
-  @override
-  String toString() {
-    return CreateChatRoomDtoMapper.ensureInitialized()
-        .stringifyValue(this as CreateChatRoomDto);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return CreateChatRoomDtoMapper.ensureInitialized()
-        .equalsValue(this as CreateChatRoomDto, other);
-  }
-
-  @override
-  int get hashCode {
-    return CreateChatRoomDtoMapper.ensureInitialized()
-        .hashValue(this as CreateChatRoomDto);
-  }
-}
-
-extension CreateChatRoomDtoValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, CreateChatRoomDto, $Out> {
-  CreateChatRoomDtoCopyWith<$R, CreateChatRoomDto, $Out>
-      get $asCreateChatRoomDto => $base
-          .as((v, t, t2) => _CreateChatRoomDtoCopyWithImpl<$R, $Out>(v, t, t2));
-}
-
-abstract class CreateChatRoomDtoCopyWith<$R, $In extends CreateChatRoomDto,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call(
-      {String? doctorId,
-      String? patientId,
-      String? topic,
-      DateTime? startTime,
-      bool? isFinished,
-      DateTime? endTime});
-  CreateChatRoomDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
-}
-
-class _CreateChatRoomDtoCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, CreateChatRoomDto, $Out>
-    implements CreateChatRoomDtoCopyWith<$R, CreateChatRoomDto, $Out> {
-  _CreateChatRoomDtoCopyWithImpl(super.value, super.then, super.then2);
-
-  @override
-  late final ClassMapperBase<CreateChatRoomDto> $mapper =
-      CreateChatRoomDtoMapper.ensureInitialized();
-  @override
-  $R call(
-          {String? doctorId,
-          String? patientId,
-          String? topic,
-          DateTime? startTime,
-          bool? isFinished,
-          DateTime? endTime}) =>
-      $apply(FieldCopyWithData({
-        if (doctorId != null) #doctorId: doctorId,
-        if (patientId != null) #patientId: patientId,
-        if (topic != null) #topic: topic,
-        if (startTime != null) #startTime: startTime,
-        if (isFinished != null) #isFinished: isFinished,
-        if (endTime != null) #endTime: endTime
-      }));
-  @override
-  CreateChatRoomDto $make(CopyWithData data) => CreateChatRoomDto(
-      doctorId: data.get(#doctorId, or: $value.doctorId),
-      patientId: data.get(#patientId, or: $value.patientId),
-      topic: data.get(#topic, or: $value.topic),
-      startTime: data.get(#startTime, or: $value.startTime),
-      isFinished: data.get(#isFinished, or: $value.isFinished),
-      endTime: data.get(#endTime, or: $value.endTime));
-
-  @override
-  CreateChatRoomDtoCopyWith<$R2, CreateChatRoomDto, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _CreateChatRoomDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
-}
-
 class BookAppointmentRequestMapper
     extends ClassMapperBase<BookAppointmentRequest> {
   BookAppointmentRequestMapper._();
@@ -714,7 +555,6 @@ class BookAppointmentRequestMapper
     if (_instance == null) {
       MapperContainer.globals.use(_instance = BookAppointmentRequestMapper._());
       BookAppointmentDtoMapper.ensureInitialized();
-      CreateChatRoomDtoMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -726,19 +566,14 @@ class BookAppointmentRequestMapper
       v.appointment;
   static const Field<BookAppointmentRequest, BookAppointmentDto>
       _f$appointment = Field('appointment', _$appointment);
-  static CreateChatRoomDto _$chatRoom(BookAppointmentRequest v) => v.chatRoom;
-  static const Field<BookAppointmentRequest, CreateChatRoomDto> _f$chatRoom =
-      Field('chatRoom', _$chatRoom);
 
   @override
   final MappableFields<BookAppointmentRequest> fields = const {
     #appointment: _f$appointment,
-    #chatRoom: _f$chatRoom,
   };
 
   static BookAppointmentRequest _instantiate(DecodingData data) {
-    return BookAppointmentRequest(
-        appointment: data.dec(_f$appointment), chatRoom: data.dec(_f$chatRoom));
+    return BookAppointmentRequest(appointment: data.dec(_f$appointment));
   }
 
   @override
@@ -801,9 +636,7 @@ abstract class BookAppointmentRequestCopyWith<
     $Out> implements ClassCopyWith<$R, $In, $Out> {
   BookAppointmentDtoCopyWith<$R, BookAppointmentDto, BookAppointmentDto>
       get appointment;
-  CreateChatRoomDtoCopyWith<$R, CreateChatRoomDto, CreateChatRoomDto>
-      get chatRoom;
-  $R call({BookAppointmentDto? appointment, CreateChatRoomDto? chatRoom});
+  $R call({BookAppointmentDto? appointment});
   BookAppointmentRequestCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -822,18 +655,11 @@ class _BookAppointmentRequestCopyWithImpl<$R, $Out>
       get appointment =>
           $value.appointment.copyWith.$chain((v) => call(appointment: v));
   @override
-  CreateChatRoomDtoCopyWith<$R, CreateChatRoomDto, CreateChatRoomDto>
-      get chatRoom => $value.chatRoom.copyWith.$chain((v) => call(chatRoom: v));
-  @override
-  $R call({BookAppointmentDto? appointment, CreateChatRoomDto? chatRoom}) =>
-      $apply(FieldCopyWithData({
-        if (appointment != null) #appointment: appointment,
-        if (chatRoom != null) #chatRoom: chatRoom
-      }));
+  $R call({BookAppointmentDto? appointment}) => $apply(
+      FieldCopyWithData({if (appointment != null) #appointment: appointment}));
   @override
   BookAppointmentRequest $make(CopyWithData data) => BookAppointmentRequest(
-      appointment: data.get(#appointment, or: $value.appointment),
-      chatRoom: data.get(#chatRoom, or: $value.chatRoom));
+      appointment: data.get(#appointment, or: $value.appointment));
 
   @override
   BookAppointmentRequestCopyWith<$R2, BookAppointmentRequest, $Out2>

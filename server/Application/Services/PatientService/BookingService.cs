@@ -97,11 +97,11 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
     
     
     
-    public async Task BookAppointment(BookAppointmentDto dto, CreateChatRoomDto dtoChatRoom)
+    public async Task BookAppointment(BookAppointmentDto dto)
     {
         var appointments = BookAppointmentDto.ToEntity(dto);
-        var chatRoom = CreateChatRoomDto.ToEntity(dtoChatRoom);
-        var savedId = await bookingRep.ManageAppointments(appointments, chatRoom);
+        
+        var savedId = await bookingRep.ManageAppointments(appointments);
         
         var broadcast = new BroadcastBookedSlotDto()
         {

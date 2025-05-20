@@ -26,3 +26,22 @@ class AppointmentDto with AppointmentDtoMappable {
     required this.endTime,
   });
 }
+
+@MappableClass()
+class CreateChatRoomDto with CreateChatRoomDtoMappable {
+  final String doctorId;
+  final String patientId;
+  final String topic;
+  final bool isFinished;
+  final DateTime startTime;
+  final DateTime endTime;
+
+  CreateChatRoomDto({
+    required this.doctorId,
+    required this.patientId,
+    required this.topic,
+    required this.startTime,
+    required this.isFinished,
+    required this.endTime,
+  });
+}
