@@ -7,15 +7,13 @@ class PatientInfoCard extends StatelessWidget {
   final String label4;
   final IconButton icon;
 
-
-
-  const PatientInfoCard({super.key,
+  const PatientInfoCard({
+    super.key,
     required this.label,
     required this.label2,
     required this.label3,
     required this.label4,
     required this.icon,
-
   });
 
   @override
@@ -40,7 +38,7 @@ class PatientInfoCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            label2,
+            label,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           Text(
@@ -56,12 +54,8 @@ class PatientInfoCard extends StatelessWidget {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           icon,
-
         ],
       ),
     );
   }
-
 }
-
-
