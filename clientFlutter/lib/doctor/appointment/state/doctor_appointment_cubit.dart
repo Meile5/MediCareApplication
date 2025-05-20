@@ -59,7 +59,7 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
         isFinished: false,
       );
 
-      await dataSource.saveVitals(chatroom);
+      await dataSource.createChatRoom(chatroom);
     } on SocketException catch (_) {
       emit(
         DoctorAppointmentError(

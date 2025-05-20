@@ -67,7 +67,7 @@ class DoctorAppointmentDataSource {
     }
   }
 
-  Future<void> saveVitals(CreateChatRoomDto chatroom) async {
+  Future<void> createChatRoom(CreateChatRoomDto chatroom) async {
     final url =
         "${dotenv.env['API_BASE_URL']!}/appointments/confirm/createChatRoom";
 
