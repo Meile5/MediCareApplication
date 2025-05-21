@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../common/doctor_side_navigation.dart';
 import '../../doctors_screen_header.dart';
 import '../widgets/clinic_info_section.dart';
+import '../widgets/overview_main_content.dart';
 import '../widgets/upcoming_appointments_list.dart';
 
 class DoctorOverviewScreen extends StatelessWidget {
@@ -13,7 +14,8 @@ class DoctorOverviewScreen extends StatelessWidget {
     return DoctorScaffold(
       child: Row(
         children: [
-          Expanded(child: Center(child: Text('Overview Screen'))),
+          Expanded(child: DoctorOverviewMainContent()),
+
           Container(
             width: 300,
             padding: const EdgeInsets.all(12),
