@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../../common/chat/state/chat_cubit.dart';
+import '../../../common/widgets_shared/message_display.dart';
 import 'chat_room_screen.dart';
 
 class ChatRoomListView extends StatelessWidget {
@@ -28,7 +29,7 @@ class ChatRoomListView extends StatelessWidget {
     }
 
     if (chatRooms.isEmpty) {
-      return const Center(child: Text('No chat rooms in this category.'));
+      return const MessageDisplay(message: 'No chatrooms in this category');
     }
 
     return ListView.builder(
@@ -101,7 +102,7 @@ class ChatRoomListView extends StatelessWidget {
                       content: Text(
                         'This chat room is not available yet. It starts at ${chat.startTime.toLocal()}',
                       ),
-                      duration: const Duration(seconds: 3),
+                      duration: const Duration(seconds: 2),
                     ),
                   );
                   return;

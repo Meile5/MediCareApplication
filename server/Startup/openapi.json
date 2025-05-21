@@ -462,6 +462,47 @@
         }
       }
     },
+    "/RetrieveClinicInfoForDoctor": {
+      "get": {
+        "tags": [
+          "Overview"
+        ],
+        "operationId": "Overview_RetrieveClinicInfoForDoctor",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicInfoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/RetrieveDiagnoses": {
       "post": {
         "tags": [
