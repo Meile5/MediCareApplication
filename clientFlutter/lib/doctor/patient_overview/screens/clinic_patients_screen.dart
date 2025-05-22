@@ -22,6 +22,7 @@ class _ClinicPatientsState extends State<ClinicPatients> {
   @override
   void initState() {
     super.initState();
+
     context.read<PatientsCubit>().retrievePatients("97y88098i0jnjb");
   }
 
