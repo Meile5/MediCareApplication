@@ -167,15 +167,13 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                       if (state is DiagnosesLoading) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (state is DiagnosesLoaded) {
-                        if (state.diagnoses.isEmpty) {
+                       /* if (state.diagnoses.isEmpty) {
                           return const MessageDisplay(message: 'No diagnoses');
-                        }
-
+                        }*/
                         return Expanded(
                           flex: 4,
                           child: DiagnosesInfo(
                             diagnoses: state.diagnoses,
-                            patientId: widget.patient.userid,
                           )
                         );
                       } else if (state is PatientsVitalsError) {

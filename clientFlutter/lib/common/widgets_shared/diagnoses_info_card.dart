@@ -74,7 +74,8 @@ class DiagnosesInfo extends StatelessWidget{
             ),
           ),
           Expanded(
-            child: ListView.builder(
+            child: diagnoses.isNotEmpty
+            ? ListView.builder(
               itemCount: diagnoses.length,
               itemBuilder: (context, index){
                 final diagnoses = this.diagnoses[index];
@@ -103,6 +104,8 @@ class DiagnosesInfo extends StatelessWidget{
                 );
               }
 
+            ): const Center(
+              child: Text("No diagnoses"),
             ),
           ),
         ],
