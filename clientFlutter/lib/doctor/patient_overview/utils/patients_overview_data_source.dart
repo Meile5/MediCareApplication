@@ -40,27 +40,38 @@ class PatientsOverviewDataSource {
   }
 
   Future<Uint8List> handlePdf(PatientAnalysisRequest patientAnalysisRequest) async {
-    final url = Uri.parse('http://127.0.0.1:8000/analyze');
-    final jsonPayload = jsonEncode(patientAnalysisRequest);
+    final url = Uri.parse("${dotenv.env['AI_BASE_URL']!}/analyze");
 
-    print('Sending JSON payload: $jsonPayload');
+
+    final jsonPayload = patientAnalysisRequest.toJson();
 
     final response = await http.post(
-    url,
-    headers: {'Content-Type': 'application/json'},
-    body: jsonPayload,
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonPayload,
     );
-    if (response.statusCode == 200) {
-      return response.bodyBytes;
-    } else {
-      throw Exception('Failed to fetch PDF: ${response.statusCode}');
-    }
 
-}
+    return response.bodyBytes;
+  }
+
+  Future<DiagnosesDto> saveNewDiagnosis(NewDiagnosisDto dto) async {
+    final jsonBody = json.encode(dto.toMap());
+
+    final response = await http.post(
+      Uri.parse("${dotenv.env['API_BASE_URL']!}/SaveDiagnosis"),
+      headers: {'Content-Type': 'application/json', 'Authorization': AuthPrefs.jwt!},
+      body: jsonBody,
+    );
+
+    final diagnosis = DiagnosesDtoMapper.fromMap(json.decode(response.body));
+    return diagnosis;
+
+  }
+  }
 
 
 
-}
+
 
 
 
