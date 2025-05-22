@@ -8,7 +8,6 @@ public sealed class AppOptions
 {
     [Required] public string JwtSecret { get; set; } = string.Empty!;
     [Required] public string DbConnectionString { get; set; } = string.Empty!;
-    [Required] public string Pass { get; set; } = string.Empty!;
 
     [Required]
     public string MQTT_BROKER_HOST { get; set; } = null!;
