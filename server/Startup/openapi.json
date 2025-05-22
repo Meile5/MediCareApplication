@@ -462,6 +462,47 @@
         }
       }
     },
+    "/RetrieveClinicInfoForDoctor": {
+      "get": {
+        "tags": [
+          "Overview"
+        ],
+        "operationId": "Overview_RetrieveClinicInfoForDoctor",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicInfoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/RetrieveDiagnoses": {
       "post": {
         "tags": [
@@ -695,6 +736,49 @@
             "x-position": 2
           }
         ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/confirm/createChatRoom": {
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_CreateChatRoom",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "chatRoomDto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChatRoomDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": "",
@@ -1350,9 +1434,6 @@
         "properties": {
           "appointment": {
             "$ref": "#/components/schemas/BookAppointmentDto"
-          },
-          "chatRoom": {
-            "$ref": "#/components/schemas/CreateChatRoomDto"
           }
         }
       },
@@ -1376,32 +1457,6 @@
           },
           "notes": {
             "type": "string"
-          }
-        }
-      },
-      "CreateChatRoomDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "doctorId": {
-            "type": "string"
-          },
-          "patientId": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isFinished": {
-            "type": "boolean"
           }
         }
       },
@@ -1542,6 +1597,32 @@
           "heartRate": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "CreateChatRoomDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doctorId": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isFinished": {
+            "type": "boolean"
           }
         }
       },

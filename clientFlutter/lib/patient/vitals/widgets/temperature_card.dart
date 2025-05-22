@@ -34,7 +34,7 @@ Widget temperatureCard(String value, Color color) {
         Text(
           value,
           style: TextStyle(
-            fontSize: 10,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
             color: color,
           ),

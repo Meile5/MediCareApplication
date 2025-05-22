@@ -30,7 +30,7 @@ public class BookingController (IBookingService bookingService, ISecurityService
     public async Task<ActionResult> BookAppointment([FromBody] BookAppointmentRequest dto, [FromHeader]string authorization)
     {
         securityService.VerifyJwtOrThrow(authorization);
-        await bookingService.BookAppointment(dto.Appointment, dto.ChatRoom);
+        await bookingService.BookAppointment(dto.Appointment);
         
         return Ok();
     }

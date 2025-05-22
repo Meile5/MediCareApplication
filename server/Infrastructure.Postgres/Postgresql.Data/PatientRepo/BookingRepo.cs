@@ -27,13 +27,8 @@ public class BookingRepo (MyDbContext context): IBookingRep
         await context.SaveChangesAsync(); 
         return result.Entity.Id;
     }
-    public async Task CreateChatRoom(ChatRoom chatRoom)
-    {
-        await context.ChatRooms.AddAsync(chatRoom);
-        await context.SaveChangesAsync(); 
-        
-    }
-    public async Task<string> ManageAppointments(Appointment appointment, ChatRoom chatRoom)
+    
+    public async Task<string> ManageAppointments(Appointment appointment)
     {
         await using (var transaction = await context.Database.BeginTransactionAsync())
         {
@@ -42,7 +37,7 @@ public class BookingRepo (MyDbContext context): IBookingRep
                 var id = await BookAppointment(appointment);
 
 
-                await CreateChatRoom(chatRoom);
+                
 
                 await transaction.CommitAsync();
 

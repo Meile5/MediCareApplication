@@ -18,19 +18,28 @@ class _VitalsWizardScreenState extends State<VitalsWizardScreen> {
   int _step = 0;
   double? _temperature;
   List<int> _ecgSamples = [];
-  int _heartRate = 75;
-  double _oxygenLevel = 97.0;
+  int? _heartRate = 75;
+  double? _oxygenLevel = 97.0;
   bool _electrodesReady = false;
 
   void _nextStep() => setState(() => _step++);
 
   void _saveVitals() async {
+    if (_temperature == null || _heartRate == null || _oxygenLevel == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please complete all measurements before saving.'),
+        ),
+      );
+      return;
+    }
+
     final vitals = SaveVitalsDto(
       PatientId: AuthPrefs.userId!,
       Temperature: _temperature!,
-      OxygenLevel: _oxygenLevel,
+      OxygenLevel: _oxygenLevel!,
       Ecg: _ecgSamples,
-      HeartRate: _heartRate,
+      HeartRate: _heartRate!,
     );
 
     try {
@@ -54,6 +63,10 @@ class _VitalsWizardScreenState extends State<VitalsWizardScreen> {
       if (_step == 0) _temperature = state.temperature;
       if (_step == 1 && _electrodesReady && state.ecg.isNotEmpty) {
         _ecgSamples.addAll(state.ecg);
+      }
+      if (_step == 2) {
+        if (state.heartRate != null) _heartRate = state.heartRate;
+        if (state.spo2 != null) _oxygenLevel = state.spo2!.toDouble();
       }
     }
 

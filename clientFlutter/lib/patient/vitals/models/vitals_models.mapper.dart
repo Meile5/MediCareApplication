@@ -26,12 +26,12 @@ class SaveVitalsDtoMapper extends ClassMapperBase<SaveVitalsDto> {
   static double _$Temperature(SaveVitalsDto v) => v.Temperature;
   static const Field<SaveVitalsDto, double> _f$Temperature =
       Field('Temperature', _$Temperature);
-  static double _$OxygenLevel(SaveVitalsDto v) => v.OxygenLevel;
+  static double? _$OxygenLevel(SaveVitalsDto v) => v.OxygenLevel;
   static const Field<SaveVitalsDto, double> _f$OxygenLevel =
       Field('OxygenLevel', _$OxygenLevel);
   static List<int> _$Ecg(SaveVitalsDto v) => v.Ecg;
   static const Field<SaveVitalsDto, List<int>> _f$Ecg = Field('Ecg', _$Ecg);
-  static int _$HeartRate(SaveVitalsDto v) => v.HeartRate;
+  static int? _$HeartRate(SaveVitalsDto v) => v.HeartRate;
   static const Field<SaveVitalsDto, int> _f$HeartRate =
       Field('HeartRate', _$HeartRate);
 
@@ -133,15 +133,15 @@ class _SaveVitalsDtoCopyWithImpl<$R, $Out>
   $R call(
           {String? PatientId,
           double? Temperature,
-          double? OxygenLevel,
+          Object? OxygenLevel = $none,
           List<int>? Ecg,
-          int? HeartRate}) =>
+          Object? HeartRate = $none}) =>
       $apply(FieldCopyWithData({
         if (PatientId != null) #PatientId: PatientId,
         if (Temperature != null) #Temperature: Temperature,
-        if (OxygenLevel != null) #OxygenLevel: OxygenLevel,
+        if (OxygenLevel != $none) #OxygenLevel: OxygenLevel,
         if (Ecg != null) #Ecg: Ecg,
-        if (HeartRate != null) #HeartRate: HeartRate
+        if (HeartRate != $none) #HeartRate: HeartRate
       }));
   @override
   SaveVitalsDto $make(CopyWithData data) => SaveVitalsDto(

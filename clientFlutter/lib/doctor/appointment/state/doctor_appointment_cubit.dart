@@ -73,9 +73,20 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
     }
   }
 
-  Future<void> confirmAppointment(String appointmentId) async {
+  Future<void> confirmAppointment(AppointmentDto appt) async {
     try {
-      await dataSource.confirmAppointment(appointmentId);
+      await dataSource.confirmAppointment(appt.id);
+
+      final chatroom = CreateChatRoomDto(
+        doctorId: appt.doctorId,
+        patientId: appt.patientId,
+        topic: appt.notes,
+        startTime: appt.startTime,
+        endTime: appt.endTime,
+        isFinished: false,
+      );
+
+      await dataSource.createChatRoom(chatroom);
     } on SocketException catch (_) {
       emit(
         DoctorAppointmentError(

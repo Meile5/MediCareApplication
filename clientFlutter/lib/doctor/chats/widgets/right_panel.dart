@@ -116,13 +116,14 @@ class RightPanel extends StatelessWidget {
                             _vitalTile(
                               Icons.favorite,
                               'Heart Rate',
-                              '-- bpm',
+                              '${state.heartRate?.toStringAsFixed(1)} BPM',
                               color: Colors.purple,
                             ),
                             _vitalTile(
                               Icons.air,
                               'Oxygen Saturation',
-                              '-- %',
+                              '${state.spo2?.toStringAsFixed(1)} %',
+
                               color: Colors.blueGrey,
                             ),
                           ],

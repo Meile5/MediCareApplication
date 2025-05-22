@@ -926,6 +926,12 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
       Field('temperature', _$temperature);
   static List<int> _$ecg(DeviceVitals v) => v.ecg;
   static const Field<DeviceVitals, List<int>> _f$ecg = Field('ecg', _$ecg);
+  static int? _$heartRate(DeviceVitals v) => v.heartRate;
+  static const Field<DeviceVitals, int> _f$heartRate =
+      Field('heartRate', _$heartRate, opt: true);
+  static int? _$spo2(DeviceVitals v) => v.spo2;
+  static const Field<DeviceVitals, int> _f$spo2 =
+      Field('spo2', _$spo2, opt: true);
 
   @override
   final MappableFields<DeviceVitals> fields = const {
@@ -933,6 +939,8 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
     #deviceId: _f$deviceId,
     #temperature: _f$temperature,
     #ecg: _f$ecg,
+    #heartRate: _f$heartRate,
+    #spo2: _f$spo2,
   };
 
   @override
@@ -947,7 +955,9 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
         userId: data.dec(_f$userId),
         deviceId: data.dec(_f$deviceId),
         temperature: data.dec(_f$temperature),
-        ecg: data.dec(_f$ecg));
+        ecg: data.dec(_f$ecg),
+        heartRate: data.dec(_f$heartRate),
+        spo2: data.dec(_f$spo2));
   }
 
   @override
@@ -1006,7 +1016,12 @@ abstract class DeviceVitalsCopyWith<$R, $In extends DeviceVitals, $Out>
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get ecg;
   @override
   $R call(
-      {String? userId, String? deviceId, double? temperature, List<int>? ecg});
+      {String? userId,
+      String? deviceId,
+      double? temperature,
+      List<int>? ecg,
+      int? heartRate,
+      int? spo2});
   DeviceVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -1028,19 +1043,25 @@ class _DeviceVitalsCopyWithImpl<$R, $Out>
           {String? userId,
           String? deviceId,
           double? temperature,
-          List<int>? ecg}) =>
+          List<int>? ecg,
+          Object? heartRate = $none,
+          Object? spo2 = $none}) =>
       $apply(FieldCopyWithData({
         if (userId != null) #userId: userId,
         if (deviceId != null) #deviceId: deviceId,
         if (temperature != null) #temperature: temperature,
-        if (ecg != null) #ecg: ecg
+        if (ecg != null) #ecg: ecg,
+        if (heartRate != $none) #heartRate: heartRate,
+        if (spo2 != $none) #spo2: spo2
       }));
   @override
   DeviceVitals $make(CopyWithData data) => DeviceVitals(
       userId: data.get(#userId, or: $value.userId),
       deviceId: data.get(#deviceId, or: $value.deviceId),
       temperature: data.get(#temperature, or: $value.temperature),
-      ecg: data.get(#ecg, or: $value.ecg));
+      ecg: data.get(#ecg, or: $value.ecg),
+      heartRate: data.get(#heartRate, or: $value.heartRate),
+      spo2: data.get(#spo2, or: $value.spo2));
 
   @override
   DeviceVitalsCopyWith<$R2, DeviceVitals, $Out2> $chain<$R2, $Out2>(

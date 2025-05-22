@@ -1,12 +1,14 @@
 using Application.Interfaces;
+using Application.Interfaces.IChatService;
 using Application.Interfaces.IDoctorService;
+using Application.Models.Dtos.ChatDtos;
 using Application.Models.Dtos.DoctorDto.requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Rest.Controllers.Doctor;
 
 [ApiController]
-public class AppointmentController(IAppointmentService appointmentService, ISecurityService securityService) : ControllerBase
+public class AppointmentController(IAppointmentService appointmentService, IChatService chatService, ISecurityService securityService) : ControllerBase
 {
     [Route("appointments/getAppointments")]
     [HttpGet]
@@ -24,6 +26,14 @@ public class AppointmentController(IAppointmentService appointmentService, ISecu
     {
         securityService.VerifyJwtOrThrow(authorization);
         await appointmentService.ConfirmAppointment(appointmentIdRequest.appointmentId);
+        return Ok();
+    }
+
+    [Route("appointments/confirm/createChatRoom")]
+    [HttpPost]
+   public async Task<ActionResult> CreateChatRoom([FromBody] CreateChatRoomDto chatRoomDto, [FromHeader]string authorization){
+        await chatService.CreateChatRoom(chatRoomDto);
+        securityService.VerifyJwtOrThrow(authorization);
         return Ok();
     }
 

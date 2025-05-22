@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/doctor/common/doctor_cubit.dart';
 
 class DoctorsScreenHeader extends StatelessWidget {
   const DoctorsScreenHeader({super.key});
@@ -16,28 +18,39 @@ class DoctorsScreenHeader extends StatelessWidget {
           Row(
             children: const [
               SizedBox(width: 30),
-              FaIcon(FontAwesomeIcons.userDoctor, color: Colors.blueAccent, size: 25),
+              FaIcon(
+                FontAwesomeIcons.userDoctor,
+                color: Colors.blueAccent,
+                size: 25,
+              ),
               SizedBox(width: 12),
               Text(
                 'MediCare',
                 style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.blueAccent,
-                    fontWeight: FontWeight.bold),
+                  fontSize: 20,
+                  color: Colors.blueAccent,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
-          Row(
-            children: const [
-              Text(
-                'Dr. Smith',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              SizedBox(width: 30),
-
-            ],
+          BlocBuilder<DoctorCubit, DoctorState>(
+            builder: (context, state) {
+              final doctorName = state.doctor?.name ?? 'Loading...';
+              return Row(
+                children: [
+                  Text(
+                    "Dr. " + doctorName,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  const SizedBox(width: 30),
+                ],
+              );
+            },
           ),
-
         ],
       ),
     );

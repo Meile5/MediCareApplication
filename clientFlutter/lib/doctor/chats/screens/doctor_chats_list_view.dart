@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:medicare/doctor/chats/screens/doctor_chat_room_screen.dart';
 
 import '../../../common/chat/state/chat_cubit.dart';
+import '../../../common/widgets_shared/message_display.dart';
 
 class DoctorChatsListView extends StatelessWidget {
   final List<dynamic> chatRooms;
@@ -28,7 +29,7 @@ class DoctorChatsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (chatRooms.isEmpty) {
-      return const Center(child: Text('No chat rooms in this category.'));
+      return const MessageDisplay(message: 'No chatrooms in this category');
     }
 
     return ListView.builder(
@@ -80,7 +81,6 @@ class DoctorChatsListView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    const FaIcon(Icons.chat, color: Colors.blueAccent),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
@@ -114,6 +114,7 @@ class DoctorChatsListView extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const FaIcon(Icons.chat, color: Colors.blueAccent),
                   ],
                 ),
               ),

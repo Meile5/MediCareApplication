@@ -107,7 +107,7 @@ class _DoctorAppointmentsCalendarState
                           onPressed: () {
                             context
                                 .read<DoctorAppointmentCubit>()
-                                .confirmAppointment(appt.id)
+                                .confirmAppointment(appt)
                                 .then((_) {
                                   context
                                       .read<DoctorAppointmentCubit>()
@@ -117,6 +117,7 @@ class _DoctorAppointmentsCalendarState
                           },
                           child: const Text('Confirm'),
                         ),
+
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,

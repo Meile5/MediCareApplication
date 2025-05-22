@@ -74,10 +74,18 @@ class VitalsScreen extends StatelessWidget {
                     double? temperature;
                     String temperatureStatus = 'Waiting for data...';
                     Color temperatureColor = Colors.grey;
+                    int? heartRate;
+                    int? spo2;
+                    String heartRateLabel = 'Waiting...';
+                    String spo2Label = 'Waiting...';
                     bool isDataReady = state is VitalsUpdated;
 
                     if (isDataReady) {
-                      temperature = (state as VitalsUpdated).temperature;
+                      final vitals = state as VitalsUpdated;
+                      temperature = vitals.temperature;
+                      heartRate = vitals.heartRate;
+                      spo2 = vitals.spo2;
+                      //temperature = (state as VitalsUpdated).temperature;
                       temperatureStatus = '${temperature.toStringAsFixed(1)}°C';
 
                       if (temperature > 37.5) {
@@ -87,9 +95,14 @@ class VitalsScreen extends StatelessWidget {
                       } else {
                         temperatureColor = Colors.green;
                       }
+                      heartRateLabel =
+                          heartRate != null ? '$heartRate bpm' : 'No finger';
+                      spo2Label = spo2 != null ? '$spo2%' : 'No finger';
                     } else if (state is VitalsError) {
                       temperatureStatus = 'Error: ${state.message}';
                       temperatureColor = Colors.orange;
+                      heartRateLabel = 'Error';
+                      spo2Label = 'Error';
                     }
 
                     return SingleChildScrollView(
@@ -115,10 +128,12 @@ class VitalsScreen extends StatelessWidget {
                               ecgCard(context),
                               InfoCard(
                                 icon: FontAwesomeIcons.heartbeat,
+                                label: heartRateLabel,
                                 label2: 'Heart Rate',
                               ),
                               InfoCard(
                                 icon: FontAwesomeIcons.lungs,
+                                label: spo2Label,
                                 label2: 'Blood Oxygen',
                               ),
                             ],

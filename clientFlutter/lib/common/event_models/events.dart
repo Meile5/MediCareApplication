@@ -70,11 +70,16 @@ class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
   final double temperature;
   final List<int> ecg;
 
+  final int? heartRate;
+  final int? spo2;
+
   DeviceVitals({
     required this.userId,
     required this.deviceId,
     required this.temperature,
     required this.ecg,
+    this.heartRate,
+    this.spo2,
   });
 }
 
