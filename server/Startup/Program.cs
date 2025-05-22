@@ -95,8 +95,10 @@ public class Program
 
         app.Urls.Clear();
         app.Urls.Add($"http://0.0.0.0:{appOptions.REST_PORT}");
+        
+        var publicPort = int.TryParse(Environment.GetEnvironmentVariable("PORT"), out var envPort) ? envPort : appOptions.PORT;
         app.Services.GetRequiredService<IProxyConfig>()
-            .StartProxyServer(appOptions.PORT, appOptions.REST_PORT, appOptions.WS_PORT);
+            .StartProxyServer(publicPort, appOptions.REST_PORT, appOptions.WS_PORT);
 
         app.ConfigureRestApi();
         await app.ConfigureWebsocketApi(appOptions.WS_PORT);
