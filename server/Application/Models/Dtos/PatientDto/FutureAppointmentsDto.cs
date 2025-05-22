@@ -10,6 +10,7 @@ public class FutureAppointmentsDto
     public string Status { get; set; } = null!;
     
     public string Notes { get; set; } = null!;
+    public string DoctorId { get; set; } = null!;
     
     public static FutureAppointmentsDto FromEntity(Appointment appointment)
     {
@@ -19,7 +20,8 @@ public class FutureAppointmentsDto
             StartTime = appointment.StartTime,
             EndTime = appointment.EndTime,
             Status = appointment.Status,
-            Notes = appointment.Notes
+            Notes = appointment.Notes,
+            DoctorId = appointment.DoctorId,
             
         };
     }

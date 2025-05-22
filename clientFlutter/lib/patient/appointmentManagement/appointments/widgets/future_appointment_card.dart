@@ -102,6 +102,8 @@ class AppointmentCard extends StatelessWidget {
                         final appointmentDto = CancelAppointmentDto(
                           id: appointment.id,
                           status: appointment.status,
+                          doctorId: appointment.doctorId,
+
                         );
                         context.read<AppointmentCubit>().cancelAppointment(appointmentDto);
 

@@ -22,7 +22,6 @@ public class SubscribeToVitalsEventHandler(IConnectionManager connectionManager)
     
     public class SubscribeToVitalsDto : BaseDto
     {
-        public string UserId { get; set; }
         public string DeviceId { get; set; }
     }
 }

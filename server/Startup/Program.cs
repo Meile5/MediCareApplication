@@ -11,6 +11,8 @@ using Startup.Documentation;
 using Startup.Proxy;
 using Microsoft.AspNetCore.Builder;
 using Scalar.AspNetCore;
+using Serilog;
+
 
 namespace Startup;
 
@@ -18,11 +20,43 @@ public class Program
 {
     public static async Task Main()
     {
-        var builder = WebApplication.CreateBuilder();
-        ConfigureServices(builder.Services, builder.Configuration);
-        var app = builder.Build();
-        await ConfigureMiddleware(app);
-        await app.RunAsync();
+        Log.Logger = new LoggerConfiguration()
+        .WriteTo.Console()
+        .WriteTo.File(
+            "logs/log-.txt",
+            rollingInterval: RollingInterval.Day,
+            restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error 
+        )
+        .CreateLogger();
+
+
+        try
+        {
+            Log.Information("Starting application");
+
+            var builder = WebApplication.CreateBuilder();
+
+            
+            builder.Host.UseSerilog();
+
+            ConfigureServices(builder.Services, builder.Configuration);
+
+            var app = builder.Build();
+
+            await ConfigureMiddleware(app);
+
+            await app.RunAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Application startup failed");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    
+
     }
 
     public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
@@ -34,6 +68,7 @@ public class Program
         services.AddDataSourceAndRepositories();
         services.AddWebsocketInfrastructure();
         services.RegisterMqttInfrastructure();
+        
 
         
 

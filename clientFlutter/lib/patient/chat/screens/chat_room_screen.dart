@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/patient/chat/state/chat_state.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/common/chat/state/chat_state.dart';
 
+import '../../../common/chat/state/chat_cubit.dart';
 import '../../../common/event_models/events.dart';
-import '../state/chat_cubit.dart';
 
 class ChatRoomScreen extends StatefulWidget {
   final String roomId;
@@ -25,14 +26,16 @@ class ChatRoomScreen extends StatefulWidget {
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   final TextEditingController _controller = TextEditingController();
+  late ChatCubit _chatCubit; // <- Add this
 
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<ChatCubit>();
-    cubit.clearMessages();
-    cubit.joinRoom(widget.roomId);
-    cubit.loadMessagesForRoom(widget.roomId);
+    _chatCubit = context.read<ChatCubit>();
+
+    _chatCubit.clearMessages();
+    _chatCubit.joinRoom(widget.roomId);
+    _chatCubit.loadMessagesForRoom(widget.roomId);
   }
 
   void _sendMessage() {
@@ -48,8 +51,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       message: messageText,
     );
 
-    context.read<ChatCubit>().sendMessage(message);
+    _chatCubit.sendMessage(message);
     _controller.clear();
+  }
+
+  @override
+  void dispose() {
+    _chatCubit.unsubscribeFromChat(widget.roomId);
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -81,7 +91,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color:
-                                  isOwn ? Colors.blue[100] : Colors.grey[300],
+                                  isOwn
+                                      ? Colors.blueAccent[100]
+                                      : Colors.grey[300],
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text('${msg.name}: ${msg.message}'),
@@ -113,7 +125,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.send),
+                  icon: FaIcon(
+                    FontAwesomeIcons.paperPlane,
+                    color: Colors.blueAccent,
+                  ),
                   onPressed: widget.isFinished ? null : _sendMessage,
                   color: widget.isFinished ? Colors.grey : null,
                 ),

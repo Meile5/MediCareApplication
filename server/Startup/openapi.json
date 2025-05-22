@@ -175,12 +175,20 @@
       }
     },
     "/RetrieveBookingInfo": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrieveBookingInfo",
         "parameters": [
+          {
+            "name": "doctorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -190,18 +198,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "doctorId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -260,12 +256,20 @@
       }
     },
     "/RetrieveFutureAppointments": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrieveFutureAppointments",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -275,18 +279,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "userId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -305,12 +297,20 @@
       }
     },
     "/RetrievePastAppointments": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrievePastAppointments",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -320,18 +320,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "userId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -350,7 +338,7 @@
       }
     },
     "/CancelAppointment": {
-      "post": {
+      "delete": {
         "tags": [
           "Booking"
         ],
@@ -393,12 +381,20 @@
       }
     },
     "/RetrieveDoctors": {
-      "post": {
+      "get": {
         "tags": [
           "Booking"
         ],
         "operationId": "Booking_RetrieveDoctors",
         "parameters": [
+          {
+            "name": "clinicId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -408,18 +404,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "clinicId",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -443,6 +427,47 @@
           "Overview"
         ],
         "operationId": "Overview_RetrieveClinicInfo",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicInfoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrieveClinicInfoForDoctor": {
+      "get": {
+        "tags": [
+          "Overview"
+        ],
+        "operationId": "Overview_RetrieveClinicInfoForDoctor",
         "parameters": [
           {
             "name": "userId",
@@ -524,12 +549,20 @@
       }
     },
     "/patient/getPatient": {
-      "post": {
+      "get": {
         "tags": [
           "Patient"
         ],
         "operationId": "Patient_GetPatientById",
         "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -539,18 +572,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "patientIdRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientIdRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -566,12 +587,12 @@
         }
       }
     },
-    "/device/pair": {
-      "post": {
+    "/patient/device/pair": {
+      "put": {
         "tags": [
-          "Device"
+          "Patient"
         ],
-        "operationId": "Device_PairDevice",
+        "operationId": "Patient_PairDevice",
         "parameters": [
           {
             "name": "authorization",
@@ -587,7 +608,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
+                "$ref": "#/components/schemas/PairDeviceDto"
               }
             }
           },
@@ -652,6 +673,409 @@
         }
       }
     },
+    "/appointments/getAppointments": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_GetAppoinmentsForDoctor",
+        "parameters": [
+          {
+            "name": "doctorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/confirm": {
+      "put": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_ConfirmAppointment",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/confirm/createChatRoom": {
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_CreateChatRoom",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "chatRoomDto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChatRoomDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/reject": {
+      "put": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_RejectAppointment",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/getPatientName": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "operationId": "Appointment_GetPatientsNameForAppointment",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctor/getDoctor": {
+      "get": {
+        "tags": [
+          "Doctor"
+        ],
+        "operationId": "Doctor_GetDoctorById",
+        "parameters": [
+          {
+            "name": "doctorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrievePatientsVitals": {
+      "get": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_RetrievePatientsVitals",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VitalsSignsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrievePatientsDiagnoses": {
+      "get": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_RetrievePatientsDiagnoses",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DiagnosesDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RetrievePatients": {
+      "get": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_RetrievePatients",
+        "parameters": [
+          {
+            "name": "clinicId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PatientDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SaveDiagnosis": {
+      "post": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_SaveDiagnosis",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewDiagnosisDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosesDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/chat/create": {
       "post": {
         "tags": [
@@ -696,12 +1120,20 @@
       }
     },
     "/chat/retreiveChats/patient": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
         "operationId": "Chat_GetChatsForPatient",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -711,18 +1143,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "chatRoomRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserIdChatRoomRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -739,12 +1159,20 @@
       }
     },
     "/chat/retreiveChats/doctor": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
         "operationId": "Chat_GetChatsForDoctor",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -754,18 +1182,6 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "chatRoomRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserIdChatRoomRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -782,12 +1198,20 @@
       }
     },
     "/chat/retreiveMessages": {
-      "post": {
+      "get": {
         "tags": [
           "Chat"
         ],
         "operationId": "Chat_GetChatMessages",
         "parameters": [
+          {
+            "name": "roomId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -797,18 +1221,45 @@
             "x-position": 2
           }
         ],
-        "requestBody": {
-          "x-name": "roomIdRequest",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RoomIdRequest"
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
               }
             }
+          }
+        }
+      }
+    },
+    "/chat/finish": {
+      "put": {
+        "tags": [
+          "Chat"
+        ],
+        "operationId": "Chat_FinishChat",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
           },
-          "required": true,
-          "x-position": 1
-        },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -983,9 +1434,6 @@
         "properties": {
           "appointment": {
             "$ref": "#/components/schemas/BookAppointmentDto"
-          },
-          "chatRoom": {
-            "$ref": "#/components/schemas/CreateChatRoomDto"
           }
         }
       },
@@ -1012,32 +1460,6 @@
           }
         }
       },
-      "CreateChatRoomDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "doctorId": {
-            "type": "string"
-          },
-          "patientId": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isFinished": {
-            "type": "boolean"
-          }
-        }
-      },
       "FutureAppointmentsDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1057,6 +1479,9 @@
             "type": "string"
           },
           "notes": {
+            "type": "string"
+          },
+          "doctorId": {
             "type": "string"
           }
         }
@@ -1086,6 +1511,9 @@
             "type": "string"
           },
           "status": {
+            "type": "string"
+          },
+          "doctorId": {
             "type": "string"
           }
         }
@@ -1126,28 +1554,19 @@
           }
         }
       },
-      "PatientIdRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "patientId": {
-            "type": "string"
-          }
-        }
-      },
-      "ClientWantsToPairDeviceDto": {
+      "PairDeviceDto": {
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "deviceId",
-          "pairingCode"
+          "patientId",
+          "deviceId"
         ],
         "properties": {
-          "deviceId": {
+          "patientId": {
             "type": "string",
             "minLength": 1
           },
-          "pairingCode": {
+          "deviceId": {
             "type": "string",
             "minLength": 1
           }
@@ -1181,20 +1600,125 @@
           }
         }
       },
-      "UserIdChatRoomRequest": {
+      "CreateChatRoomDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "userId": {
+          "doctorId": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isFinished": {
+            "type": "boolean"
+          }
+        }
+      },
+      "VitalsSignsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "oxygenLevel": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "bodyTemperature": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "heartRate": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "DiagnosesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "patientDiagnosis": {
+            "type": "string"
+          },
+          "treatment": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "PatientDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "age": {
+            "type": "string"
+          },
+          "bloodtype": {
+            "type": "string"
+          },
+          "allergies": {
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumber": {
+            "type": "string"
+          },
+          "address": {
             "type": "string"
           }
         }
       },
-      "RoomIdRequest": {
+      "NewDiagnosisDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "roomId": {
+          "patientDiagnosis": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "treatment": {
+            "type": "string",
+            "nullable": true
+          },
+          "doctorId": {
             "type": "string"
           }
         }
@@ -1338,9 +1862,22 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "userId": {
+              "deviceId": {
                 "type": "string"
-              },
+              }
+            }
+          }
+        ]
+      },
+      "UnsubscribeFromVitalsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
               "deviceId": {
                 "type": "string"
               }
@@ -1367,6 +1904,22 @@
                 "type": "string"
               },
               "message": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "UnsubscribeFromChatDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "roomId": {
                 "type": "string"
               }
             }
@@ -1404,7 +1957,9 @@
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
           "SubscribeToVitalsDto",
+          "UnsubscribeFromVitalsDto",
           "ChatMessageDto",
+          "UnsubscribeFromChatDto",
           "ServerMessageDto"
         ]
       }

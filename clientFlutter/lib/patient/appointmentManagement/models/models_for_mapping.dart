@@ -10,17 +10,15 @@ class BookAppointmentDto with BookAppointmentDtoMappable {
   final String doctorId;
   final String notes;
 
-
-  BookAppointmentDto( {
+  BookAppointmentDto({
     required this.startTime,
     required this.endTime,
     required this.patientId,
     required this.doctorId,
     required this.notes,
-
   });
-
 }
+
 @MappableClass()
 class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
   final String id;
@@ -28,6 +26,7 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
   final DateTime endTime;
   final String status;
   final String notes;
+  final String doctorId;
 
   FutureAppointmentsDto({
     required this.id,
@@ -35,6 +34,7 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
     required this.endTime,
     required this.status,
     required this.notes,
+    required this.doctorId,
   });
 }
 
@@ -44,31 +44,25 @@ class PastAppointmentsDto with PastAppointmentsDtoMappable {
   final DateTime endTime;
   final String notes;
 
-
-
   PastAppointmentsDto({
     required this.startTime,
     required this.endTime,
     required this.notes,
-
   });
 }
-
 
 @MappableClass()
 class CancelAppointmentDto with CancelAppointmentDtoMappable {
   final String id;
   final String status;
-
+  final String doctorId;
 
   CancelAppointmentDto({
     required this.id,
     required this.status,
+    required this.doctorId,
   });
-
-
 }
-
 
 @MappableClass()
 class CreateChatRoomDto with CreateChatRoomDtoMappable {
@@ -92,14 +86,9 @@ class CreateChatRoomDto with CreateChatRoomDtoMappable {
 @MappableClass()
 class BookAppointmentRequest with BookAppointmentRequestMappable {
   final BookAppointmentDto appointment;
-  final CreateChatRoomDto chatRoom;
 
-  BookAppointmentRequest({
-    required this.appointment,
-    required this.chatRoom,
-  });
+  BookAppointmentRequest({required this.appointment});
 }
-
 
 @MappableClass()
 class ClinicDoctorDto with ClinicDoctorDtoMappable {
@@ -119,17 +108,5 @@ class AvailabilityDto with AvailabilityDtoMappable {
   final DateTime startTime;
   final DateTime endTime;
 
-  AvailabilityDto({
-    required this.startTime,
-    required this.endTime,
-
-  });
-
+  AvailabilityDto({required this.startTime, required this.endTime});
 }
-
-
-
-
-
-
-

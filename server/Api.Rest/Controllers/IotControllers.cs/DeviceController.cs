@@ -19,17 +19,7 @@ public class DeviceController : ControllerBase
     }
 
     
-    [Route("device/pair")]
-    [HttpPost]
-
-    public async Task<IActionResult> PairDevice([FromBody] ClientWantsToPairDeviceDto request, [FromHeader]string authorization){
-        await _mqttPublisher.Publish(request);
-        _securityService.VerifyJwtOrThrow(authorization);
-        return Ok(new 
-        { 
-            message = $"Assigned DeviceId {request.DeviceId} to pairingCode {request.PairingCode} successfully."
-        });
-    }
+    
 
     [Route("device/saveVitals")]
     [HttpPost]

@@ -47,7 +47,6 @@ class _FutureAppointmentsState extends State<PastAppointments> {
               },
             );}
           } else if (state is AppointmentError) {
-            context.showErrorSnackBar(message: 'Error: ${state.message}');
             return const MessageDisplay(message: 'Failed to load appointments.');
           } else {
             return MessageDisplay(message: (ApplicationMessages.generalError.message));

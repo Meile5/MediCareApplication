@@ -4,9 +4,9 @@ import 'package:medicare/common/auth/auth_state.dart';
 import 'package:medicare/patient/common/patient_cubit.dart';
 
 import '../../../common/auth/auth_cubit.dart';
+import '../../../common/chat/state/chat_room_state.dart';
+import '../../../common/chat/utils/chat_data_source.dart';
 import '../../common/app_nav_bar.dart';
-import '../state/chat_room_state.dart';
-import '../utils/chat_data_source.dart';
 import '../utils/chat_navigation.dart';
 import 'chat_room_list_view.dart';
 

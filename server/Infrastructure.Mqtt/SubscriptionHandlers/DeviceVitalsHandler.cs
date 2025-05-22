@@ -29,23 +29,23 @@ public class DeviceVitalsHandler : IMqttEventHandler
             });
 
             if (payloadObj == null)
-            {
                 return;
-            }
 
             var deviceVitals = new DeviceVitalsDto
             {
                 UserId = deviceId,
                 DeviceId = deviceId,
                 Temperature = payloadObj.Temperature,
-                Ecg = payloadObj.Ecg
+                Ecg = payloadObj.Ecg,
+                HeartRate = payloadObj.HeartRate,
+                Spo2 = payloadObj.SpO2
             };
 
             await _connectionManager.BroadcastToTopic(deviceId, deviceVitals);
         }
-        catch
+        catch (Exception ex)
         {
-            
+            // Optional: log ex or handle error
         }
     }
 
@@ -53,6 +53,8 @@ public class DeviceVitalsHandler : IMqttEventHandler
     {
         public double Temperature { get; set; }
         public List<int> Ecg { get; set; } = new();
-        
+
+        public int? HeartRate { get; set; }
+        public int? SpO2 { get; set; }
     }
 }

@@ -9,4 +9,9 @@ public class PatientService(IPatientRep patientRep) : IPatientService
     {
         return await patientRep.GetPatientById(patientId);
     }
+
+    public async Task PairDevice(string patientId, string deviceId)
+    {
+        await patientRep.PairDeviceWithPatient(patientId, deviceId);
+    }
 }

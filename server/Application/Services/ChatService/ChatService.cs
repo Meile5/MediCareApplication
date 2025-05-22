@@ -14,6 +14,11 @@ public class ChatService(IChatRep chatRep, IConnectionManager connectionManager)
         await chatRep.CreateChatRoom(chatRoom);
     }
 
+    public async Task FinishChat(string chatRoomId)
+    {
+        await chatRep.FinishChat(chatRoomId);
+    }
+
     public async Task<List<ChatRoom>> GetChatRoomsForDoctor(string doctorId)
     {
         return await chatRep.GetChatRoomsForDoctor(doctorId);

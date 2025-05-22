@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:side_navigation/side_navigation.dart';
 
 class AppColors {
   static const Color primary = Colors.blueAccent;
@@ -18,6 +19,15 @@ class AppTheme {
         surface: AppColors.background,
       ),
       scaffoldBackgroundColor: AppColors.background,
+
+      appBarTheme: AppBarTheme(
+       // backgroundColor: AppColors.primary,
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        )
+      ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -49,6 +59,17 @@ class AppTheme {
         labelStyle: TextStyle(color: Colors.grey[700]),
         floatingLabelStyle: TextStyle(color: AppColors.primary),
       ),
+      searchBarTheme:
+        SearchBarThemeData(
+          backgroundColor: WidgetStatePropertyAll(Colors.white),
+          elevation: WidgetStateProperty.all(1),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          )
+        ),),
+
+
+
 
       // Add more component themes here
     );
