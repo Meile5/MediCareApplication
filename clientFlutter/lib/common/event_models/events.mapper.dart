@@ -15,6 +15,7 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
       MapperContainer.globals.use(_instance = BaseEventMapper._());
       JoinRoomMapper.ensureInitialized();
       JoinDoctorRoomMapper.ensureInitialized();
+      CancelledAppointmentMapper.ensureInitialized();
       BroadcastBookedSlotMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
@@ -287,6 +288,126 @@ class _JoinDoctorRoomCopyWithImpl<$R, $Out>
   JoinDoctorRoomCopyWith<$R2, JoinDoctorRoom, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _JoinDoctorRoomCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class CancelledAppointmentMapper
+    extends SubClassMapperBase<CancelledAppointment> {
+  CancelledAppointmentMapper._();
+
+  static CancelledAppointmentMapper? _instance;
+  static CancelledAppointmentMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = CancelledAppointmentMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'CancelledAppointment';
+
+  static String _$appointmentId(CancelledAppointment v) => v.appointmentId;
+  static const Field<CancelledAppointment, String> _f$appointmentId =
+      Field('appointmentId', _$appointmentId);
+
+  @override
+  final MappableFields<CancelledAppointment> fields = const {
+    #appointmentId: _f$appointmentId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "CancelledAppointment";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static CancelledAppointment _instantiate(DecodingData data) {
+    return CancelledAppointment(appointmentId: data.dec(_f$appointmentId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static CancelledAppointment fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<CancelledAppointment>(map);
+  }
+
+  static CancelledAppointment fromJson(String json) {
+    return ensureInitialized().decodeJson<CancelledAppointment>(json);
+  }
+}
+
+mixin CancelledAppointmentMappable {
+  String toJson() {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .encodeJson<CancelledAppointment>(this as CancelledAppointment);
+  }
+
+  Map<String, dynamic> toMap() {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .encodeMap<CancelledAppointment>(this as CancelledAppointment);
+  }
+
+  CancelledAppointmentCopyWith<CancelledAppointment, CancelledAppointment,
+      CancelledAppointment> get copyWith => _CancelledAppointmentCopyWithImpl<
+          CancelledAppointment, CancelledAppointment>(
+      this as CancelledAppointment, $identity, $identity);
+  @override
+  String toString() {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .stringifyValue(this as CancelledAppointment);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .equalsValue(this as CancelledAppointment, other);
+  }
+
+  @override
+  int get hashCode {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .hashValue(this as CancelledAppointment);
+  }
+}
+
+extension CancelledAppointmentValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, CancelledAppointment, $Out> {
+  CancelledAppointmentCopyWith<$R, CancelledAppointment, $Out>
+      get $asCancelledAppointment => $base.as(
+          (v, t, t2) => _CancelledAppointmentCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class CancelledAppointmentCopyWith<
+    $R,
+    $In extends CancelledAppointment,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? appointmentId});
+  CancelledAppointmentCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _CancelledAppointmentCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, CancelledAppointment, $Out>
+    implements CancelledAppointmentCopyWith<$R, CancelledAppointment, $Out> {
+  _CancelledAppointmentCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<CancelledAppointment> $mapper =
+      CancelledAppointmentMapper.ensureInitialized();
+  @override
+  $R call({String? appointmentId}) => $apply(FieldCopyWithData(
+      {if (appointmentId != null) #appointmentId: appointmentId}));
+  @override
+  CancelledAppointment $make(CopyWithData data) => CancelledAppointment(
+      appointmentId: data.get(#appointmentId, or: $value.appointmentId));
+
+  @override
+  CancelledAppointmentCopyWith<$R2, CancelledAppointment, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _CancelledAppointmentCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class BroadcastBookedSlotMapper

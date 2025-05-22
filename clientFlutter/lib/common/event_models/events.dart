@@ -19,6 +19,13 @@ class JoinDoctorRoom extends BaseEvent with JoinDoctorRoomMappable {
   JoinDoctorRoom({required this.roomId});
 }
 
+@MappableClass(discriminatorValue: "CancelledAppointment")
+class CancelledAppointment extends BaseEvent with CancelledAppointmentMappable {
+  final String appointmentId;
+
+  CancelledAppointment({required this.appointmentId});
+}
+
 @MappableClass(discriminatorValue: "BroadcastBookedSlot")
 class BroadcastBookedSlot extends BaseEvent with BroadcastBookedSlotMappable {
   final String id;

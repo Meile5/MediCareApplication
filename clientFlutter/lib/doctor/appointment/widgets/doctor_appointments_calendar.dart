@@ -6,6 +6,8 @@ import 'package:medicare/doctor/appointment/state/doctor_appointment_cubit.dart'
 import 'package:medicare/doctor/appointment/state/doctor_appointment_state.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../../common/doctor_cubit.dart';
+
 class DoctorAppointmentsCalendar extends StatefulWidget {
   const DoctorAppointmentsCalendar({Key? key}) : super(key: key);
 
@@ -20,6 +22,14 @@ class _DoctorAppointmentsCalendarState
   void initState() {
     super.initState();
     context.read<DoctorAppointmentCubit>().getDoctorAppointments();
+    final state = context.read<DoctorCubit>().state;
+    final doctor = state.doctor;
+    if (doctor != null) {
+      final doctorId = doctor.doctorid;
+      context.read<DoctorAppointmentCubit>().joinRoom(doctorId);
+
+    }
+
   }
 
   @override
