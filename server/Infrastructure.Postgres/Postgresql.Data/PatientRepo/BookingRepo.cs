@@ -25,7 +25,6 @@ public class BookingRepo (MyDbContext context): IBookingRep
     {
         var result = await context.Appointments.AddAsync(appointment);
         await context.SaveChangesAsync(); 
-
         return result.Entity.Id;
     }
     public async Task CreateChatRoom(ChatRoom chatRoom)

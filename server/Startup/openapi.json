@@ -841,6 +841,14 @@
               "type": "string"
             },
             "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
           }
         ],
         "responses": {
@@ -874,6 +882,14 @@
               "type": "string"
             },
             "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
           }
         ],
         "responses": {
@@ -907,6 +923,14 @@
               "type": "string"
             },
             "x-position": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
           }
         ],
         "responses": {
@@ -919,6 +943,48 @@
                   "items": {
                     "$ref": "#/components/schemas/PatientDto"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SaveDiagnosis": {
+      "post": {
+        "tags": [
+          "OverviewPatients"
+        ],
+        "operationId": "OverviewPatients_SaveDiagnosis",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewDiagnosisDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosesDto"
                 }
               }
             }
@@ -1359,6 +1425,9 @@
           },
           "notes": {
             "type": "string"
+          },
+          "doctorId": {
+            "type": "string"
           }
         }
       },
@@ -1387,6 +1456,9 @@
             "type": "string"
           },
           "status": {
+            "type": "string"
+          },
+          "doctorId": {
             "type": "string"
           }
         }
@@ -1547,6 +1619,25 @@
             "type": "string"
           },
           "address": {
+            "type": "string"
+          }
+        }
+      },
+      "NewDiagnosisDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "patientDiagnosis": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "treatment": {
+            "type": "string",
+            "nullable": true
+          },
+          "doctorId": {
             "type": "string"
           }
         }

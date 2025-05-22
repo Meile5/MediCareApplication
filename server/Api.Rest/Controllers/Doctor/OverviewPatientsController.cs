@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Interfaces.IDoctorService;
+using Application.Models.Dtos.DoctorDto.requests;
 using Application.Models.Dtos.DoctorDto.response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,10 @@ public class OverviewPatientsController  (IOverviewPatientsService service, ISec
     
     [Route(RetrievePatientsVitalsRoute)]
     [HttpGet]
-    public async Task<ActionResult<List<VitalsSignsDto>>>RetrievePatientsVitals([FromQuery] string patientId /*[FromHeader]string authorization*/) 
+    public async Task<ActionResult<List<VitalsSignsDto>>>RetrievePatientsVitals([FromQuery] string patientId, [FromHeader]string authorization) 
     
     { 
-        //securityService.VerifyJwtOrThrow(authorization);
+        securityService.VerifyJwtOrThrow(authorization);
         var response = await service.RetrieveVitalSigns(patientId);
         return Ok(response);
     }
@@ -22,10 +23,10 @@ public class OverviewPatientsController  (IOverviewPatientsService service, ISec
     
     [Route(RetrievePatientsDiagnosesRoute)]
     [HttpGet]
-    public async Task<ActionResult<List<DiagnosesDto>>>RetrievePatientsDiagnoses([FromQuery] string patientId /*[FromHeader]string authorization*/) 
+    public async Task<ActionResult<List<DiagnosesDto>>>RetrievePatientsDiagnoses([FromQuery] string patientId, [FromHeader]string authorization) 
     
     { 
-       // securityService.VerifyJwtOrThrow(authorization);
+        securityService.VerifyJwtOrThrow(authorization);
         var response = await service.RetrieveDiagnoses(patientId);
         return Ok(response);
     }
@@ -34,11 +35,23 @@ public class OverviewPatientsController  (IOverviewPatientsService service, ISec
     
     [Route(RetrievePatientsRoute)]
     [HttpGet]
-    public async Task<ActionResult<List<PatientDto>>>RetrievePatients([FromQuery] string clinicId /*[FromHeader]string authorization*/) 
+    public async Task<ActionResult<List<PatientDto>>>RetrievePatients([FromQuery] string clinicId, [FromHeader]string authorization) 
     
     { 
-       // securityService.VerifyJwtOrThrow(authorization);
+        securityService.VerifyJwtOrThrow(authorization);
         var response = await service.RetrievePatients(clinicId);
+        return Ok(response);
+    }
+    
+    public const string SaveDiagnosesRoute = nameof(SaveDiagnosis);
+    
+    [Route(SaveDiagnosesRoute)]
+    [HttpPost]
+    public async Task<ActionResult<DiagnosesDto>>SaveDiagnosis([FromBody] NewDiagnosisDto dto,[FromHeader]string authorization) 
+    
+    { 
+        securityService.VerifyJwtOrThrow(authorization);
+        var response = await service.SaveNewDiagnosis(dto);
         return Ok(response);
     }
 

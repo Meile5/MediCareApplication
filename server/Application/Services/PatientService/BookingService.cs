@@ -3,6 +3,7 @@ using Application.Interfaces.Infrastructure.Postgres.PatientRep;
 using Application.Interfaces.Infrastructure.Websocket;
 using Application.Interfaces.IPatientService;
 using Application.Models.Dtos.ChatDtos;
+using Application.Models.Dtos.DoctorDto.response;
 using Application.Models.Dtos.PatientDto;
 using Application.Models.Dtos.PatientDto.response;
 using Core.Domain.Entities;
@@ -135,6 +136,12 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
     public async Task CancelAppointment(CancelAppointmentDto dto)
     {
         await bookingRep.CancelAppointment(dto.Id);
+        var cancelledAppointment = new CancelledAppointment()
+        {
+            AppointmentId = dto.Id
+        };
+
+        await connectionManager.BroadcastToTopic(dto.DoctorId, cancelledAppointment);
     }
 
     public async Task<List<ClinicDoctorDto>> RetrieveClinicDoctors(string clinicId)

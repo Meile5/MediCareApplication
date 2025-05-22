@@ -37,4 +37,13 @@ public class OverviewPatientsRepo (MyDbContext context): IOverviewPatientsRepo
         
         
     }
+
+    public async Task<Diagnosis> SaveNewDiagnosis(Diagnosis diagnosis)
+    {
+        var savedDiagnosis = await context.Diagnoses
+            .AddAsync(diagnosis);
+        await context.SaveChangesAsync();
+        return savedDiagnosis.Entity;
+        
+    }
 }

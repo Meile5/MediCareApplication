@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.IDoctorService;
 using Application.Interfaces.Infrastructure.Postgres.DoctorRep;
+using Application.Models.Dtos.DoctorDto.requests;
 using Application.Models.Dtos.DoctorDto.response;
 
 namespace Application.Services.DoctorService;
@@ -32,5 +33,12 @@ public class OverviewPatientsService (IOverviewPatientsRepo overviewRepo): IOver
             .Select(PatientDto.FromEntity)
             .ToList();
         return patientDto;
+    }
+
+    public async Task<DiagnosesDto> SaveNewDiagnosis(NewDiagnosisDto dto)
+    {
+        var saveDiagnosis = await overviewRepo.SaveNewDiagnosis(NewDiagnosisDto.ToEntity(dto));
+        var diagnosisDto = DiagnosesDto.FromEntity(saveDiagnosis);
+        return diagnosisDto;
     }
 }
