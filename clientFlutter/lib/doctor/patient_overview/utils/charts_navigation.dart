@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/line_chart.dart';
+
 class ChartsNavigation extends StatefulWidget {
   final List<MapEntry<DateTime, double>> temperatureDate;
   final List<MapEntry<DateTime, double>> heartRateDate;
@@ -24,7 +25,7 @@ class _ChartsNavigationState extends State<ChartsNavigation> {
       length: 3,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.55,
-       // width: MediaQuery.of(context).size.width * 0.6,
+        // width: MediaQuery.of(context).size.width * 0.6,
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -43,11 +44,7 @@ class _ChartsNavigationState extends State<ChartsNavigation> {
           children: [
             Container(
               alignment: Alignment.center,
-              child: Text(
-               "Vitals",
-                style: TextStyle(fontSize: 18),
-
-               ),
+              child: Text("Vitals", style: TextStyle(fontSize: 18)),
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -68,7 +65,7 @@ class _ChartsNavigationState extends State<ChartsNavigation> {
                 tabs: [
                   Tab(text: 'Temperature'),
                   Tab(text: 'HeartRate'),
-                  Tab(text: 'OxygenLevel')
+                  Tab(text: 'OxygenLevel'),
                 ],
               ),
             ),
@@ -76,25 +73,28 @@ class _ChartsNavigationState extends State<ChartsNavigation> {
               child: TabBarView(
                 children: [
                   ReusableLineChart(
-                      vitalsData: widget.temperatureDate,
-                      minY: 35,
-                      maxY: 40,
-                      showArea: true,
-                      unit: "°C"),
+                    vitalsData: widget.temperatureDate,
+                    minY: 35,
+                    maxY: 40,
+                    showArea: true,
+                    unit: "°C",
+                  ),
 
                   ReusableLineChart(
-                      vitalsData: widget.heartRateDate,
-                      minY: 50,
-                      maxY: 120,
-                      showArea: true,
-                      unit: "bpm"),
+                    vitalsData: widget.heartRateDate,
+                    minY: 50,
+                    maxY: 120,
+                    showArea: true,
+                    unit: "bpm",
+                  ),
 
                   ReusableLineChart(
                     vitalsData: widget.oxygenLevelDate,
                     maxY: 100,
                     minY: 70,
                     showArea: true,
-                    unit: "%",)
+                    unit: "%",
+                  ),
                 ],
               ),
             ),

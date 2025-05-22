@@ -86,9 +86,8 @@ class CreateChatRoomDto with CreateChatRoomDtoMappable {
 @MappableClass()
 class BookAppointmentRequest with BookAppointmentRequestMappable {
   final BookAppointmentDto appointment;
-  final CreateChatRoomDto chatRoom;
 
-  BookAppointmentRequest({required this.appointment, required this.chatRoom});
+  BookAppointmentRequest({required this.appointment});
 }
 
 @MappableClass()
@@ -111,4 +110,3 @@ class AvailabilityDto with AvailabilityDtoMappable {
 
   AvailabilityDto({required this.startTime, required this.endTime});
 }
-  BookAppointmentRequest({required this.appointment});
