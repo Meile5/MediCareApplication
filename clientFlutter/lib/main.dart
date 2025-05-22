@@ -128,6 +128,7 @@ class _MyAppState extends State<MyApp> {
           create:
               (context) => DoctorAppointmentCubit(
                 dataSource: DoctorAppointmentDataSource(),
+                webSocketService: webSocketService,
               ),
         ),
         BlocProvider(

@@ -28,6 +28,7 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
   final DateTime endTime;
   final String status;
   final String notes;
+  final String doctorId;
 
   FutureAppointmentsDto({
     required this.id,
@@ -35,6 +36,7 @@ class FutureAppointmentsDto with FutureAppointmentsDtoMappable {
     required this.endTime,
     required this.status,
     required this.notes,
+    required this.doctorId,
   });
 }
 
@@ -59,11 +61,13 @@ class PastAppointmentsDto with PastAppointmentsDtoMappable {
 class CancelAppointmentDto with CancelAppointmentDtoMappable {
   final String id;
   final String status;
+  final String doctorId;
 
 
   CancelAppointmentDto({
     required this.id,
     required this.status,
+    required this.doctorId,
   });
 
 

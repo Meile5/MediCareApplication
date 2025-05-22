@@ -9,11 +9,10 @@ import '../../../errorHandling/application_messages.dart';
 import '../../../patient/common/patient_model.dart';
 import '../models/patients_overview_models.dart';
 import '../state/patients_diagnoses_cubit.dart';
-import '../state/patients_diagnoses_cubit.dart';
 import '../state/patients_diagnoses_state.dart';
 import '../state/patients_vitals_state.dart';
 import '../utils/charts_navigation.dart';
-import '../widgets/diagnoses_info_card.dart';
+import '../../../common/widgets_shared/diagnoses_info_card.dart';
 import '../widgets/patient_info_card.dart';
 import 'analysis_screen.dart';
 
@@ -34,8 +33,8 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<PatientsVitalsCubit>().retrievePatientsVitals("0fe65aae-a3ac-4d11-8abc-cc09bfde83ae");
-    context.read<DiagnosesCubit>().retrieveDiagnoses("0fe65aae-a3ac-4d11-8abc-cc09bfde83ae");
+    context.read<PatientsVitalsCubit>().retrievePatientsVitals(widget.patient.userid);
+    context.read<DiagnosesCubit>().retrieveDiagnoses(widget.patient.userid);
 
   }
   PatientAnalysisRequest? _analysisRequest;
@@ -58,34 +57,34 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
     }
     return DoctorScaffold(
         child:Container(
-          width: MediaQuery.of(context).size.width * 0.3,
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               Container(
                   alignment: Alignment.topLeft,
+                  width: MediaQuery.of(context).size.width * 0.7,
                   child: Row(
                     children: [
                       Text(
-                          "${widget.patient.name} ${widget.patient.surname}",
-                          style: const TextStyle(
-                            fontSize: 20,)),
+                            "${widget.patient.name} ${widget.patient.surname}",
+                            style: const TextStyle(
+                              fontSize: 20,)),
+                      const SizedBox(width: 20),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AnalysisScreen(request: _analysisRequest!),
 
-                      IconButton(
-                        icon: FaIcon(FontAwesomeIcons.ellipsis, color: Colors.blueAccent),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AnalysisScreen(request: _analysisRequest!),
-
-                            ),
-                          );
-                        },
-                      )
+                              ),
+                            );
+                          }, child: Text("Generate Analysis"),
+                        ),
                     ],
                   )
               ),
+              const SizedBox(height: 30),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -101,7 +100,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                     Expanded(
                       flex: 3,
                       child: InfoCard(
-                          icon: FontAwesomeIcons.droplet, label: 'My blood type', label2: widget.patient.bloodtype),
+                          icon: FontAwesomeIcons.droplet, label: 'Blood type', label2: widget.patient.bloodtype),
                     ),
                     const Spacer(flex: 1),
                     Expanded(
@@ -176,6 +175,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                           flex: 4,
                           child: DiagnosesInfo(
                             diagnoses: state.diagnoses,
+                            patientId: widget.patient.userid,
                           )
                         );
                       } else if (state is PatientsVitalsError) {

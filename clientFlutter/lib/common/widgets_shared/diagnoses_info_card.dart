@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-import '../models/patients_overview_models.dart';
-import 'add_diagnoses_dialog.dart';
+import '../../doctor/patient_overview/models/patients_overview_models.dart';
+import '../../doctor/patient_overview/widgets/add_diagnoses_dialog.dart';
 
 class DiagnosesInfo extends StatelessWidget{
   final List<DiagnosesDto> diagnoses;
+  final bool showAddButton;
+  final String? patientId;
+
 
   const DiagnosesInfo(
       {super.key,
         required this.diagnoses,
-        this,showAddButton = true,
+        this.patientId,
+        this.showAddButton = true,
       });
   String formatDate(DateTime? date) {
     if (date == null) return 'Invalid date';
@@ -54,15 +58,19 @@ class DiagnosesInfo extends StatelessWidget{
                   style: TextStyle(fontSize: 18),
 
                 ),
-                IconButton(
-                    onPressed: (){
-                      showDialog(
-                        context: context,
-                        builder: (context) => const DiagnosesDialog(),
-                      );
-                    },
-                    icon: FaIcon(FontAwesomeIcons.circlePlus)
-                )],
+               if (showAddButton)
+                 IconButton(
+                     onPressed: (){
+                       showDialog(
+                         context: context,
+                         builder: (context) => DiagnosesDialog(
+                           patientId: patientId!,
+                         ),
+                       );
+                     },
+                     icon: FaIcon(FontAwesomeIcons.circlePlus)
+                 ),
+                 ],
             ),
           ),
           Expanded(

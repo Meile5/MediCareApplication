@@ -184,6 +184,9 @@ class FutureAppointmentsDtoMapper
   static String _$notes(FutureAppointmentsDto v) => v.notes;
   static const Field<FutureAppointmentsDto, String> _f$notes =
       Field('notes', _$notes);
+  static String _$doctorId(FutureAppointmentsDto v) => v.doctorId;
+  static const Field<FutureAppointmentsDto, String> _f$doctorId =
+      Field('doctorId', _$doctorId);
 
   @override
   final MappableFields<FutureAppointmentsDto> fields = const {
@@ -192,6 +195,7 @@ class FutureAppointmentsDtoMapper
     #endTime: _f$endTime,
     #status: _f$status,
     #notes: _f$notes,
+    #doctorId: _f$doctorId,
   };
 
   static FutureAppointmentsDto _instantiate(DecodingData data) {
@@ -200,7 +204,8 @@ class FutureAppointmentsDtoMapper
         startTime: data.dec(_f$startTime),
         endTime: data.dec(_f$endTime),
         status: data.dec(_f$status),
-        notes: data.dec(_f$notes));
+        notes: data.dec(_f$notes),
+        doctorId: data.dec(_f$doctorId));
   }
 
   @override
@@ -265,7 +270,8 @@ abstract class FutureAppointmentsDtoCopyWith<
       DateTime? startTime,
       DateTime? endTime,
       String? status,
-      String? notes});
+      String? notes,
+      String? doctorId});
   FutureAppointmentsDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -284,13 +290,15 @@ class _FutureAppointmentsDtoCopyWithImpl<$R, $Out>
           DateTime? startTime,
           DateTime? endTime,
           String? status,
-          String? notes}) =>
+          String? notes,
+          String? doctorId}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (startTime != null) #startTime: startTime,
         if (endTime != null) #endTime: endTime,
         if (status != null) #status: status,
-        if (notes != null) #notes: notes
+        if (notes != null) #notes: notes,
+        if (doctorId != null) #doctorId: doctorId
       }));
   @override
   FutureAppointmentsDto $make(CopyWithData data) => FutureAppointmentsDto(
@@ -298,7 +306,8 @@ class _FutureAppointmentsDtoCopyWithImpl<$R, $Out>
       startTime: data.get(#startTime, or: $value.startTime),
       endTime: data.get(#endTime, or: $value.endTime),
       status: data.get(#status, or: $value.status),
-      notes: data.get(#notes, or: $value.notes));
+      notes: data.get(#notes, or: $value.notes),
+      doctorId: data.get(#doctorId, or: $value.doctorId));
 
   @override
   FutureAppointmentsDtoCopyWith<$R2, FutureAppointmentsDto, $Out2>
@@ -450,16 +459,22 @@ class CancelAppointmentDtoMapper extends ClassMapperBase<CancelAppointmentDto> {
   static String _$status(CancelAppointmentDto v) => v.status;
   static const Field<CancelAppointmentDto, String> _f$status =
       Field('status', _$status);
+  static String _$doctorId(CancelAppointmentDto v) => v.doctorId;
+  static const Field<CancelAppointmentDto, String> _f$doctorId =
+      Field('doctorId', _$doctorId);
 
   @override
   final MappableFields<CancelAppointmentDto> fields = const {
     #id: _f$id,
     #status: _f$status,
+    #doctorId: _f$doctorId,
   };
 
   static CancelAppointmentDto _instantiate(DecodingData data) {
     return CancelAppointmentDto(
-        id: data.dec(_f$id), status: data.dec(_f$status));
+        id: data.dec(_f$id),
+        status: data.dec(_f$status),
+        doctorId: data.dec(_f$doctorId));
   }
 
   @override
@@ -519,7 +534,7 @@ abstract class CancelAppointmentDtoCopyWith<
     $R,
     $In extends CancelAppointmentDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? id, String? status});
+  $R call({String? id, String? status, String? doctorId});
   CancelAppointmentDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -533,12 +548,17 @@ class _CancelAppointmentDtoCopyWithImpl<$R, $Out>
   late final ClassMapperBase<CancelAppointmentDto> $mapper =
       CancelAppointmentDtoMapper.ensureInitialized();
   @override
-  $R call({String? id, String? status}) => $apply(FieldCopyWithData(
-      {if (id != null) #id: id, if (status != null) #status: status}));
+  $R call({String? id, String? status, String? doctorId}) =>
+      $apply(FieldCopyWithData({
+        if (id != null) #id: id,
+        if (status != null) #status: status,
+        if (doctorId != null) #doctorId: doctorId
+      }));
   @override
   CancelAppointmentDto $make(CopyWithData data) => CancelAppointmentDto(
       id: data.get(#id, or: $value.id),
-      status: data.get(#status, or: $value.status));
+      status: data.get(#status, or: $value.status),
+      doctorId: data.get(#doctorId, or: $value.doctorId));
 
   @override
   CancelAppointmentDtoCopyWith<$R2, CancelAppointmentDto, $Out2>

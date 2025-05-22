@@ -23,5 +23,21 @@ class DiagnosesCubit extends Cubit<DiagnosesState> {
     }
   }
 
+  Future<void> saveDiagnosis(NewDiagnosisDto newDiagnosis) async {
+    try {
+      final DiagnosesDto diagnosis = await dataSource.saveNewDiagnosis(newDiagnosis);
+      if (state is DiagnosesLoaded) {
+        final currentDiagnoses = (state as DiagnosesLoaded).diagnoses;
+        final updatedDiagnoses = [...currentDiagnoses, diagnosis];
+
+        emit(DiagnosesLoaded(diagnoses: updatedDiagnoses));
+      }
+    } catch(e) {
+      ///dialog will handle the error, to not delete the loaded diagnoses
+      rethrow;
+    }
+
+  }
+
 
 }
