@@ -77,30 +77,24 @@ class _ChartsNavigationState extends State<ChartsNavigation> {
                 children: [
                   ReusableLineChart(
                       vitalsData: widget.temperatureDate,
-                      title: "Temperature",
-                      subtitle: "",
                       minY: 35,
-                      maxY: 41,
+                      maxY: 40,
                       showArea: true,
-                      unit: "C"),
+                      unit: "°C"),
 
                   ReusableLineChart(
                       vitalsData: widget.heartRateDate,
-                      title: "Heart Rate",
-                      subtitle: "",
                       minY: 50,
-                      maxY: 100,
+                      maxY: 120,
                       showArea: true,
                       unit: "bpm"),
 
                   ReusableLineChart(
                     vitalsData: widget.oxygenLevelDate,
-                    title: "Oxygen Level",
-                    subtitle: "",
-                    maxY: 150,
-                    minY: 60,
+                    maxY: 100,
+                    minY: 70,
                     showArea: true,
-                    unit: "",)
+                    unit: "%",)
                 ],
               ),
             ),
