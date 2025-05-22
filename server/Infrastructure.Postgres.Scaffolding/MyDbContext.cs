@@ -178,7 +178,7 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Diagnosis>(entity =>
         {
-            entity.HasKey(e => e.Iddiagnoses).HasName("diagnoses_pk");
+            entity.HasKey(e => e.Id).HasName("diagnoses_pk");
 
             entity.ToTable("diagnoses");
 
@@ -186,13 +186,13 @@ public partial class MyDbContext : DbContext
 
             entity.HasIndex(e => e.Idpatient, "IX_diagnoses_idpatient");
 
-            entity.Property(e => e.Iddiagnoses)
+            entity.Property(e => e.Id)
                 .HasColumnType("character varying")
-                .HasColumnName("iddiagnoses");
+                .HasColumnName("id");
             entity.Property(e => e.Date).HasColumnName("date");
-            entity.Property(e => e.Diagnoses)
+            entity.Property(e => e.PatientDiagnosis)
                 .HasColumnType("character varying")
-                .HasColumnName("diagnoses");
+                .HasColumnName("patient_diagnosis");
             entity.Property(e => e.Iddoctor).HasColumnName("iddoctor");
             entity.Property(e => e.Idpatient)
                 .HasColumnType("character varying")

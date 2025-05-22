@@ -9,5 +9,6 @@ public interface IChatRep{
     Task<List<ChatRoom>> GetChatRoomsForPatient(string patientId);
     Task<List<ChatRoom>> GetChatRoomsForDoctor(string doctorId);
     Task<List<Message>> RetreiveChatHistory(string roomId);
+    Task FinishChat(string chatRoomId);
 
 }

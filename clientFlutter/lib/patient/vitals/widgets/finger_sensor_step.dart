@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class FingerSensorStep extends StatefulWidget {
-  final int heartRate;
-  final double oxygenLevel;
+  final int? heartRate;
+  final double? oxygenLevel;
   final ValueChanged<int> onHeartRateMeasured;
   final ValueChanged<double> onOxygenLevelMeasured;
   final VoidCallback onConfirm;
@@ -46,9 +46,6 @@ class _FingerSensorStepState extends State<FingerSensorStep> {
         _elapsed++;
       });
 
-      widget.onHeartRateMeasured(75 + (_elapsed % 5));
-      widget.onOxygenLevelMeasured(96.0 + (_elapsed % 3));
-
       if (_elapsed >= _duration) {
         _timer?.cancel();
       }
@@ -76,7 +73,7 @@ class _FingerSensorStepState extends State<FingerSensorStep> {
           const SizedBox(height: 16),
           if (!_started) ...[
             Text(
-              'Please place your finger on the sensor and stay still.',
+              'Please place your finger on the sensor and wait at least 10 seconds.',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -88,8 +85,11 @@ class _FingerSensorStepState extends State<FingerSensorStep> {
           ] else ...[
             Text('Measuring... ($_elapsed / $_duration seconds)'),
             const SizedBox(height: 12),
-            Text('Heart Rate: ${widget.heartRate} bpm'),
-            Text('Oxygen Level: ${widget.oxygenLevel.toStringAsFixed(1)} %'),
+            Text('Heart Rate: ${widget.heartRate?.toString() ?? 'N/A'} bpm'),
+            Text(
+              'Oxygen Level: ${widget.oxygenLevel != null ? widget.oxygenLevel!.toStringAsFixed(1) + ' %' : 'N/A'}',
+            ),
+
             const Spacer(),
             SizedBox(
               width: double.infinity,

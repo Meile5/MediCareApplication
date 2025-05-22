@@ -19,6 +19,13 @@ class JoinDoctorRoom extends BaseEvent with JoinDoctorRoomMappable {
   JoinDoctorRoom({required this.roomId});
 }
 
+@MappableClass(discriminatorValue: "CancelledAppointment")
+class CancelledAppointment extends BaseEvent with CancelledAppointmentMappable {
+  final String appointmentId;
+
+  CancelledAppointment({required this.appointmentId});
+}
+
 @MappableClass(discriminatorValue: "BroadcastBookedSlot")
 class BroadcastBookedSlot extends BaseEvent with BroadcastBookedSlotMappable {
   final String id;
@@ -49,6 +56,13 @@ class ChatMessage extends BaseEvent with ChatMessageMappable {
   });
 }
 
+@MappableClass(discriminatorValue: "UnsubscribeFromChat")
+class UnsubscribeFromChat extends BaseEvent with UnsubscribeFromChatMappable {
+  final String roomId;
+
+  UnsubscribeFromChat({required this.roomId});
+}
+
 @MappableClass(discriminatorValue: "DeviceVitals")
 class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
   final String userId;
@@ -56,20 +70,24 @@ class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
   final double temperature;
   final List<int> ecg;
 
+  final int? heartRate;
+  final int? spo2;
+
   DeviceVitals({
     required this.userId,
     required this.deviceId,
     required this.temperature,
     required this.ecg,
+    this.heartRate,
+    this.spo2,
   });
 }
 
 @MappableClass(discriminatorValue: "SubscribeToVitals")
 class SubscribeToVitals extends BaseEvent with SubscribeToVitalsMappable {
-  final String userId;
   final String deviceId;
 
-  SubscribeToVitals({required this.deviceId, required this.userId});
+  SubscribeToVitals({required this.deviceId});
 }
 
 @MappableClass(discriminatorValue: "SubscribeSuccess")
@@ -77,4 +95,19 @@ class SubscribeSuccess extends BaseEvent with SubscribeSuccessMappable {
   final String message;
 
   SubscribeSuccess({required this.message});
+}
+
+@MappableClass(discriminatorValue: "UnsubscribeFromVitals")
+class UnsubscribeFromVitals extends BaseEvent
+    with UnsubscribeFromVitalsMappable {
+  final String deviceId;
+
+  UnsubscribeFromVitals({required this.deviceId});
+}
+
+@MappableClass(discriminatorValue: "UnsubscribeSuccess")
+class UnsubscribeSuccess extends BaseEvent with UnsubscribeSuccessMappable {
+  final String message;
+
+  UnsubscribeSuccess({required this.message});
 }

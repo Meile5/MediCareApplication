@@ -19,10 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Interfaces\IDoctorService\" />
-      <Folder Include="Interfaces\Infrastructure.Postgres\DoctorRep\" />
-      <Folder Include="Models\Dtos\DoctorDto\" />
-      <Folder Include="Services\DoctorService\" />
+      <Folder Include="Models\Dtos\DoctorDto\request\" />
     </ItemGroup>
 
 </Project>

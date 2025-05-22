@@ -15,12 +15,16 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
       MapperContainer.globals.use(_instance = BaseEventMapper._());
       JoinRoomMapper.ensureInitialized();
       JoinDoctorRoomMapper.ensureInitialized();
+      CancelledAppointmentMapper.ensureInitialized();
       BroadcastBookedSlotMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
+      UnsubscribeFromChatMapper.ensureInitialized();
       DeviceVitalsMapper.ensureInitialized();
       SubscribeToVitalsMapper.ensureInitialized();
       SubscribeSuccessMapper.ensureInitialized();
+      UnsubscribeFromVitalsMapper.ensureInitialized();
+      UnsubscribeSuccessMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -284,6 +288,126 @@ class _JoinDoctorRoomCopyWithImpl<$R, $Out>
   JoinDoctorRoomCopyWith<$R2, JoinDoctorRoom, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _JoinDoctorRoomCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class CancelledAppointmentMapper
+    extends SubClassMapperBase<CancelledAppointment> {
+  CancelledAppointmentMapper._();
+
+  static CancelledAppointmentMapper? _instance;
+  static CancelledAppointmentMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = CancelledAppointmentMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'CancelledAppointment';
+
+  static String _$appointmentId(CancelledAppointment v) => v.appointmentId;
+  static const Field<CancelledAppointment, String> _f$appointmentId =
+      Field('appointmentId', _$appointmentId);
+
+  @override
+  final MappableFields<CancelledAppointment> fields = const {
+    #appointmentId: _f$appointmentId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "CancelledAppointment";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static CancelledAppointment _instantiate(DecodingData data) {
+    return CancelledAppointment(appointmentId: data.dec(_f$appointmentId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static CancelledAppointment fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<CancelledAppointment>(map);
+  }
+
+  static CancelledAppointment fromJson(String json) {
+    return ensureInitialized().decodeJson<CancelledAppointment>(json);
+  }
+}
+
+mixin CancelledAppointmentMappable {
+  String toJson() {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .encodeJson<CancelledAppointment>(this as CancelledAppointment);
+  }
+
+  Map<String, dynamic> toMap() {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .encodeMap<CancelledAppointment>(this as CancelledAppointment);
+  }
+
+  CancelledAppointmentCopyWith<CancelledAppointment, CancelledAppointment,
+      CancelledAppointment> get copyWith => _CancelledAppointmentCopyWithImpl<
+          CancelledAppointment, CancelledAppointment>(
+      this as CancelledAppointment, $identity, $identity);
+  @override
+  String toString() {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .stringifyValue(this as CancelledAppointment);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .equalsValue(this as CancelledAppointment, other);
+  }
+
+  @override
+  int get hashCode {
+    return CancelledAppointmentMapper.ensureInitialized()
+        .hashValue(this as CancelledAppointment);
+  }
+}
+
+extension CancelledAppointmentValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, CancelledAppointment, $Out> {
+  CancelledAppointmentCopyWith<$R, CancelledAppointment, $Out>
+      get $asCancelledAppointment => $base.as(
+          (v, t, t2) => _CancelledAppointmentCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class CancelledAppointmentCopyWith<
+    $R,
+    $In extends CancelledAppointment,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? appointmentId});
+  CancelledAppointmentCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _CancelledAppointmentCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, CancelledAppointment, $Out>
+    implements CancelledAppointmentCopyWith<$R, CancelledAppointment, $Out> {
+  _CancelledAppointmentCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<CancelledAppointment> $mapper =
+      CancelledAppointmentMapper.ensureInitialized();
+  @override
+  $R call({String? appointmentId}) => $apply(FieldCopyWithData(
+      {if (appointmentId != null) #appointmentId: appointmentId}));
+  @override
+  CancelledAppointment $make(CopyWithData data) => CancelledAppointment(
+      appointmentId: data.get(#appointmentId, or: $value.appointmentId));
+
+  @override
+  CancelledAppointmentCopyWith<$R2, CancelledAppointment, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _CancelledAppointmentCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class BroadcastBookedSlotMapper
@@ -658,6 +782,124 @@ class _ChatMessageCopyWithImpl<$R, $Out>
       _ChatMessageCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
+class UnsubscribeFromChatMapper
+    extends SubClassMapperBase<UnsubscribeFromChat> {
+  UnsubscribeFromChatMapper._();
+
+  static UnsubscribeFromChatMapper? _instance;
+  static UnsubscribeFromChatMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = UnsubscribeFromChatMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'UnsubscribeFromChat';
+
+  static String _$roomId(UnsubscribeFromChat v) => v.roomId;
+  static const Field<UnsubscribeFromChat, String> _f$roomId =
+      Field('roomId', _$roomId);
+
+  @override
+  final MappableFields<UnsubscribeFromChat> fields = const {
+    #roomId: _f$roomId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "UnsubscribeFromChat";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static UnsubscribeFromChat _instantiate(DecodingData data) {
+    return UnsubscribeFromChat(roomId: data.dec(_f$roomId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static UnsubscribeFromChat fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<UnsubscribeFromChat>(map);
+  }
+
+  static UnsubscribeFromChat fromJson(String json) {
+    return ensureInitialized().decodeJson<UnsubscribeFromChat>(json);
+  }
+}
+
+mixin UnsubscribeFromChatMappable {
+  String toJson() {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .encodeJson<UnsubscribeFromChat>(this as UnsubscribeFromChat);
+  }
+
+  Map<String, dynamic> toMap() {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .encodeMap<UnsubscribeFromChat>(this as UnsubscribeFromChat);
+  }
+
+  UnsubscribeFromChatCopyWith<UnsubscribeFromChat, UnsubscribeFromChat,
+      UnsubscribeFromChat> get copyWith => _UnsubscribeFromChatCopyWithImpl<
+          UnsubscribeFromChat, UnsubscribeFromChat>(
+      this as UnsubscribeFromChat, $identity, $identity);
+  @override
+  String toString() {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .stringifyValue(this as UnsubscribeFromChat);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .equalsValue(this as UnsubscribeFromChat, other);
+  }
+
+  @override
+  int get hashCode {
+    return UnsubscribeFromChatMapper.ensureInitialized()
+        .hashValue(this as UnsubscribeFromChat);
+  }
+}
+
+extension UnsubscribeFromChatValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, UnsubscribeFromChat, $Out> {
+  UnsubscribeFromChatCopyWith<$R, UnsubscribeFromChat, $Out>
+      get $asUnsubscribeFromChat => $base.as(
+          (v, t, t2) => _UnsubscribeFromChatCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class UnsubscribeFromChatCopyWith<$R, $In extends UnsubscribeFromChat,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? roomId});
+  UnsubscribeFromChatCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _UnsubscribeFromChatCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, UnsubscribeFromChat, $Out>
+    implements UnsubscribeFromChatCopyWith<$R, UnsubscribeFromChat, $Out> {
+  _UnsubscribeFromChatCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<UnsubscribeFromChat> $mapper =
+      UnsubscribeFromChatMapper.ensureInitialized();
+  @override
+  $R call({String? roomId}) =>
+      $apply(FieldCopyWithData({if (roomId != null) #roomId: roomId}));
+  @override
+  UnsubscribeFromChat $make(CopyWithData data) =>
+      UnsubscribeFromChat(roomId: data.get(#roomId, or: $value.roomId));
+
+  @override
+  UnsubscribeFromChatCopyWith<$R2, UnsubscribeFromChat, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _UnsubscribeFromChatCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
 class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
   DeviceVitalsMapper._();
 
@@ -684,6 +926,12 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
       Field('temperature', _$temperature);
   static List<int> _$ecg(DeviceVitals v) => v.ecg;
   static const Field<DeviceVitals, List<int>> _f$ecg = Field('ecg', _$ecg);
+  static int? _$heartRate(DeviceVitals v) => v.heartRate;
+  static const Field<DeviceVitals, int> _f$heartRate =
+      Field('heartRate', _$heartRate, opt: true);
+  static int? _$spo2(DeviceVitals v) => v.spo2;
+  static const Field<DeviceVitals, int> _f$spo2 =
+      Field('spo2', _$spo2, opt: true);
 
   @override
   final MappableFields<DeviceVitals> fields = const {
@@ -691,6 +939,8 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
     #deviceId: _f$deviceId,
     #temperature: _f$temperature,
     #ecg: _f$ecg,
+    #heartRate: _f$heartRate,
+    #spo2: _f$spo2,
   };
 
   @override
@@ -705,7 +955,9 @@ class DeviceVitalsMapper extends SubClassMapperBase<DeviceVitals> {
         userId: data.dec(_f$userId),
         deviceId: data.dec(_f$deviceId),
         temperature: data.dec(_f$temperature),
-        ecg: data.dec(_f$ecg));
+        ecg: data.dec(_f$ecg),
+        heartRate: data.dec(_f$heartRate),
+        spo2: data.dec(_f$spo2));
   }
 
   @override
@@ -764,7 +1016,12 @@ abstract class DeviceVitalsCopyWith<$R, $In extends DeviceVitals, $Out>
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get ecg;
   @override
   $R call(
-      {String? userId, String? deviceId, double? temperature, List<int>? ecg});
+      {String? userId,
+      String? deviceId,
+      double? temperature,
+      List<int>? ecg,
+      int? heartRate,
+      int? spo2});
   DeviceVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -786,19 +1043,25 @@ class _DeviceVitalsCopyWithImpl<$R, $Out>
           {String? userId,
           String? deviceId,
           double? temperature,
-          List<int>? ecg}) =>
+          List<int>? ecg,
+          Object? heartRate = $none,
+          Object? spo2 = $none}) =>
       $apply(FieldCopyWithData({
         if (userId != null) #userId: userId,
         if (deviceId != null) #deviceId: deviceId,
         if (temperature != null) #temperature: temperature,
-        if (ecg != null) #ecg: ecg
+        if (ecg != null) #ecg: ecg,
+        if (heartRate != $none) #heartRate: heartRate,
+        if (spo2 != $none) #spo2: spo2
       }));
   @override
   DeviceVitals $make(CopyWithData data) => DeviceVitals(
       userId: data.get(#userId, or: $value.userId),
       deviceId: data.get(#deviceId, or: $value.deviceId),
       temperature: data.get(#temperature, or: $value.temperature),
-      ecg: data.get(#ecg, or: $value.ecg));
+      ecg: data.get(#ecg, or: $value.ecg),
+      heartRate: data.get(#heartRate, or: $value.heartRate),
+      spo2: data.get(#spo2, or: $value.spo2));
 
   @override
   DeviceVitalsCopyWith<$R2, DeviceVitals, $Out2> $chain<$R2, $Out2>(
@@ -824,14 +1087,10 @@ class SubscribeToVitalsMapper extends SubClassMapperBase<SubscribeToVitals> {
   static String _$deviceId(SubscribeToVitals v) => v.deviceId;
   static const Field<SubscribeToVitals, String> _f$deviceId =
       Field('deviceId', _$deviceId);
-  static String _$userId(SubscribeToVitals v) => v.userId;
-  static const Field<SubscribeToVitals, String> _f$userId =
-      Field('userId', _$userId);
 
   @override
   final MappableFields<SubscribeToVitals> fields = const {
     #deviceId: _f$deviceId,
-    #userId: _f$userId,
   };
 
   @override
@@ -842,8 +1101,7 @@ class SubscribeToVitalsMapper extends SubClassMapperBase<SubscribeToVitals> {
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
   static SubscribeToVitals _instantiate(DecodingData data) {
-    return SubscribeToVitals(
-        deviceId: data.dec(_f$deviceId), userId: data.dec(_f$userId));
+    return SubscribeToVitals(deviceId: data.dec(_f$deviceId));
   }
 
   @override
@@ -903,7 +1161,7 @@ extension SubscribeToVitalsValueCopy<$R, $Out>
 abstract class SubscribeToVitalsCopyWith<$R, $In extends SubscribeToVitals,
     $Out> implements BaseEventCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? deviceId, String? userId});
+  $R call({String? deviceId});
   SubscribeToVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -917,14 +1175,11 @@ class _SubscribeToVitalsCopyWithImpl<$R, $Out>
   late final ClassMapperBase<SubscribeToVitals> $mapper =
       SubscribeToVitalsMapper.ensureInitialized();
   @override
-  $R call({String? deviceId, String? userId}) => $apply(FieldCopyWithData({
-        if (deviceId != null) #deviceId: deviceId,
-        if (userId != null) #userId: userId
-      }));
+  $R call({String? deviceId}) =>
+      $apply(FieldCopyWithData({if (deviceId != null) #deviceId: deviceId}));
   @override
-  SubscribeToVitals $make(CopyWithData data) => SubscribeToVitals(
-      deviceId: data.get(#deviceId, or: $value.deviceId),
-      userId: data.get(#userId, or: $value.userId));
+  SubscribeToVitals $make(CopyWithData data) =>
+      SubscribeToVitals(deviceId: data.get(#deviceId, or: $value.deviceId));
 
   @override
   SubscribeToVitalsCopyWith<$R2, SubscribeToVitals, $Out2> $chain<$R2, $Out2>(
@@ -1047,4 +1302,241 @@ class _SubscribeSuccessCopyWithImpl<$R, $Out>
   SubscribeSuccessCopyWith<$R2, SubscribeSuccess, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _SubscribeSuccessCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class UnsubscribeFromVitalsMapper
+    extends SubClassMapperBase<UnsubscribeFromVitals> {
+  UnsubscribeFromVitalsMapper._();
+
+  static UnsubscribeFromVitalsMapper? _instance;
+  static UnsubscribeFromVitalsMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = UnsubscribeFromVitalsMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'UnsubscribeFromVitals';
+
+  static String _$deviceId(UnsubscribeFromVitals v) => v.deviceId;
+  static const Field<UnsubscribeFromVitals, String> _f$deviceId =
+      Field('deviceId', _$deviceId);
+
+  @override
+  final MappableFields<UnsubscribeFromVitals> fields = const {
+    #deviceId: _f$deviceId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "UnsubscribeFromVitals";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static UnsubscribeFromVitals _instantiate(DecodingData data) {
+    return UnsubscribeFromVitals(deviceId: data.dec(_f$deviceId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static UnsubscribeFromVitals fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<UnsubscribeFromVitals>(map);
+  }
+
+  static UnsubscribeFromVitals fromJson(String json) {
+    return ensureInitialized().decodeJson<UnsubscribeFromVitals>(json);
+  }
+}
+
+mixin UnsubscribeFromVitalsMappable {
+  String toJson() {
+    return UnsubscribeFromVitalsMapper.ensureInitialized()
+        .encodeJson<UnsubscribeFromVitals>(this as UnsubscribeFromVitals);
+  }
+
+  Map<String, dynamic> toMap() {
+    return UnsubscribeFromVitalsMapper.ensureInitialized()
+        .encodeMap<UnsubscribeFromVitals>(this as UnsubscribeFromVitals);
+  }
+
+  UnsubscribeFromVitalsCopyWith<UnsubscribeFromVitals, UnsubscribeFromVitals,
+      UnsubscribeFromVitals> get copyWith => _UnsubscribeFromVitalsCopyWithImpl<
+          UnsubscribeFromVitals, UnsubscribeFromVitals>(
+      this as UnsubscribeFromVitals, $identity, $identity);
+  @override
+  String toString() {
+    return UnsubscribeFromVitalsMapper.ensureInitialized()
+        .stringifyValue(this as UnsubscribeFromVitals);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return UnsubscribeFromVitalsMapper.ensureInitialized()
+        .equalsValue(this as UnsubscribeFromVitals, other);
+  }
+
+  @override
+  int get hashCode {
+    return UnsubscribeFromVitalsMapper.ensureInitialized()
+        .hashValue(this as UnsubscribeFromVitals);
+  }
+}
+
+extension UnsubscribeFromVitalsValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, UnsubscribeFromVitals, $Out> {
+  UnsubscribeFromVitalsCopyWith<$R, UnsubscribeFromVitals, $Out>
+      get $asUnsubscribeFromVitals => $base.as(
+          (v, t, t2) => _UnsubscribeFromVitalsCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class UnsubscribeFromVitalsCopyWith<
+    $R,
+    $In extends UnsubscribeFromVitals,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? deviceId});
+  UnsubscribeFromVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _UnsubscribeFromVitalsCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, UnsubscribeFromVitals, $Out>
+    implements UnsubscribeFromVitalsCopyWith<$R, UnsubscribeFromVitals, $Out> {
+  _UnsubscribeFromVitalsCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<UnsubscribeFromVitals> $mapper =
+      UnsubscribeFromVitalsMapper.ensureInitialized();
+  @override
+  $R call({String? deviceId}) =>
+      $apply(FieldCopyWithData({if (deviceId != null) #deviceId: deviceId}));
+  @override
+  UnsubscribeFromVitals $make(CopyWithData data) =>
+      UnsubscribeFromVitals(deviceId: data.get(#deviceId, or: $value.deviceId));
+
+  @override
+  UnsubscribeFromVitalsCopyWith<$R2, UnsubscribeFromVitals, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _UnsubscribeFromVitalsCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class UnsubscribeSuccessMapper extends SubClassMapperBase<UnsubscribeSuccess> {
+  UnsubscribeSuccessMapper._();
+
+  static UnsubscribeSuccessMapper? _instance;
+  static UnsubscribeSuccessMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = UnsubscribeSuccessMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'UnsubscribeSuccess';
+
+  static String _$message(UnsubscribeSuccess v) => v.message;
+  static const Field<UnsubscribeSuccess, String> _f$message =
+      Field('message', _$message);
+
+  @override
+  final MappableFields<UnsubscribeSuccess> fields = const {
+    #message: _f$message,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "UnsubscribeSuccess";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static UnsubscribeSuccess _instantiate(DecodingData data) {
+    return UnsubscribeSuccess(message: data.dec(_f$message));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static UnsubscribeSuccess fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<UnsubscribeSuccess>(map);
+  }
+
+  static UnsubscribeSuccess fromJson(String json) {
+    return ensureInitialized().decodeJson<UnsubscribeSuccess>(json);
+  }
+}
+
+mixin UnsubscribeSuccessMappable {
+  String toJson() {
+    return UnsubscribeSuccessMapper.ensureInitialized()
+        .encodeJson<UnsubscribeSuccess>(this as UnsubscribeSuccess);
+  }
+
+  Map<String, dynamic> toMap() {
+    return UnsubscribeSuccessMapper.ensureInitialized()
+        .encodeMap<UnsubscribeSuccess>(this as UnsubscribeSuccess);
+  }
+
+  UnsubscribeSuccessCopyWith<UnsubscribeSuccess, UnsubscribeSuccess,
+          UnsubscribeSuccess>
+      get copyWith => _UnsubscribeSuccessCopyWithImpl<UnsubscribeSuccess,
+          UnsubscribeSuccess>(this as UnsubscribeSuccess, $identity, $identity);
+  @override
+  String toString() {
+    return UnsubscribeSuccessMapper.ensureInitialized()
+        .stringifyValue(this as UnsubscribeSuccess);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return UnsubscribeSuccessMapper.ensureInitialized()
+        .equalsValue(this as UnsubscribeSuccess, other);
+  }
+
+  @override
+  int get hashCode {
+    return UnsubscribeSuccessMapper.ensureInitialized()
+        .hashValue(this as UnsubscribeSuccess);
+  }
+}
+
+extension UnsubscribeSuccessValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, UnsubscribeSuccess, $Out> {
+  UnsubscribeSuccessCopyWith<$R, UnsubscribeSuccess, $Out>
+      get $asUnsubscribeSuccess => $base.as(
+          (v, t, t2) => _UnsubscribeSuccessCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class UnsubscribeSuccessCopyWith<$R, $In extends UnsubscribeSuccess,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? message});
+  UnsubscribeSuccessCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _UnsubscribeSuccessCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, UnsubscribeSuccess, $Out>
+    implements UnsubscribeSuccessCopyWith<$R, UnsubscribeSuccess, $Out> {
+  _UnsubscribeSuccessCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<UnsubscribeSuccess> $mapper =
+      UnsubscribeSuccessMapper.ensureInitialized();
+  @override
+  $R call({String? message}) =>
+      $apply(FieldCopyWithData({if (message != null) #message: message}));
+  @override
+  UnsubscribeSuccess $make(CopyWithData data) =>
+      UnsubscribeSuccess(message: data.get(#message, or: $value.message));
+
+  @override
+  UnsubscribeSuccessCopyWith<$R2, UnsubscribeSuccess, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _UnsubscribeSuccessCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

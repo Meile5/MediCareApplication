@@ -11,7 +11,24 @@ public class OverviewRepo(MyDbContext context) : IOverviewRepo
     public async Task<List<Clinic>> RetrieveClinicInfo(string userId)
     {
         var result = await context.ClinicPatients
-            .Where((ClinicPatient cp) => cp.Idpatient == userId) 
+            .Where((ClinicPatient cp) => cp.Idpatient == userId)
+            .Join(
+                context.Clinics,
+                cp => cp.Idclinic,
+                c => c.Idclinic,
+                (cp, c) => c
+            )
+            .ToListAsync();
+
+        return result;
+
+
+    }
+    
+    public async Task<List<Clinic>> RetrieveClinicInfoForDoctor(string userId)
+    {
+        var result = await context.ClinicDoctors
+            .Where((ClinicDoctor cp) => cp.Iddoctor == userId) 
             .Join(
                 context.Clinics,
                 cp => cp.Idclinic,

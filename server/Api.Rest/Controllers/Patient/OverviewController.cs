@@ -21,7 +21,20 @@ public class OverviewController(IOverviewService overviewService, ISecurityServi
         return Ok(response);
     }
     
-    public const string RetrieveDiagnosesRoute= nameof(RetrieveDiagnoses);
+    public const string RetrieveClinicInfoRouteDoctor= nameof(RetrieveClinicInfoForDoctor);
+
+    [Route(RetrieveClinicInfoRouteDoctor)
+    ]
+    [HttpGet]
+    public async Task <ActionResult<List<ClinicInfoDto>>>RetrieveClinicInfoForDoctor([FromQuery] string userId, [FromHeader]string authorization) 
+    
+    {
+        securityService.VerifyJwtOrThrow(authorization);
+        var response = await overviewService.RetrieveClinicInfoDoctor(userId);
+        return Ok(response);
+    }
+    
+    public const string RetrieveDiagnosesRoute = nameof(RetrieveDiagnoses);
     [Route(RetrieveDiagnosesRoute)]
     public async Task <ActionResult<List<ClinicInfoDto>>>RetrieveDiagnoses([FromBody] string userId, [FromHeader]string authorization) 
     
