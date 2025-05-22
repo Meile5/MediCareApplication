@@ -47,4 +47,23 @@ class PatientAnalysisRequest with PatientAnalysisRequestMappable {
     required this.diagnoses,
     required this.patient,
   });
+
+}
+@MappableClass()
+class NewDiagnosisDto with NewDiagnosisDtoMappable {
+  final String patientDiagnosis;
+  final String patientId;
+  final String doctorId;
+  final String treatment;
+
+  NewDiagnosisDto({
+    required this.patientDiagnosis,
+    required this.patientId,
+    required this.doctorId,
+    required this.treatment,
+  });
+
+
+
+
 }
