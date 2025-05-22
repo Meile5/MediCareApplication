@@ -1,8 +1,8 @@
 from langchain_ollama import ChatOllama
 import time
-from langchain.chains import RetrievalQA, LLMChain, SequentialChain
-from medical_promt import medical_analysis_prompt, patient_summary_prompt, recommendations_prompt
-from models import PatientAnalysisRequest
+from langchain.chains import LLMChain
+from common.medical_promt import medical_analysis_prompt
+from common.models import PatientAnalysisRequest
 from rag.medical_knowledge_rag import MedicalRag
 
 
@@ -10,7 +10,7 @@ class MedicalAnalysis:
     def __init__(self):
         self.llm = ChatOllama(model="gemma:2b")
         self.rag = MedicalRag()
-        
+        #(model="llama3.1:8b", base_url="http://10.176.88.123:11434")
         self.retriever = self.rag.retriever
 
         self.analysis_chain = LLMChain(

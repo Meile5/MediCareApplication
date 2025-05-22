@@ -1,5 +1,6 @@
 import io
 from fpdf import FPDF
+import re
 
 class CreatePdf:
     def __init__(self):
@@ -13,13 +14,14 @@ class CreatePdf:
         #header
         pdf.set_font("Arial", "B", 16)
         pdf.cell(0, 10, f"Patient Health Analysis Report", ln=True)
+        pdf.ln(10)
         
         # patient info
         pdf.set_font("Arial", "B", 12)
         pdf.cell(0, 10, "Patient Information:", ln=True)
         pdf.set_font("Arial", "", 12)
         pdf.cell(0, 10, f"Name: {patient_data.name}", ln=True)
-        pdf.cell(0, 10, f"DOB: {patient_data.date_of_birth.strftime('%Y-%m-%d')}", ln=True)
+        pdf.cell(0, 10, f"DOB: {patient_data.age}", ln=True)
         pdf.cell(0, 10, f"Gender: {patient_data.gender}", ln=True)
 
         pdf.set_font("Arial", "B", 14)
@@ -27,21 +29,19 @@ class CreatePdf:
 
         pdf.set_font("Arial", "", 12)
         cleaned_analysis = analysis.replace('’', "'").replace('“', '"').replace('”', '"').replace('–', '-').replace('—', '-')
+        cleaned_analysis = re.sub(r'\*\*(.*?)\*\*', r'\1', cleaned_analysis)  # remove bold
+        cleaned_analysis = re.sub(r'##+', '', cleaned_analysis)               # remove markdown headings
+        cleaned_analysis = cleaned_analysis.replace('\r\n', '\n') 
         
-        # Split analysis into paragraphs
-        paragraphs = cleaned_analysis.split('\n\n')
+        # Split text into paragraphs
+        paragraphs = re.split(r'\n\s*\n', cleaned_analysis.strip())
+
+        # Render each paragraph nicely
         for para in paragraphs:
             if para.strip():
-                if ":" in para and len(para.split(":", 1)[0]) < 30:
-                    # This looks like a heading
-                    heading, content = para.split(":", 1)
-                    pdf.set_font("Arial", "B", 12)
-                    pdf.cell(0, 10, heading + ":", ln=True)
-                    pdf.set_font("Arial", "", 12)
-                    pdf.multi_cell(0, 10, content)
-                else:
-                    pdf.multi_cell(0, 10, para)
-                pdf.ln(5)
+             pdf.multi_cell(0, 10, para)
+             pdf.ln(4)  
+
         pdf_bytes = io.BytesIO()
         pdf_output = pdf.output(dest="S").encode("latin-1")
         pdf_bytes.write(pdf_output)

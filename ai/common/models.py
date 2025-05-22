@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
+from pydantic import BaseModel
 
 class VitalsSignsDto(BaseModel):
     oxygenLevel: Optional[float] = None
@@ -9,9 +10,9 @@ class VitalsSignsDto(BaseModel):
     createdAt: datetime
 
 class DiagnosesDto(BaseModel):
-    patientDiagnosis: str
-    treatment: str
-    date: datetime
+    patientDiagnosis: str = None
+    treatment: str = None
+    date: datetime = None
 
 class PatientDto(BaseModel):
     userid: str
@@ -29,3 +30,5 @@ class PatientAnalysisRequest(BaseModel):
     patient: PatientDto
     vitals: List[VitalsSignsDto]
     diagnoses: Optional[List[DiagnosesDto]] = []
+
+

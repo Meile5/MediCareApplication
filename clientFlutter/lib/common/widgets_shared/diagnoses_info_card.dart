@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../models/patients_overview_models.dart';
+import 'add_diagnoses_dialog.dart';
 
 class DiagnosesInfo extends StatelessWidget{
   final List<DiagnosesDto> diagnoses;
@@ -9,6 +11,7 @@ class DiagnosesInfo extends StatelessWidget{
   const DiagnosesInfo(
       {super.key,
         required this.diagnoses,
+        this,showAddButton = true,
       });
   String formatDate(DateTime? date) {
     if (date == null) return 'Invalid date';
@@ -40,14 +43,26 @@ class DiagnosesInfo extends StatelessWidget{
       child: Column(
         children: [
           Container(
-            alignment: Alignment.center ,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Text(
-              "Diagnoses",
-              style: TextStyle(fontSize: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Diagnoses",
+                  style: TextStyle(fontSize: 18),
 
+                ),
+                IconButton(
+                    onPressed: (){
+                      showDialog(
+                        context: context,
+                        builder: (context) => const DiagnosesDialog(),
+                      );
+                    },
+                    icon: FaIcon(FontAwesomeIcons.circlePlus)
+                )],
             ),
           ),
           Expanded(

@@ -1,7 +1,5 @@
-
-from langchain.schema import Document
 from langchain_community.vectorstores import FAISS
-from langchain_ollama import ChatOllama, OllamaEmbeddings
+from langchain_ollama import OllamaEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -17,7 +15,6 @@ class MedicalRag:
     
         pdf_paths = [
             str(current_dir / "medical_files" / "vital_sign_guidelines.pdf"),
-           # str(current_dir / "medical_files" / "Vitals Chart_PedsCases Notes.pdf")
         ]
         documents = []
         for path in pdf_paths:
