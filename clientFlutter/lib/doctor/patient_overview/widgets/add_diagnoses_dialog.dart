@@ -91,7 +91,10 @@ class _DiagnosesDialogState extends State<DiagnosesDialog> {
         ElevatedButton(
           onPressed: () async {
             if (_controller.text.isNotEmpty && _controllerTreatment.text.isNotEmpty) {
-              _isLoading ? null : _submit;
+              if (!_isLoading) {
+                await _submit();
+              }
+
             }
             else{
               setState(() {
