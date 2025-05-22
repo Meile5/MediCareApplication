@@ -1,35 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../patient/overview/models/models_overview.dart';
 import '../../../patient/overview/widgets/clinic_info.dart';
-import '../../common/doctor_data_source.dart';
+import '../../common/clinic_cubit.dart'; // Make sure this import is correct
 
 class ClinicInfoSection extends StatelessWidget {
   const ClinicInfoSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ClinicInfoDto>>(
-      future: DoctorDataSource().retrieveClinicInfo(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+    // Trigger the loading of clinic info when this widget is built
+    context.read<ClinicInfoCubit>().loadClinicInfo();
+
+    return BlocBuilder<ClinicInfoCubit, ClinicInfoState>(
+      builder: (context, state) {
+        if (state.loading) {
           return const Padding(
             padding: EdgeInsets.all(8.0),
             child: Center(child: CircularProgressIndicator()),
           );
-        } else if (snapshot.hasError) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
+        } else if (state.error != null) {
+          return const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text('Error loading clinic info'),
           );
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        } else if (state.clinics == null || state.clinics!.isEmpty) {
           return const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text('No clinic information available.'),
           );
         }
 
-        final clinics = snapshot.data!;
+        final clinics = state.clinics!;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

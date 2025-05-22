@@ -22,6 +22,7 @@ import 'package:medicare/patient/overview/utility/data_source_overview.dart';
 import 'common/auth/auth_cubit.dart';
 import 'common/utility/app_theme.dart';
 import 'doctor/appointment/state/doctor_appointment_cubit.dart';
+import 'doctor/common/clinic_cubit.dart';
 import 'doctor/common/doctor_cubit.dart';
 import 'doctor/common/doctor_data_source.dart';
 import 'doctor/patient_overview/state/patients_diagnoses_cubit.dart';
@@ -111,13 +112,23 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (_) {
-            final cubit = PatientsVitalsCubit(dataSource: PatientsOverviewDataSource());
+            final cubit = ClinicInfoCubit(dataSource: DoctorDataSource());
             return cubit;
           },
         ),
         BlocProvider(
           create: (_) {
-            final cubit = DiagnosesCubit(dataSource: PatientsOverviewDataSource());
+            final cubit = PatientsVitalsCubit(
+              dataSource: PatientsOverviewDataSource(),
+            );
+            return cubit;
+          },
+        ),
+        BlocProvider(
+          create: (_) {
+            final cubit = DiagnosesCubit(
+              dataSource: PatientsOverviewDataSource(),
+            );
             return cubit;
           },
         ),

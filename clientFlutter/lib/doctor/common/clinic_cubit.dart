@@ -1,33 +1,31 @@
-/*
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medicare/patient/overview/models/models_overview.dart';
 
+import '../../../patient/overview/models/models_overview.dart';
 import 'doctor_data_source.dart';
 
-class ClinicState {
-  final ClinicInfoDto? clinic;
+class ClinicInfoState {
+  final List<ClinicInfoDto>? clinics;
   final bool loading;
   final String? error;
 
-  ClinicState({required this.clinic, this.loading = false, this.error});
+  ClinicInfoState({this.clinics, this.loading = false, this.error});
 }
 
-class ClinicCubit extends Cubit<ClinicState> {
+class ClinicInfoCubit extends Cubit<ClinicInfoState> {
   final DoctorDataSource dataSource;
 
-  ClinicCubit({required this.dataSource}) : super(ClinicState());
+  ClinicInfoCubit({required this.dataSource}) : super(ClinicInfoState());
 
-  Future<void> loadClinic() async {
-    emit(ClinicState(loading: true));
-    print("Loading clinic data...");
+  Future<void> loadClinicInfo() async {
+    emit(ClinicInfoState(loading: true));
+    print("Loading clinic info...");
     try {
-      final clinic = await dataSource.retrieveClinicInfo();
-      print("clinic data loaded: $clinic");
-      emit(ClinicState(clinic: clinic));
+      final clinics = await dataSource.retrieveClinicInfo();
+      print("Clinic info loaded: $clinics");
+      emit(ClinicInfoState(clinics: clinics));
     } catch (e) {
-      print("Error loading clinic data: $e");
-      emit(ClinicState(error: e.toString()));
+      print("Error loading clinic info: $e");
+      emit(ClinicInfoState(error: e.toString()));
     }
   }
 }
-*/
