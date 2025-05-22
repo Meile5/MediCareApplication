@@ -12,13 +12,7 @@ class AppointmentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DoctorScaffold(
-      child: BlocProvider(
-        create:
-            (_) => DoctorAppointmentCubit(
-              dataSource: DoctorAppointmentDataSource(),
-            ),
-        child: const DoctorAppointmentsCalendar(),
-      ),
+      child: DoctorAppointmentsCalendar(),
     );
   }
 }
