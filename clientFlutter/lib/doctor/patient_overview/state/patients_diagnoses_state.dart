@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:medicare/patient/appointmentManagement/models/models_for_mapping.dart';
 
-import '../../../patient/common/patient_model.dart';
 import '../models/patients_overview_models.dart';
 
 @immutable
