@@ -28,7 +28,12 @@ class VitalsCubit extends Cubit<VitalsState> {
           final message = BaseEventMapper.fromJson(rawEvent);
           if (message is DeviceVitals) {
             emit(
-              VitalsUpdated(temperature: message.temperature, ecg: message.ecg),
+              VitalsUpdated(
+                temperature: message.temperature,
+                ecg: message.ecg,
+                heartRate: message.heartRate,
+                spo2: message.spo2,
+              ),
             );
           }
         } catch (e) {

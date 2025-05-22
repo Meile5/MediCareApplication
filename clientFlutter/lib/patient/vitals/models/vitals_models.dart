@@ -6,9 +6,9 @@ part 'vitals_models.mapper.dart';
 class SaveVitalsDto with SaveVitalsDtoMappable {
   final String PatientId;
   final double Temperature;
-  final double OxygenLevel;
+  final double? OxygenLevel;
   final List<int> Ecg;
-  final int HeartRate;
+  final int? HeartRate;
 
   SaveVitalsDto({
     required this.PatientId,
