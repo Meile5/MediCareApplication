@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +10,7 @@ class DiagnosesInfo extends StatelessWidget{
   final List<DiagnosesDto> diagnoses;
   final bool showAddButton;
   final String? patientId;
+  final num size;
 
 
   const DiagnosesInfo(
@@ -16,6 +18,7 @@ class DiagnosesInfo extends StatelessWidget{
         required this.diagnoses,
         this.patientId,
         this.showAddButton = true,
+        required this.size
       });
   String formatDate(DateTime? date) {
     if (date == null) return 'Invalid date';
@@ -28,7 +31,7 @@ class DiagnosesInfo extends StatelessWidget{
 
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.55,
+      height: MediaQuery.of(context).size.height * size,
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(

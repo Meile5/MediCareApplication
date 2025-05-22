@@ -174,6 +174,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                           flex: 4,
                           child: DiagnosesInfo(
                             diagnoses: state.diagnoses,
+                            size: 0.55,
                           )
                         );
                       } else if (state is PatientsVitalsError) {

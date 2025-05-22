@@ -140,6 +140,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     return DiagnosesInfo(
                           diagnoses: state.diagnoses,
                           showAddButton: false,
+                          size: 0.2,
 
                     );
                   } else if (state is PatientsVitalsError) {
