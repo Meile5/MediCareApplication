@@ -8,7 +8,7 @@ from rag.medical_knowledge_rag import MedicalRag
 
 class MedicalAnalysis:
     def __init__(self):
-        self.llm = ChatOllama(model="gemma:2b")
+        self.llm = ChatOllama(model="mistral:latest")
         self.rag = MedicalRag()
         #(model="llama3.1:8b", base_url="http://10.176.88.123:11434")
         self.retriever = self.rag.retriever
