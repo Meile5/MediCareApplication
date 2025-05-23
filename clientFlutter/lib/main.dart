@@ -18,6 +18,7 @@ import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
 import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
 import 'package:medicare/patient/overview/utility/data_source_overview.dart';
+import 'package:uuid/uuid.dart';
 
 import 'common/auth/auth_cubit.dart';
 import 'common/utility/app_theme.dart';
@@ -52,8 +53,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    final _uuid = const Uuid();
     super.initState();
-    webSocketService = WebSocketService("ws://localhost:8181?id=user18");
+    webSocketService = WebSocketService("ws://localhost:8181?id=${_uuid}");
   }
 
   @override
