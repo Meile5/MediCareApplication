@@ -1,4 +1,3 @@
-
 import 'dart:ui_web';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,18 +10,18 @@ import '../models/patients_overview_models.dart';
 import '../state/pdf_cubit.dart';
 import '../state/pdf_state.dart';
 
-class WebAnalysisScreen extends StatefulWidget{
+class AnalysisScreen extends StatefulWidget{
   final PatientAnalysisRequest request;
-  const WebAnalysisScreen({
+  const AnalysisScreen({
     super.key,
     required this.request});
 
 
   @override
-  State<WebAnalysisScreen> createState() => _WebAnalysisScreenState();
+  State<AnalysisScreen> createState() => _AnalysisScreenState();
 }
 
-class _WebAnalysisScreenState extends State<WebAnalysisScreen> {
+class _AnalysisScreenState extends State<AnalysisScreen> {
   @override
   void initState() {
     super.initState();
