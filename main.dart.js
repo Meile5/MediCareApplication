@@ -110725,7 +110725,7 @@ A.a9S.prototype={
 ap(){var s,r,q,p=null
 this.aF()
 s=new A.aL3()
-r=A.bqp(A.cN("ws://localhost:8181?id="+B.Rn.k(0),0,p),p)
+r=A.bqp(A.cN("ws://0.0.0.0:8181?id="+B.Rn.k(0),0,p),p)
 s.a=r
 r=r.r.b
 r===$&&A.b()
