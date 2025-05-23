@@ -27,7 +27,6 @@ class _DoctorAppointmentsCalendarState
     if (doctor != null) {
       final doctorId = doctor.doctorid;
       context.read<DoctorAppointmentCubit>().joinRoom(doctorId);
-
     }
 
   }

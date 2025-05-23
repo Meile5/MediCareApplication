@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/auth/auth_cubit.dart';
@@ -16,7 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/Login'),
+        Uri.parse("${dotenv.env['API_BASE_URL']!}/Login"),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"email": email, "password": password}),
       );

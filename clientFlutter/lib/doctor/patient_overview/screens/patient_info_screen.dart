@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,6 +17,7 @@ import '../state/patients_vitals_state.dart';
 import '../utils/charts_navigation.dart';
 import '../widgets/patient_info_card.dart';
 import 'analysis_screen.dart';
+import 'web_analysis_screen.dart';
 
 class PatientInfoScreen extends StatefulWidget {
   final PatientDto patient;
@@ -75,7 +77,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                         MaterialPageRoute(
                           builder:
                               (context) =>
-                                  AnalysisScreen(request: _analysisRequest!),
+                                  WebAnalysisScreen(request: _analysisRequest!),
                         ),
                       );
                     },
