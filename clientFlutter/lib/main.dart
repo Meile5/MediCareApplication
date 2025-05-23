@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     final _uuid = const Uuid();
     super.initState();
-    webSocketService = WebSocketService("ws://localhost:8181?id=${_uuid}");
+    webSocketService = WebSocketService("ws://0.0.0.0:8181?id=${_uuid}");
   }
 
   @override
