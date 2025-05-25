@@ -6,14 +6,18 @@ import 'package:medicare/common/event_models/events.dart';
 import 'package:medicare/common/utility/websocket_service.dart';
 import 'package:medicare/errorHandling/application_messages.dart';
 
+import '../../../patient/vitals/utils/vitals_data_source.dart';
+
 part 'vitals_state.dart';
 
 class VitalsCubit extends Cubit<VitalsState> {
   final WebSocketService webSocketService;
+  final VitalsDataSource dataSource;
   StreamSubscription? _subscription;
   bool _isSubscribed = false;
 
-  VitalsCubit({required this.webSocketService}) : super(VitalsInitial());
+  VitalsCubit({required this.webSocketService, required this.dataSource})
+    : super(VitalsInitial());
 
   void subscribeToVitals(String deviceId) {
     if (_isSubscribed) return;
@@ -63,7 +67,16 @@ class VitalsCubit extends Cubit<VitalsState> {
   @override
   Future<void> close() {
     _subscription?.cancel();
-    _isSubscribed = false; // Reset the subscription status when cubit is closed
+    _isSubscribed = false;
     return super.close();
+  }
+
+  Future<String> pairDevice(String pairingCode) async {
+    try {
+      return await dataSource.pairDevice(pairingCode);
+    } catch (e) {
+      emit(VitalsError(message: "Failed to pair device."));
+      rethrow;
+    }
   }
 }

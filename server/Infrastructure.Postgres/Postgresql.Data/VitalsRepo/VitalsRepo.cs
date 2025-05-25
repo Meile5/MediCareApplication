@@ -40,4 +40,22 @@ public class VitalsRepo(MyDbContext context, ILogger<VitalsRepo> logger) : IVita
             throw;
         }
     }
+
+    public async Task AssignDeviceToPatient(string deviceId, string patientId)
+    {
+        try
+        {
+            var patient = await context.Patients.FindAsync(patientId);
+            if (patient == null) throw new Exception("Patient not found");
+
+            patient.DeviceId = deviceId;
+            await context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to assign device to patient");
+            throw;
+        }
+    }
+
 }

@@ -156,3 +156,138 @@ class _SaveVitalsDtoCopyWithImpl<$R, $Out>
           Then<$Out2, $R2> t) =>
       _SaveVitalsDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
+class ClientWantsToPairDeviceDtoMapper
+    extends ClassMapperBase<ClientWantsToPairDeviceDto> {
+  ClientWantsToPairDeviceDtoMapper._();
+
+  static ClientWantsToPairDeviceDtoMapper? _instance;
+  static ClientWantsToPairDeviceDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ClientWantsToPairDeviceDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ClientWantsToPairDeviceDto';
+
+  static String _$PatientId(ClientWantsToPairDeviceDto v) => v.PatientId;
+  static const Field<ClientWantsToPairDeviceDto, String> _f$PatientId =
+      Field('PatientId', _$PatientId);
+  static String _$DeviceId(ClientWantsToPairDeviceDto v) => v.DeviceId;
+  static const Field<ClientWantsToPairDeviceDto, String> _f$DeviceId =
+      Field('DeviceId', _$DeviceId);
+  static String _$PairingCode(ClientWantsToPairDeviceDto v) => v.PairingCode;
+  static const Field<ClientWantsToPairDeviceDto, String> _f$PairingCode =
+      Field('PairingCode', _$PairingCode);
+
+  @override
+  final MappableFields<ClientWantsToPairDeviceDto> fields = const {
+    #PatientId: _f$PatientId,
+    #DeviceId: _f$DeviceId,
+    #PairingCode: _f$PairingCode,
+  };
+
+  static ClientWantsToPairDeviceDto _instantiate(DecodingData data) {
+    return ClientWantsToPairDeviceDto(
+        PatientId: data.dec(_f$PatientId),
+        DeviceId: data.dec(_f$DeviceId),
+        PairingCode: data.dec(_f$PairingCode));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ClientWantsToPairDeviceDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ClientWantsToPairDeviceDto>(map);
+  }
+
+  static ClientWantsToPairDeviceDto fromJson(String json) {
+    return ensureInitialized().decodeJson<ClientWantsToPairDeviceDto>(json);
+  }
+}
+
+mixin ClientWantsToPairDeviceDtoMappable {
+  String toJson() {
+    return ClientWantsToPairDeviceDtoMapper.ensureInitialized()
+        .encodeJson<ClientWantsToPairDeviceDto>(
+            this as ClientWantsToPairDeviceDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ClientWantsToPairDeviceDtoMapper.ensureInitialized()
+        .encodeMap<ClientWantsToPairDeviceDto>(
+            this as ClientWantsToPairDeviceDto);
+  }
+
+  ClientWantsToPairDeviceDtoCopyWith<ClientWantsToPairDeviceDto,
+          ClientWantsToPairDeviceDto, ClientWantsToPairDeviceDto>
+      get copyWith => _ClientWantsToPairDeviceDtoCopyWithImpl<
+              ClientWantsToPairDeviceDto, ClientWantsToPairDeviceDto>(
+          this as ClientWantsToPairDeviceDto, $identity, $identity);
+  @override
+  String toString() {
+    return ClientWantsToPairDeviceDtoMapper.ensureInitialized()
+        .stringifyValue(this as ClientWantsToPairDeviceDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ClientWantsToPairDeviceDtoMapper.ensureInitialized()
+        .equalsValue(this as ClientWantsToPairDeviceDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return ClientWantsToPairDeviceDtoMapper.ensureInitialized()
+        .hashValue(this as ClientWantsToPairDeviceDto);
+  }
+}
+
+extension ClientWantsToPairDeviceDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ClientWantsToPairDeviceDto, $Out> {
+  ClientWantsToPairDeviceDtoCopyWith<$R, ClientWantsToPairDeviceDto, $Out>
+      get $asClientWantsToPairDeviceDto => $base.as((v, t, t2) =>
+          _ClientWantsToPairDeviceDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class ClientWantsToPairDeviceDtoCopyWith<
+    $R,
+    $In extends ClientWantsToPairDeviceDto,
+    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R call({String? PatientId, String? DeviceId, String? PairingCode});
+  ClientWantsToPairDeviceDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ClientWantsToPairDeviceDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ClientWantsToPairDeviceDto, $Out>
+    implements
+        ClientWantsToPairDeviceDtoCopyWith<$R, ClientWantsToPairDeviceDto,
+            $Out> {
+  _ClientWantsToPairDeviceDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ClientWantsToPairDeviceDto> $mapper =
+      ClientWantsToPairDeviceDtoMapper.ensureInitialized();
+  @override
+  $R call({String? PatientId, String? DeviceId, String? PairingCode}) =>
+      $apply(FieldCopyWithData({
+        if (PatientId != null) #PatientId: PatientId,
+        if (DeviceId != null) #DeviceId: DeviceId,
+        if (PairingCode != null) #PairingCode: PairingCode
+      }));
+  @override
+  ClientWantsToPairDeviceDto $make(CopyWithData data) =>
+      ClientWantsToPairDeviceDto(
+          PatientId: data.get(#PatientId, or: $value.PatientId),
+          DeviceId: data.get(#DeviceId, or: $value.DeviceId),
+          PairingCode: data.get(#PairingCode, or: $value.PairingCode));
+
+  @override
+  ClientWantsToPairDeviceDtoCopyWith<$R2, ClientWantsToPairDeviceDto, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _ClientWantsToPairDeviceDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}

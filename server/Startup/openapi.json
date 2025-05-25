@@ -673,6 +673,39 @@
         }
       }
     },
+    "/device/pair": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "Device_PairDevice",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/appointments/getAppointments": {
       "get": {
         "tags": [
@@ -1597,6 +1630,21 @@
           "heartRate": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "ClientWantsToPairDeviceDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "patientId": {
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string"
+          },
+          "pairingCode": {
+            "type": "string"
           }
         }
       },
