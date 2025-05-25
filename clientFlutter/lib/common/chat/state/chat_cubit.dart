@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/errorHandling/application_messages.dart';
 
 import '../../event_models/events.dart';
@@ -13,7 +14,7 @@ class ChatCubit extends Cubit<ChatState> {
   final List<ChatMessage> _messages = [];
   final ChatDataSource dataSource;
   StreamSubscription? _subscription;
-  bool _isSubscribed = false;
+  String? _currentRoomId;
 
   ChatCubit({required this.webSocketService, required this.dataSource})
     : super(ChatInitial()) {
@@ -47,20 +48,24 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void joinRoom(String roomId) {
-    if (_isSubscribed) return;
+    if (_currentRoomId == roomId) return;
 
-    _isSubscribed = true;
-    webSocketService.send(JoinRoom(roomId: roomId).toJson());
+    if (_currentRoomId != null) {
+      webSocketService.send(
+        UnsubscribeFromChat(roomId: _currentRoomId!).toJson(),
+      );
+    }
+
+    _currentRoomId = roomId;
+    webSocketService.send(
+      JoinRoom(roomId: roomId, token: AuthPrefs.jwt).toJson(),
+    );
+    print('Joined  Chat: $roomId');
   }
 
   void unsubscribeFromChat(String roomId) {
-    if (!_isSubscribed) return;
-
     webSocketService.send(UnsubscribeFromChat(roomId: roomId).toJson());
-
-    _subscription?.cancel();
-    _subscription = null;
-    _isSubscribed = false;
+    _currentRoomId = null;
     print('Unsubscribed from Chat: $roomId');
   }
 

@@ -58,6 +58,7 @@ class ChatDataSource {
             userId: e['senderId'],
             name: e['senderName'] ?? 'Unknown',
             message: e['content'],
+            token: "",
           ),
         )
         .toList();

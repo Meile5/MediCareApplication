@@ -18,17 +18,23 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
   List<AppointmentDto> _appointments = [];
   bool _isSubscribed = false;
 
-  DoctorAppointmentCubit({required this.dataSource, required this.webSocketService,})
-    : super(DoctorAppointmentInitial()){
+  DoctorAppointmentCubit({
+    required this.dataSource,
+    required this.webSocketService,
+  }) : super(DoctorAppointmentInitial()) {
     _subscription = webSocketService.stream.listen(
-          (rawEvent) {
+      (rawEvent) {
         try {
           final event = BaseEventMapper.fromJson(rawEvent);
 
           if (event is CancelledAppointment) {
-            print('Cancelled appointment event received: ${event.appointmentId}');
+            print(
+              'Cancelled appointment event received: ${event.appointmentId}',
+            );
             _appointments.removeWhere((a) => a.id == event.appointmentId);
-            emit(DoctorAppointmentLoaded(appointments: List.from(_appointments)));
+            emit(
+              DoctorAppointmentLoaded(appointments: List.from(_appointments)),
+            );
           }
         } catch (e) {
           emit(
@@ -39,10 +45,13 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
         }
       },
       onError: (error) {
-        emit(DoctorAppointmentError(message: ApplicationMessages.serverError.message));
+        emit(
+          DoctorAppointmentError(
+            message: ApplicationMessages.serverError.message,
+          ),
+        );
       },
     );
-
   }
 
   Future<void> getDoctorAppointments() async {
@@ -118,12 +127,6 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
         ),
       );
     }
-  }
-  void joinRoom(String roomId) {
-    if (_isSubscribed) return;
-
-    _isSubscribed = true;
-    webSocketService.send(JoinRoom(roomId: roomId).toJson());
   }
 
   @override

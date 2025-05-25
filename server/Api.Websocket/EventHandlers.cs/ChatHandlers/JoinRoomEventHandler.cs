@@ -1,14 +1,16 @@
-﻿using Application.Interfaces.Infrastructure.Websocket;
+﻿using Application.Interfaces;
+using Application.Interfaces.Infrastructure.Websocket;
 using Fleck;
 using WebSocketBoilerplate;
 
 namespace Api.Websocket;
 
 // Event handler for joining a room
-public class JoinRoomEventHandler(IConnectionManager connectionManager) : BaseEventHandler<JoinRoomDto>
+public class JoinRoomEventHandler(IConnectionManager connectionManager, ISecurityService securityService) : BaseEventHandler<JoinRoomDto>
 {
     public override async Task Handle(JoinRoomDto dto, IWebSocketConnection socket)
     {
+        securityService.VerifyJwtOrThrow(dto.Token);
         Console.WriteLine( "ggggggggggggggggggggggg" );
         var clientId = connectionManager.GetClientIdFromSocket(socket);
         var roomId = dto.RoomId; // Use hardcoded value for now
@@ -31,6 +33,7 @@ public class JoinRoomEventHandler(IConnectionManager connectionManager) : BaseEv
 // DTO for joining a room
 public class JoinRoomDto : BaseDto
 {
+    public string Token { get; set; }
     public string RoomId { get; set; }
 
 }

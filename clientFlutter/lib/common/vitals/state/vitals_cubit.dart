@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/common/event_models/events.dart';
 import 'package:medicare/common/utility/websocket_service.dart';
 import 'package:medicare/errorHandling/application_messages.dart';
@@ -19,7 +20,9 @@ class VitalsCubit extends Cubit<VitalsState> {
 
     _isSubscribed = true;
 
-    webSocketService.send(SubscribeToVitals(deviceId: deviceId).toJson());
+    webSocketService.send(
+      SubscribeToVitals(deviceId: deviceId, token: AuthPrefs.jwt).toJson(),
+    );
 
     _subscription = webSocketService.stream.listen(
       (rawEvent) {

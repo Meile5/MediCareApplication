@@ -81,10 +81,13 @@ class JoinRoomMapper extends SubClassMapperBase<JoinRoom> {
 
   static String _$roomId(JoinRoom v) => v.roomId;
   static const Field<JoinRoom, String> _f$roomId = Field('roomId', _$roomId);
+  static String? _$token(JoinRoom v) => v.token;
+  static const Field<JoinRoom, String> _f$token = Field('token', _$token);
 
   @override
   final MappableFields<JoinRoom> fields = const {
     #roomId: _f$roomId,
+    #token: _f$token,
   };
 
   @override
@@ -95,7 +98,7 @@ class JoinRoomMapper extends SubClassMapperBase<JoinRoom> {
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
   static JoinRoom _instantiate(DecodingData data) {
-    return JoinRoom(roomId: data.dec(_f$roomId));
+    return JoinRoom(roomId: data.dec(_f$roomId), token: data.dec(_f$token));
   }
 
   @override
@@ -149,7 +152,7 @@ extension JoinRoomValueCopy<$R, $Out> on ObjectCopyWith<$R, JoinRoom, $Out> {
 abstract class JoinRoomCopyWith<$R, $In extends JoinRoom, $Out>
     implements BaseEventCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? roomId});
+  $R call({String? roomId, String? token});
   JoinRoomCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -162,11 +165,14 @@ class _JoinRoomCopyWithImpl<$R, $Out>
   late final ClassMapperBase<JoinRoom> $mapper =
       JoinRoomMapper.ensureInitialized();
   @override
-  $R call({String? roomId}) =>
-      $apply(FieldCopyWithData({if (roomId != null) #roomId: roomId}));
+  $R call({String? roomId, Object? token = $none}) => $apply(FieldCopyWithData({
+        if (roomId != null) #roomId: roomId,
+        if (token != $none) #token: token
+      }));
   @override
-  JoinRoom $make(CopyWithData data) =>
-      JoinRoom(roomId: data.get(#roomId, or: $value.roomId));
+  JoinRoom $make(CopyWithData data) => JoinRoom(
+      roomId: data.get(#roomId, or: $value.roomId),
+      token: data.get(#token, or: $value.token));
 
   @override
   JoinRoomCopyWith<$R2, JoinRoom, $Out2> $chain<$R2, $Out2>(
@@ -672,6 +678,8 @@ class ChatMessageMapper extends SubClassMapperBase<ChatMessage> {
   static String _$message(ChatMessage v) => v.message;
   static const Field<ChatMessage, String> _f$message =
       Field('message', _$message);
+  static String? _$token(ChatMessage v) => v.token;
+  static const Field<ChatMessage, String> _f$token = Field('token', _$token);
 
   @override
   final MappableFields<ChatMessage> fields = const {
@@ -679,6 +687,7 @@ class ChatMessageMapper extends SubClassMapperBase<ChatMessage> {
     #userId: _f$userId,
     #name: _f$name,
     #message: _f$message,
+    #token: _f$token,
   };
 
   @override
@@ -693,7 +702,8 @@ class ChatMessageMapper extends SubClassMapperBase<ChatMessage> {
         roomId: data.dec(_f$roomId),
         userId: data.dec(_f$userId),
         name: data.dec(_f$name),
-        message: data.dec(_f$message));
+        message: data.dec(_f$message),
+        token: data.dec(_f$token));
   }
 
   @override
@@ -749,7 +759,12 @@ extension ChatMessageValueCopy<$R, $Out>
 abstract class ChatMessageCopyWith<$R, $In extends ChatMessage, $Out>
     implements BaseEventCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? roomId, String? userId, String? name, String? message});
+  $R call(
+      {String? roomId,
+      String? userId,
+      String? name,
+      String? message,
+      String? token});
   ChatMessageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -762,19 +777,26 @@ class _ChatMessageCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ChatMessage> $mapper =
       ChatMessageMapper.ensureInitialized();
   @override
-  $R call({String? roomId, String? userId, String? name, String? message}) =>
+  $R call(
+          {String? roomId,
+          String? userId,
+          String? name,
+          String? message,
+          Object? token = $none}) =>
       $apply(FieldCopyWithData({
         if (roomId != null) #roomId: roomId,
         if (userId != null) #userId: userId,
         if (name != null) #name: name,
-        if (message != null) #message: message
+        if (message != null) #message: message,
+        if (token != $none) #token: token
       }));
   @override
   ChatMessage $make(CopyWithData data) => ChatMessage(
       roomId: data.get(#roomId, or: $value.roomId),
       userId: data.get(#userId, or: $value.userId),
       name: data.get(#name, or: $value.name),
-      message: data.get(#message, or: $value.message));
+      message: data.get(#message, or: $value.message),
+      token: data.get(#token, or: $value.token));
 
   @override
   ChatMessageCopyWith<$R2, ChatMessage, $Out2> $chain<$R2, $Out2>(
@@ -1087,10 +1109,14 @@ class SubscribeToVitalsMapper extends SubClassMapperBase<SubscribeToVitals> {
   static String _$deviceId(SubscribeToVitals v) => v.deviceId;
   static const Field<SubscribeToVitals, String> _f$deviceId =
       Field('deviceId', _$deviceId);
+  static String? _$token(SubscribeToVitals v) => v.token;
+  static const Field<SubscribeToVitals, String> _f$token =
+      Field('token', _$token);
 
   @override
   final MappableFields<SubscribeToVitals> fields = const {
     #deviceId: _f$deviceId,
+    #token: _f$token,
   };
 
   @override
@@ -1101,7 +1127,8 @@ class SubscribeToVitalsMapper extends SubClassMapperBase<SubscribeToVitals> {
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
   static SubscribeToVitals _instantiate(DecodingData data) {
-    return SubscribeToVitals(deviceId: data.dec(_f$deviceId));
+    return SubscribeToVitals(
+        deviceId: data.dec(_f$deviceId), token: data.dec(_f$token));
   }
 
   @override
@@ -1161,7 +1188,7 @@ extension SubscribeToVitalsValueCopy<$R, $Out>
 abstract class SubscribeToVitalsCopyWith<$R, $In extends SubscribeToVitals,
     $Out> implements BaseEventCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? deviceId});
+  $R call({String? deviceId, String? token});
   SubscribeToVitalsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -1175,11 +1202,15 @@ class _SubscribeToVitalsCopyWithImpl<$R, $Out>
   late final ClassMapperBase<SubscribeToVitals> $mapper =
       SubscribeToVitalsMapper.ensureInitialized();
   @override
-  $R call({String? deviceId}) =>
-      $apply(FieldCopyWithData({if (deviceId != null) #deviceId: deviceId}));
+  $R call({String? deviceId, Object? token = $none}) =>
+      $apply(FieldCopyWithData({
+        if (deviceId != null) #deviceId: deviceId,
+        if (token != $none) #token: token
+      }));
   @override
-  SubscribeToVitals $make(CopyWithData data) =>
-      SubscribeToVitals(deviceId: data.get(#deviceId, or: $value.deviceId));
+  SubscribeToVitals $make(CopyWithData data) => SubscribeToVitals(
+      deviceId: data.get(#deviceId, or: $value.deviceId),
+      token: data.get(#token, or: $value.token));
 
   @override
   SubscribeToVitalsCopyWith<$R2, SubscribeToVitals, $Out2> $chain<$R2, $Out2>(

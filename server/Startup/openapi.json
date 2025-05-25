@@ -1779,6 +1779,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "token": {
+                "type": "string"
+              },
               "roomId": {
                 "type": "string"
               }
@@ -1894,6 +1897,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "token": {
+                "type": "string"
+              },
               "deviceId": {
                 "type": "string"
               }
@@ -1926,6 +1932,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "token": {
+                "type": "string"
+              },
               "roomId": {
                 "type": "string"
               },
