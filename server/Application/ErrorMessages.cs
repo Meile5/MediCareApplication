@@ -11,10 +11,14 @@ public enum ErrorCode
     ClinicDoctor,
     ClinicInfo,
     PatientVitals,
+    SaveVitals,
     Diagnoses,
     Patients,
     Diagnosis,
-    EmptyValueValidator
+    EmptyValueValidator,
+    CreateChatRoom,
+    ChatRooms,
+    Doctor
     
 }
 
@@ -31,10 +35,14 @@ public static class ErrorMessages
         { ErrorCode.ClinicDoctor, "Failed to retrieve clinic doctor" },
         { ErrorCode.ClinicInfo, "Failed to retrieve clinic info" },
         { ErrorCode.PatientVitals, "Failed to retrieve patient vitals" },
+        { ErrorCode.SaveVitals, "Failed to save patient vitals" },
+        { ErrorCode.CreateChatRoom, "Failed to create chat room" },
+        { ErrorCode.ChatRooms, "Failed to retreive chat rooms/messages" },
         { ErrorCode.Diagnoses, "Failed to retrieve diagnoses" },
         { ErrorCode.Patients, "Failed to retrieve patients" },
         { ErrorCode.Diagnosis, "Failed to save diagnosis" },
         { ErrorCode.EmptyValueValidator, "Empty values when validating" },
+        { ErrorCode.Doctor, "Failed to retreive doctor" }
 
 
 

@@ -1723,6 +1723,34 @@
           }
         }
       },
+      "CancelledAppointment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "appointmentId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "BaseDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "eventType": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
       "MemberLeftNotification": {
         "allOf": [
           {
@@ -1741,18 +1769,6 @@
             }
           }
         ]
-      },
-      "BaseDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "eventType": {
-            "type": "string"
-          },
-          "requestId": {
-            "type": "string"
-          }
-        }
       },
       "JoinRoomDto": {
         "allOf": [
@@ -1847,6 +1863,22 @@
             "additionalProperties": false,
             "properties": {
               "doctorId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "CancelAppointmentWebSocket": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "appointmentId": {
                 "type": "string"
               }
             }
@@ -1949,6 +1981,7 @@
         "type": "string",
         "description": "Available eventType constants",
         "enum": [
+          "CancelledAppointment",
           "MemberLeftNotification",
           "JoinRoomDto",
           "ServerMessageDto",
@@ -1956,6 +1989,7 @@
           "ExampleServerResponse",
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
+          "CancelAppointmentWebSocket",
           "SubscribeToVitalsDto",
           "UnsubscribeFromVitalsDto",
           "ChatMessageDto",
