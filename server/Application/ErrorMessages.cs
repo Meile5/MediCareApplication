@@ -13,7 +13,8 @@ public enum ErrorCode
     PatientVitals,
     Diagnoses,
     Patients,
-    Diagnosis
+    Diagnosis,
+    EmptyValueValidator
     
 }
 
@@ -32,7 +33,9 @@ public static class ErrorMessages
         { ErrorCode.PatientVitals, "Failed to retrieve patient vitals" },
         { ErrorCode.Diagnoses, "Failed to retrieve diagnoses" },
         { ErrorCode.Patients, "Failed to retrieve patients" },
-        { ErrorCode.Diagnosis, "Failed to save diagnsis" },
+        { ErrorCode.Diagnosis, "Failed to save diagnosis" },
+        { ErrorCode.EmptyValueValidator, "Empty values when validating" },
+
 
 
         
