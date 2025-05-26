@@ -18,3 +18,16 @@ class SaveVitalsDto with SaveVitalsDtoMappable {
     required this.HeartRate,
   });
 }
+
+@MappableClass()
+class ClientWantsToPairDeviceDto with ClientWantsToPairDeviceDtoMappable {
+  final String PatientId;
+  final String DeviceId;
+  final String PairingCode;
+
+  ClientWantsToPairDeviceDto({
+    required this.PatientId,
+    required this.DeviceId,
+    required this.PairingCode,
+  });
+}

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Postgres.Postgresql.Data.DoctorRepo;
 
-public class OverviewPatientsRepo (MyDbContext context, Logger<OverviewPatientsRepo> logger): IOverviewPatientsRepo
+public class OverviewPatientsRepo (MyDbContext context, ILogger<OverviewPatientsRepo> logger): IOverviewPatientsRepo
 {
     public async Task<List<PatientVital>> RetrievePatientsVitals(string patientId)
     {

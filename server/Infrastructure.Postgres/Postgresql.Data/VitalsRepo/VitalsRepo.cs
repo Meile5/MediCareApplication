@@ -1,3 +1,4 @@
+using Application;
 using Application.Interfaces.Infrastructure.Postgres.VitalsRep;
 using Core.Domain.Entities;
 using Infrastructure.Postgres.Scaffolding;
@@ -5,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Postgres.Postgresql.Data.VitalsRepo;
 
-public class VitalsRepo(MyDbContext context) : IVitalsRep
+public class VitalsRepo(MyDbContext context, ILogger<VitalsRepo> logger) : IVitalsRep
 {
     public async Task SaveVitalsAsync(PatientVital vitals)
     {
@@ -16,19 +17,45 @@ public class VitalsRepo(MyDbContext context) : IVitalsRep
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error saving vitals: {e}");
+            logger.LogError(e, ErrorMessages.GetMessage(ErrorCode.SaveVitals));
         }
     }
 
     public async Task<List<PatientVital>> GetVitalsForPatientAsync(string patientId, DateTime? since = null)
     {
-        var query = context.PatientVitals.Where(v => v.PatientId == patientId);
-
-        if (since.HasValue)
+        try
         {
-            query = query.Where(v => v.CreatedAt >= since.Value);
-        }
+            var query = context.PatientVitals.Where(v => v.PatientId == patientId);
 
-        return await query.OrderByDescending(v => v.CreatedAt).ToListAsync();
+            if (since.HasValue)
+            {
+                query = query.Where(v => v.CreatedAt >= since.Value);
+            }
+
+            return await query.OrderByDescending(v => v.CreatedAt).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, ErrorMessages.GetMessage(ErrorCode.PatientVitals));
+            throw;
+        }
     }
+
+    public async Task AssignDeviceToPatient(string deviceId, string patientId)
+    {
+        try
+        {
+            var patient = await context.Patients.FindAsync(patientId);
+            if (patient == null) throw new Exception("Patient not found");
+
+            patient.DeviceId = deviceId;
+            await context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Failed to assign device to patient");
+            throw;
+        }
+    }
+
 }

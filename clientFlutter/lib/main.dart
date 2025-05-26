@@ -18,6 +18,7 @@ import 'package:medicare/patient/appointmentManagement/utils/data_source.dart';
 import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
 import 'package:medicare/patient/overview/utility/data_source_overview.dart';
+import 'package:medicare/patient/vitals/utils/vitals_data_source.dart';
 import 'package:uuid/uuid.dart';
 
 import 'common/auth/auth_cubit.dart';
@@ -55,7 +56,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     final _uuid = const Uuid();
     super.initState();
-    webSocketService = WebSocketService("ws://0.0.0.0:8181?id=${_uuid}");
+    webSocketService = WebSocketService(
+      "${dotenv.env['WEBSOCKET_URL']!}?id=${_uuid}",
+    );
   }
 
   @override
@@ -87,7 +90,11 @@ class _MyAppState extends State<MyApp> {
               ),
         ),
         BlocProvider(
-          create: (_) => VitalsCubit(webSocketService: webSocketService),
+          create:
+              (_) => VitalsCubit(
+                webSocketService: webSocketService,
+                dataSource: VitalsDataSource(),
+              ),
         ),
         BlocProvider(
           create:

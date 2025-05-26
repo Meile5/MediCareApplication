@@ -673,6 +673,39 @@
         }
       }
     },
+    "/device/pair": {
+      "post": {
+        "tags": [
+          "Device"
+        ],
+        "operationId": "Device_PairDevice",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientWantsToPairDeviceDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/appointments/getAppointments": {
       "get": {
         "tags": [
@@ -1600,6 +1633,21 @@
           }
         }
       },
+      "ClientWantsToPairDeviceDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "patientId": {
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string"
+          },
+          "pairingCode": {
+            "type": "string"
+          }
+        }
+      },
       "CreateChatRoomDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1723,6 +1771,34 @@
           }
         }
       },
+      "CancelledAppointment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "appointmentId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "BaseDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "eventType": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
       "MemberLeftNotification": {
         "allOf": [
           {
@@ -1742,18 +1818,6 @@
           }
         ]
       },
-      "BaseDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "eventType": {
-            "type": "string"
-          },
-          "requestId": {
-            "type": "string"
-          }
-        }
-      },
       "JoinRoomDto": {
         "allOf": [
           {
@@ -1763,6 +1827,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "token": {
+                "type": "string"
+              },
               "roomId": {
                 "type": "string"
               }
@@ -1853,6 +1920,22 @@
           }
         ]
       },
+      "CancelAppointmentWebSocket": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "appointmentId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "SubscribeToVitalsDto": {
         "allOf": [
           {
@@ -1862,6 +1945,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "token": {
+                "type": "string"
+              },
               "deviceId": {
                 "type": "string"
               }
@@ -1894,6 +1980,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "token": {
+                "type": "string"
+              },
               "roomId": {
                 "type": "string"
               },
@@ -1949,6 +2038,7 @@
         "type": "string",
         "description": "Available eventType constants",
         "enum": [
+          "CancelledAppointment",
           "MemberLeftNotification",
           "JoinRoomDto",
           "ServerMessageDto",
@@ -1956,6 +2046,7 @@
           "ExampleServerResponse",
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
+          "CancelAppointmentWebSocket",
           "SubscribeToVitalsDto",
           "UnsubscribeFromVitalsDto",
           "ChatMessageDto",
