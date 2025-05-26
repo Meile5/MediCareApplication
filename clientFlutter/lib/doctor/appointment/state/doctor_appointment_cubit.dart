@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/doctor/appointment/models/appointment_model.dart';
 
 import '../../../common/event_models/events.dart';
@@ -127,6 +128,21 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
         ),
       );
     }
+  }
+
+  void joinRoom(String roomId) {
+    if (_isSubscribed) return;
+
+    _isSubscribed = true;
+    webSocketService.send(
+      JoinRoom(roomId: roomId, token: AuthPrefs.jwt).toJson(),
+    );
+    print('Subscribed to Room: $roomId');
+  }
+
+  void unsubscribeFromRoom(String roomId) {
+    webSocketService.send(UnsubscribeFromChat(roomId: roomId).toJson());
+    print('Unsubscribed from Room: $roomId');
   }
 
   @override
