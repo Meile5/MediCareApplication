@@ -25,43 +25,44 @@ class _FutureAppointmentsState extends State<FutureAppointments> {
     super.initState();
 
     final clinicState = context.read<OverviewCubit>().state;
-
     if (clinicState is ClinicInfoLoaded) {
-      final clinicId = clinicState.clinicInfo.firstWhere(
-        (clinic) => clinic.type == "Normal",
+      final clinic = clinicState.clinicInfo.firstWhere(
+            (clinic) => clinic.type == "Normal",
       );
-      context.read<DoctorsCubit>().retrieveDoctors(clinicId.id);
+      context.read<DoctorsCubit>().retrieveDoctors(clinic.id);
     }
 
     context.read<AppointmentCubit>().getFutureAppointments();
   }
 
-  void _joinRoomsIfNeeded(BuildContext context) {
-    //if (_hasJoinedRooms) return;
 
-    final doctorsState = context.read<DoctorsCubit>().state;
-    final appointmentState = context.read<AppointmentCubit>().state;
 
-    if (doctorsState is DoctorsLoaded &&
-        appointmentState is FutureAppointmentsLoaded) {
-      final appointments = appointmentState.futureAppointments;
-      final doctorIds = doctorsState.doctors.map((doc) => doc.doctorId).toSet();
-      final userId = AuthPrefs.userId;
-
-      for (final appt in appointments) {
-        if (doctorIds.contains(appt.doctorId)) {
-          final roomId = "${appt.doctorId}-$userId";
-          print(roomId);
-          context.read<AppointmentCubit>().joinRoom(roomId);
-        }
-      }
-
-      //_hasJoinedRooms = true;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+
+    final doctorsState = context.watch<DoctorsCubit>().state;
+    final appointmentState = context.watch<AppointmentCubit>().state;
+
+    // Join rooms after build, only when both states are loaded
+    if (doctorsState is DoctorsLoaded &&
+        appointmentState is FutureAppointmentsLoaded) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final doctorIds = doctorsState.doctors.map((doc) => doc.doctorId)
+            .toSet();
+        final appointments = appointmentState.futureAppointments;
+        final userId = AuthPrefs.userId;
+
+        for (final appt in appointments) {
+          if (doctorIds.contains(appt.doctorId)) {
+            final roomId = "${appt.doctorId}-$userId";
+            print ('Joining room: $roomId');
+            context.read<AppointmentCubit>().joinRoom(roomId);
+          }
+        }
+      });
+    }
+
     return SafeArea(
       child: BlocBuilder<AppointmentCubit, AppointmentState>(
         builder: (context, state) {

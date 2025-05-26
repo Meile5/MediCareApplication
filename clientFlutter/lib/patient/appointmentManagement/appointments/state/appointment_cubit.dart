@@ -15,8 +15,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
   final DataSource dataSource;
   final WebSocketService webSocketService;
   StreamSubscription? _subscription;
-  bool _isSubscribed = false;
-  String? _currentRoomId;
+  final Set<String> _joinedRooms = {};
   List<FutureAppointmentsDto> _futureAppointments = [];
 
   AppointmentCubit({required this.dataSource, required this.webSocketService})
@@ -29,6 +28,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
               _futureAppointments.removeWhere(
                 (a) => a.id == message.appointmentId,
               );
+              print('Cancelled appointment: ${message.appointmentId}');
               emit(
                 FutureAppointmentsLoaded(
                   futureAppointments: List.from(_futureAppointments),
@@ -105,30 +105,28 @@ class AppointmentCubit extends Cubit<AppointmentState> {
   }
 
   void joinRoom(String roomId) {
-    if (_isSubscribed) return;
+    if (_joinedRooms.contains(roomId)) return;
 
-    _isSubscribed = true;
+    _joinedRooms.add(roomId);
     webSocketService.send(
       JoinRoom(roomId: roomId, token: AuthPrefs.jwt).toJson(),
     );
     print('Subscribed to Room: $roomId');
   }
 
-  void unsubscribeFromRoom() {
-    if (!_isSubscribed || _currentRoomId == null) return;
-
-    webSocketService.send(
-      UnsubscribeFromChat(roomId: _currentRoomId!).toJson(),
-    );
-    print("Unsubscribed from WebSocket room: $_currentRoomId");
-
-    _isSubscribed = false;
-    _currentRoomId = null;
+  void unsubscribeAllRooms() {
+    for (final roomId in _joinedRooms) {
+      webSocketService.send(
+        UnsubscribeFromChat(roomId: roomId).toJson(),
+      );
+      print("Unsubscribed from WebSocket room: $roomId");
+    }
+    _joinedRooms.clear();
   }
 
   @override
   Future<void> close() {
-    unsubscribeFromRoom();
+    unsubscribeAllRooms();
     _subscription?.cancel();
     return super.close();
   }

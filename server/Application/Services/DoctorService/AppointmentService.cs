@@ -26,7 +26,7 @@ public class AppointmentService(IAppointmentRep appointmentRep, IConnectionManag
         {
             AppointmentId = appointmentId
         };
-        await connectionManager.BroadcastToTopic($"doctor_{doctorId}",broadcast);
+        await connectionManager.BroadcastToTopic(doctorId ,broadcast);
     }
 
     public async Task<List<Appointment>> RetrieveDoctorAppointments(string doctorId)
