@@ -30285,7 +30285,7 @@ var $async$T2=A.A(function(a,b){if(a===1)return A.B(b,r)
 while(true)switch(s){case 0:if($.au==null)A.b6z()
 $.au.toString
 s=2
-return A.I($.ei().GH(0,".env"),$async$T2)
+return A.I($.ei().GH(0,"env.production"),$async$T2)
 case 2:s=3
 return A.I(A.Ud(),$async$T2)
 case 3:s=4
