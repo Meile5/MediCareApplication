@@ -1,10 +1,13 @@
 using Application.Interfaces.IDoctorService;
 using Application.Interfaces.Infrastructure.Postgres.DoctorRep;
+using Application.Interfaces.Infrastructure.Websocket;
+using Application.Models.Dtos.DoctorDto.requests;
+using Application.Models.Dtos.DoctorDto.response;
 using Core.Domain.Entities;
 
 namespace Application.Services.DoctorService;
 
-public class AppointmentService(IAppointmentRep appointmentRep) : IAppointmentService
+public class AppointmentService(IAppointmentRep appointmentRep, IConnectionManager connectionManager) : IAppointmentService
 {
     public async Task ConfirmAppointment(string appointmentId)
     {
@@ -16,9 +19,14 @@ public class AppointmentService(IAppointmentRep appointmentRep) : IAppointmentSe
         return await appointmentRep.GetPatientName(appointmentId);
     }
 
-    public async Task RejectAppointment(string appointmentId)
+    public async Task RejectAppointment(string appointmentId, string doctorId)
     {
         await appointmentRep.RejectAppointment(appointmentId);
+        var broadcast = new CancelledAppointment()
+        {
+            AppointmentId = appointmentId
+        };
+        await connectionManager.BroadcastToTopic($"doctor_{doctorId}",broadcast);
     }
 
     public async Task<List<Appointment>> RetrieveDoctorAppointments(string doctorId)

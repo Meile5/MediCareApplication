@@ -843,12 +843,20 @@
             "x-position": 1
           },
           {
+            "name": "doctorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          },
+          {
             "name": "authorization",
             "in": "header",
             "schema": {
               "type": "string"
             },
-            "x-position": 2
+            "x-position": 3
           }
         ],
         "responses": {
@@ -1799,6 +1807,22 @@
           }
         }
       },
+      "DoctorCancelAppointment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "appointmentId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
       "MemberLeftNotification": {
         "allOf": [
           {
@@ -2039,6 +2063,7 @@
         "description": "Available eventType constants",
         "enum": [
           "CancelledAppointment",
+          "DoctorCancelAppointment",
           "MemberLeftNotification",
           "JoinRoomDto",
           "ServerMessageDto",

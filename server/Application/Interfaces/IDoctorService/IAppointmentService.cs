@@ -6,6 +6,6 @@ public interface IAppointmentService
 {
     Task<List<Appointment>> RetrieveDoctorAppointments(string doctorId);
     Task ConfirmAppointment(string appointmentId);
-    Task RejectAppointment(string appointmentId);
+    Task RejectAppointment(string appointmentId, string doctorId);
     Task<string> GetPatientName(string appointmentId);
 }

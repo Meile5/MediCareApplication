@@ -35,9 +35,9 @@ class DoctorAppointmentDataSource {
     );
   }
 
-  Future<void> rejectAppointment(String appointmentId) async {
+  Future<void> rejectAppointment(String appointmentId, String patientId) async {
     final url =
-        "${dotenv.env['API_BASE_URL']!}/appointments/reject?appointmentId=$appointmentId";
+        "${dotenv.env['API_BASE_URL']!}/appointments/reject?appointmentId=$appointmentId&doctorId=${AuthPrefs.userId}-$patientId";
 
     await http.put(
       Uri.parse(url),

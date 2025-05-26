@@ -18,15 +18,29 @@ class DoctorAppointmentsCalendar extends StatefulWidget {
 
 class _DoctorAppointmentsCalendarState
     extends State<DoctorAppointmentsCalendar> {
+  late DoctorAppointmentCubit _doctorAppointmentCubit;
+  String? _doctorId;
+
   @override
   void initState() {
     super.initState();
-    context.read<DoctorAppointmentCubit>().getDoctorAppointments();
-    final state = context.read<DoctorCubit>().state;
-    final doctor = state.doctor;
+
+    _doctorAppointmentCubit = context.read<DoctorAppointmentCubit>();
+    _doctorAppointmentCubit.getDoctorAppointments();
+
+    final doctor = context.read<DoctorCubit>().state.doctor;
     if (doctor != null) {
-      final doctorId = doctor.doctorid;
+      _doctorId = doctor.doctorid;
+      _doctorAppointmentCubit.joinRoom(_doctorId!);
     }
+  }
+
+  @override
+  void dispose() {
+    if (_doctorId != null) {
+      _doctorAppointmentCubit.unsubscribeFromRoom(_doctorId!);
+    }
+    super.dispose();
   }
 
   @override
@@ -122,7 +136,7 @@ class _DoctorAppointmentsCalendarState
                           onPressed: () {
                             context
                                 .read<DoctorAppointmentCubit>()
-                                .rejectAppointment(appt.id)
+                                .rejectAppointment(appt.id, appt.patientId)
                                 .then((_) {
                                   context
                                       .read<DoctorAppointmentCubit>()
