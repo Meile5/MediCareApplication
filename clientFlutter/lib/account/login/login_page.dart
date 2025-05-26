@@ -16,9 +16,51 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => LoginCubit(context.read<AuthCubit>()),
-      child: Scaffold(
-        //appBar: AppBar(title: const Text('Sign In')),
-        body: Center(child: const LoginForm()),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isWide = constraints.maxWidth > 800;
+          return Scaffold(
+            body:
+                isWide
+                    ? Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            color: Colors.blueAccent,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(32.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.medical_services,
+                                      color: Colors.white,
+                                      size: 100,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Text(
+                                      "Your health, our priority.\nWelcome to the future of care.",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Right side login form
+                        Expanded(flex: 3, child: Center(child: LoginForm())),
+                      ],
+                    )
+                    : Center(child: LoginForm()),
+          );
+        },
       ),
     );
   }
