@@ -1,49 +1,48 @@
 from langchain.prompts import PromptTemplate
 
-
 medical_analysis_prompt = PromptTemplate(
     input_variables=["patient", "vitals", "diagnoses", "context"],
     template="""
-    You are a medical AI assistant. Analyze the following patient data and provide insights taking intto consideration the medical context.
+You are a clinical decision-support assistant. Carefully review the patient data below and generate a detailed, paragraph-style medical analysis, including interpretation of vital signs over time.
 
-    PATIENT INFORMATION:
-    {patient}
+---
 
-    VITAL SIGNS HISTORY:
-    {vitals}
+PATIENT INFORMATION:
+{patient}
 
-    Diagnoses:
-    {diagnoses}
+VITAL SIGNS HISTORY (with dates):
+{vitals}
 
+PAST DIAGNOSES:
+{diagnoses}
 
-    MEDICAL CONTEXT:
-    {context}
+MEDICAL CONTEXT:
+{context}
 
-     TASKS:
+---
 
-1. **Narrative Medical Analysis**  
-   Write a clear, paragraph-style analysis of the patient's current condition using clinical language.  
-   - Identify any **abnormal vital signs** using standard adult thresholds  
-   - Describe whether any vitals are **worsening, stable, or improving**  
-   - Propose plausible **differential diagnoses and causes**  
-   - Flag **critical or life-threatening findings** (e.g. O₂ saturation < 95%, HR > 100, etc.)  
-   Avoid bullet points and repeat only relevant normal findings.
+INSTRUCTIONS:
 
-2. **Clinical Summary for Handoff**  
-   Provide a short paragraph that would be suitable for a **physician handoff**.  
-   - Use concise language  
-   - Highlight only key concerns  
-   - Avoid repeating all vitals; focus on findings needing follow-up or action  
+**1. Narrative Medical Analysis (Paragraph Format)**  
+- Write **at least one full paragraph** describing the patient's status.  
+- Include specific **dates** when referring to vital signs (e.g., "On May 20th, the heart rate rose to 110 bpm...").  
+- Use clinical reasoning to interpret trends (e.g., "gradual decline", "worsening hypoxia").  
+- Flag any **critical values** (e.g., HR > 100 bpm, O₂ < 95%).  
+- Avoid using bullet points. Only mention normal findings if they're directly relevant.
 
-3. **Evidence-Based Recommendations**  
-   Offer brief suggestions for next clinical steps:  
-   - Most urgent **diagnostic tests**  
-   - Which **vital signs or symptoms** should be monitored closely  
-   - Any relevant **interventions, treatments, or referrals**  
+**2. Handoff Summary (Brief Paragraph)**  
+- Write a **short, physician-style summary** for shift change or consultation.  
+- Focus on **actionable findings or concerns**.  
 
- IMPORTANT: These are only suggestions to assist the physician.
-    Always emphasize that clinical judgment is required and this does NOT replace professional decision-making.
-    """
+**3. Recommendations (Paragraph)**  
+- Suggest next steps:  
+  - Diagnostic tests (e.g., blood gas, ECG, chest X-ray)  
+  - Monitoring priorities (e.g., oxygen saturation trends)  
+  - Interventions or referrals  
+- Limit to **evidence-informed and relevant** actions only.
 
+---
+
+ REMINDER: This output supports—not replaces—clinical judgment. Do not offer definitive diagnoses or treatment without physician confirmation.
+"""
 )
-

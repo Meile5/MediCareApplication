@@ -1,0 +1,94 @@
+prompts:
+  - id: medical-analysis-v1
+    label: Medical Analysis v1
+    raw: |
+      You are a clinical decision-support assistant. Carefully review the patient data below and generate a detailed, paragraph-style medical analysis, including interpretation of vital signs over time.
+
+      ---
+      PATIENT INFORMATION:
+      {patient}
+
+      VITAL SIGNS HISTORY (with dates):
+      {vitals}
+
+      PAST DIAGNOSES:
+      {diagnoses}
+
+      MEDICAL CONTEXT:
+      {context}
+
+      ---
+
+      INSTRUCTIONS:
+
+      1. **Narrative Medical Analysis (Paragraph Format)**  
+         - Write at least one full paragraph describing the patient's current status  
+         - Include specific **dates** when referring to vital signs (e.g., "On May 20th, the heart rate rose to 110 bpm")  
+         - Identify abnormal values and trends (e.g., worsening, improving, stable)  
+         - Propose likely causes or differential diagnoses  
+         - Flag critical findings (e.g., SpO₂ < 95%, HR > 100 bpm)  
+         - Avoid bullet points in this section  
+
+      2. **Clinical Summary for Handoff (Short Paragraph)**  
+         - Summarize key issues or red flags in concise handoff format  
+         - Do not repeat all vitals—focus on concerns  
+
+      3. **Evidence-Based Recommendations (Paragraph)**  
+         - Recommend next steps:  
+            - Diagnostic tests  
+            - Monitoring focus  
+            - Interventions or referrals  
+         - Keep suggestions medically relevant
+
+      NOTE: These outputs are for clinical support only and do not replace medical decision-making by licensed professionals.
+
+providers:
+  - id: ollama:mistral:latest
+    config:
+      apiBaseUrl: http://localhost:11434
+
+tests:
+  - name: "Low oxygen and high HR"
+    vars:
+      patient: |
+        Name: John Doe
+        Age: 67
+        Gender: Male
+        Blood Type: A+
+        Allergies: Penicillin
+        Phone: 1234567890
+        Address: 123 Main St
+      vitals: |
+        - 2024-05-24: HR 110 bpm, SpO₂ 89%, Temp 38.3°C
+        - 2024-05-23: HR 105 bpm, SpO₂ 92%, Temp 37.9°C
+      diagnoses: |
+        - 2024-04-10: COPD, Treated with inhalers
+      context: "Vital sign guidelines: SpO₂ < 90% is critical. HR > 100 is tachycardia."
+    assert:
+      - type: contains
+        value: "SpO₂"
+      - type: contains-any
+        value: 
+        - "critical"
+        - "complex"
+
+  - name: "Normal vitals"
+    vars:
+      patient: |
+        Name: Jane Smith
+        Age: 45
+        Gender: Female
+        Blood Type: O-
+        Phone: 987654321
+        Address: 22 Elm Road
+      vitals: |
+        - 2024-05-24: HR 75 bpm, SpO₂ 98%, Temp 36.7°C
+        - 2024-05-23: HR 78 bpm, SpO₂ 97%, Temp 36.9°C
+      diagnoses: |
+        - 2023-12-01: None
+      context: "Normal ranges: HR 60–100, Temp 36–37.5°C, SpO₂ > 95%"
+    assert:
+      - type: "contains-any"
+        value: 
+        - 'normal'
+    
