@@ -12,6 +12,7 @@ import '../../../doctor/patient_overview/state/patients_diagnoses_cubit.dart';
 import '../../../doctor/patient_overview/state/patients_diagnoses_state.dart';
 import '../../../doctor/patient_overview/state/patients_vitals_state.dart';
 import '../../../errorHandling/application_messages.dart';
+import '../../common/patient_state.dart';
 import '../state/overview_state.dart';
 import '../widgets/clinic_info.dart';
 
