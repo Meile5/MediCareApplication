@@ -82,12 +82,7 @@ public class BookingController (IBookingService bookingService, ISecurityService
         var response = await bookingService.RetrieveClinicDoctors(clinicId);
         return Ok(response);
     }
-
-
-    public void MyTest()
-    {
-        new HttpClient().GetAsync(BookingController.RetrieveDoctorsRoute);
-    }
+    
     
 
 

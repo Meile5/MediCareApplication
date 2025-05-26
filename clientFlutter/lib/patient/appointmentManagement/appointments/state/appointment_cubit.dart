@@ -25,9 +25,14 @@ class AppointmentCubit extends Cubit<AppointmentState> {
         .listen(
           (message) {
             if (message is CancelledAppointment) {
-              _futureAppointments.removeWhere(
-                (a) => a.id == message.appointmentId,
-              );
+              _futureAppointments.map((appointment) {
+                if (appointment.id == message.appointmentId) {
+                  return appointment.copyWith(
+                    status: "Cancelled"
+                  );
+                }
+                return appointment;
+              }).toList();
               print('Cancelled appointment: ${message.appointmentId}');
               emit(
                 FutureAppointmentsLoaded(
