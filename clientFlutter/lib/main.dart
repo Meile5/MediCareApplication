@@ -34,7 +34,7 @@ import 'patient/common/patient_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: kReleaseMode ? ".env.production" : ".env");
+  await dotenv.load(fileName:  ".env");
   await AuthPrefs.init();
   //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
   await AuthPrefs.init();
