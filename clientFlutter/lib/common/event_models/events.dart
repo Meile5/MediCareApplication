@@ -8,8 +8,9 @@ abstract class BaseEvent with BaseEventMappable {}
 @MappableClass(discriminatorValue: "JoinRoom")
 class JoinRoom extends BaseEvent with JoinRoomMappable {
   final String roomId;
+  final String? token;
 
-  JoinRoom({required this.roomId});
+  JoinRoom({required this.roomId, required this.token});
 }
 
 @MappableClass(discriminatorValue: "JoinDoctorRoom")
@@ -47,12 +48,14 @@ class ChatMessage extends BaseEvent with ChatMessageMappable {
   final String userId;
   final String name;
   final String message;
+  final String? token;
 
   ChatMessage({
     required this.roomId,
     required this.userId,
     required this.name,
     required this.message,
+    required this.token,
   });
 }
 
@@ -86,8 +89,9 @@ class DeviceVitals extends BaseEvent with DeviceVitalsMappable {
 @MappableClass(discriminatorValue: "SubscribeToVitals")
 class SubscribeToVitals extends BaseEvent with SubscribeToVitalsMappable {
   final String deviceId;
+  final String? token;
 
-  SubscribeToVitals({required this.deviceId});
+  SubscribeToVitals({required this.deviceId, required this.token});
 }
 
 @MappableClass(discriminatorValue: "SubscribeSuccess")

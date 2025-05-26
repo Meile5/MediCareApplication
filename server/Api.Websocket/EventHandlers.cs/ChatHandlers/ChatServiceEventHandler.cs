@@ -1,3 +1,4 @@
+using Application.Interfaces;
 using Application.Interfaces.IChatService;
 using Application.Interfaces.Infrastructure.Websocket;
 using Application.Models.Dtos.ChatDtos;
@@ -7,9 +8,11 @@ using WebSocketBoilerplate;
 namespace Api.Websocket.EventHandlers.Chat;
 
 
-public class ChatMessageEventHandler(IConnectionManager connectionManager, IChatService chatService) : BaseEventHandler<ChatMessageEventHandler.ChatMessageDto>
+public class ChatMessageEventHandler(IConnectionManager connectionManager, IChatService chatService, ISecurityService securityService) : BaseEventHandler<ChatMessageEventHandler.ChatMessageDto>
 {
     public override async Task Handle(ChatMessageDto dto, IWebSocketConnection socket){
+        var token = dto.Token;
+        securityService.VerifyJwtOrThrow(token);
         
         var userId = dto.UserId; 
         var roomId = dto.RoomId;
@@ -21,7 +24,8 @@ public class ChatMessageEventHandler(IConnectionManager connectionManager, IChat
             RoomId = roomId,
             UserId = userId,
             Name = dto.Name,
-            Message = dto.Message
+            Message = dto.Message,
+            Token = "no token"
         };
 
         var saveMessage = new SendMessageDto{
@@ -32,14 +36,13 @@ public class ChatMessageEventHandler(IConnectionManager connectionManager, IChat
             SenderName = dto.Name
         };
 
-        // Broadcast the message to everyone in the room
-        //chatService.SendMessage()
         await chatService.SaveMessage(saveMessage);
         await connectionManager.BroadcastToTopic(roomId, broadcastMessage);
     }
     
     public class ChatMessageDto : BaseDto
     {
+        public string Token { get; set; }
         public string RoomId { get; set; }
         public string UserId { get; set; }
         public string Name {get;set;}

@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Application.Interfaces.Infrastructure.Websocket;
 using Application.Models.Dtos;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Mqtt.SubscriptionHandlers;
 
@@ -45,7 +46,7 @@ public class DeviceVitalsHandler : IMqttEventHandler
         }
         catch (Exception ex)
         {
-            // Optional: log ex or handle error
+            throw new Exception($"{ex}");
         }
     }
 

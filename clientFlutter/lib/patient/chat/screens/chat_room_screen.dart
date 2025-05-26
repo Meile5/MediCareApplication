@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/common/chat/state/chat_state.dart';
 
 import '../../../common/chat/state/chat_cubit.dart';
@@ -49,6 +50,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       userId: widget.userId,
       name: widget.userName,
       message: messageText,
+      token: AuthPrefs.jwt,
     );
 
     _chatCubit.sendMessage(message);
