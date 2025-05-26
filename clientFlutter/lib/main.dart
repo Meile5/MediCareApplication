@@ -56,7 +56,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     final _uuid = const Uuid();
     super.initState();
-    webSocketService = WebSocketService("ws://localhost:8181?id=${_uuid}");
+    webSocketService = WebSocketService(
+      "${dotenv.env['WEBSOCKET_URL']!}?id=${_uuid}",
+    );
   }
 
   @override
