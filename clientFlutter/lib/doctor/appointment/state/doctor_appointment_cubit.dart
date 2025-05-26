@@ -28,9 +28,6 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
           final event = BaseEventMapper.fromJson(rawEvent);
 
           if (event is CancelledAppointment) {
-            print(
-              'Cancelled appointment event received: ${event.appointmentId}',
-            );
             _appointments.removeWhere((a) => a.id == event.appointmentId);
             emit(
               DoctorAppointmentLoaded(appointments: List.from(_appointments)),
