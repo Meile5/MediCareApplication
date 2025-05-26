@@ -39,13 +39,14 @@ public class AppointmentController(IAppointmentService appointmentService, IChat
 
     [Route("appointments/reject")]
     [HttpPut]
-    public async Task<ActionResult> RejectAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromHeader] string authorization)
+    public async Task<ActionResult> RejectAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromQuery] string doctorId, [FromHeader] string authorization)
     {
         securityService.VerifyJwtOrThrow(authorization);
-        await appointmentService.RejectAppointment(appointmentIdRequest.appointmentId);
+    
+        await appointmentService.RejectAppointment(appointmentIdRequest.appointmentId, doctorId);
         return Ok();
     }
-
+    
     [Route("appointments/getPatientName")]
     [HttpGet]
     public async Task<ActionResult> GetPatientsNameForAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromHeader] string authorization)

@@ -32,11 +32,8 @@ class DoctorSideNavigation extends StatelessWidget {
       valueListenable: context.read<NavigationModel>().currentIndex,
       builder: (context, index, _) {
         return SideNavigationBar(
-          selectedIndex: index + 3,
+          selectedIndex: index,
           items: const [
-            SideNavigationBarItem(icon: Icons.calculate_rounded, label: ''),
-            SideNavigationBarItem(icon: Icons.insert_invitation, label: ''),
-            SideNavigationBarItem(icon: Icons.insert_invitation, label: ''),
             SideNavigationBarItem(
               icon: FontAwesomeIcons.houseMedical,
               label: 'Overview',
@@ -55,7 +52,7 @@ class DoctorSideNavigation extends StatelessWidget {
             ),
           ],
           onTap: (selected) {
-            final adjustedIndex = selected - 3;
+            final adjustedIndex = selected;
             if (adjustedIndex >= 0 && adjustedIndex < views.length) {
               _onNavigationItemSelected(context, adjustedIndex);
             }
@@ -68,12 +65,7 @@ class DoctorSideNavigation extends StatelessWidget {
               unselectedItemColor: Colors.black,
               selectedItemColor: Colors.blueAccent,
               iconSize: 15.5,
-              labelTextStyle: TextStyle(
-                fontSize: 17,
-                // !! Won't work !! Custom text style colors gets overridden
-                // by unselectedItemColor and selectedItemColor
-                color: Colors.black,
-              ),
+              labelTextStyle: TextStyle(fontSize: 17, color: Colors.black),
             ),
           ),
         );

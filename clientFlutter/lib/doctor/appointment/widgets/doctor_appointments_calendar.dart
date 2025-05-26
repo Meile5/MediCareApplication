@@ -136,7 +136,7 @@ class _DoctorAppointmentsCalendarState
                           onPressed: () {
                             context
                                 .read<DoctorAppointmentCubit>()
-                                .rejectAppointment(appt.id)
+                                .rejectAppointment(appt.id, appt.patientId)
                                 .then((_) {
                                   context
                                       .read<DoctorAppointmentCubit>()

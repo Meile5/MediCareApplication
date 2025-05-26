@@ -112,9 +112,9 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
     }
   }
 
-  Future<void> rejectAppointment(String appointmentId) async {
+  Future<void> rejectAppointment(String appointmentId, String patientId) async {
     try {
-      await dataSource.rejectAppointment(appointmentId);
+      await dataSource.rejectAppointment(appointmentId, patientId);
     } on SocketException catch (_) {
       emit(
         DoctorAppointmentError(
