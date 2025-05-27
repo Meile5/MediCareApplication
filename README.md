@@ -10,17 +10,19 @@ Developed by **Mario Aaron Florez** and **Meile Kapisaite**
 ##  Overview
 
 MediCare is a fullstack application that combines mobile, web, IoT, and AI, developed as part of the 4th semester combined examination. The system is designed for healthcare professionals and patients, featuring instant messaging, appointment management, long distance vitals monitoring, and AI analysis.
-
 ---
 
 ## Deployed Application
   
  **[MediCare Application](https://meile5.github.io/MediCareApplication/)**
 
+ Frontend is deployed to github pages, backend is deployed on fly.io, database is being hosted on Aiven.
+
 ---
 
 ## Run locally
 Backend can be run using dotnet run on 'server/Startup'
+
 Frontend can be run using flutter run on 'clientFlutter', it can run on web or a mobile device
 
 ---
