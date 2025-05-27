@@ -111258,7 +111258,7 @@ $1(a){if(a.a===this.a.a)return a.a4c("Cancelled")
 return a},
 $S:251}
 A.ais.prototype={
-$1(a){if(a.a===this.a.a)return a.a4c("Approved")
+$1(a){if(a.a===this.a.a)return a.a4c("Confirmed")
 return a},
 $S:251}
 A.aiw.prototype={
