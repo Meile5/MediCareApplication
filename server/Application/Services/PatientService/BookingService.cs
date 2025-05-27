@@ -102,13 +102,22 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
     {
         var appointments = BookAppointmentDto.ToEntity(dto);
         
-        var savedId = await bookingRep.ManageAppointments(appointments);
+        var appointment = await bookingRep.ManageAppointments(appointments);
         
-        var broadcast = new BroadcastBookedSlotDto()
+        var broadcast = new AppointmentDoctorSideDto()
         {
-            Id = savedId
+            Id = appointment.Id,
+            StartTime = appointment.StartTime,
+            EndTime = appointment.EndTime,
+            DoctorId = appointment.DoctorId,
+            PatientId = appointment.PatientId,
+            Status = appointment.Status,
+            Notes = appointment.Notes
+            
         };
-        await connectionManager.BroadcastToTopic($"doctor_{dto.DoctorId}",broadcast);
+        Console.WriteLine(broadcast.Status);
+        Console.WriteLine(dto.DoctorId);
+        await connectionManager.BroadcastToTopic(dto.DoctorId ,broadcast);
         
         
     }

@@ -39,13 +39,13 @@ public class BookingRepo (MyDbContext context,  ILogger<BookingRepo> logger): IB
     }
     
     
-    public async Task<string> ManageAppointments(Appointment appointment)
+    public async Task<Appointment> ManageAppointments(Appointment appointment)
     {
         try
         {
             var result = await context.Appointments.AddAsync(appointment);
             await context.SaveChangesAsync(); 
-            return result.Entity.Id;
+            return result.Entity;
 
         }
         catch (Exception ex)

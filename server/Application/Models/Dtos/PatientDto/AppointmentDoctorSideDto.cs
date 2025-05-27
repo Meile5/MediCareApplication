@@ -2,7 +2,7 @@
 
 namespace Application.Models.Dtos.PatientDto;
 
-public class BroadcastBookedSlotDto : BaseDto
+public class AppointmentDoctorSideDto : BaseDto
 {
     public string Id { get; set; } = null!;
 
@@ -12,15 +12,10 @@ public class BroadcastBookedSlotDto : BaseDto
 
     public string Status { get; set; } = null!;
 
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
-
     public DateTime StartTime { get; set; }
 
     public DateTime EndTime { get; set; }
+    public string Notes { get; set; }  
 
- 
 
-   
 }

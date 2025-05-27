@@ -1787,7 +1787,7 @@
           }
         }
       },
-      "ApprovedAppointment": {
+      "AppointmentDoctorSideDto": {
         "allOf": [
           {
             "$ref": "#/components/schemas/BaseDto"
@@ -1796,7 +1796,27 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "appointmentId": {
+              "id": {
+                "type": "string"
+              },
+              "doctorId": {
+                "type": "string"
+              },
+              "patientId": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "startTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "notes": {
                 "type": "string"
               }
             }
@@ -1814,6 +1834,22 @@
             "type": "string"
           }
         }
+      },
+      "ApprovedAppointment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "appointmentId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
       },
       "CancelledAppointment": {
         "allOf": [
@@ -2086,6 +2122,7 @@
         "type": "string",
         "description": "Available eventType constants",
         "enum": [
+          "AppointmentDoctorSideDto",
           "ApprovedAppointment",
           "CancelledAppointment",
           "DoctorCancelAppointment",
