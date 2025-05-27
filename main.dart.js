@@ -109041,7 +109041,6 @@ aga(a,b){var s=this,r=s.x.b
 r===$&&A.b()
 s.Q=r.rZ(new A.akQ(s),new A.akR(s))},
 vK(a){var s,r=this,q=null,p=r.as
-if(p===a)return
 if(p!=null){p=B.v.cA(A.xW().cF(new A.f8(p),q,t.lE),q)
 s=r.x.a
 s===$&&A.b()
