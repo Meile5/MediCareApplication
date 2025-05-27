@@ -10,6 +10,7 @@ Developed by **Mario Aaron Florez** and **Meile Kapisaite**
 ##  Overview
 
 MediCare is a fullstack application that combines mobile, web, IoT, and AI, developed as part of the 4th semester combined examination. The system is designed for healthcare professionals and patients, featuring instant messaging, appointment management, long distance vitals monitoring, and AI analysis.
+
 ---
 
 ## Deployed Application
