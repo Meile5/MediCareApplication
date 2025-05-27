@@ -51,8 +51,6 @@ class _DoctorAppointmentsCalendarState
           return const Center(child: CircularProgressIndicator());
         } else if (state is DoctorAppointmentLoaded) {
           for (var appt in state.appointments) {
-            print('Appointment local start: ${appt.startTime.toLocal()}');
-            print('Appointment UTC start: ${appt.startTime.toUtc()}');
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +134,7 @@ class _DoctorAppointmentsCalendarState
                           onPressed: () {
                             context
                                 .read<DoctorAppointmentCubit>()
-                                .confirmAppointment(appt)
+                                .confirmAppointment(appt, appt.patientId)
                                 .then((_) {
                                   context
                                       .read<DoctorAppointmentCubit>()
@@ -203,10 +201,10 @@ class AppointmentDataSourceSyncfusion extends CalendarDataSource {
   @override
   Color getColor(int index) {
     final appointment = appointments![index] as AppointmentDto;
-    switch (appointment.status?.toLowerCase()) {
-      case 'rejected':
+    switch (appointment.status) {
+      case 'Cancelled':
         return Colors.red;
-      case 'confirmed':
+      case 'Confirmed':
         return Colors.green;
       case 'Pending':
         return Colors.blue;

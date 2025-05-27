@@ -761,12 +761,20 @@
             "x-position": 1
           },
           {
+            "name": "roomId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          },
+          {
             "name": "authorization",
             "in": "header",
             "schema": {
               "type": "string"
             },
-            "x-position": 2
+            "x-position": 3
           }
         ],
         "responses": {
@@ -1779,7 +1787,7 @@
           }
         }
       },
-      "CancelledAppointment": {
+      "ApprovedAppointment": {
         "allOf": [
           {
             "$ref": "#/components/schemas/BaseDto"
@@ -1806,6 +1814,22 @@
             "type": "string"
           }
         }
+      },
+      "CancelledAppointment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "appointmentId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
       },
       "DoctorCancelAppointment": {
         "allOf": [
@@ -2062,6 +2086,7 @@
         "type": "string",
         "description": "Available eventType constants",
         "enum": [
+          "ApprovedAppointment",
           "CancelledAppointment",
           "DoctorCancelAppointment",
           "MemberLeftNotification",

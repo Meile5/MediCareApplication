@@ -16,9 +16,9 @@ class AppointmentCard extends StatelessWidget {
       switch (status) {
         case 'Pending':
           return Colors.orange;
-        case 'Approved':
+        case 'Confirmed':
           return Colors.green;
-        case 'Rejected':
+        case 'Cancelled':
           return Colors.red;
         default:
           return Colors.grey;
@@ -85,7 +85,7 @@ class AppointmentCard extends StatelessWidget {
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
-              onPressed: appointment.status == 'Rejected' ? null : () async{
+              onPressed: appointment.status == 'Cancelled' ? null : () async{
                 await showDialog(
                   context: context,
                   builder: (context) => ReusableDialog(

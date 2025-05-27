@@ -1,5 +1,6 @@
 using Application;
 using Application.Interfaces.Infrastructure.Postgres.DoctorRep;
+using Application.Models.Enums;
 using Core.Domain.Entities;
 using Infrastructure.Postgres.Scaffolding;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,7 @@ public class AppointmentRepo(MyDbContext dbContext, ILogger<AppointmentRepo> log
             var appointment = await dbContext.Appointments.FirstOrDefaultAsync(ap => ap.Id == appointmentId);
             if (appointment != null)
             {
-                appointment.Status = "confirmed";
+                appointment.Status = Status.Confirmed;
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -54,7 +55,7 @@ public class AppointmentRepo(MyDbContext dbContext, ILogger<AppointmentRepo> log
             var appointment = await dbContext.Appointments.FirstOrDefaultAsync(ap => ap.Id == appointmentId);
             if (appointment != null)
             {
-                appointment.Status = "rejected";
+                appointment.Status = Status.Cancelled;
                 await dbContext.SaveChangesAsync();
             }
         }
