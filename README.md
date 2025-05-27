@@ -1,7 +1,7 @@
 # MediCare Application
 
 **4th Semester Combined Exam Project**  
-Modules: Fullstack Development, Mobile Development, IoT, and AI
+Courses: Fullstack Development, Mobile Development, IoT, and AI
 
 Developed by **Mario Aaron Florez** and **Meile Kapisaite**
 
