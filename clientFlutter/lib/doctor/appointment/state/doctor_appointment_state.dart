@@ -14,6 +14,6 @@ class DoctorAppointmentError extends DoctorAppointmentState {
 }
 
 class DoctorAppointmentLoaded extends DoctorAppointmentState {
-  final List<AppointmentDto> appointments;
+  final List<AppointmentDoctorSideDto> appointments;
   DoctorAppointmentLoaded({required this.appointments});
 }

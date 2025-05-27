@@ -75,8 +75,8 @@ class _DoctorAppointmentsCalendarState
                   onTap: (CalendarTapDetails details) {
                     if (details.appointments != null &&
                         details.appointments!.isNotEmpty) {
-                      final AppointmentDto appt =
-                          (details.appointments!.first as AppointmentDto);
+                      final AppointmentDoctorSideDto appt =
+                          (details.appointments!.first as AppointmentDoctorSideDto);
                       _showAppointmentDialog(context, appt);
                     }
                   },
@@ -98,7 +98,7 @@ class _DoctorAppointmentsCalendarState
     );
   }
 
-  void _showAppointmentDialog(BuildContext context, AppointmentDto appt) {
+  void _showAppointmentDialog(BuildContext context, AppointmentDoctorSideDto appt) {
     String formatDate(DateTime date) {
       final local = date.toLocal();
       final formattedDate = DateFormat.yMMMMd().format(local);
@@ -174,7 +174,7 @@ class _DoctorAppointmentsCalendarState
 }
 
 class AppointmentDataSourceSyncfusion extends CalendarDataSource {
-  AppointmentDataSourceSyncfusion(List<AppointmentDto> source) {
+  AppointmentDataSourceSyncfusion(List<AppointmentDoctorSideDto> source) {
     appointments =
         source.map((appt) {
           return appt.copyWith(
@@ -187,7 +187,6 @@ class AppointmentDataSourceSyncfusion extends CalendarDataSource {
   @override
   DateTime getStartTime(int index) {
     final start = appointments![index].startTime;
-    print('Calendar rendering appointment start: $start');
     return start;
   }
 
@@ -200,7 +199,7 @@ class AppointmentDataSourceSyncfusion extends CalendarDataSource {
 
   @override
   Color getColor(int index) {
-    final appointment = appointments![index] as AppointmentDto;
+    final appointment = appointments![index] as AppointmentDoctorSideDto;
     switch (appointment.status) {
       case 'Cancelled':
         return Colors.red;

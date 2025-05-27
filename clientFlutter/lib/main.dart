@@ -54,11 +54,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final _uuid = const Uuid();
+    final _uuid = const Uuid().v4();
     super.initState();
     webSocketService = WebSocketService("${dotenv.env['API_PRODUCTION_WEBSOCKETS']!}?id=${_uuid}");
   }
-
   @override
   void dispose() {
     webSocketService.close();

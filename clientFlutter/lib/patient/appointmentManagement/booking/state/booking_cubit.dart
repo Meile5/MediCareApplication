@@ -12,7 +12,7 @@ class BookingCubit extends Cubit<BookingState> {
   final WebSocketService webSocketService;
 
   BookingCubit({required this.dataSource, required this.webSocketService})
-      : super(BookingInitial()) {
+      : super(BookingInitial()){} /*{
     webSocketService.send(JoinDoctorRoom(roomId: "user-doctor-1").toJson());
 
     webSocketService.stream
@@ -22,7 +22,7 @@ class BookingCubit extends Cubit<BookingState> {
         print(message.id);
       }
     });
-  }
+  }*/
 
   Future<void> loadAvailableTimes(String id) async {
     emit(BookingLoading());

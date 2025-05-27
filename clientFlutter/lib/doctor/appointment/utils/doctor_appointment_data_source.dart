@@ -7,7 +7,7 @@ import 'package:medicare/doctor/appointment/models/appointment_model.dart';
 import '../../../common/auth/auth_prefs.dart';
 
 class DoctorAppointmentDataSource {
-  Future<List<AppointmentDto>> getAppointmentsForDoctor() async {
+  Future<List<AppointmentDoctorSideDto>> getAppointmentsForDoctor() async {
     final url =
         "${dotenv.env['API_BASE_URL']!}/appointments/getAppointments?doctorId=${AuthPrefs.userId}";
     final response = await http.get(
@@ -19,7 +19,7 @@ class DoctorAppointmentDataSource {
     );
 
     final List<dynamic> jsonList = json.decode(response.body);
-    return jsonList.map((e) => AppointmentDtoMapper.fromMap(e)).toList();
+    return jsonList.map((e) => AppointmentDoctorSideDtoMapper.fromMap(e)).toList();
   }
 
   Future<void> confirmAppointment(String appointmentId, String patientId) async {

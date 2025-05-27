@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
+import 'package:medicare/common/event_models/events.dart' as events;
+import 'package:medicare/doctor/appointment/models/appointment_model.dart'
+    as model;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_prefs.dart';
@@ -16,56 +19,73 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
   final DoctorAppointmentDataSource dataSource;
   final WebSocketService webSocketService;
   StreamSubscription? _subscription;
-  List<AppointmentDto> _appointments = [];
   bool _isSubscribed = false;
 
   DoctorAppointmentCubit({
     required this.dataSource,
     required this.webSocketService,
   }) : super(DoctorAppointmentInitial()) {
-    _subscription = webSocketService.stream.listen(
-      (rawEvent) {
-        try {
-          final event = BaseEventMapper.fromJson(rawEvent);
+    _subscription = webSocketService.baseEventStream
+        .listen(
+          (message) {
+            print('Socket message received kkkkkkkkkkkkkkkkkkkkkk: $message');
 
-          if (event is CancelledAppointment) {
-            _appointments.removeWhere((a) => a.id == event.appointmentId);
+            if (state is DoctorAppointmentLoaded) {
+              final currentAppointments =
+                  (state as DoctorAppointmentLoaded).appointments;
+
+              if (message is CancelledAppointment) {
+                emit(
+                  DoctorAppointmentLoaded(
+                    appointments:
+                        currentAppointments
+                            .where((a) => a.id != message.appointmentId)
+                            .toList(),
+                  ),
+                );
+              } else if (message is events.AppointmentDoctorSideDto) {
+                print('Socket message received booooked: $message');
+                print("hrerrr");
+                final newAppointment = model.AppointmentDoctorSideDto(
+                  id: message.id,
+                  doctorId: message.doctorId,
+                  patientId: message.patientId,
+                  status: message.status,
+                  notes: message.notes,
+                  startTime: message.startTime,
+                  endTime: message.endTime,
+                );
+                emit(
+                  DoctorAppointmentLoaded(
+                    appointments: [...currentAppointments, newAppointment],
+                  ),
+                );
+              }
+            }
+          },
+          onError: (error) {
             emit(
-              DoctorAppointmentLoaded(appointments: List.from(_appointments)),
+              DoctorAppointmentError(
+                message: ApplicationMessages.serverError.message,
+              ),
             );
-          }
-        } catch (e) {
-          emit(
-            DoctorAppointmentError(
-              message: ApplicationMessages.failedToRetrieveData.message,
-            ),
-          );
-        }
-      },
-      onError: (error) {
-        emit(
-          DoctorAppointmentError(
-            message: ApplicationMessages.serverError.message,
-          ),
+          },
         );
-      },
-    );
   }
 
   Future<void> getDoctorAppointments() async {
     emit(DoctorAppointmentLoading());
     try {
-      final List<AppointmentDto> appointments =
+      final List<model.AppointmentDoctorSideDto> appointments =
           await dataSource.getAppointmentsForDoctor();
-      _appointments = appointments;
-      emit(DoctorAppointmentLoaded(appointments: _appointments));
+      emit(DoctorAppointmentLoaded(appointments: appointments));
     } on SocketException catch (_) {
       emit(
         DoctorAppointmentError(
           message: ApplicationMessages.networkError.message,
         ),
       );
-    } catch (e ) {
+    } catch (e) {
       emit(
         DoctorAppointmentError(
           message: ApplicationMessages.generalError.message,
@@ -74,7 +94,10 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
     }
   }
 
-  Future<void> confirmAppointment(AppointmentDto appt, String patientId) async {
+  Future<void> confirmAppointment(
+    model.AppointmentDoctorSideDto appt,
+    String patientId,
+  ) async {
     try {
       await dataSource.confirmAppointment(appt.id, patientId);
 

@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../common/auth/auth_prefs.dart';
 import '../../../../common/event_models/events.dart';
 import '../../../../common/utility/websocket_service.dart';
@@ -16,7 +14,6 @@ class AppointmentCubit extends Cubit<AppointmentState> {
   final WebSocketService webSocketService;
   StreamSubscription? _subscription;
   final Set<String> _joinedRooms = {};
-  //List<FutureAppointmentsDto> _futureAppointments = [];
 
   AppointmentCubit({required this.dataSource, required this.webSocketService})
     : super(AppointmentInitial()) {
@@ -40,6 +37,8 @@ class AppointmentCubit extends Cubit<AppointmentState> {
           }
 
           if (message is ApprovedAppointment) {
+            print('Socket message received: $message');
+
             final updatedAppointments = currentAppointments.map((appointment) {
               if (appointment.id == message.appointmentId) {
                 return appointment.copyWith(status: "Approved");
@@ -62,7 +61,6 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     emit(AppointmentLoading());
     try {
       final futureAppointments = await dataSource.getFutureAppointments();
-      ///_futureAppointments = futureAppointments;
       emit(FutureAppointmentsLoaded(futureAppointments: futureAppointments));
     } on SocketException {
       emit(AppointmentError(message: ApplicationMessages.networkError.message));
@@ -123,7 +121,6 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     webSocketService.send(
       JoinRoom(roomId: roomId, token: AuthPrefs.jwt).toJson(),
     );
-    print('Subscribed to Room: $roomId');
   }
 
   void unsubscribeAllRooms() {
@@ -131,7 +128,6 @@ class AppointmentCubit extends Cubit<AppointmentState> {
       webSocketService.send(
         UnsubscribeFromChat(roomId: roomId).toJson(),
       );
-      print("Unsubscribed from WebSocket room: $roomId");
     }
     _joinedRooms.clear();
   }

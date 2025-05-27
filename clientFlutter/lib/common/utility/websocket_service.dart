@@ -1,3 +1,4 @@
+import 'package:medicare/common/event_models/events.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WebSocketService {
@@ -18,4 +19,14 @@ class WebSocketService {
   void close() {
     _channel.sink.close();
   }
+
+  Stream<BaseEvent> get baseEventStream => stream
+      .map((rawEvent) {
+    try {
+      return BaseEventMapper.fromJson(rawEvent);
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  });
 }

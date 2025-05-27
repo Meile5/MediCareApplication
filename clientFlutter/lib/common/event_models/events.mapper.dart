@@ -17,7 +17,8 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
       JoinDoctorRoomMapper.ensureInitialized();
       CancelledAppointmentMapper.ensureInitialized();
       ApprovedAppointmentMapper.ensureInitialized();
-      BroadcastBookedSlotMapper.ensureInitialized();
+      AppointmentDoctorSideDtoMapper.ensureInitialized();
+      BroadcastApprovedSlotDtoMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
       UnsubscribeFromChatMapper.ensureInitialized();
@@ -535,120 +536,318 @@ class _ApprovedAppointmentCopyWithImpl<$R, $Out>
           _ApprovedAppointmentCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
-class BroadcastBookedSlotMapper
-    extends SubClassMapperBase<BroadcastBookedSlot> {
-  BroadcastBookedSlotMapper._();
+class AppointmentDoctorSideDtoMapper
+    extends SubClassMapperBase<AppointmentDoctorSideDto> {
+  AppointmentDoctorSideDtoMapper._();
 
-  static BroadcastBookedSlotMapper? _instance;
-  static BroadcastBookedSlotMapper ensureInitialized() {
+  static AppointmentDoctorSideDtoMapper? _instance;
+  static AppointmentDoctorSideDtoMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals.use(_instance = BroadcastBookedSlotMapper._());
+      MapperContainer.globals
+          .use(_instance = AppointmentDoctorSideDtoMapper._());
       BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
     }
     return _instance!;
   }
 
   @override
-  final String id = 'BroadcastBookedSlot';
+  final String id = 'AppointmentDoctorSideDto';
 
-  static String _$id(BroadcastBookedSlot v) => v.id;
-  static const Field<BroadcastBookedSlot, String> _f$id = Field('id', _$id);
+  static String _$id(AppointmentDoctorSideDto v) => v.id;
+  static const Field<AppointmentDoctorSideDto, String> _f$id =
+      Field('id', _$id);
+  static String _$doctorId(AppointmentDoctorSideDto v) => v.doctorId;
+  static const Field<AppointmentDoctorSideDto, String> _f$doctorId =
+      Field('doctorId', _$doctorId);
+  static String _$patientId(AppointmentDoctorSideDto v) => v.patientId;
+  static const Field<AppointmentDoctorSideDto, String> _f$patientId =
+      Field('patientId', _$patientId);
+  static String _$status(AppointmentDoctorSideDto v) => v.status;
+  static const Field<AppointmentDoctorSideDto, String> _f$status =
+      Field('status', _$status);
+  static String _$notes(AppointmentDoctorSideDto v) => v.notes;
+  static const Field<AppointmentDoctorSideDto, String> _f$notes =
+      Field('notes', _$notes);
+  static DateTime _$startTime(AppointmentDoctorSideDto v) => v.startTime;
+  static const Field<AppointmentDoctorSideDto, DateTime> _f$startTime =
+      Field('startTime', _$startTime);
+  static DateTime _$endTime(AppointmentDoctorSideDto v) => v.endTime;
+  static const Field<AppointmentDoctorSideDto, DateTime> _f$endTime =
+      Field('endTime', _$endTime);
 
   @override
-  final MappableFields<BroadcastBookedSlot> fields = const {
+  final MappableFields<AppointmentDoctorSideDto> fields = const {
     #id: _f$id,
+    #doctorId: _f$doctorId,
+    #patientId: _f$patientId,
+    #status: _f$status,
+    #notes: _f$notes,
+    #startTime: _f$startTime,
+    #endTime: _f$endTime,
   };
 
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = "BroadcastBookedSlot";
+  final dynamic discriminatorValue = "AppointmentDoctorSide";
   @override
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
-  static BroadcastBookedSlot _instantiate(DecodingData data) {
-    return BroadcastBookedSlot(id: data.dec(_f$id));
+  static AppointmentDoctorSideDto _instantiate(DecodingData data) {
+    return AppointmentDoctorSideDto(
+        id: data.dec(_f$id),
+        doctorId: data.dec(_f$doctorId),
+        patientId: data.dec(_f$patientId),
+        status: data.dec(_f$status),
+        notes: data.dec(_f$notes),
+        startTime: data.dec(_f$startTime),
+        endTime: data.dec(_f$endTime));
   }
 
   @override
   final Function instantiate = _instantiate;
 
-  static BroadcastBookedSlot fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<BroadcastBookedSlot>(map);
+  static AppointmentDoctorSideDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<AppointmentDoctorSideDto>(map);
   }
 
-  static BroadcastBookedSlot fromJson(String json) {
-    return ensureInitialized().decodeJson<BroadcastBookedSlot>(json);
+  static AppointmentDoctorSideDto fromJson(String json) {
+    return ensureInitialized().decodeJson<AppointmentDoctorSideDto>(json);
   }
 }
 
-mixin BroadcastBookedSlotMappable {
+mixin AppointmentDoctorSideDtoMappable {
   String toJson() {
-    return BroadcastBookedSlotMapper.ensureInitialized()
-        .encodeJson<BroadcastBookedSlot>(this as BroadcastBookedSlot);
+    return AppointmentDoctorSideDtoMapper.ensureInitialized()
+        .encodeJson<AppointmentDoctorSideDto>(this as AppointmentDoctorSideDto);
   }
 
   Map<String, dynamic> toMap() {
-    return BroadcastBookedSlotMapper.ensureInitialized()
-        .encodeMap<BroadcastBookedSlot>(this as BroadcastBookedSlot);
+    return AppointmentDoctorSideDtoMapper.ensureInitialized()
+        .encodeMap<AppointmentDoctorSideDto>(this as AppointmentDoctorSideDto);
   }
 
-  BroadcastBookedSlotCopyWith<BroadcastBookedSlot, BroadcastBookedSlot,
-      BroadcastBookedSlot> get copyWith => _BroadcastBookedSlotCopyWithImpl<
-          BroadcastBookedSlot, BroadcastBookedSlot>(
-      this as BroadcastBookedSlot, $identity, $identity);
+  AppointmentDoctorSideDtoCopyWith<AppointmentDoctorSideDto,
+          AppointmentDoctorSideDto, AppointmentDoctorSideDto>
+      get copyWith => _AppointmentDoctorSideDtoCopyWithImpl<
+              AppointmentDoctorSideDto, AppointmentDoctorSideDto>(
+          this as AppointmentDoctorSideDto, $identity, $identity);
   @override
   String toString() {
-    return BroadcastBookedSlotMapper.ensureInitialized()
-        .stringifyValue(this as BroadcastBookedSlot);
+    return AppointmentDoctorSideDtoMapper.ensureInitialized()
+        .stringifyValue(this as AppointmentDoctorSideDto);
   }
 
   @override
   bool operator ==(Object other) {
-    return BroadcastBookedSlotMapper.ensureInitialized()
-        .equalsValue(this as BroadcastBookedSlot, other);
+    return AppointmentDoctorSideDtoMapper.ensureInitialized()
+        .equalsValue(this as AppointmentDoctorSideDto, other);
   }
 
   @override
   int get hashCode {
-    return BroadcastBookedSlotMapper.ensureInitialized()
-        .hashValue(this as BroadcastBookedSlot);
+    return AppointmentDoctorSideDtoMapper.ensureInitialized()
+        .hashValue(this as AppointmentDoctorSideDto);
   }
 }
 
-extension BroadcastBookedSlotValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, BroadcastBookedSlot, $Out> {
-  BroadcastBookedSlotCopyWith<$R, BroadcastBookedSlot, $Out>
-      get $asBroadcastBookedSlot => $base.as(
-          (v, t, t2) => _BroadcastBookedSlotCopyWithImpl<$R, $Out>(v, t, t2));
+extension AppointmentDoctorSideDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, AppointmentDoctorSideDto, $Out> {
+  AppointmentDoctorSideDtoCopyWith<$R, AppointmentDoctorSideDto, $Out>
+      get $asAppointmentDoctorSideDto => $base.as((v, t, t2) =>
+          _AppointmentDoctorSideDtoCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
-abstract class BroadcastBookedSlotCopyWith<$R, $In extends BroadcastBookedSlot,
+abstract class AppointmentDoctorSideDtoCopyWith<
+    $R,
+    $In extends AppointmentDoctorSideDto,
     $Out> implements BaseEventCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? id});
-  BroadcastBookedSlotCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+  $R call(
+      {String? id,
+      String? doctorId,
+      String? patientId,
+      String? status,
+      String? notes,
+      DateTime? startTime,
+      DateTime? endTime});
+  AppointmentDoctorSideDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
 
-class _BroadcastBookedSlotCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, BroadcastBookedSlot, $Out>
-    implements BroadcastBookedSlotCopyWith<$R, BroadcastBookedSlot, $Out> {
-  _BroadcastBookedSlotCopyWithImpl(super.value, super.then, super.then2);
+class _AppointmentDoctorSideDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, AppointmentDoctorSideDto, $Out>
+    implements
+        AppointmentDoctorSideDtoCopyWith<$R, AppointmentDoctorSideDto, $Out> {
+  _AppointmentDoctorSideDtoCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<BroadcastBookedSlot> $mapper =
-      BroadcastBookedSlotMapper.ensureInitialized();
+  late final ClassMapperBase<AppointmentDoctorSideDto> $mapper =
+      AppointmentDoctorSideDtoMapper.ensureInitialized();
   @override
-  $R call({String? id}) => $apply(FieldCopyWithData({if (id != null) #id: id}));
+  $R call(
+          {String? id,
+          String? doctorId,
+          String? patientId,
+          String? status,
+          String? notes,
+          DateTime? startTime,
+          DateTime? endTime}) =>
+      $apply(FieldCopyWithData({
+        if (id != null) #id: id,
+        if (doctorId != null) #doctorId: doctorId,
+        if (patientId != null) #patientId: patientId,
+        if (status != null) #status: status,
+        if (notes != null) #notes: notes,
+        if (startTime != null) #startTime: startTime,
+        if (endTime != null) #endTime: endTime
+      }));
   @override
-  BroadcastBookedSlot $make(CopyWithData data) =>
-      BroadcastBookedSlot(id: data.get(#id, or: $value.id));
+  AppointmentDoctorSideDto $make(CopyWithData data) => AppointmentDoctorSideDto(
+      id: data.get(#id, or: $value.id),
+      doctorId: data.get(#doctorId, or: $value.doctorId),
+      patientId: data.get(#patientId, or: $value.patientId),
+      status: data.get(#status, or: $value.status),
+      notes: data.get(#notes, or: $value.notes),
+      startTime: data.get(#startTime, or: $value.startTime),
+      endTime: data.get(#endTime, or: $value.endTime));
 
   @override
-  BroadcastBookedSlotCopyWith<$R2, BroadcastBookedSlot, $Out2>
+  AppointmentDoctorSideDtoCopyWith<$R2, AppointmentDoctorSideDto, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _BroadcastBookedSlotCopyWithImpl<$R2, $Out2>($value, $cast, t);
+          _AppointmentDoctorSideDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class BroadcastApprovedSlotDtoMapper
+    extends SubClassMapperBase<BroadcastApprovedSlotDto> {
+  BroadcastApprovedSlotDtoMapper._();
+
+  static BroadcastApprovedSlotDtoMapper? _instance;
+  static BroadcastApprovedSlotDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = BroadcastApprovedSlotDtoMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'BroadcastApprovedSlotDto';
+
+  static DateTime _$startTime(BroadcastApprovedSlotDto v) => v.startTime;
+  static const Field<BroadcastApprovedSlotDto, DateTime> _f$startTime =
+      Field('startTime', _$startTime);
+  static DateTime _$endTime(BroadcastApprovedSlotDto v) => v.endTime;
+  static const Field<BroadcastApprovedSlotDto, DateTime> _f$endTime =
+      Field('endTime', _$endTime);
+
+  @override
+  final MappableFields<BroadcastApprovedSlotDto> fields = const {
+    #startTime: _f$startTime,
+    #endTime: _f$endTime,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "BroadcastApprovedSlotDto";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static BroadcastApprovedSlotDto _instantiate(DecodingData data) {
+    return BroadcastApprovedSlotDto(
+        startTime: data.dec(_f$startTime), endTime: data.dec(_f$endTime));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static BroadcastApprovedSlotDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<BroadcastApprovedSlotDto>(map);
+  }
+
+  static BroadcastApprovedSlotDto fromJson(String json) {
+    return ensureInitialized().decodeJson<BroadcastApprovedSlotDto>(json);
+  }
+}
+
+mixin BroadcastApprovedSlotDtoMappable {
+  String toJson() {
+    return BroadcastApprovedSlotDtoMapper.ensureInitialized()
+        .encodeJson<BroadcastApprovedSlotDto>(this as BroadcastApprovedSlotDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return BroadcastApprovedSlotDtoMapper.ensureInitialized()
+        .encodeMap<BroadcastApprovedSlotDto>(this as BroadcastApprovedSlotDto);
+  }
+
+  BroadcastApprovedSlotDtoCopyWith<BroadcastApprovedSlotDto,
+          BroadcastApprovedSlotDto, BroadcastApprovedSlotDto>
+      get copyWith => _BroadcastApprovedSlotDtoCopyWithImpl<
+              BroadcastApprovedSlotDto, BroadcastApprovedSlotDto>(
+          this as BroadcastApprovedSlotDto, $identity, $identity);
+  @override
+  String toString() {
+    return BroadcastApprovedSlotDtoMapper.ensureInitialized()
+        .stringifyValue(this as BroadcastApprovedSlotDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return BroadcastApprovedSlotDtoMapper.ensureInitialized()
+        .equalsValue(this as BroadcastApprovedSlotDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return BroadcastApprovedSlotDtoMapper.ensureInitialized()
+        .hashValue(this as BroadcastApprovedSlotDto);
+  }
+}
+
+extension BroadcastApprovedSlotDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, BroadcastApprovedSlotDto, $Out> {
+  BroadcastApprovedSlotDtoCopyWith<$R, BroadcastApprovedSlotDto, $Out>
+      get $asBroadcastApprovedSlotDto => $base.as((v, t, t2) =>
+          _BroadcastApprovedSlotDtoCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class BroadcastApprovedSlotDtoCopyWith<
+    $R,
+    $In extends BroadcastApprovedSlotDto,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({DateTime? startTime, DateTime? endTime});
+  BroadcastApprovedSlotDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _BroadcastApprovedSlotDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, BroadcastApprovedSlotDto, $Out>
+    implements
+        BroadcastApprovedSlotDtoCopyWith<$R, BroadcastApprovedSlotDto, $Out> {
+  _BroadcastApprovedSlotDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<BroadcastApprovedSlotDto> $mapper =
+      BroadcastApprovedSlotDtoMapper.ensureInitialized();
+  @override
+  $R call({DateTime? startTime, DateTime? endTime}) =>
+      $apply(FieldCopyWithData({
+        if (startTime != null) #startTime: startTime,
+        if (endTime != null) #endTime: endTime
+      }));
+  @override
+  BroadcastApprovedSlotDto $make(CopyWithData data) => BroadcastApprovedSlotDto(
+      startTime: data.get(#startTime, or: $value.startTime),
+      endTime: data.get(#endTime, or: $value.endTime));
+
+  @override
+  BroadcastApprovedSlotDtoCopyWith<$R2, BroadcastApprovedSlotDto, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _BroadcastApprovedSlotDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ServerMessageMapper extends SubClassMapperBase<ServerMessage> {

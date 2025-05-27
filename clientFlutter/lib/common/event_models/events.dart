@@ -32,13 +32,38 @@ class ApprovedAppointment extends BaseEvent with ApprovedAppointmentMappable {
 
   ApprovedAppointment({required this.appointmentId});
 }
-
-@MappableClass(discriminatorValue: "BroadcastBookedSlot")
-class BroadcastBookedSlot extends BaseEvent with BroadcastBookedSlotMappable {
+@MappableClass(discriminatorValue: "AppointmentDoctorSide")
+class AppointmentDoctorSideDto extends BaseEvent
+    with AppointmentDoctorSideDtoMappable {
   final String id;
+  final String doctorId;
+  final String patientId;
+  final String status;
+  final String notes;
+  final DateTime startTime;
+  final DateTime endTime;
 
-  BroadcastBookedSlot({required this.id});
+  AppointmentDoctorSideDto({
+    required this.id,
+    required this.doctorId,
+    required this.patientId,
+    required this.status,
+    required this.notes,
+    required this.startTime,
+    required this.endTime,
+  });
 }
+
+@MappableClass(discriminatorValue: "BroadcastApprovedSlotDto")
+class BroadcastApprovedSlotDto extends BaseEvent with BroadcastApprovedSlotDtoMappable {
+  final DateTime startTime;
+  final DateTime endTime;
+
+
+  BroadcastApprovedSlotDto({ required this.startTime, required this.endTime});
+}
+
+
 
 @MappableClass(discriminatorValue: "ServerMessage")
 class ServerMessage extends BaseEvent with ServerMessageMappable {
