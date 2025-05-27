@@ -41,3 +41,5 @@ password: 492154
  The "Generate Analysis" feature available in the doctor version of the app only works when running the AI locally, don't use it on the deployed app.
 
  The "Pair Device" function on the mobile app does not connect to a real device unless an actual IoT device is available and configured.
+
+ The deployed backend can overflow sometimes so if something is not loading correctly just reload or wait a bit
