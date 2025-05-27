@@ -7,6 +7,7 @@ import '../../../common/auth/auth_cubit.dart';
 import '../../../common/chat/state/chat_room_state.dart';
 import '../../../common/chat/utils/chat_data_source.dart';
 import '../../common/app_nav_bar.dart';
+import '../../common/patient_state.dart';
 import '../utils/chat_navigation.dart';
 import 'chat_room_list_view.dart';
 
@@ -76,7 +77,7 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
                     length: 2,
                     child: Column(
                       children: [
-                        const ChatNavigation(),
+                        const ChatNavigation(width: 325),
                         Expanded(
                           child: TabBarView(
                             children: [

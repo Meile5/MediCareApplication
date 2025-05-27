@@ -80,7 +80,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                           ),
                           child: Column(
                             children: [
-                              const ChatNavigation(),
+                              const ChatNavigation(width: 800),
                               const SizedBox(height: 16),
                               Expanded(
                                 child: TabBarView(

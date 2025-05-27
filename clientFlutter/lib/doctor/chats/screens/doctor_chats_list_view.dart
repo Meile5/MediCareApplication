@@ -13,11 +13,11 @@ class DoctorChatsListView extends StatelessWidget {
   final String userName;
 
   const DoctorChatsListView({
-    super.key,
+    Key? key,
     required this.chatRooms,
     required this.userId,
     required this.userName,
-  });
+  }) : super(key: key);
 
   String formatDate(DateTime date) {
     final local = date.toLocal();
@@ -33,89 +33,96 @@ class DoctorChatsListView extends StatelessWidget {
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       itemCount: chatRooms.length,
       itemBuilder: (context, index) {
         final chat = chatRooms[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () {
-              final now = DateTime.now();
-              if (now.isBefore(chat.startTime)) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'This chat room is not available yet. It starts at ${formatDate(chat.startTime)}',
-                    ),
-                    duration: const Duration(seconds: 3),
-                  ),
-                );
-                return;
-              }
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (_) => BlocProvider.value(
-                        value: context.read<ChatCubit>(),
-                        child: DoctorChatRoomScreen(
-                          roomId: chat.id,
-                          userId: userId,
-                          userName: userName,
-                          patientId: chat.patientId,
-                          isFinished: chat.isFinished,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 900), //
+              child: InkWell(
+                borderRadius: BorderRadius.circular(10),
+                onTap: () {
+                  final now = DateTime.now();
+                  if (now.isBefore(chat.startTime)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'This chat room is not available yet. It starts at ${formatDate(chat.startTime)}',
                         ),
+                        duration: const Duration(seconds: 3),
                       ),
-                ),
-              );
-            },
-            child: Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            chat.topic,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                    );
+                    return;
+                  }
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (_) => BlocProvider.value(
+                            value: context.read<ChatCubit>(),
+                            child: DoctorChatRoomScreen(
+                              roomId: chat.id,
+                              userId: userId,
+                              userName: userName,
+                              patientId: chat.patientId,
+                              isFinished: chat.isFinished,
                             ),
                           ),
-                          const SizedBox(height: 6),
-                          if (chat.isFinished)
-                            Text(
-                              'Completed at: ${formatDate(chat.endTime)}',
-                              style: const TextStyle(color: Colors.green),
-                            ),
-                          if (!chat.isFinished &&
-                              chat.startTime.isBefore(DateTime.now()))
-                            const Text(
-                              'In Progress',
-                              style: TextStyle(color: Colors.orange),
-                            ),
-                          if (!chat.isFinished &&
-                              chat.startTime.isAfter(DateTime.now()))
-                            Text(
-                              'Starts at: ${formatDate(chat.startTime)}',
-                              style: const TextStyle(color: Colors.blue),
-                            ),
-                        ],
-                      ),
                     ),
-                    const FaIcon(Icons.chat, color: Colors.blueAccent),
-                  ],
+                  );
+                },
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  color: Colors.white,
+                  shadowColor: Colors.grey.withOpacity(0.2),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                chat.topic,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              if (chat.isFinished)
+                                Text(
+                                  'Completed at: ${formatDate(chat.endTime)}',
+                                  style: const TextStyle(color: Colors.green),
+                                ),
+                              if (!chat.isFinished &&
+                                  chat.startTime.isBefore(DateTime.now()))
+                                const Text(
+                                  'In Progress',
+                                  style: TextStyle(color: Colors.orange),
+                                ),
+                              if (!chat.isFinished &&
+                                  chat.startTime.isAfter(DateTime.now()))
+                                Text(
+                                  'Starts at: ${formatDate(chat.startTime)}',
+                                  style: const TextStyle(color: Colors.blue),
+                                ),
+                            ],
+                          ),
+                        ),
+                        const FaIcon(Icons.chat, color: Colors.blueAccent),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

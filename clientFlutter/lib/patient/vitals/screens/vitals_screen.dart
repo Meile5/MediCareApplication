@@ -8,6 +8,7 @@ import 'package:medicare/patient/vitals/screens/vitals_wizard_screen.dart';
 import '../../../common/widgets_shared/info_card.dart';
 import '../../common/app_nav_bar.dart';
 import '../../common/patient_cubit.dart';
+import '../../common/patient_state.dart';
 import '../widgets/ecg_card.dart';
 import '../widgets/temperature_card.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medicare/common/widgets_shared/general_button.dart';
+
 import 'login_cubit.dart';
 import 'login_state.dart';
 
@@ -30,7 +31,15 @@ class _LoginFormState extends State<LoginForm> {
     _passwordController.dispose();
     super.dispose();
   }
-  final String  loginAnimation = "https://lottie.host/1446b2af-800c-4d48-9551-28e867657db6/NGTZZHjlm3.json";
+
+  final String loginAnimation =
+      "https://lottie.host/1446b2af-800c-4d48-9551-28e867657db6/NGTZZHjlm3.json";
+  final String doctorPhoneAnimation =
+      "https://lottie.host/2dafffe9-308f-4de4-9303-73c8fba919ea/JFgn8pkSn0.json";
+  final String bookingAnimation =
+      "https://lottie.host/d877f556-aac1-4a98-a7b5-204cb119a427/9I6KpJe1tN.json";
+  final String monitorAnimation =
+      "https://lottie.host/1aa2c7ca-7fc0-4ded-826a-e24db9221254/nuittHe1m9.json";
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +51,9 @@ class _LoginFormState extends State<LoginForm> {
           // Navigate to next screen
         }
         if (state is LoginError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       builder: (context, state) {
@@ -94,60 +103,78 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                       const SizedBox(height: 20),
 
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Email",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            TextFormField(
+                              controller: _emailController,
+                              decoration: const InputDecoration(
+                                labelText: 'Enter your email',
+                                prefixIcon: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.envelope,
+                                    color: Colors.blueAccent,
+                                  ),
+                                ),
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            const SizedBox(height: 16),
+                            SizedBox(
+                              width: double.infinity,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Password",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Enter your password',
+                                prefixIcon: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: FaIcon(
+                                    Icons.lock,
+                                    color: Colors.blueAccent,
+                                  ),
+                                ),
+                              ),
+                            ),
 
-                     Padding(
-                       padding: const EdgeInsets.all(16.0),
-                       child: Column(
-                         children: [
-                           SizedBox(
-                             width: double.infinity, // Makes the box full width
-                             child: Align(
-                               alignment: Alignment.centerLeft,
-                               child: Text("Email", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                             ),
-                           ),
-                           const SizedBox(height: 6),
-                           TextFormField(
+                            const SizedBox(height: 24),
 
-                             controller: _emailController,
-                             decoration: const InputDecoration(
-                                 labelText: 'Enter your email',
-                             prefixIcon: Padding(
-                               padding: EdgeInsets.all(10),
-                               child: FaIcon(FontAwesomeIcons.envelope, color: Colors.blueAccent,),
-                             )),
-                             keyboardType: TextInputType.emailAddress,
-                           ),
-                           const SizedBox(height: 16),
-                           SizedBox(
-                             width: double.infinity,
-                             child: Align(
-                               alignment: Alignment.centerLeft,
-                               child: Text("Password", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                             ),
-                           ),
-                           const SizedBox(height: 6),
-                           TextFormField(
-                             controller: _passwordController,
-                             obscureText: true,
-                             decoration: const InputDecoration(
-                                 labelText: 'Enter your password',
-                                 prefixIcon: Padding(
-                                   padding: EdgeInsets.all(10),
-                                   child: FaIcon(Icons.lock, color: Colors.blueAccent,),
-                                 )),),
-
-                           const SizedBox(height: 24),
-
-                           GeneralButton(
-                             label: "Log In",
-                             onPressed: state is LoginLoading ? null : _login,
-                             isLoading: state is LoginLoading,
-                           ),
-
-                         ],
-                       ),
-                     ),
+                            GeneralButton(
+                              label: "Log In",
+                              onPressed: state is LoginLoading ? null : _login,
+                              isLoading: state is LoginLoading,
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -158,5 +185,4 @@ class _LoginFormState extends State<LoginForm> {
       },
     );
   }
-
 }

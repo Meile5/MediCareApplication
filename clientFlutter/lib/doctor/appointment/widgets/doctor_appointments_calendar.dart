@@ -52,24 +52,42 @@ class _DoctorAppointmentsCalendarState
         } else if (state is DoctorAppointmentLoaded) {
           for (var appt in state.appointments) {
           }
-          return SfCalendar(
-            view: CalendarView.week,
-
-            initialDisplayDate: DateTime.now(),
-            dataSource: AppointmentDataSourceSyncfusion(state.appointments),
-            onTap: (CalendarTapDetails details) {
-              if (details.appointments != null &&
-                  details.appointments!.isNotEmpty) {
-                final AppointmentDto appt =
-                    (details.appointments!.first as AppointmentDto);
-                _showAppointmentDialog(context, appt);
-              }
-            },
-            timeSlotViewSettings: const TimeSlotViewSettings(
-              startHour: 1,
-              endHour: 24,
-              timeIntervalHeight: 60,
-            ),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 12,
+                ),
+                child: Text(
+                  "Your Weekly Appointments",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Expanded(
+                child: SfCalendar(
+                  view: CalendarView.week,
+                  initialDisplayDate: DateTime.now(),
+                  dataSource: AppointmentDataSourceSyncfusion(
+                    state.appointments,
+                  ),
+                  onTap: (CalendarTapDetails details) {
+                    if (details.appointments != null &&
+                        details.appointments!.isNotEmpty) {
+                      final AppointmentDto appt =
+                          (details.appointments!.first as AppointmentDto);
+                      _showAppointmentDialog(context, appt);
+                    }
+                  },
+                  timeSlotViewSettings: const TimeSlotViewSettings(
+                    startHour: 1,
+                    endHour: 24,
+                    timeIntervalHeight: 60,
+                  ),
+                ),
+              ),
+            ],
           );
         } else if (state is DoctorAppointmentError) {
           return Center(child: Text(state.message));
