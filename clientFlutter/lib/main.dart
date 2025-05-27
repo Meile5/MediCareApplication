@@ -38,7 +38,6 @@ void main() async {
   await dotenv.load(fileName: kReleaseMode ? "env.production" : ".env");
 
   await AuthPrefs.init();
-  //DateTimeMapper.encodingMode = DateTimeEncoding.iso8601String;
   await AuthPrefs.init();
   runApp(const MyApp());
 }
@@ -137,6 +136,7 @@ class _MyAppState extends State<MyApp> {
           },
         ),
         BlocProvider(
+
           create: (context) => DoctorsCubit(dataSource: DataSource()),
         ),
         BlocProvider(

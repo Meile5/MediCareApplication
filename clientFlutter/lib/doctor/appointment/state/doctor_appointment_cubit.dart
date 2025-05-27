@@ -65,13 +65,7 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
           message: ApplicationMessages.networkError.message,
         ),
       );
-    } catch (e, stacktrace) {
-      developer.log(
-        'Error fetching appointments: $e',
-        name: 'DoctorAppointmentCubit',
-        error: e,
-        stackTrace: stacktrace,
-      );
+    } catch (e ) {
       emit(
         DoctorAppointmentError(
           message: ApplicationMessages.generalError.message,
@@ -80,9 +74,9 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
     }
   }
 
-  Future<void> confirmAppointment(AppointmentDto appt) async {
+  Future<void> confirmAppointment(AppointmentDto appt, String patientId) async {
     try {
-      await dataSource.confirmAppointment(appt.id);
+      await dataSource.confirmAppointment(appt.id, patientId);
 
       final chatroom = CreateChatRoomDto(
         doctorId: appt.doctorId,
@@ -134,12 +128,10 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
     webSocketService.send(
       JoinRoom(roomId: roomId, token: AuthPrefs.jwt).toJson(),
     );
-    print('Subscribed to Room: $roomId');
   }
 
   void unsubscribeFromRoom(String roomId) {
     webSocketService.send(UnsubscribeFromChat(roomId: roomId).toJson());
-    print('Unsubscribed from Room: $roomId');
   }
 
   @override

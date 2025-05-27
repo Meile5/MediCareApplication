@@ -9,9 +9,14 @@ namespace Application.Services.DoctorService;
 
 public class AppointmentService(IAppointmentRep appointmentRep, IConnectionManager connectionManager) : IAppointmentService
 {
-    public async Task ConfirmAppointment(string appointmentId)
+    public async Task ConfirmAppointment(string appointmentId, String roomId)
     {
         await appointmentRep.ConfirmAppointment(appointmentId);
+        var broadcast = new ApprovedAppointment()
+        {
+            AppointmentId = appointmentId
+        };
+        await connectionManager.BroadcastToTopic(roomId ,broadcast);
     }
 
     public async Task<string> GetPatientName(string appointmentId)

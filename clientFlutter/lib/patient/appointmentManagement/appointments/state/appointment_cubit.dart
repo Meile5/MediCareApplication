@@ -16,7 +16,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
   final WebSocketService webSocketService;
   StreamSubscription? _subscription;
   final Set<String> _joinedRooms = {};
-  List<FutureAppointmentsDto> _futureAppointments = [];
+  //List<FutureAppointmentsDto> _futureAppointments = [];
 
   AppointmentCubit({required this.dataSource, required this.webSocketService})
     : super(AppointmentInitial()) {
@@ -24,39 +24,46 @@ class AppointmentCubit extends Cubit<AppointmentState> {
         .map((rawEvent) => BaseEventMapper.fromJson(rawEvent))
         .listen(
           (message) {
-            if (message is CancelledAppointment) {
-              _futureAppointments.map((appointment) {
-                if (appointment.id == message.appointmentId) {
-                  return appointment.copyWith(
-                    status: "Cancelled"
-                  );
-                }
-                return appointment;
-              }).toList();
-              print('Cancelled appointment: ${message.appointmentId}');
-              emit(
-                FutureAppointmentsLoaded(
-                  futureAppointments: List.from(_futureAppointments),
-                ),
-              );
-            }
-          },
-          onError: (error) {
-            emit(
-              AppointmentError(
-                message: ApplicationMessages.serverError.message,
-              ),
-            );
-          },
-        );
+        if (state is FutureAppointmentsLoaded) {
+          final currentAppointments =
+              (state as FutureAppointmentsLoaded).futureAppointments;
+
+          if (message is CancelledAppointment) {
+            final updatedAppointments = currentAppointments.map((appointment) {
+              if (appointment.id == message.appointmentId) {
+                return appointment.copyWith(status: "Cancelled");
+              }
+              return appointment;
+            }).toList();
+
+            emit(FutureAppointmentsLoaded(futureAppointments: updatedAppointments));
+          }
+
+          if (message is ApprovedAppointment) {
+            final updatedAppointments = currentAppointments.map((appointment) {
+              if (appointment.id == message.appointmentId) {
+                return appointment.copyWith(status: "Approved");
+              }
+              return appointment;
+            }).toList();
+
+            emit(FutureAppointmentsLoaded(futureAppointments: updatedAppointments));
+          }
+        }
+      },
+      onError: (error) {
+        emit(AppointmentError(message: ApplicationMessages.serverError.message));
+      },
+    );
+
   }
 
   Future<void> getFutureAppointments() async {
     emit(AppointmentLoading());
     try {
       final futureAppointments = await dataSource.getFutureAppointments();
-      _futureAppointments = futureAppointments;
-      emit(FutureAppointmentsLoaded(futureAppointments: _futureAppointments));
+      ///_futureAppointments = futureAppointments;
+      emit(FutureAppointmentsLoaded(futureAppointments: futureAppointments));
     } on SocketException {
       emit(AppointmentError(message: ApplicationMessages.networkError.message));
     } catch (e) {

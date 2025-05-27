@@ -20,3 +20,10 @@ enum ApplicationMessages {
   const ApplicationMessages(this.message);
   final String message;
 }
+
+enum Status{
+  pending,
+  approved,
+  rejected
+
+}

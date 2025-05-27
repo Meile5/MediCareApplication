@@ -26,6 +26,12 @@ class CancelledAppointment extends BaseEvent with CancelledAppointmentMappable {
 
   CancelledAppointment({required this.appointmentId});
 }
+@MappableClass(discriminatorValue: "ApprovedAppointment")
+class ApprovedAppointment extends BaseEvent with ApprovedAppointmentMappable {
+  final String appointmentId;
+
+  ApprovedAppointment({required this.appointmentId});
+}
 
 @MappableClass(discriminatorValue: "BroadcastBookedSlot")
 class BroadcastBookedSlot extends BaseEvent with BroadcastBookedSlotMappable {

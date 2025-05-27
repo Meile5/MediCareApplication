@@ -21,7 +21,7 @@ class CreatePdf:
         pdf.cell(0, 10, "Patient Information:", ln=True)
         pdf.set_font("Arial", "", 12)
         pdf.cell(0, 10, f"Name: {patient_data.name}", ln=True)
-        pdf.cell(0, 10, f"DOB: {patient_data.age}", ln=True)
+        pdf.cell(0, 10, f"Age: {patient_data.age}", ln=True)
         pdf.cell(0, 10, f"Gender: {patient_data.gender}", ln=True)
 
         pdf.set_font("Arial", "B", 14)

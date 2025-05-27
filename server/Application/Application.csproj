@@ -21,8 +21,4 @@
         <ProjectReference Include="..\Core.Domain\Core.Domain.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Models\Dtos\DoctorDto\request\" />
-    </ItemGroup>
-
 </Project>

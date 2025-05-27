@@ -28,6 +28,7 @@ INSTRUCTIONS:
 - Include specific **dates** when referring to vital signs (e.g., "On May 20th, the heart rate rose to 110 bpm...").  
 - Use clinical reasoning to interpret trends (e.g., "gradual decline", "worsening hypoxia").  
 - Flag any **critical values** (e.g., HR > 100 bpm, O₂ < 95%).  
+- Use patients diagnoses to make better analysis in relation to vitals.
 - Avoid using bullet points. Only mention normal findings if they're directly relevant.
 
 **2. Handoff Summary (Brief Paragraph)**  

@@ -16,6 +16,7 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
       JoinRoomMapper.ensureInitialized();
       JoinDoctorRoomMapper.ensureInitialized();
       CancelledAppointmentMapper.ensureInitialized();
+      ApprovedAppointmentMapper.ensureInitialized();
       BroadcastBookedSlotMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
@@ -414,6 +415,124 @@ class _CancelledAppointmentCopyWithImpl<$R, $Out>
   CancelledAppointmentCopyWith<$R2, CancelledAppointment, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _CancelledAppointmentCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class ApprovedAppointmentMapper
+    extends SubClassMapperBase<ApprovedAppointment> {
+  ApprovedAppointmentMapper._();
+
+  static ApprovedAppointmentMapper? _instance;
+  static ApprovedAppointmentMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ApprovedAppointmentMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ApprovedAppointment';
+
+  static String _$appointmentId(ApprovedAppointment v) => v.appointmentId;
+  static const Field<ApprovedAppointment, String> _f$appointmentId =
+      Field('appointmentId', _$appointmentId);
+
+  @override
+  final MappableFields<ApprovedAppointment> fields = const {
+    #appointmentId: _f$appointmentId,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "ApprovedAppointment";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static ApprovedAppointment _instantiate(DecodingData data) {
+    return ApprovedAppointment(appointmentId: data.dec(_f$appointmentId));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ApprovedAppointment fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ApprovedAppointment>(map);
+  }
+
+  static ApprovedAppointment fromJson(String json) {
+    return ensureInitialized().decodeJson<ApprovedAppointment>(json);
+  }
+}
+
+mixin ApprovedAppointmentMappable {
+  String toJson() {
+    return ApprovedAppointmentMapper.ensureInitialized()
+        .encodeJson<ApprovedAppointment>(this as ApprovedAppointment);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ApprovedAppointmentMapper.ensureInitialized()
+        .encodeMap<ApprovedAppointment>(this as ApprovedAppointment);
+  }
+
+  ApprovedAppointmentCopyWith<ApprovedAppointment, ApprovedAppointment,
+      ApprovedAppointment> get copyWith => _ApprovedAppointmentCopyWithImpl<
+          ApprovedAppointment, ApprovedAppointment>(
+      this as ApprovedAppointment, $identity, $identity);
+  @override
+  String toString() {
+    return ApprovedAppointmentMapper.ensureInitialized()
+        .stringifyValue(this as ApprovedAppointment);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ApprovedAppointmentMapper.ensureInitialized()
+        .equalsValue(this as ApprovedAppointment, other);
+  }
+
+  @override
+  int get hashCode {
+    return ApprovedAppointmentMapper.ensureInitialized()
+        .hashValue(this as ApprovedAppointment);
+  }
+}
+
+extension ApprovedAppointmentValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ApprovedAppointment, $Out> {
+  ApprovedAppointmentCopyWith<$R, ApprovedAppointment, $Out>
+      get $asApprovedAppointment => $base.as(
+          (v, t, t2) => _ApprovedAppointmentCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class ApprovedAppointmentCopyWith<$R, $In extends ApprovedAppointment,
+    $Out> implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? appointmentId});
+  ApprovedAppointmentCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ApprovedAppointmentCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ApprovedAppointment, $Out>
+    implements ApprovedAppointmentCopyWith<$R, ApprovedAppointment, $Out> {
+  _ApprovedAppointmentCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ApprovedAppointment> $mapper =
+      ApprovedAppointmentMapper.ensureInitialized();
+  @override
+  $R call({String? appointmentId}) => $apply(FieldCopyWithData(
+      {if (appointmentId != null) #appointmentId: appointmentId}));
+  @override
+  ApprovedAppointment $make(CopyWithData data) => ApprovedAppointment(
+      appointmentId: data.get(#appointmentId, or: $value.appointmentId));
+
+  @override
+  ApprovedAppointmentCopyWith<$R2, ApprovedAppointment, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _ApprovedAppointmentCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class BroadcastBookedSlotMapper
