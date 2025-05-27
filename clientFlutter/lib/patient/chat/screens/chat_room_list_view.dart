@@ -59,10 +59,7 @@ class ChatRoomListView extends StatelessWidget {
                   if (chat.isFinished)
                     Row(
                       children: [
-                        Text(
-                          'Completed at: ',
-                          style: TextStyle(color: Colors.green),
-                        ),
+                        Text('Ended: ', style: TextStyle(color: Colors.green)),
 
                         Text(
                           formatDate(chat.endTime),
