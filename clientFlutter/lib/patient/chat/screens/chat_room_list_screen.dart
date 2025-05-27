@@ -77,7 +77,7 @@ class _ChatRoomListScreenState extends State<ChatRoomListScreen> {
                     length: 2,
                     child: Column(
                       children: [
-                        const ChatNavigation(),
+                        const ChatNavigation(width: 325),
                         Expanded(
                           child: TabBarView(
                             children: [

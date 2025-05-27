@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/patient/common/app_nav_bar.dart';
 import 'package:medicare/patient/common/patient_cubit.dart';
 import 'package:medicare/patient/overview/state/overview_cubit.dart';
@@ -39,7 +38,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
           children: [
             BlocBuilder<PatientCubit, PatientState>(
               builder: (context, patientState) {
-                context.read<PatientCubit>().loadPatient(AuthPrefs.userId!);
+                //context.read<PatientCubit>().loadPatient(AuthPrefs.userId!);
                 if (patientState.loading) {
                   return const Padding(
                     padding: EdgeInsets.all(16),

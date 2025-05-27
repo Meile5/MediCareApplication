@@ -196,7 +196,7 @@ class _DoctorOverviewMainContentState extends State<DoctorOverviewMainContent> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(FontAwesomeIcons.userDoctor, size: 32, color: Colors.blue),
+              Icon(FontAwesomeIcons.user, size: 32, color: Colors.blue),
               const SizedBox(height: 12),
               Text("Email: $email", style: const TextStyle(fontSize: 14)),
               const SizedBox(height: 4),
