@@ -54,9 +54,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final _uuid = const Uuid();
+    final _uuid = const Uuid().v4();
     super.initState();
-    webSocketService = WebSocketService("${dotenv.env['API_PRODUCTION_WEBSOCKETS']!}?id=${_uuid}");
+    webSocketService = WebSocketService(
+      "${dotenv.env['API_PRODUCTION_WEBSOCKETS']!}?id=${_uuid}",
+    );
   }
 
   @override
@@ -88,7 +90,11 @@ class _MyAppState extends State<MyApp> {
               ),
         ),
         BlocProvider(
-          create: (_) => VitalsCubit(webSocketService: webSocketService, dataSource: VitalsDataSource()),
+          create:
+              (_) => VitalsCubit(
+                webSocketService: webSocketService,
+                dataSource: VitalsDataSource(),
+              ),
         ),
         BlocProvider(
           create:
@@ -136,7 +142,6 @@ class _MyAppState extends State<MyApp> {
           },
         ),
         BlocProvider(
-
           create: (context) => DoctorsCubit(dataSource: DataSource()),
         ),
         BlocProvider(

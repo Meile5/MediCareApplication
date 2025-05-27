@@ -49,7 +49,6 @@ class ChatCubit extends Cubit<ChatState> {
 
   void joinRoom(String roomId) {
     if (_currentRoomId == roomId) return;
-
     if (_currentRoomId != null) {
       webSocketService.send(
         UnsubscribeFromChat(roomId: _currentRoomId!).toJson(),

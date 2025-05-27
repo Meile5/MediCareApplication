@@ -27,7 +27,7 @@ class ChatRoomScreen extends StatefulWidget {
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   final TextEditingController _controller = TextEditingController();
-  late ChatCubit _chatCubit; // <- Add this
+  late ChatCubit _chatCubit;
 
   @override
   void initState() {
