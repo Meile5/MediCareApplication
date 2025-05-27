@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
                     ? Row(
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Container(
                             color: Colors.blueAccent,
                             child: Padding(
