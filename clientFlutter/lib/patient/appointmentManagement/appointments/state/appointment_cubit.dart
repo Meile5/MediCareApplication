@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../common/auth/auth_prefs.dart';
 import '../../../../common/event_models/events.dart';
 import '../../../../common/utility/websocket_service.dart';
@@ -21,40 +23,53 @@ class AppointmentCubit extends Cubit<AppointmentState> {
         .map((rawEvent) => BaseEventMapper.fromJson(rawEvent))
         .listen(
           (message) {
-        if (state is FutureAppointmentsLoaded) {
-          final currentAppointments =
-              (state as FutureAppointmentsLoaded).futureAppointments;
+            if (state is FutureAppointmentsLoaded) {
+              final currentAppointments =
+                  (state as FutureAppointmentsLoaded).futureAppointments;
 
-          if (message is CancelledAppointment) {
-            final updatedAppointments = currentAppointments.map((appointment) {
-              if (appointment.id == message.appointmentId) {
-                return appointment.copyWith(status: "Cancelled");
+              if (message is CancelledAppointment) {
+                final updatedAppointments =
+                    currentAppointments.map((appointment) {
+                      if (appointment.id == message.appointmentId) {
+                        return appointment.copyWith(status: "Cancelled");
+                      }
+                      return appointment;
+                    }).toList();
+
+                emit(
+                  FutureAppointmentsLoaded(
+                    futureAppointments: updatedAppointments,
+                  ),
+                );
               }
-              return appointment;
-            }).toList();
 
-            emit(FutureAppointmentsLoaded(futureAppointments: updatedAppointments));
-          }
+              if (message is ApprovedAppointment) {
+                print('Socket message received: $message');
 
-          if (message is ApprovedAppointment) {
-            print('Socket message received: $message');
+                final updatedAppointments =
+                    currentAppointments.map((appointment) {
+                      if (appointment.id == message.appointmentId) {
+                        return appointment.copyWith(status: "Confirmed");
+                      }
+                      return appointment;
+                    }).toList();
 
-            final updatedAppointments = currentAppointments.map((appointment) {
-              if (appointment.id == message.appointmentId) {
-                return appointment.copyWith(status: "Approved");
+                emit(
+                  FutureAppointmentsLoaded(
+                    futureAppointments: updatedAppointments,
+                  ),
+                );
               }
-              return appointment;
-            }).toList();
-
-            emit(FutureAppointmentsLoaded(futureAppointments: updatedAppointments));
-          }
-        }
-      },
-      onError: (error) {
-        emit(AppointmentError(message: ApplicationMessages.serverError.message));
-      },
-    );
-
+            }
+          },
+          onError: (error) {
+            emit(
+              AppointmentError(
+                message: ApplicationMessages.serverError.message,
+              ),
+            );
+          },
+        );
   }
 
   Future<void> getFutureAppointments() async {
@@ -125,9 +140,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
 
   void unsubscribeAllRooms() {
     for (final roomId in _joinedRooms) {
-      webSocketService.send(
-        UnsubscribeFromChat(roomId: roomId).toJson(),
-      );
+      webSocketService.send(UnsubscribeFromChat(roomId: roomId).toJson());
     }
     _joinedRooms.clear();
   }
