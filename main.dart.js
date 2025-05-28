@@ -109971,8 +109971,9 @@ return A.bM(A.a([new A.b3(B.W4,s,n),A.cy(new A.M2(B.e8,p,o,B.anU,new A.ac(r,0,!1
 else return B.at},
 $S:633}
 A.aRe.prototype={
-$1(a){var s=a.a
-if(s!=null&&s.length!==0)this.a.ayV(this.b,t.oA.a(B.b.ga2(s)))},
+$1(a){var s,r=a.a
+if(r!=null&&r.length!==0){s=t.oA.a(B.b.ga2(r))
+if(s.d==="Pending")this.a.ayV(this.b,s)}},
 $S:634}
 A.aRd.prototype={
 $1(a){var s=a.jA()
