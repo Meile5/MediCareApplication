@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:medicare/common/event_models/events.dart' as events;
 import 'package:medicare/doctor/appointment/models/appointment_model.dart'
     as model;
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/doctor/appointment/models/appointment_model.dart';
@@ -28,7 +26,6 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
     _subscription = webSocketService.baseEventStream
         .listen(
           (message) {
-            print('Socket message received kkkkkkkkkkkkkkkkkkkkkk: $message');
 
             if (state is DoctorAppointmentLoaded) {
               final currentAppointments =
@@ -44,8 +41,6 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
                   ),
                 );
               } else if (message is events.AppointmentDoctorSideDto) {
-                print('Socket message received booooked: $message');
-                print("hrerrr");
                 final newAppointment = model.AppointmentDoctorSideDto(
                   id: message.id,
                   doctorId: message.doctorId,
@@ -99,7 +94,7 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
     String patientId,
   ) async {
     try {
-      await dataSource.confirmAppointment(appt.id, patientId);
+      await dataSource.confirmAppointment(appt.id, patientId, appt.startTime, appt.endTime);
 
       final chatroom = CreateChatRoomDto(
         doctorId: appt.doctorId,

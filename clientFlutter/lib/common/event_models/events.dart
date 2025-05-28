@@ -64,6 +64,16 @@ class BroadcastApprovedSlotDto extends BaseEvent with BroadcastApprovedSlotDtoMa
 }
 
 
+@MappableClass(discriminatorValue: "ConfirmedSlot")
+class ConfirmedSlot extends BaseEvent with ConfirmedSlotMappable {
+  final DateTime startTime;
+  final DateTime endTime;
+
+
+  ConfirmedSlot({ required this.startTime, required this.endTime});
+}
+
+
 
 @MappableClass(discriminatorValue: "ServerMessage")
 class ServerMessage extends BaseEvent with ServerMessageMappable {

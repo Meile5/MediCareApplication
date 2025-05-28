@@ -22,9 +22,9 @@ class DoctorAppointmentDataSource {
     return jsonList.map((e) => AppointmentDoctorSideDtoMapper.fromMap(e)).toList();
   }
 
-  Future<void> confirmAppointment(String appointmentId, String patientId) async {
+  Future<void> confirmAppointment(String appointmentId, String patientId, DateTime startTime, DateTime endTime) async {
     final url =
-        "${dotenv.env['API_BASE_URL']!}/appointments/confirm?appointmentId=$appointmentId&roomId=${AuthPrefs.userId}-$patientId";
+        "${dotenv.env['API_BASE_URL']!}/appointments/confirm?appointmentId=$appointmentId&startTime=$startTime&endTime=$endTime&roomId=${AuthPrefs.userId}-$patientId";
 
     await http.put(
       Uri.parse(url),

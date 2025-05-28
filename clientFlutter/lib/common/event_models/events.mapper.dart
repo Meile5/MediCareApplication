@@ -19,6 +19,7 @@ class BaseEventMapper extends ClassMapperBase<BaseEvent> {
       ApprovedAppointmentMapper.ensureInitialized();
       AppointmentDoctorSideDtoMapper.ensureInitialized();
       BroadcastApprovedSlotDtoMapper.ensureInitialized();
+      ConfirmedSlotMapper.ensureInitialized();
       ServerMessageMapper.ensureInitialized();
       ChatMessageMapper.ensureInitialized();
       UnsubscribeFromChatMapper.ensureInitialized();
@@ -848,6 +849,129 @@ class _BroadcastApprovedSlotDtoCopyWithImpl<$R, $Out>
   BroadcastApprovedSlotDtoCopyWith<$R2, BroadcastApprovedSlotDto, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _BroadcastApprovedSlotDtoCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class ConfirmedSlotMapper extends SubClassMapperBase<ConfirmedSlot> {
+  ConfirmedSlotMapper._();
+
+  static ConfirmedSlotMapper? _instance;
+  static ConfirmedSlotMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ConfirmedSlotMapper._());
+      BaseEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ConfirmedSlot';
+
+  static DateTime _$startTime(ConfirmedSlot v) => v.startTime;
+  static const Field<ConfirmedSlot, DateTime> _f$startTime =
+      Field('startTime', _$startTime);
+  static DateTime _$endTime(ConfirmedSlot v) => v.endTime;
+  static const Field<ConfirmedSlot, DateTime> _f$endTime =
+      Field('endTime', _$endTime);
+
+  @override
+  final MappableFields<ConfirmedSlot> fields = const {
+    #startTime: _f$startTime,
+    #endTime: _f$endTime,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "ConfirmedSlot";
+  @override
+  late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
+
+  static ConfirmedSlot _instantiate(DecodingData data) {
+    return ConfirmedSlot(
+        startTime: data.dec(_f$startTime), endTime: data.dec(_f$endTime));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ConfirmedSlot fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ConfirmedSlot>(map);
+  }
+
+  static ConfirmedSlot fromJson(String json) {
+    return ensureInitialized().decodeJson<ConfirmedSlot>(json);
+  }
+}
+
+mixin ConfirmedSlotMappable {
+  String toJson() {
+    return ConfirmedSlotMapper.ensureInitialized()
+        .encodeJson<ConfirmedSlot>(this as ConfirmedSlot);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ConfirmedSlotMapper.ensureInitialized()
+        .encodeMap<ConfirmedSlot>(this as ConfirmedSlot);
+  }
+
+  ConfirmedSlotCopyWith<ConfirmedSlot, ConfirmedSlot, ConfirmedSlot>
+      get copyWith => _ConfirmedSlotCopyWithImpl<ConfirmedSlot, ConfirmedSlot>(
+          this as ConfirmedSlot, $identity, $identity);
+  @override
+  String toString() {
+    return ConfirmedSlotMapper.ensureInitialized()
+        .stringifyValue(this as ConfirmedSlot);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ConfirmedSlotMapper.ensureInitialized()
+        .equalsValue(this as ConfirmedSlot, other);
+  }
+
+  @override
+  int get hashCode {
+    return ConfirmedSlotMapper.ensureInitialized()
+        .hashValue(this as ConfirmedSlot);
+  }
+}
+
+extension ConfirmedSlotValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ConfirmedSlot, $Out> {
+  ConfirmedSlotCopyWith<$R, ConfirmedSlot, $Out> get $asConfirmedSlot =>
+      $base.as((v, t, t2) => _ConfirmedSlotCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class ConfirmedSlotCopyWith<$R, $In extends ConfirmedSlot, $Out>
+    implements BaseEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({DateTime? startTime, DateTime? endTime});
+  ConfirmedSlotCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+}
+
+class _ConfirmedSlotCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ConfirmedSlot, $Out>
+    implements ConfirmedSlotCopyWith<$R, ConfirmedSlot, $Out> {
+  _ConfirmedSlotCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ConfirmedSlot> $mapper =
+      ConfirmedSlotMapper.ensureInitialized();
+  @override
+  $R call({DateTime? startTime, DateTime? endTime}) =>
+      $apply(FieldCopyWithData({
+        if (startTime != null) #startTime: startTime,
+        if (endTime != null) #endTime: endTime
+      }));
+  @override
+  ConfirmedSlot $make(CopyWithData data) => ConfirmedSlot(
+      startTime: data.get(#startTime, or: $value.startTime),
+      endTime: data.get(#endTime, or: $value.endTime));
+
+  @override
+  ConfirmedSlotCopyWith<$R2, ConfirmedSlot, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ConfirmedSlotCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ServerMessageMapper extends SubClassMapperBase<ServerMessage> {

@@ -20,10 +20,12 @@ class FutureAppointments extends StatefulWidget {
 }
 
 class _FutureAppointmentsState extends State<FutureAppointments> {
+  /// if you dont use late then it will not dispose correctly (Looking up a deactivated widget's ancestor is unsafe)
+  late AppointmentCubit appointmentCubit;
   @override
   void initState() {
     super.initState();
-
+    appointmentCubit = context.read<AppointmentCubit>();
     final clinicState = context.read<OverviewCubit>().state;
     if (clinicState is ClinicInfoLoaded) {
       final clinic = clinicState.clinicInfo.firstWhere(
@@ -32,10 +34,13 @@ class _FutureAppointmentsState extends State<FutureAppointments> {
       context.read<DoctorsCubit>().retrieveDoctors(clinic.id);
     }
 
-    context.read<AppointmentCubit>().getFutureAppointments();
+    appointmentCubit.getFutureAppointments();
   }
-
-
+  @override
+  void dispose() {
+    appointmentCubit.unsubscribeAllRooms();
+    super.dispose();
+  }
 
 
   @override
@@ -44,7 +49,7 @@ class _FutureAppointmentsState extends State<FutureAppointments> {
     final doctorsState = context.watch<DoctorsCubit>().state;
     final appointmentState = context.watch<AppointmentCubit>().state;
 
-    // Join rooms after build, only when both states are loaded
+    /// Join rooms after build, only when both states are loaded
     if (doctorsState is DoctorsLoaded &&
         appointmentState is FutureAppointmentsLoaded) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -56,7 +61,6 @@ class _FutureAppointmentsState extends State<FutureAppointments> {
         for (final appt in appointments) {
           if (doctorIds.contains(appt.doctorId)) {
             final roomId = "${appt.doctorId}-$userId";
-            print ('Joining room: $roomId');
             context.read<AppointmentCubit>().joinRoom(roomId);
           }
         }

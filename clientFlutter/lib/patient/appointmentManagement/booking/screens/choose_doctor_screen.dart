@@ -28,20 +28,6 @@ class _ChooseDoctorScreenState extends State<ChooseDoctorScreen> {
 
 
   @override
-  void initState() {
-
-    super.initState();
-    final clinicState = context.read<OverviewCubit>().state;
-
-    if (clinicState is ClinicInfoLoaded) {
-      final clinicId = clinicState.clinicInfo.firstWhere((clinic) => clinic.type == "Normal");
-      context.read<DoctorsCubit>().retrieveDoctors(clinicId.id);
-    } else if (clinicState is ClinicInfoError) {
-      Center(child: Text(ApplicationMessages.generalError.message));
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Doctors'), centerTitle: true,),

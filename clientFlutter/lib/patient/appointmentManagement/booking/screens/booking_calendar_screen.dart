@@ -27,6 +27,7 @@ class CustomBookingCalendar extends StatefulWidget {
 }
 
 class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
+  late BookingCubit bookingCubit;
   DateTime _selectedDay = DateTime.now();
   AvailabilityDto? _selectedSlot;
   List<AvailabilityDto> _getFilteredTimeSlots(List<AvailabilityDto> allSlots) {
@@ -39,8 +40,15 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
   @override
   void initState() {
     super.initState();
+    bookingCubit = context.read<BookingCubit>();
     final doctorId = widget.selectedDoctor.doctorId;
-    context.read<BookingCubit>().loadAvailableTimes(doctorId);
+    bookingCubit.joinRoom(doctorId);
+    bookingCubit.loadAvailableTimes(doctorId);
+  }
+  @override
+  void dispose() {
+    bookingCubit.unsubscribeFromRoom(widget.selectedDoctor.doctorId);
+    super.dispose();
   }
 
 

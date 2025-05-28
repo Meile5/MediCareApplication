@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/event_models/events.dart';
 import 'package:medicare/common/utility/websocket_service.dart';
+import '../../../../common/auth/auth_prefs.dart';
 import '../../../../errorHandling/application_messages.dart';
 import 'booking_state.dart';
 import '../../utils/data_source.dart';
@@ -10,19 +12,27 @@ import '../../models/models_for_mapping.dart';
 class BookingCubit extends Cubit<BookingState> {
   final DataSource dataSource;
   final WebSocketService webSocketService;
+  StreamSubscription? _subscription;
+  bool _isSubscribed = false;
 
   BookingCubit({required this.dataSource, required this.webSocketService})
-      : super(BookingInitial()){} /*{
-    webSocketService.send(JoinDoctorRoom(roomId: "user-doctor-1").toJson());
-
-    webSocketService.stream
-        .map((rawEvent) => BaseEventMapper.fromJson(rawEvent))
+      : super(BookingInitial()) {
+    webSocketService.baseEventStream
         .listen((message) {
-      if (message is BroadcastBookedSlot) {
-        print(message.id);
+      if (state is BookingLoaded) {
+        final timeSlots = (state  as BookingLoaded).availableTimes;
+        if (message is ConfirmedSlot) {
+          emit(BookingLoaded(
+            availableTimes: timeSlots
+                .where((slot) =>
+            slot.startTime != message.startTime &&
+                slot.endTime != message.endTime)
+                .toList(),
+          ));}
       }
-    });
-  }*/
+
+    });}
+
 
   Future<void> loadAvailableTimes(String id) async {
     emit(BookingLoading());
@@ -55,5 +65,23 @@ class BookingCubit extends Cubit<BookingState> {
     } catch(e) {
       emit(BookingError(message: ApplicationMessages.generalError.message));
     }
+  }
+  void joinRoom(String roomId) {
+    if (_isSubscribed) return;
+
+    _isSubscribed = true;
+    webSocketService.send(
+      JoinRoom(roomId: roomId, token: AuthPrefs.jwt).toJson(),
+    );
+  }
+
+  void unsubscribeFromRoom(String roomId) {
+    webSocketService.send(UnsubscribeFromChat(roomId: roomId).toJson());
+  }
+
+  @override
+  Future<void> close() {
+    _subscription?.cancel();
+    return super.close();
   }
 }
