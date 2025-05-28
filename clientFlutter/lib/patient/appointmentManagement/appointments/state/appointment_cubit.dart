@@ -44,8 +44,6 @@ class AppointmentCubit extends Cubit<AppointmentState> {
               }
 
               if (message is ApprovedAppointment) {
-                print('Socket message received: $message');
-
                 final updatedAppointments =
                     currentAppointments.map((appointment) {
                       if (appointment.id == message.appointmentId) {

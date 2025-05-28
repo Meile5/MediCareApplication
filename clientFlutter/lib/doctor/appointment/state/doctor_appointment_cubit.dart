@@ -95,6 +95,7 @@ class DoctorAppointmentCubit extends Cubit<DoctorAppointmentState> {
   ) async {
     try {
       await dataSource.confirmAppointment(appt.id, patientId, appt.startTime, appt.endTime);
+      print (appt.startTime);
 
       final chatroom = CreateChatRoomDto(
         doctorId: appt.doctorId,

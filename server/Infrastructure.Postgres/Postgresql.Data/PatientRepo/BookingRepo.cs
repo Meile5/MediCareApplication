@@ -28,7 +28,7 @@ public class BookingRepo (MyDbContext context,  ILogger<BookingRepo> logger): IB
         try
         {
             return await context.Appointments
-                .Where(a => a.DoctorId == doctorId && a.Status == "confirmed")
+                .Where(a => a.DoctorId == doctorId && a.Status == "Confirmed")
                 .ToListAsync();
         }
         catch (Exception ex)

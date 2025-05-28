@@ -50,8 +50,6 @@ class _DoctorAppointmentsCalendarState
         if (state is DoctorAppointmentLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is DoctorAppointmentLoaded) {
-          for (var appt in state.appointments) {
-          }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
