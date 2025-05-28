@@ -21,13 +21,15 @@ class BookingCubit extends Cubit<BookingState> {
         .listen((message) {
       if (state is BookingLoaded) {
         final timeSlots = (state  as BookingLoaded).availableTimes;
+
         if (message is ConfirmedSlot) {
           emit(BookingLoaded(
             availableTimes: timeSlots
                 .where((slot) =>
-            slot.startTime != message.startTime &&
-                slot.endTime != message.endTime)
+            slot.startTime != message.startTime.toUtc() &&
+                slot.endTime != message.endTime.toUtc())
                 .toList(),
+
           ));}
       }
 
