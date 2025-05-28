@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:medicare/errorHandling/application_messages.dart';
 
 import '../../common/auth/auth_cubit.dart';
 import 'login_state.dart';
@@ -49,7 +50,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginError('Login failed: ${response.statusCode}'));
       }
     } catch (e) {
-      emit(LoginError('Login error: $e'));
+      //emit(LoginError(message: ApplicationMessages.generalError.message));
     }
   }
 }

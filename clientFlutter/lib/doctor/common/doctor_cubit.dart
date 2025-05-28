@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../errorHandling/application_messages.dart';
 import 'doctor_data_source.dart';
 import 'doctor_model.dart';
 
@@ -18,14 +19,11 @@ class DoctorCubit extends Cubit<DoctorState> {
 
   Future<void> loadDoctor(String doctorId) async {
     emit(DoctorState(loading: true));
-    print("Loading doctor data...");
     try {
       final doctor = await dataSource.getDoctorById(doctorId);
-      print("Doctor data loaded: $doctor");
       emit(DoctorState(doctor: doctor));
     } catch (e) {
-      print("Error loading doctor data: $e");
-      emit(DoctorState(error: e.toString()));
+      emit(DoctorState(error: ApplicationMessages.generalError.message));
     }
   }
 }

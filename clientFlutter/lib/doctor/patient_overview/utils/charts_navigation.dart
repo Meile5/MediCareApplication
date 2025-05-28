@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/line_chart.dart';
 
 class ChartsNavigation extends StatefulWidget {
@@ -25,7 +24,6 @@ class _ChartsNavigationState extends State<ChartsNavigation> {
       length: 3,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.55,
-        // width: MediaQuery.of(context).size.width * 0.6,
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(

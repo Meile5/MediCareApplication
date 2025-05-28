@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/patient/appointmentManagement/models/models_for_mapping.dart';
 import '../../../../errorHandling/application_messages.dart';

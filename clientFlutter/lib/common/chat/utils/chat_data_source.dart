@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:medicare/common/auth/auth_prefs.dart';
-
 import '../../event_models/events.dart';
 import '../models/chat_models.dart';
 

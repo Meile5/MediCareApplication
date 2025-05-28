@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-
 import '../../doctor/patient_overview/models/patients_overview_models.dart';
 import '../../doctor/patient_overview/widgets/add_diagnoses_dialog.dart';
 

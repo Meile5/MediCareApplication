@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/doctor/overview/screens/doctor_overview_screen.dart';
 import 'package:medicare/doctor/patient_overview/state/patients_vitals_cubit.dart';
-
 import '../../../common/widgets_shared/diagnoses_info_card.dart';
 import '../../../common/widgets_shared/info_card.dart';
 import '../../../common/widgets_shared/message_display.dart';
@@ -17,7 +15,7 @@ import '../state/patients_vitals_state.dart';
 import '../utils/charts_navigation.dart';
 import '../widgets/patient_info_card.dart';
 import 'analysis_screen.dart';
-import 'web_analysis_screen.dart';
+
 
 class PatientInfoScreen extends StatefulWidget {
   final PatientDto patient;

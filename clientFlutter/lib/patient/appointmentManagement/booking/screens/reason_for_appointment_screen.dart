@@ -4,7 +4,6 @@ import 'package:medicare/patient/appointmentManagement/booking/screens/choose_do
 import '../../../../errorHandling/application_messages.dart';
 import '../../../common/app_nav_bar.dart';
 import '../widgets/appointment_reason.dart';
-import 'booking_calendar_screen.dart';
 
 class ReasonForAppointmentScreen extends StatefulWidget {
   const ReasonForAppointmentScreen({super.key});
@@ -40,7 +39,7 @@ class _ReasonForAppointmentScreenState extends State<ReasonForAppointmentScreen>
     _textFieldFocus.addListener(() {
       if (_textFieldFocus.hasFocus) {
         setState(() {
-          selectedReason = null; // deselect reason
+          selectedReason = null; /// deselect reason
         });
       }
     });

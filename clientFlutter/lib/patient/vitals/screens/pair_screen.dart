@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../common/vitals/state/vitals_cubit.dart';
 
 class PairScreen extends StatefulWidget {
@@ -26,7 +25,7 @@ class _PairScreenState extends State<PairScreen> {
         _codeController.text.trim(),
       );
 
-      // Show a confirmation message
+      /// Show a confirmation message
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Paired with device: $deviceId")));

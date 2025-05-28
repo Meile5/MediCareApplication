@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:medicare/common/widgets_shared/widgets.dart';
 import 'package:medicare/patient/appointmentManagement/appointments/widgets/past_appointment_card.dart';
 import '../../../../common/widgets_shared/message_display.dart';
 import '../../../../errorHandling/application_messages.dart';

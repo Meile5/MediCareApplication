@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:side_navigation/side_navigation.dart';
 
 class AppColors {
   static const Color primary = Colors.blueAccent;

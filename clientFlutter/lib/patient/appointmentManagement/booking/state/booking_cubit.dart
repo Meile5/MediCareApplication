@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/event_models/events.dart';
 import 'package:medicare/common/utility/websocket_service.dart';
@@ -9,6 +8,7 @@ import '../../../../errorHandling/application_messages.dart';
 import 'booking_state.dart';
 import '../../utils/data_source.dart';
 import '../../models/models_for_mapping.dart';
+
 class BookingCubit extends Cubit<BookingState> {
   final DataSource dataSource;
   final WebSocketService webSocketService;

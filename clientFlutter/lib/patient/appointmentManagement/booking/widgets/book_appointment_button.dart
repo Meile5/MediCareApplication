@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/common/widgets_shared/reusable_dialog.dart';
-
 import '../../../../common/auth/auth_prefs.dart';
 import '../../models/models_for_mapping.dart';
 import '../state/booking_cubit.dart';

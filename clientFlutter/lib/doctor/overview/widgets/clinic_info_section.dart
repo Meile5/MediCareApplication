@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../patient/overview/widgets/clinic_info.dart';
-import '../../common/clinic_cubit.dart'; // Make sure this import is correct
+import '../../common/clinic_cubit.dart';
 
 class ClinicInfoSection extends StatelessWidget {
   const ClinicInfoSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Trigger the loading of clinic info when this widget is built
+    /// Trigger the loading of clinic info when this widget is built
     context.read<ClinicInfoCubit>().loadClinicInfo();
 
     return BlocBuilder<ClinicInfoCubit, ClinicInfoState>(

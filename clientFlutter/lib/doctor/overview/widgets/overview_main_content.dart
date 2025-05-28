@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../../common/auth/auth_prefs.dart';
 import '../../../common/chat/utils/chat_data_source.dart';
 import '../../common/doctor_data_source.dart';

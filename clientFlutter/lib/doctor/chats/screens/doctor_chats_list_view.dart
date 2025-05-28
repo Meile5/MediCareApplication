@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/doctor/chats/screens/doctor_chat_room_screen.dart';
-
 import '../../../common/chat/state/chat_cubit.dart';
 import '../../../common/widgets_shared/message_display.dart';
 

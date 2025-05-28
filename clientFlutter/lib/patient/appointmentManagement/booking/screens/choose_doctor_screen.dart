@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/widgets_shared/widgets.dart';
-import '../../../../errorHandling/application_messages.dart';
 import '../../../common/app_nav_bar.dart';
-import '../../../overview/state/overview_cubit.dart';
-import '../../../overview/state/overview_state.dart';
 import '../../models/models_for_mapping.dart';
 import '../state/doctors_cubit.dart';
 import '../state/doctors_state.dart';

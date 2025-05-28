@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../common/auth/auth_prefs.dart';
 import '../../../errorHandling/application_messages.dart';
 import '../models/patients_overview_models.dart';
@@ -27,7 +26,7 @@ class _DiagnosesDialogState extends State<DiagnosesDialog> {
 
   @override
   void dispose() {
-    _controller.dispose(); // Cleans up the controller when the widget is disposed.
+    _controller.dispose(); /// Cleans up the controller when the widget is disposed.
     super.dispose();
   }
 

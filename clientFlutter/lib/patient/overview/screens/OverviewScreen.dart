@@ -38,7 +38,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
           children: [
             BlocBuilder<PatientCubit, PatientState>(
               builder: (context, patientState) {
-                //context.read<PatientCubit>().loadPatient(AuthPrefs.userId!);
                 if (patientState.loading) {
                   return const Padding(
                     padding: EdgeInsets.all(16),

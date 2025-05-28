@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../common/doctor_side_navigation.dart';
 import '../../doctors_screen_header.dart';
 import '../widgets/clinic_info_section.dart';

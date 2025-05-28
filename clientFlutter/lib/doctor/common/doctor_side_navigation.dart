@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/common/utility/navigation_notifier.dart';
 import 'package:side_navigation/side_navigation.dart';
-
 import '../appointment/screens/appointments_screen.dart';
 import '../chats/screens/chats_screen.dart';
 import '../overview/screens/doctor_overview_screen.dart';

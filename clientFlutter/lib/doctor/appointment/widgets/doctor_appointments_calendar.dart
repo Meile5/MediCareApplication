@@ -5,7 +5,6 @@ import 'package:medicare/doctor/appointment/models/appointment_model.dart';
 import 'package:medicare/doctor/appointment/state/doctor_appointment_cubit.dart';
 import 'package:medicare/doctor/appointment/state/doctor_appointment_state.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 import '../../common/doctor_cubit.dart';
 
 class DoctorAppointmentsCalendar extends StatefulWidget {

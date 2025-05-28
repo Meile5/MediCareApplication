@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_state.dart';
 import 'package:medicare/patient/common/patient_cubit.dart';
-
 import '../../../common/auth/auth_cubit.dart';
 import '../../../common/chat/state/chat_room_state.dart';
 import '../../../common/chat/utils/chat_data_source.dart';

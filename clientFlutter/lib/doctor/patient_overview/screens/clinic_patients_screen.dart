@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/doctor/overview/screens/doctor_overview_screen.dart';
 import 'package:medicare/doctor/patient_overview/screens/patient_info_screen.dart';
-
 import '../../../../common/widgets_shared/message_display.dart';
 import '../../../../errorHandling/application_messages.dart';
 import '../../../patient/common/patient_model.dart';

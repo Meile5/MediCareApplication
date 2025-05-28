@@ -6,7 +6,6 @@ import 'package:medicare/common/chat/state/chat_state.dart';
 import 'package:medicare/common/chat/utils/chat_data_source.dart';
 import 'package:medicare/patient/common/patient_data_source.dart';
 import 'package:medicare/patient/common/patient_model.dart';
-
 import '../../../common/chat/state/chat_cubit.dart';
 import '../../../common/event_models/events.dart';
 import '../../../common/vitals/state/vitals_cubit.dart';

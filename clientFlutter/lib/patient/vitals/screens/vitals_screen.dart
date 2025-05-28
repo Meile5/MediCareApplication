@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicare/common/vitals/state/vitals_cubit.dart';
 import 'package:medicare/patient/vitals/screens/pair_screen.dart';
 import 'package:medicare/patient/vitals/screens/vitals_wizard_screen.dart';
-
 import '../../../common/widgets_shared/info_card.dart';
 import '../../common/app_nav_bar.dart';
 import '../../common/patient_cubit.dart';

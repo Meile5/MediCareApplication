@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../common/auth/auth_prefs.dart';
 import '../../../../common/widgets_shared/message_display.dart';
 import '../../../../errorHandling/application_messages.dart';

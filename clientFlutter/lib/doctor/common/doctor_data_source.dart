@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-
 import '../../common/auth/auth_prefs.dart';
 import '../../patient/overview/models/models_overview.dart';
 import 'doctor_model.dart';

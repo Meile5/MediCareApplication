@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import '../../../common/widgets_shared/message_display.dart';
 import '../../appointment/state/doctor_appointment_cubit.dart';
 import '../../appointment/state/doctor_appointment_state.dart';

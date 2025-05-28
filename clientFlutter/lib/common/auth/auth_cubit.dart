@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {

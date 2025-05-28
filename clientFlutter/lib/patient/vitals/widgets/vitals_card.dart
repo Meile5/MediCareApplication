@@ -6,9 +6,6 @@ Widget vitalsCard(IconData icon, String label) {
     color: Colors.white,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     child: InkWell(
-      onTap: () {
-        // Add action here if needed
-      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -33,7 +33,7 @@ class TemperatureStep extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Image.asset(
-            'assets/temperature_guide.jpg', // Replace with your actual asset path
+            'assets/temperature_guide.jpg', /// Replace with your actual asset path
             height: 150,
           ),
           const SizedBox(height: 24),

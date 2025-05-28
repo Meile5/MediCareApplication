@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicare/patient/appointmentManagement/models/models_for_mapping.dart';
+
 class DoctorInfo extends StatelessWidget {
   final List<ClinicDoctorDto> doctors;
   final ClinicDoctorDto? selectedDoctor;

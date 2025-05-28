@@ -1,7 +1,6 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/doctor/patient_overview/state/pdf_state.dart';
-
 import '../models/patients_overview_models.dart';
 import '../utils/patients_overview_data_source.dart';
 

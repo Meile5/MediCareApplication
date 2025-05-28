@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medicare/common/auth/auth_prefs.dart';
 import 'package:medicare/errorHandling/application_messages.dart';
-
 import '../../event_models/events.dart';
 import '../../utility/websocket_service.dart';
 import '../utils/chat_data_source.dart';
