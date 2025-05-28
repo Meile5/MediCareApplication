@@ -47,10 +47,10 @@ class LoginCubit extends Cubit<LoginState> {
           LoggedIn(jwt: jwt, userId: userId, email: userEmail, role: userRole),
         );
       } else {
-        emit(LoginError('Login failed: ${response.statusCode}'));
+        emit(LoginError(ApplicationMessages.authenticationError.message));
       }
     } catch (e) {
-      //emit(LoginError(message: ApplicationMessages.generalError.message));
+      emit(LoginError(ApplicationMessages.generalError.message));
     }
   }
 }
