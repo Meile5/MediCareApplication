@@ -74,8 +74,11 @@ class _DoctorAppointmentsCalendarState
                     if (details.appointments != null &&
                         details.appointments!.isNotEmpty) {
                       final AppointmentDoctorSideDto appt =
-                          (details.appointments!.first as AppointmentDoctorSideDto);
-                      _showAppointmentDialog(context, appt);
+                          (details.appointments!.first
+                              as AppointmentDoctorSideDto);
+                      if (appt.status == 'Pending') {
+                        _showAppointmentDialog(context, appt);
+                      }
                     }
                   },
                   timeSlotViewSettings: const TimeSlotViewSettings(
@@ -96,7 +99,10 @@ class _DoctorAppointmentsCalendarState
     );
   }
 
-  void _showAppointmentDialog(BuildContext context, AppointmentDoctorSideDto appt) {
+  void _showAppointmentDialog(
+    BuildContext context,
+    AppointmentDoctorSideDto appt,
+  ) {
     String formatDate(DateTime date) {
       final local = date.toLocal();
       final formattedDate = DateFormat.yMMMMd().format(local);
