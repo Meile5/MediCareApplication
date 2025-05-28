@@ -23,10 +23,10 @@ public class AppointmentController(IAppointmentService appointmentService, IChat
 
     [Route("appointments/confirm")]
     [HttpPut]
-    public async Task<ActionResult> ConfirmAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromQuery] string roomId, [FromHeader] string authorization)
+    public async Task<ActionResult> ConfirmAppointment([FromQuery] AppointmentIdRequest appointmentIdRequest, [FromQuery] string roomId, [FromQuery] DateTime startTime, [FromQuery] DateTime endTime, [FromHeader] string authorization)
     {
         securityService.VerifyJwtOrThrow(authorization);
-        await appointmentService.ConfirmAppointment(appointmentIdRequest.appointmentId, roomId);
+        await appointmentService.ConfirmAppointment(appointmentIdRequest.appointmentId, roomId, startTime, endTime);
         return Ok();
     }
 
