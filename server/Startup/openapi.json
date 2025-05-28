@@ -769,12 +769,30 @@
             "x-position": 2
           },
           {
+            "name": "startTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 3
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 4
+          },
+          {
             "name": "authorization",
             "in": "header",
             "schema": {
               "type": "string"
             },
-            "x-position": 3
+            "x-position": 5
           }
         ],
         "responses": {
@@ -1867,6 +1885,27 @@
           }
         ]
       },
+      "ConfirmedSlot": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "startTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endTime": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
       "DoctorCancelAppointment": {
         "allOf": [
           {
@@ -2125,6 +2164,7 @@
           "AppointmentDoctorSideDto",
           "ApprovedAppointment",
           "CancelledAppointment",
+          "ConfirmedSlot",
           "DoctorCancelAppointment",
           "MemberLeftNotification",
           "JoinRoomDto",

@@ -1,7 +1,7 @@
 # MediCare Application
 
 **4th Semester Combined Exam Project**  
-Modules: Fullstack Development, Mobile Development, IoT, and AI
+Courses: Fullstack Development, Mobile Development, IoT, and AI
 
 Developed by **Mario Aaron Florez** and **Meile Kapisaite**
 
@@ -28,7 +28,18 @@ Frontend can be run using flutter run on 'clientFlutter', it can run on web or a
 
 ---
 
+## Login credentials
+To login as a patient you can use the following credentials:
+email: juan@gmail.com
+password: 492154
+
+To login as a doctor:
+email: signe@medicare.com
+password: 492154
+
 ## Important Notes
  The "Generate Analysis" feature available in the doctor version of the app only works when running the AI locally, don't use it on the deployed app.
 
  The "Pair Device" function on the mobile app does not connect to a real device unless an actual IoT device is available and configured.
+
+ The deployed backend can overflow sometimes so if something is not loading correctly just reload or wait a bit
