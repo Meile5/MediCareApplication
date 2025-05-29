@@ -13,6 +13,33 @@ MediCare is a fullstack application that combines mobile, web, IoT, and AI, deve
 
 ---
 
+## Screenshots
+
+### 📱 Mobile UI
+<p float="left">
+<img src="images/Screenshot%202025-05-29%20222707.png" alt="Mobile UI" width="200"/>
+<img src="images/Screenshot%202025-05-29%20222756.png" width="200"/>
+  <img src="images/Screenshot%202025-05-29%20222920.png" width="200"/>
+  <img src="images/Screenshot%202025-05-29%20223004.png" width="200"/>
+  <img src="images/Screenshot%202025-05-29%20223023.png" width="200"/>
+  <img src="images/Screenshot%202025-05-29%20223554.png" width="200"/>
+  <img src="images/Screenshot%202025-05-29%20223616.png" width="200"/>
+</p>
+
+### 💻 Web UI
+<p float="left">
+   <img src="images/Screenshot%202025-05-29%20222631.png" width="500"/>
+  <img src="images/Screenshot%202025-05-29%20223650.png" width="500"/>
+  <img src="images/Screenshot%202025-05-29%20223709.png" width="500"/>
+  <img src="images/Screenshot%202025-05-29%20223740.png" width="500"/>
+  <img src="images/Screenshot%202025-05-29%20223753.png" width="500"/>
+  <img src="images/Screenshot%202025-05-29%20223814.png" width="500"/>
+  <img src="images/Screenshot%202025-05-29%20223634.png" width="500"/>
+
+</p>
+
+---
+
 ## Deployed Application
   
  **[MediCare Application](https://meile5.github.io/MediCareApplication/)**
