@@ -1,36 +1,39 @@
-﻿using Application.Interfaces;
+﻿using Application;
+using Application.Interfaces;
 using Application.Interfaces.Infrastructure.Websocket;
 using Fleck;
 using WebSocketBoilerplate;
 
 namespace Api.Websocket;
 
-// Event handler for joining a room
-public class JoinRoomEventHandler(IConnectionManager connectionManager, ISecurityService securityService) : BaseEventHandler<JoinRoomDto>
+public class JoinRoomEventHandler(IConnectionManager connectionManager, ISecurityService securityService, ILogger<JoinRoomEventHandler> logger) : BaseEventHandler<JoinRoomDto>
 {
     public override async Task Handle(JoinRoomDto dto, IWebSocketConnection socket)
     {
-        securityService.VerifyJwtOrThrow(dto.Token);
-        Console.WriteLine( "ggggggggggggggggggggggg" );
-        var clientId = connectionManager.GetClientIdFromSocket(socket);
-        var roomId = dto.RoomId; // Use hardcoded value for now
-
-       // ctx.Messages.Add();
-        // Add user to the room
-        await connectionManager.AddToTopic(roomId, clientId);
-
-        // Notify others in the room
-        var joinNotification = new ServerMessageDto
+        try
         {
-            Message = $"{clientId} has joined the chat.",
-            RoomId = roomId
-        };
+            securityService.VerifyJwtOrThrow(dto.Token);
+            var clientId = connectionManager.GetClientIdFromSocket(socket);
+            var roomId = dto.RoomId;
 
-        await connectionManager.BroadcastToTopic(roomId, joinNotification);
+            await connectionManager.AddToTopic(roomId, clientId);
+
+            var joinNotification = new ServerMessageDto
+            {
+                Message = $"{clientId} has joined the chat.",
+                RoomId = roomId
+            };
+
+            await connectionManager.BroadcastToTopic(roomId, joinNotification);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, ErrorMessages.GetMessage(ErrorCode.JoinRoom));
+            
+        }
     }
 }
 
-// DTO for joining a room
 public class JoinRoomDto : BaseDto
 {
     public string Token { get; set; }
@@ -38,7 +41,6 @@ public class JoinRoomDto : BaseDto
 
 }
 
-// DTO for server messages
 public class ServerMessageDto : BaseDto
 {
     public string Message { get; set; }

@@ -20,17 +20,6 @@ public class AuthController(ISecurityService securityService, IConnectionManager
     {
         return Ok(securityService.Login(dto));
     }
-
-    public const string AuthWithJwtRoute = nameof(AuthWithJwt);
-
-    [HttpGet]
-    [Route(AuthWithJwtRoute)]
-    public ActionResult AuthWithJwt([FromHeader]string authorization, string clientId)
-    {
-        securityService.VerifyJwtOrThrow(authorization);
-        connectionManager.AddToTopic("teacher", clientId);
-        return Ok();
-    }
    
     [HttpPost]
     [Route(RegisterPatientRoute)]

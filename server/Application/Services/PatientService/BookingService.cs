@@ -70,12 +70,13 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
         var result = new List<AvailabilityDto>();
         
         /* ToTimeSpan() converts time values into a number of hours and minutes.
-          Add() then adds these TimeSpan values to currentDateUtc to get the actual DateTime values. */
+          Add() then adds these TimeSpan values to currentDateUtc to get the actual DateTime values. 
+          work period (e.g., 2025-06-01 09:00 to 2025-06-01 17:00) */
 
         var start = currentDateUtc.Add(rule.StartTime.ToTimeSpan());
         var end = currentDateUtc.Add(rule.EndTime.ToTimeSpan());
         
-         /* Creates small intervals of time slots based on session duraton  */
+         /* On each iteration, it adds sessionDuration minutes until end time */
         for (DateTime slotStart = start;
              slotStart.AddMinutes(sessionDuration) <= end;
              slotStart = slotStart.AddMinutes(sessionDuration))
@@ -115,8 +116,7 @@ public class BookingService (IBookingRep bookingRep, IConnectionManager connecti
             Notes = appointment.Notes
             
         };
-        Console.WriteLine(broadcast.Status);
-        Console.WriteLine(dto.DoctorId);
+      
         await connectionManager.BroadcastToTopic(dto.DoctorId ,broadcast);
         
         

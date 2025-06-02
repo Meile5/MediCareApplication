@@ -38,7 +38,6 @@ void main() async {
   await dotenv.load(fileName: kReleaseMode ? "env.production" : ".env");
 
   await AuthPrefs.init();
-  await AuthPrefs.init();
   runApp(const MyApp());
 }
 

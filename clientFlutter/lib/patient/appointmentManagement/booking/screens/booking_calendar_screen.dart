@@ -27,16 +27,19 @@ class CustomBookingCalendar extends StatefulWidget {
 }
 
 class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
+  /// context is not fully available during the State object construction hence late
   late BookingCubit bookingCubit;
+  ///default selected day is today in calendar
   DateTime _selectedDay = DateTime.now();
   AvailabilityDto? _selectedSlot;
+  ///filter time slots by day
   List<AvailabilityDto> _getFilteredTimeSlots(List<AvailabilityDto> allSlots) {
     return allSlots.where((slot) {
       return isSameDay(slot.startTime, _selectedDay);
     }).toList();
   }
 
-
+  /// life-cycle methods
   @override
   void initState() {
     super.initState();
@@ -82,9 +85,11 @@ class _CustomBookingCalendarState extends State<CustomBookingCalendar> {
                   final filteredSlots = _getFilteredTimeSlots(allSlots);
                   return CustomSlotGrid(
                     slots: filteredSlots,
+                    ///highlight selected slot
                     selectedSlot: _selectedSlot,
                     onSlotSelected: (slot) {
                       setState(() {
+                        ///if slot is already selected, deselect it
                         if (_selectedSlot?.startTime != slot.startTime ||
                             _selectedSlot?.endTime != slot.endTime) {
                           _selectedSlot = slot;

@@ -8,7 +8,7 @@ import '../../../../errorHandling/application_messages.dart';
 import 'booking_state.dart';
 import '../../utils/data_source.dart';
 import '../../models/models_for_mapping.dart';
-
+///state manager
 class BookingCubit extends Cubit<BookingState> {
   final DataSource dataSource;
   final WebSocketService webSocketService;
@@ -81,6 +81,7 @@ class BookingCubit extends Cubit<BookingState> {
     webSocketService.send(UnsubscribeFromChat(roomId: roomId).toJson());
   }
 
+  /// when widget is disposed we stop listening to the stream
   @override
   Future<void> close() {
     _subscription?.cancel();

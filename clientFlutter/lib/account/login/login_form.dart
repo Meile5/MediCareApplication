@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medicare/common/widgets_shared/general_button.dart';
-
 import 'login_cubit.dart';
 import 'login_state.dart';
 

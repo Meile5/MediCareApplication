@@ -18,7 +18,12 @@ public enum ErrorCode
     EmptyValueValidator,
     CreateChatRoom,
     ChatRooms,
-    Doctor
+    Doctor, 
+    ChatEventHandler,
+    JoinRoom,
+    UnsubscribeRoom,
+    SubscribeVitals,
+    UnsubscribeVitals,
     
 }
 
@@ -42,10 +47,12 @@ public static class ErrorMessages
         { ErrorCode.Patients, "Failed to retrieve patients" },
         { ErrorCode.Diagnosis, "Failed to save diagnosis" },
         { ErrorCode.EmptyValueValidator, "Empty values when validating" },
-        { ErrorCode.Doctor, "Failed to retreive doctor" }
-
-
-
+        { ErrorCode.Doctor, "Failed to retreive doctor" },
+        { ErrorCode.ChatEventHandler, "Failed to broadcast messages" },
+        { ErrorCode.JoinRoom, "Failed to join room" },
+        { ErrorCode.UnsubscribeRoom, "Failed to leave room" },
+        { ErrorCode.SubscribeVitals, "Failed to subscribe vitals" },
+        { ErrorCode.UnsubscribeVitals, "Failed to unsubscribe vitals" },
         
       
     };

@@ -23,6 +23,7 @@ class BookAppointmentButton extends StatelessWidget {
   String formatDate(DateTime? date) {
     if (date == null) return 'Invalid date';
     final formattedDate = DateFormat.yMMMMd().format(date);
+    /// hour + minutes + AM/PM
     final formattedTime = DateFormat('jm').format(date);
     return '$formattedDate, $formattedTime';
   }

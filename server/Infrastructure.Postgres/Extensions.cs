@@ -30,7 +30,6 @@ public static class Extensions
             options.EnableSensitiveDataLogging();
         });
 
-       // services.AddScoped<IQuestionRepository, QuestionRepository>();\
        services.AddScoped<IDataRepository, Repo>();
        services.AddScoped<IPatientRep, PatientRepo>();
        services.AddScoped<IDoctorRep, DoctorRepo>();

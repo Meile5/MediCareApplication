@@ -8,6 +8,9 @@ namespace Infrastructure.Websocket;
 
 public sealed class WebSocketConnectionManager : IConnectionManager
 {
+    /// <summary>
+    /// ConcurrentDictionary ensures thread-safety because multiple threads might access or update these at the same time.
+    /// </summary>
     private readonly ILogger<WebSocketConnectionManager> _logger;
     private readonly ConcurrentDictionary<string, IWebSocketConnection> _connectionIdToSocket = new();
     private readonly ConcurrentDictionary<string, HashSet<string>> _topicMembers = new();

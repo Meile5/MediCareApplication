@@ -126,6 +126,5 @@ public class Program
             conf.DocumentPath = "/openapi/v1.json";
         });
         app.MapScalarApiReference();
-        //app.GenerateTypeScriptClient("/../../client/src/generated-client.ts").GetAwaiter().GetResult();
     }
 }
