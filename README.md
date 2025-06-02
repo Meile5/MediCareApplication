@@ -20,6 +20,8 @@ MediCare is a fullstack application that combines mobile, web, IoT, and AI, deve
 <img src="images/Screenshot%202025-05-29%20222707.png" alt="Mobile UI" width="200"/>
 <img src="images/Screenshot%202025-05-29%20222756.png" width="200"/>
   <img src="images/Screenshot%202025-05-29%20222920.png" width="200"/>
+  <img src="images/Screenshot%202025-05-29%20231431.png" width="200"/>
+
   <img src="images/Screenshot%202025-05-29%20223004.png" width="200"/>
   <img src="images/Screenshot%202025-05-29%20223023.png" width="200"/>
   <img src="images/Screenshot%202025-05-29%20223554.png" width="200"/>
