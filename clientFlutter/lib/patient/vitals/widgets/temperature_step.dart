@@ -32,10 +32,7 @@ class TemperatureStep extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
-          Image.asset(
-            'assets/temperature_guide.jpg', /// Replace with your actual asset path
-            height: 150,
-          ),
+          Image.asset('assets/temperature_guide.jpg', height: 150),
           const SizedBox(height: 24),
           Card(
             elevation: 4,

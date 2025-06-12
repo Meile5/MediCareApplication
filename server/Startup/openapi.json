@@ -38,45 +38,6 @@
         }
       }
     },
-    "/AuthWithJwt": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "operationId": "Auth_AuthWithJwt",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1
-          },
-          {
-            "name": "clientId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 2
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/RegisterPatient": {
       "post": {
         "tags": [
@@ -134,39 +95,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AuthResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/chat/enter-chat": {
-      "post": {
-        "tags": [
-          "Chat"
-        ],
-        "operationId": "Chat_EnterChat",
-        "requestBody": {
-          "x-name": "request",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EnterChatRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
                 }
               }
             }
@@ -1472,15 +1400,6 @@
           }
         ]
       },
-      "EnterChatRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "userId": {
-            "type": "string"
-          }
-        }
-      },
       "AvailabilityDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1922,25 +1841,6 @@
           }
         ]
       },
-      "MemberLeftNotification": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "clientId": {
-                "type": "string"
-              },
-              "topic": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
       "JoinRoomDto": {
         "allOf": [
           {
@@ -1979,38 +1879,6 @@
           }
         ]
       },
-      "ExampleClientDto": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "messageTheClientSends": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "ExampleServerResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "somethingTheServerSends": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
       "ServerSendsErrorMessage": {
         "allOf": [
           {
@@ -2037,22 +1905,6 @@
             "additionalProperties": false,
             "properties": {
               "doctorId": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "CancelAppointmentWebSocket": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "appointmentId": {
                 "type": "string"
               }
             }
@@ -2138,25 +1990,6 @@
           }
         ]
       },
-      "ServerMessageDto2": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseDto"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "message": {
-                "type": "string"
-              },
-              "roomId": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
       "StringConstants": {
         "type": "string",
         "description": "Available eventType constants",
@@ -2166,19 +1999,14 @@
           "CancelledAppointment",
           "ConfirmedSlot",
           "DoctorCancelAppointment",
-          "MemberLeftNotification",
           "JoinRoomDto",
           "ServerMessageDto",
-          "ExampleClientDto",
-          "ExampleServerResponse",
           "ServerSendsErrorMessage",
           "JoinDoctorRoomDto",
-          "CancelAppointmentWebSocket",
           "SubscribeToVitalsDto",
           "UnsubscribeFromVitalsDto",
           "ChatMessageDto",
-          "UnsubscribeFromChatDto",
-          "ServerMessageDto"
+          "UnsubscribeFromChatDto"
         ]
       }
     }
